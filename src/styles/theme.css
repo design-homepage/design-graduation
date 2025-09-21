@@ -1,0 +1,53 @@
+/* Tailwind CSS v4 커스텀 테마 토큰 정의 - #00e53a 기반 색상 팔레트 */
+
+/* 기본 토큰 정의 */
+:root {
+  --background: #00e53a; /* 페이지 전체 배경색 (초록) */
+  --foreground: #000000; /* 기본 텍스트 색상 (검정) */
+
+  /* 주요 액션 색상 - 초록 배경에 검정 글씨 */
+  --primary: #00e53a; /* 주요 버튼, 링크, CTA 요소 배경색 */
+  --primary-foreground: #000000; /* 주요 액션 요소의 텍스트 색상 */
+  --primary-hover: #00e53a; /* 주요 액션 호버 상태, 흰색에서  */
+
+  /* 보조 액션 색상 - 검정 배경에 초록 글씨 */
+  --secondary: #000000; /* 보조 버튼, 태그, 배지 배경색 (검정) */
+  --secondary-foreground: #00e53a; /* 보조 액션 요소의 텍스트 색상 (primary와 동일) */
+  --secondary-hover: #00e53a; /* 보조 액션 호버 상태 */
+
+  /* 비활성/서브 텍스트 색상 */
+  --muted: ##666666; /* 비활성 상태 배경색 */
+  --muted-foreground: ##666666; /* 서브 텍스트, 설명, placeholder 색상 */
+  --muted-hover: #666666; /* 비활성 상태 호버 */
+
+  /* 테두리 및 기타 요소 */
+  --border: #e2e8f0; /* 기본 회색 테두리 */
+}
+
+/* Tailwind 유틸리티 클래스 연결 */
+@theme inline {
+  /* 색상 클래스 */
+  --color-background: var(--background); /* 사용법: bg-background */
+  --color-foreground: var(--foreground); /* 사용법: text-foreground */
+
+  /* 주요 액션 색상 */
+  --color-primary: var(--primary); /* 사용법: bg-primary, border-primary */
+  --color-primary-foreground: var(--primary-foreground); /* 사용법: text-primary-foreground */
+  --color-primary-hover: var(--primary-hover); /* 사용법: hover:bg-primary-hover */
+
+  /* 보조 액션 색상 */
+  --color-secondary: var(--secondary); /* 사용법: bg-secondary */
+  --color-secondary-foreground: var(--secondary-foreground); /* 사용법: text-secondary-foreground */
+  --color-secondary-hover: var(--secondary-hover); /* 사용법: hover:bg-secondary-hover */
+
+  /* 비활성/서브 텍스트 색상 */
+  --color-muted: var(--muted); /* 사용법: bg-muted */
+  --color-muted-foreground: var(--muted-foreground); /* 사용법: text-muted-foreground */
+  --color-muted-hover: var(--muted-hover); /* 사용법: hover:bg-muted-hover */
+
+  /* 테두리 색상 */
+  --color-border: var(--border); /* 사용법: border-border */
+
+  /* 기본 둥글기 */
+  --radius: 0.5rem; /* 사용법: rounded, rounded-lg (기본값) */
+}

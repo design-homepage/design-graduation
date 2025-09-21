@@ -1,0 +1,25 @@
+/* Google Fonts 로드 */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css');
+/* Google Fonts 설정 - Tailwind CSS v4 */
+
+/* 커스텀 폰트 패밀리 정의 */
+@layer base {
+  /* 브랜드 폰트 (로고/기본 텍스트) */
+  .font-brand {
+    font-family:
+      'Pretendard Variable',
+      Pretendard,
+      -apple-system,
+      BlinkMacSystemFont,
+      system-ui,
+      Roboto,
+      'Helvetica Neue',
+      'Segoe UI',
+      'Apple SD Gothic Neo',
+      'Noto Sans KR',
+      'Malgun Gothic',
+      sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+}
