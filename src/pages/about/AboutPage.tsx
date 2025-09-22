@@ -2,6 +2,7 @@ import React from 'react';
 import AboutHero from './components/AboutHero';
 import ContentSection from './components/ContentSection';
 import TeamPhotos from './components/TeamPhotos';
+import ScrollArrow from './components/ScrollArrow';
 
 interface AboutPageProps { }
 
@@ -69,6 +70,7 @@ const AboutPage = (props: AboutPageProps) => {
         author="졸업준비위원장 김승화"
       />
       <TeamPhotos />
+      <ScrollArrow />
     </div>
   );
 };
