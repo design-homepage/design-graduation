@@ -1,6 +1,7 @@
 import React from 'react';
 import AboutHero from './components/AboutHero';
 import ContentSection from './components/ContentSection';
+import TeamPhotos from './components/TeamPhotos';
 
 interface AboutPageProps { }
 
@@ -62,13 +63,14 @@ const AboutPage = (props: AboutPageProps) => {
                 content={departmentHeadMessage}
                 author="디자인학과 학과장 김성년"
             />
-            <ContentSection
-                title="졸전장 인사말"
-                content={graduationHeadMessage}
-                author="졸업준비위원장 김승화"
-            />
-        </div>
-    );
+      <ContentSection 
+        title="졸전장 인사말" 
+        content={graduationHeadMessage}
+        author="졸업준비위원장 김승화"
+      />
+      <TeamPhotos />
+    </div>
+  );
 };
 
 export default AboutPage;
