@@ -13,11 +13,11 @@ interface ContentSectionProps {
   className?: string;
 }
 
-const ContentSection: React.FC<ContentSectionProps> = ({ 
-  title, 
-  content, 
-  author, 
-  className 
+const ContentSection: React.FC<ContentSectionProps> = ({
+  title,
+  content,
+  author,
+  className
 }) => {
   return (
     <motion.section
@@ -35,7 +35,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({
               {title}
             </h2>
           </div>
-          
+
           {/* 콘텐츠 */}
           <div className="lg:col-span-2">
             <div className="prose prose-lg max-w-none">

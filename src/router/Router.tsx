@@ -64,7 +64,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-interface RouterProps {}
+interface RouterProps { }
 
 const Router = (props: RouterProps) => {
   return <RouterProvider router={router} />;

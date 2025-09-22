@@ -4,6 +4,7 @@
 
 /* 기본 스타일 */
 @layer base {
+
   /* 페이지 기본 스타일 */
   body {
     @apply bg-background text-foreground antialiased;
@@ -23,12 +24,15 @@
   h1 {
     @apply text-4xl;
   }
+
   h2 {
     @apply text-3xl;
   }
+
   h3 {
     @apply text-2xl;
   }
+
   h4 {
     @apply text-xl;
   }
@@ -54,5 +58,15 @@
   textarea:disabled,
   select:disabled {
     @apply cursor-not-allowed opacity-60 pointer-events-none;
+  }
+
+  /* 스크롤바 숨기기 */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
