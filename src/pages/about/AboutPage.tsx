@@ -57,7 +57,12 @@ const graduationCommitteeMessage = `사계절을 거쳐 드디어 이 자리에 
 
 const AboutPage = (props: AboutPageProps) => {
     return (
-        <div className="min-h-screen">
+        <div 
+            className="min-h-screen"
+            style={{
+                background: 'linear-gradient(180deg, #00E73A 53.37%, #FFFFFF 100%)'
+            }}
+        >
             <AboutHero />
             <ContentSection
                 title="ME"
@@ -158,43 +163,43 @@ const AboutPage = (props: AboutPageProps) => {
                 </div>
             </section>
 
-                {/* 졸업구성원 텍스트 부분 */}
-                <section className="py-16 sm:py-20">
-                    <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-                            <div className="lg:col-span-1">
-                                <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-                                    졸업구성원
-                                </h2>
-                            </div>
-                            
-                            <div className="lg:col-span-2">
-                                <div className="flex" style={{ gap: '48px' }}>
-                                    {/* 팀명들 */}
-                                    <div className="space-y-6">
-                                        <div className="font-semibold text-foreground">기획팀</div>
-                                        <div className="font-semibold text-foreground">그래픽팀</div>
-                                        <div className="font-semibold text-foreground">영상팀</div>
-                                        <div className="font-semibold text-foreground">편집팀</div>
-                                        <div className="font-semibold text-foreground">웹팀</div>
-                                    </div>
-                                    
-                                    {/* 사람 이름들 */}
-                                    <div className="space-y-6">
-                                        <div className="text-foreground">안수아 강현정 권민정 박소연</div>
-                                        <div className="text-foreground">김승화 김은지 강유진 김도영 안수아 정환이</div>
-                                        <div className="text-foreground">강유진 김주훈 박수민 박해연 박희건 오지홍</div>
-                                        <div className="text-foreground">김도영 김민구 이지혁 전윤서 정현진</div>
-                                        <div className="text-foreground">정환이 신유빈 원민정 오서현 이윤서</div>
-                                    </div>
+            {/* 졸업구성원 텍스트 부분 */}
+            <section className="py-16 sm:py-20">
+                <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+                        <div className="lg:col-span-1">
+                            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+                                졸업구성원
+                            </h2>
+                        </div>
+
+                        <div className="lg:col-span-2">
+                            <div className="flex" style={{ gap: '48px' }}>
+                                {/* 팀명들 */}
+                                <div className="space-y-6">
+                                    <div className="font-semibold text-foreground">기획팀</div>
+                                    <div className="font-semibold text-foreground">그래픽팀</div>
+                                    <div className="font-semibold text-foreground">영상팀</div>
+                                    <div className="font-semibold text-foreground">편집팀</div>
+                                    <div className="font-semibold text-foreground">웹팀</div>
+                                </div>
+
+                                {/* 사람 이름들 */}
+                                <div className="space-y-6">
+                                    <div className="text-foreground">안수아 강현정 권민정 박소연</div>
+                                    <div className="text-foreground">김승화 김은지 강유진 김도영 안수아 정환이</div>
+                                    <div className="text-foreground">강유진 김주훈 박수민 박해연 박희건 오지홍</div>
+                                    <div className="text-foreground">김도영 김민구 이지혁 전윤서 정현진</div>
+                                    <div className="text-foreground">정환이 신유빈 원민정 오서현 이윤서</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-                
-                {/* 팀 사진 부분 */}
-                <TeamPhotos />
+                </div>
+            </section>
+
+            {/* 팀 사진 부분 */}
+            <TeamPhotos />
             <ScrollArrow />
         </div>
     );
