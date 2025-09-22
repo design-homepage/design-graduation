@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import AboutHero from './components/AboutHero';
 import ContentSection from './components/ContentSection';
 import TeamPhotos from './components/TeamPhotos';
@@ -42,6 +43,18 @@ const graduationHeadMessage = `사계절을 거쳐 드디어 이 자리에 섰�
 
 감사합니다.`;
 
+const graduationCommitteeMessage = `사계절을 거쳐 드디어 이 자리에 섰습니다. 설레는 마음으로 시작했던 준비의 시간은 어느새 무수한 날들의 흔적을 품은 기억이 되었습니다. 때로는 버겁고, 때로는 즐거웠던 그 모든 과정 속에서 우리는 함께 성장했고, 마침내 하나의 전시로 결실을 맺게 되었습니다.
+
+이번 전시의 주제는 "ME : WE"입니다. 이는 곧 우리의 이야기입니다. 각자는 저마다의 색과 방향을 지닌 고유한 '나(ME)'로 출발했지만, 그 다름이 모여 비로소 '우리(WE)'라는 공동체가 되었습니다. 중요한 것은, 그 안에서 개인의 차이가 더욱 선명하게 드러났다는 점입니다. 우리는 서로의 다름을 존중하며 하나의 조화를 이루었고, 그 과정에서 '나'를 통해 '우리'를, '우리' 안에서 다시 '나'를 발견하는 경험을 하였습니다. 포스터 위 화살표처럼, 각각의 방향이 모여 하나의 거대한 흐름을 만드는 순간이 바로 지금이라 생각합니다.
+
+이 자리에 이르기까지 묵묵히 지도와 격려를 아끼지 않으신 교수님들께 깊은 감사를 드립니다. 또한 밤낮없이 함께 고민하고 웃으며 이 길을 걸어온 동료들에게 진심 어린 마음을 전합니다.
+
+졸업을 앞둔 지금, 우리는 또다시 새로운 길목에 서 있습니다. 하지만 여기서 배운 연대와 존중, 그리고 끊임없이 스스로를 질문하고 탐구했던 경험은 앞으로의 길에서도 우리의 발걸음을 든든히 지탱해 줄 것입니다. 학생으로서의 태도를 잃지 않고, 삶 속에서 여전히 배우고 성장하는 존재로 살아가겠다는 다짐을 이 자리에서 새깁니다.
+
+이 전시가 우리 모두의 지난 시간을 기억하게 하고, 앞으로의 길을 안내하는 작은 화살표가 되기를 바랍니다.
+
+감사합니다.`;
+
 const AboutPage = (props: AboutPageProps) => {
     return (
         <div className="min-h-screen">
@@ -64,11 +77,93 @@ const AboutPage = (props: AboutPageProps) => {
                 content={departmentHeadMessage}
                 author="디자인학과 학과장 김성년"
             />
-      <ContentSection 
-        title="졸전장 인사말" 
-        content={graduationHeadMessage}
-        author="졸업준비위원장 김승화"
-      />
+      {/* 지도 교수 섹션 */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        viewport={{ once: true, margin: '-100px' }}
+        className="py-16 sm:py-20"
+      >
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+            <div className="lg:col-span-1">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+                지도 교수
+              </h2>
+            </div>
+            
+            <div className="lg:col-span-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-sm text-muted-foreground">경북대학교 예술대학 학장</p>
+                    <p className="text-lg font-semibold text-foreground">조철희</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">경북대학교 디자인학과 교수</p>
+                    <p className="text-lg font-semibold text-foreground">이경용</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">경북대학교 디자인학과 교수</p>
+                    <p className="text-lg font-semibold text-foreground">이재민</p>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-sm text-muted-foreground">경북대학교 디자인학과 학과장</p>
+                    <p className="text-lg font-semibold text-foreground">김성년</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">경북대학교 디자인학과 교수</p>
+                    <p className="text-lg font-semibold text-foreground">안지선</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* 졸준위 인사말 섹션 */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        viewport={{ once: true, margin: '-100px' }}
+        className="py-16 sm:py-20"
+      >
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+            <div className="lg:col-span-1">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+                졸준위 인사말
+              </h2>
+            </div>
+            
+            <div className="lg:col-span-2">
+              <div className="prose prose-lg max-w-none">
+                <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                  {graduationCommitteeMessage}
+                </p>
+                <div className="mt-8 space-y-2">
+                  <p className="text-sm text-muted-foreground font-medium">
+                    졸업준비위원회 위원장
+                  </p>
+                  <p className="text-lg font-semibold text-foreground">
+                    김승화
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    2025년 10월
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
       <TeamPhotos />
       <ScrollArrow />
     </div>
