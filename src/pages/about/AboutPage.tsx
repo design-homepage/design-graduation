@@ -77,97 +77,127 @@ const AboutPage = (props: AboutPageProps) => {
                 content={departmentHeadMessage}
                 author="디자인학과 학과장 김성년"
             />
-      {/* 지도 교수 섹션 */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        viewport={{ once: true, margin: '-100px' }}
-        className="py-16 sm:py-20"
-      >
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-            <div className="lg:col-span-1">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-                지도 교수
-              </h2>
-            </div>
-            
-            <div className="lg:col-span-2">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-sm text-muted-foreground">경북대학교 예술대학 학장</p>
-                    <p className="text-lg font-semibold text-foreground">조철희</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">경북대학교 디자인학과 교수</p>
-                    <p className="text-lg font-semibold text-foreground">이경용</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">경북대학교 디자인학과 교수</p>
-                    <p className="text-lg font-semibold text-foreground">이재민</p>
-                  </div>
+            {/* 지도 교수 섹션 */}
+            <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                viewport={{ once: true, margin: '-100px' }}
+                className="py-16 sm:py-20"
+            >
+                <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+                        <div className="lg:col-span-1">
+                            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+                                지도 교수
+                            </h2>
+                        </div>
+
+                        <div className="lg:col-span-2">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="space-y-4">
+                                    <div>
+                                        <p className="text-sm text-muted-foreground">경북대학교 예술대학 학장</p>
+                                        <p className="text-lg font-semibold text-foreground">조철희</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-sm text-muted-foreground">경북대학교 디자인학과 교수</p>
+                                        <p className="text-lg font-semibold text-foreground">이경용</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-sm text-muted-foreground">경북대학교 디자인학과 교수</p>
+                                        <p className="text-lg font-semibold text-foreground">이재민</p>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <div>
+                                        <p className="text-sm text-muted-foreground">경북대학교 디자인학과 학과장</p>
+                                        <p className="text-lg font-semibold text-foreground">김성년</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-sm text-muted-foreground">경북대학교 디자인학과 교수</p>
+                                        <p className="text-lg font-semibold text-foreground">안지선</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </motion.section>
+
+            {/* 졸준위 인사말 섹션 */}
+            <section className="py-16 sm:py-20">
+                <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+                        <div className="lg:col-span-1">
+                            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+                                졸준위 인사말
+                            </h2>
+                        </div>
+
+                        <div className="lg:col-span-2">
+                            <div className="prose prose-lg max-w-none">
+                                <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                                    {graduationCommitteeMessage}
+                                </p>
+                                <div className="mt-8 space-y-2">
+                                    <p className="text-sm text-muted-foreground font-medium">
+                                        졸업준비위원회 위원장
+                                    </p>
+                                    <p className="text-lg font-semibold text-foreground">
+                                        김승화
+                                    </p>
+                                    <p className="text-sm text-muted-foreground">
+                                        2025년 10월
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+                {/* 졸업구성원 텍스트 부분 */}
+                <section className="py-16 sm:py-20">
+                    <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+                            <div className="lg:col-span-1">
+                                <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+                                    졸업구성원
+                                </h2>
+                            </div>
+                            
+                            <div className="lg:col-span-2">
+                                <div className="flex" style={{ gap: '48px' }}>
+                                    {/* 팀명들 */}
+                                    <div className="space-y-6">
+                                        <div className="font-semibold text-foreground">기획팀</div>
+                                        <div className="font-semibold text-foreground">그래픽팀</div>
+                                        <div className="font-semibold text-foreground">영상팀</div>
+                                        <div className="font-semibold text-foreground">편집팀</div>
+                                        <div className="font-semibold text-foreground">웹팀</div>
+                                    </div>
+                                    
+                                    {/* 사람 이름들 */}
+                                    <div className="space-y-6">
+                                        <div className="text-foreground">안수아 강현정 권민정 박소연</div>
+                                        <div className="text-foreground">김승화 김은지 강유진 김도영 안수아 정환이</div>
+                                        <div className="text-foreground">강유진 김주훈 박수민 박해연 박희건 오지홍</div>
+                                        <div className="text-foreground">김도영 김민구 이지혁 전윤서 정현진</div>
+                                        <div className="text-foreground">정환이 신유빈 원민정 오서현 이윤서</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-sm text-muted-foreground">경북대학교 디자인학과 학과장</p>
-                    <p className="text-lg font-semibold text-foreground">김성년</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">경북대학교 디자인학과 교수</p>
-                    <p className="text-lg font-semibold text-foreground">안지선</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                {/* 팀 사진 부분 */}
+                <TeamPhotos />
+            <ScrollArrow />
         </div>
-      </motion.section>
-
-      {/* 졸준위 인사말 섹션 */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        viewport={{ once: true, margin: '-100px' }}
-        className="py-16 sm:py-20"
-      >
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-            <div className="lg:col-span-1">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-                졸준위 인사말
-              </h2>
-            </div>
-            
-            <div className="lg:col-span-2">
-              <div className="prose prose-lg max-w-none">
-                <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
-                  {graduationCommitteeMessage}
-                </p>
-                <div className="mt-8 space-y-2">
-                  <p className="text-sm text-muted-foreground font-medium">
-                    졸업준비위원회 위원장
-                  </p>
-                  <p className="text-lg font-semibold text-foreground">
-                    김승화
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    2025년 10월
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.section>
-
-      <TeamPhotos />
-      <ScrollArrow />
-    </div>
-  );
+    );
 };
 
 export default AboutPage;
