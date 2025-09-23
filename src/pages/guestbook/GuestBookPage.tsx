@@ -57,7 +57,6 @@ const GuestBookPage = () => {
     email: ''
   });
 
-  const [showForm, setShowForm] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -85,140 +84,147 @@ const GuestBookPage = () => {
 
     setEntries(prev => [newEntry, ...prev]);
     setFormData({ name: '', message: '', email: '' });
-    setShowForm(false);
   };
 
   return (
-    <div 
-      className="relative" 
-      style={{ 
-        scrollBehavior: 'smooth',
-        backgroundImage: 'url(/guestbook/background-white.png)',
-        backgroundSize: '100% auto',
-        backgroundPosition: 'top center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'local',
-        minHeight: '300vh',
-        width: '100%'
-      }}
-    >
-      {/* 배경 패턴 */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-10 w-32 h-32 border border-gray-400 transform rotate-45"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 border border-gray-400 transform rotate-45"></div>
-        <div className="absolute bottom-32 left-32 w-28 h-28 border border-gray-400 transform rotate-45"></div>
-        <div className="absolute bottom-20 right-40 w-20 h-20 border border-gray-400 transform rotate-45"></div>
+    <div className="relative overflow-y-auto h-screen snap-y snap-mandatory">
+      {/* 첫 번째 섹션: 고정된 메시지 화면 */}
+      <div 
+        className="min-h-screen relative flex items-center justify-center snap-start"
+        style={{ 
+          backgroundImage: 'url(/guestbook/background-white.png)',
+          backgroundSize: '100% auto',
+          backgroundPosition: 'top center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        {/* 파란색 오버레이 */}
+        <div className="absolute inset-0 bg-blue-600 bg-opacity-40 z-0"></div>
+        
+        {/* 메시지 컨텐츠 */}
+        <div className="relative z-20 max-w-4xl mx-auto px-8 text-center">
+          {/* 한글 텍스트 */}
+          <div className="space-y-8 mb-12">
+            <p className="text-2xl md:text-3xl text-white font-medium leading-relaxed">
+              작은 불꽃이 큰 등불이 되는 시대,
+            </p>
+            <p className="text-2xl md:text-3xl text-white font-medium leading-relaxed">
+              무하마드 알리가 던진 단 두 음절 <span className="font-bold text-yellow-300">"ME, WE"</span>는 반세기 만에 우리 사회의 운영 원리로 떠올랐습니다.
+            </p>
+            <p className="text-2xl md:text-3xl text-white font-medium leading-relaxed mt-12">
+              당신이 전하는 응원의 메세지로 또 다른 누군가에게 <span className="font-bold text-yellow-300">'우리'</span>를 밝혀줄 불빛이 되어주세요.
+            </p>
+          </div>
+
+          {/* 영문 텍스트 */}
+          <div className="space-y-6 mt-16">
+            <p className="text-lg md:text-xl text-blue-100 italic leading-relaxed">
+              In an age where small sparks can become powerful lights,
+            </p>
+            <p className="text-lg md:text-xl text-blue-100 italic leading-relaxed">
+              Muhammad Ali's simple two-syllable motto, <span className="font-semibold text-yellow-200">"ME, WE,"</span> has emerged as the guiding principle of our society in half a century.
+            </p>
+            <p className="text-lg md:text-xl text-blue-100 italic leading-relaxed mt-8">
+              With your message of encouragement, become a beacon of light that illuminates <span className="font-semibold text-yellow-200">"us"</span> for someone else.
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div className="relative z-10 py-16 overflow-y-auto">
+      {/* 두 번째 섹션: 방명록 작성 폼 */}
+      <div className="min-h-screen bg-white relative snap-start">
+        <div className="max-w-2xl mx-auto px-4 py-16">
+          {/* ME 섹션 */}
+          <div className="mb-12">
+            <h3 className="text-2xl font-bold text-blue-600 mb-6">ME: 나의 이야기</h3>
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+              <div className="space-y-4">
+                <div className="flex items-center space-x-2">
+                  {Array.from({ length: 50 }, (_, i) => (
+                    <div key={i} className="w-2 h-2 bg-blue-300 rounded-full"></div>
+                  ))}
+                </div>
+                <div className="flex items-center space-x-2">
+                  {Array.from({ length: 48 }, (_, i) => (
+                    <div key={i} className="w-2 h-2 bg-blue-300 rounded-full"></div>
+                  ))}
+                </div>
+                <div className="flex items-center space-x-2">
+                  {Array.from({ length: 52 }, (_, i) => (
+                    <div key={i} className="w-2 h-2 bg-blue-300 rounded-full"></div>
+                  ))}
+                </div>
+                <div className="flex items-center space-x-2">
+                  {Array.from({ length: 30 }, (_, i) => (
+                    <div key={i} className="w-2 h-2 bg-blue-300 rounded-full"></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* WE 섹션 */}
+          <div className="mb-12">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold text-blue-600">WE: 방문자 (이름을 정자로 기입해주세요.)</h3>
+              <span className="text-sm text-gray-500">0/200</span>
+            </div>
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  placeholder="이름을 입력해주세요"
+                  required
+                />
+              </div>
+              
+              <div>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={6}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+                  placeholder="메시지를 입력해주세요"
+                  required
+                />
+              </div>
+              
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  placeholder="이메일을 입력해주세요 (선택)"
+                />
+              </div>
+              
+              <button
+                type="submit"
+                className="w-full bg-blue-600 text-white py-4 px-6 rounded-xl font-medium hover:bg-blue-700 transition-all duration-200 text-lg"
+              >
+                메시지 남기기
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {/* 세 번째 섹션: 방명록 목록 */}
+      <div className="min-h-screen bg-gray-50 py-16 snap-start">
         <div className="max-w-7xl mx-auto px-4">
-          {/* 헤더 */}
-          <div className="text-center mb-16">
-            <h1 className="text-5xl font-bold text-gray-800 mb-4">GUESTBOOK</h1>
-            <p className="text-gray-600 text-xl">여러분의 소중한 의견을 남겨주세요</p>
-          </div>
-
-          {/* 방명록 작성 버튼 */}
-          <div className="text-center mb-12">
-            <button
-              onClick={() => setShowForm(!showForm)}
-              className="bg-white text-blue-700 px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-50 transform hover:scale-105 transition-all duration-300 shadow-lg"
-            >
-              {showForm ? '작성 취소' : '방명록 작성하기'}
-            </button>
-          </div>
-
-          {/* 방명록 작성 폼 */}
-          {showForm && (
-            <div className="max-w-2xl mx-auto mb-16">
-              <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl transform rotate-1 hover:rotate-0 transition-transform duration-300">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">새 방명록 작성</h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        이름 <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                        placeholder="이름을 입력해주세요"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        이메일 (선택)
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                        placeholder="이메일을 입력해주세요"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      메시지 <span className="text-red-500">*</span>
-                    </label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      rows={4}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
-                      placeholder="메시지를 입력해주세요"
-                      required
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full bg-blue-600 text-white py-3 px-6 rounded-xl font-medium hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-[1.02]"
-                  >
-                    방명록 등록하기
-                  </button>
-                </form>
-              </div>
-            </div>
-          )}
-
-          {/* 메시지 섹션 */}
-          <div className="max-w-4xl mx-auto my-24 px-8">
-            <div className="text-center space-y-8">
-              {/* 한글 텍스트 */}
-              <div className="space-y-6">
-                <p className="text-lg md:text-xl text-gray-700 font-medium leading-relaxed">
-                  작은 불꽃이 큰 등불이 되는 시대,
-                </p>
-                <p className="text-lg md:text-xl text-gray-700 font-medium leading-relaxed">
-                  무하마드 알리가 던진 단 두 음절 <span className="font-bold text-blue-600">"ME, WE"</span>는 반세기 만에 우리 사회의 운영 원리로 떠올랐습니다.
-                </p>
-                <p className="text-lg md:text-xl text-gray-700 font-medium leading-relaxed mt-8">
-                  당신이 전하는 응원의 메세지로 또 다른 누군가에게 <span className="font-bold text-blue-600">'우리'</span>를 밝혀줄 불빛이 되어주세요.
-                </p>
-              </div>
-
-              {/* 영문 텍스트 */}
-              <div className="space-y-4 mt-12 pt-8 border-t border-gray-200">
-                <p className="text-base md:text-lg text-gray-600 italic leading-relaxed">
-                  In an age where small sparks can become powerful lights,
-                </p>
-                <p className="text-base md:text-lg text-gray-600 italic leading-relaxed">
-                  Muhammad Ali's simple two-syllable motto, <span className="font-semibold text-blue-500">"ME, WE,"</span> has emerged as the guiding principle of our society in half a century.
-                </p>
-                <p className="text-base md:text-lg text-gray-600 italic leading-relaxed mt-6">
-                  With your message of encouragement, become a beacon of light that illuminates <span className="font-semibold text-blue-500">"us"</span> for someone else.
-                </p>
-              </div>
-            </div>
-          </div>
-
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-16">
+            방명록 ({entries.length})
+          </h2>
+          
           {/* 다이아몬드 그리드 방명록 목록 */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {entries.map((entry, index) => (
@@ -271,13 +277,6 @@ const GuestBookPage = () => {
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* 하단 텍스트 */}
-          <div className="text-center mt-16">
-            <p className="text-gray-600 text-lg">
-              총 {entries.length}개의 방명록이 있습니다
-            </p>
           </div>
         </div>
       </div>
