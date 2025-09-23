@@ -1,6 +1,5 @@
 export { default as AboutHero } from './AboutHero';
-export { default as TextSection } from './TextSection';
-export { default as ArrowImage } from './ArrowImage';
+export { default as TimelineScroll } from './TimelineScroll';
 export { default as ContentSection } from './ContentSection';
 export { default as Professors } from './Professors';
 export { default as GraduationCommittee } from './GraduationCommittee';

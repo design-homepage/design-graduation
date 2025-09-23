@@ -1,8 +1,7 @@
 import React from 'react';
 import {
     AboutHero,
-    TextSection,
-    ArrowImage,
+    TimelineScroll,
     ContentSection,
     Professors,
     GraduationCommittee,
@@ -30,8 +29,9 @@ const AboutPage = (props: AboutPageProps) => {
             }}
         >
             <AboutHero />
-            <TextSection />
-            <ArrowImage />
+
+            {/* 타임라인 스크롤 애니메이션 */}
+            <TimelineScroll />
             <ContentSection
                 title="ME"
                 content={meContent}
