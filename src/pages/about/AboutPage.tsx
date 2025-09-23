@@ -1,4 +1,5 @@
-import React from 'react';
+import SnapContainer from '../../features/snap/SnapContainer.tsx';
+import SnapSection from '../../features/snap/SnapSection.tsx';
 import {
     AboutHero,
     TimelineScroll,
@@ -17,47 +18,85 @@ import {
     graduationCommitteeMessage
 } from './constants';
 
-interface AboutPageProps { }
+const AboutPage = () => {
+    const sectionIds = [
+        'hero',
+        'timeline',
+        'me',
+        'vi',
+        'dean',
+        'deptHead',
+        'professors',
+        'committee',
+        'members'
+    ];
 
-
-const AboutPage = (props: AboutPageProps) => {
     return (
         <div
-            className="min-h-screen"
+            className="h-screen overflow-hidden"
             style={{
                 background: 'linear-gradient(180deg, #00E73A 53.37%, #FFFFFF 100%)'
             }}
         >
-            <AboutHero />
+            <SnapContainer ids={sectionIds} showPagination={false}>
+                <SnapSection id="hero">
+                    <AboutHero />
+                </SnapSection>
 
-            {/* 타임라인 스크롤 애니메이션 */}
-            <TimelineScroll />
-            <ContentSection
-                title="ME"
-                content={meContent}
-            />
-            <ContentSection
-                title="VISUAL IDENTITY"
-                content={visualIdentityContent}
-            />
-            <ContentSection
-                title="예술대학장 인사말"
-                content={deanMessage}
-                author="예술대학 학장 조철희"
-            />
-            <ContentSection
-                title="학과장 인사말"
-                content={departmentHeadMessage}
-                author="디자인학과 학과장 김성년"
-            />
-            <Professors />
-            <GraduationCommittee message={graduationCommitteeMessage} />
+                <SnapSection id="timeline">
+                    <TimelineScroll />
+                </SnapSection>
 
-            <GraduationMembers />
+                <SnapSection id="me">
+                    <ContentSection
+                        title="ME"
+                        content={meContent}
+                    />
+                </SnapSection>
 
-            {/* 팀 사진 부분 */}
-            <TeamPhotos />
-            <ScrollArrow />
+                <SnapSection id="vi">
+                    <ContentSection
+                        title="VISUAL IDENTITY"
+                        content={visualIdentityContent}
+                    />
+                </SnapSection>
+
+                <SnapSection id="dean">
+                    <ContentSection
+                        title="예술대학장 인사말"
+                        content={deanMessage}
+                        author="예술대학 학장 조철희"
+                    />
+                </SnapSection>
+
+                <SnapSection id="deptHead">
+                    <ContentSection
+                        title="학과장 인사말"
+                        content={departmentHeadMessage}
+                        author="디자인학과 학과장 김성년"
+                    />
+                </SnapSection>
+
+                <SnapSection id="professors">
+                    <Professors />
+                </SnapSection>
+
+                <SnapSection id="committee">
+                    <GraduationCommittee message={graduationCommitteeMessage} />
+                </SnapSection>
+
+                <SnapSection id="members">
+                    <div className="w-full h-full">
+                        <GraduationMembers />
+                        <TeamPhotos />
+                    </div>
+                </SnapSection>
+            </SnapContainer>
+
+            {/* 스크롤 화살표 - 오른쪽 하단 고정 (기존 동작 유지) */}
+            <div className="fixed bottom-8 right-8 z-50">
+                <ScrollArrow />
+            </div>
         </div>
     );
 };
