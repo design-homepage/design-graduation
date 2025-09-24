@@ -1,4 +1,3 @@
-import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   HomePage,
@@ -7,6 +6,7 @@ import {
   ProfilePage,
   GuestBookPage,
   ArchivePage,
+  WorkDetailPage,
 } from '@/pages';
 import { Layout } from '@/components';
 import { ROUTES } from '@/constants';
@@ -30,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: ROUTES.WORK,
         element: <WorkPage />,
+      },
+      {
+        path: ROUTES.WORK_DETAIL,
+        element: <WorkDetailPage />,
       },
       {
         path: ROUTES.PROFILE,
