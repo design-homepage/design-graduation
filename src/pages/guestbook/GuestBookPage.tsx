@@ -87,18 +87,17 @@ const GuestBookPage = () => {
   };
 
   return (
-    <div 
-      className="relative snap-y snap-mandatory guestbook-container" 
-      style={{ 
-        height: 'calc(100vh - 64px)', 
-        overflowY: 'auto',
-        backgroundImage: 'url(/guestbook/background-white.png)',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'top center',
-        backgroundSize: 'cover',
-        backgroundAttachment: 'fixed'
-      }}
-    >
+    <div className="relative snap-y snap-mandatory" style={{ height: 'calc(100vh - 64px)', overflowY: 'auto' }}>
+      <div 
+        className="guestbook-container" 
+        style={{ 
+          minHeight: '300vh',
+          backgroundImage: 'url(/guestbook/background-white.png)',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'top center',
+          backgroundSize: 'cover'
+        }}
+      >
       {/* 첫 번째 섹션: 고정된 메시지 화면 */}
       <div 
         className="relative flex items-center justify-center snap-start"
@@ -285,6 +284,7 @@ const GuestBookPage = () => {
             ))}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
