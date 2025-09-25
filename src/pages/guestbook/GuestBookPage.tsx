@@ -87,20 +87,24 @@ const GuestBookPage = () => {
   };
 
   return (
-    <div className="relative overflow-y-auto h-screen snap-y snap-mandatory">
+    <div 
+      className="relative snap-y snap-mandatory guestbook-container" 
+      style={{ 
+        height: 'calc(100vh - 64px)', 
+        overflowY: 'auto',
+        backgroundImage: 'url(/guestbook/background-white.png)',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'top center',
+        backgroundSize: 'cover',
+        backgroundAttachment: 'fixed'
+      }}
+    >
       {/* 첫 번째 섹션: 고정된 메시지 화면 */}
       <div 
-        className="min-h-screen relative flex items-center justify-center snap-start"
-        style={{ 
-          backgroundImage: 'url(/guestbook/background-white.png)',
-          backgroundSize: '100% auto',
-          backgroundPosition: 'top center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed'
-        }}
+        className="relative flex items-center justify-center snap-start"
+        style={{ height: 'calc(100vh - 64px)' }}
       >
-        {/* 파란색 오버레이 */}
-        <div className="absolute inset-0 bg-blue-600 bg-opacity-40 z-0"></div>
+        {/* 파란색 오버레이 - 완전 제거 */}
         
         {/* 메시지 컨텐츠 */}
         <div className="relative z-20 max-w-4xl mx-auto px-8 text-center">
@@ -133,12 +137,13 @@ const GuestBookPage = () => {
       </div>
 
       {/* 두 번째 섹션: 방명록 작성 폼 */}
-      <div className="min-h-screen bg-white relative snap-start">
-        <div className="max-w-2xl mx-auto px-4 py-16">
+      <div className="relative snap-start" style={{ height: 'calc(100vh - 64px)' }}>
+        {/* 가독성을 위한 반투명 배경 - 완전 제거 */}
+        <div className="relative z-10 max-w-2xl mx-auto px-4 py-16">
           {/* ME 섹션 */}
           <div className="mb-12">
             <h3 className="text-2xl font-bold text-blue-600 mb-6">ME: 나의 이야기</h3>
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+            <div className="bg-blue-50 bg-opacity-20 border border-blue-200 border-opacity-30 rounded-xl p-6 backdrop-blur-sm">
               <div className="space-y-4">
                 <div className="flex items-center space-x-2">
                   {Array.from({ length: 50 }, (_, i) => (
@@ -178,7 +183,7 @@ const GuestBookPage = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 border border-gray-300 border-opacity-30 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white bg-opacity-40 backdrop-blur-sm"
                   placeholder="이름을 입력해주세요"
                   required
                 />
@@ -190,7 +195,7 @@ const GuestBookPage = () => {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+                  className="w-full px-4 py-3 border border-gray-300 border-opacity-30 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none bg-white bg-opacity-40 backdrop-blur-sm"
                   placeholder="메시지를 입력해주세요"
                   required
                 />
@@ -202,7 +207,7 @@ const GuestBookPage = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 border border-gray-300 border-opacity-30 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white bg-opacity-40 backdrop-blur-sm"
                   placeholder="이메일을 입력해주세요 (선택)"
                 />
               </div>
@@ -219,8 +224,9 @@ const GuestBookPage = () => {
       </div>
 
       {/* 세 번째 섹션: 방명록 목록 */}
-      <div className="min-h-screen bg-gray-50 py-16 snap-start">
-        <div className="max-w-7xl mx-auto px-4">
+      <div className="py-16 snap-start relative" style={{ height: 'calc(100vh - 64px)', overflowY: 'auto' }}>
+        {/* 가독성을 위한 반투명 배경 - 완전 제거 */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-16">
             방명록 ({entries.length})
           </h2>
@@ -236,7 +242,7 @@ const GuestBookPage = () => {
                 <div className="relative w-full h-48">
                   <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-500 transform rotate-45 rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
                   </div>
-                  <div className="absolute inset-4 bg-white transform rotate-45 rounded-xl overflow-hidden">
+                  <div className="absolute inset-4 bg-white bg-opacity-60 backdrop-blur-sm transform rotate-45 rounded-xl overflow-hidden">
                     <div className="absolute inset-0 transform -rotate-45 p-6 flex flex-col justify-center">
                       <div className="text-center">
                         {/* 아바타 */}
@@ -265,7 +271,7 @@ const GuestBookPage = () => {
                 </div>
                 
                 {/* 호버 시 상세 정보 */}
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 bg-white rounded-xl p-4 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 w-72 max-w-sm">
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 bg-white bg-opacity-90 backdrop-blur-sm rounded-xl p-4 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 w-72 max-w-sm">
                   <div className="text-center">
                     <h4 className="font-semibold text-gray-800 mb-2">{entry.name}</h4>
                     {entry.email && (
