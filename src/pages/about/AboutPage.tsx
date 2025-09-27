@@ -93,10 +93,8 @@ const AboutPage = () => {
                 </SnapSection>
             </SnapContainer>
 
-            {/* 스크롤 화살표 - 오른쪽 하단 고정 (기존 동작 유지) */}
-            <div className="fixed bottom-8 right-8 z-50">
-                <ScrollArrow />
-            </div>
+            {/* 스크롤 화살표 - 오른쪽 고정 (기존 동작 유지) */}
+            <ScrollArrow />
         </div>
     );
 };

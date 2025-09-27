@@ -25,12 +25,12 @@ const SnapSection = forwardRef<HTMLDivElement, SnapSectionProps>(
             }
         }, [ref]);
 
-        // 애니메이션 설정
+        // 애니메이션 설정 - 섹션 전환 시 페이드/슬라이드 인
         const animationVariants = {
             initial: {
                 opacity: 0,
-                y: 50,
-                scale: 0.95
+                y: 30,
+                scale: 0.98
             },
             animate: {
                 opacity: 1,
@@ -39,8 +39,8 @@ const SnapSection = forwardRef<HTMLDivElement, SnapSectionProps>(
             },
             exit: {
                 opacity: 0,
-                y: -50,
-                scale: 0.95
+                y: -30,
+                scale: 0.98
             }
         };
 
@@ -63,11 +63,11 @@ const SnapSection = forwardRef<HTMLDivElement, SnapSectionProps>(
             initial: animationVariants.initial,
             animate: isActive ? animationVariants.animate : animationVariants.initial,
             transition: {
-                duration: 0.6,
+                duration: 0.5,
                 ease: "easeOut" as const,
-                opacity: { duration: 0.4 },
-                y: { duration: 0.6 },
-                scale: { duration: 0.5 }
+                opacity: { duration: 0.3 },
+                y: { duration: 0.5 },
+                scale: { duration: 0.4 }
             }
         };
 

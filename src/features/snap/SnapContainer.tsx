@@ -20,13 +20,13 @@ const SnapContainer: React.FC<SnapContainerProps> = ({
     const observerRef = useRef<IntersectionObserver | null>(null);
     const scrollTimeoutRef = useRef<number | null>(null);
 
-    // IntersectionObserver 설정
+    // IntersectionObserver 설정 - 살짝만 보여도 중앙으로 스냅
     useEffect(() => {
         if (!containerRef.current) return;
 
         const options: IntersectionObserverInit = {
-            root: null,
-            rootMargin: '-20% 0px -20% 0px', // 살짝만 보여도 중앙으로 스냅
+            root: containerRef.current, // 컨테이너를 root로 설정
+            rootMargin: '-40% 0px -40% 0px', // 살짝만 보여도 중앙으로 스냅
             threshold: 0.1
         };
 
@@ -34,7 +34,7 @@ const SnapContainer: React.FC<SnapContainerProps> = ({
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     const sectionId = entry.target.getAttribute('data-section-id');
-                    if (sectionId) {
+                    if (sectionId && sectionId !== activeSection) {
                         setActiveSection(sectionId);
                         // URL 해시 업데이트 (뒤로가기 지원)
                         if (window.location.hash !== `#${sectionId}`) {
@@ -57,7 +57,7 @@ const SnapContainer: React.FC<SnapContainerProps> = ({
                 observerRef.current.disconnect();
             }
         };
-    }, [ids]);
+    }, [ids, activeSection]);
 
     // URL 해시 변경 감지 (브라우저 뒤로가기/앞으로가기)
     useEffect(() => {
@@ -81,11 +81,13 @@ const SnapContainer: React.FC<SnapContainerProps> = ({
         };
     }, [ids]);
 
-    // 섹션으로 스크롤
+    // 섹션으로 스크롤 - CSS scroll-snap과 호환
     const scrollToSection = useCallback((sectionId: string) => {
         const element = sectionRefs.current.get(sectionId);
-        if (element) {
+        if (element && containerRef.current) {
             setIsScrolling(true);
+
+            // CSS scroll-snap과 호환되는 스크롤
             element.scrollIntoView({
                 behavior: 'smooth',
                 block: 'center'
@@ -148,7 +150,7 @@ const SnapContainer: React.FC<SnapContainerProps> = ({
 
     return (
         <div className={`relative ${className}`}>
-            {/* 메인 스냅 컨테이너 */}
+            {/* 메인 스냅 컨테이너 - CSS scroll-snap 사용 */}
             <div
                 ref={containerRef}
                 className="snap-container"
