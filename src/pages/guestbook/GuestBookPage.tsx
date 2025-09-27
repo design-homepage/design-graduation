@@ -89,7 +89,7 @@ const GuestBookPage = () => {
   return (
     <div className="relative snap-y snap-mandatory" style={{ height: 'calc(100vh - 64px)', overflowY: 'auto' }}>
       <div 
-        className="guestbook-container" 
+        className="guestbook-container relative" 
         style={{ 
           minHeight: '300vh',
           backgroundImage: 'url(/guestbook/background-white.png)',
@@ -98,25 +98,25 @@ const GuestBookPage = () => {
           backgroundSize: 'cover'
         }}
       >
+        {/* 초록색 오버레이 */}
+        <div className="absolute inset-0 bg-green-400 bg-opacity-20 z-0"></div>
       {/* 첫 번째 섹션: 고정된 메시지 화면 */}
       <div 
         className="relative flex items-center justify-center snap-start"
         style={{ height: 'calc(100vh - 64px)' }}
       >
-        {/* 파란색 오버레이 - 완전 제거 */}
-        
         {/* 메시지 컨텐츠 */}
-        <div className="relative z-20 max-w-4xl mx-auto px-8 text-center">
+        <div className="relative z-10 max-w-4xl mx-auto px-8 text-center">
           {/* 한글 텍스트 */}
           <div className="space-y-8 mb-12">
-            <p className="text-2xl md:text-3xl text-white font-medium leading-relaxed">
+            <p className="text-3xl text-black font-bold text-center leading-10" style={{ letterSpacing: '-0.064px' }}>
               작은 불꽃이 큰 등불이 되는 시대,
             </p>
-            <p className="text-2xl md:text-3xl text-white font-medium leading-relaxed">
-              무하마드 알리가 던진 단 두 음절 <span className="font-bold text-yellow-300">"ME, WE"</span>는 반세기 만에 우리 사회의 운영 원리로 떠올랐습니다.
+            <p className="text-3xl text-black font-bold text-center leading-10" style={{ letterSpacing: '-0.064px' }}>
+              무하마드 알리가 던진 단 두 음절 <span className="font-bold">"ME, WE"</span>는 반세기 만에 우리 사회의 운영 원리로 떠올랐습니다.
             </p>
-            <p className="text-2xl md:text-3xl text-white font-medium leading-relaxed mt-12">
-              당신이 전하는 응원의 메세지로 또 다른 누군가에게 <span className="font-bold text-yellow-300">'우리'</span>를 밝혀줄 불빛이 되어주세요.
+            <p className="text-3xl text-black font-bold text-center leading-10 mt-12" style={{ letterSpacing: '-0.064px' }}>
+              당신이 전하는 응원의 메세지로 또 다른 누군가에게 <span className="font-bold">'우리'</span>를 밝혀줄 불빛이 되어주세요.
             </p>
           </div>
 
@@ -136,9 +136,8 @@ const GuestBookPage = () => {
       </div>
 
       {/* 두 번째 섹션: 방명록 작성 폼 */}
-      <div className="relative snap-start" style={{ height: 'calc(100vh - 64px)' }}>
-        {/* 가독성을 위한 반투명 배경 - 완전 제거 */}
-        <div className="relative z-10 max-w-2xl mx-auto px-4 py-16">
+      <div className="relative snap-start z-10" style={{ height: 'calc(100vh - 64px)' }}>
+        <div className="relative max-w-2xl mx-auto px-4 py-16">
           {/* ME 섹션 */}
           <div className="mb-12">
             <h3 className="text-2xl font-bold text-blue-600 mb-6">ME: 나의 이야기</h3>
@@ -223,9 +222,8 @@ const GuestBookPage = () => {
       </div>
 
       {/* 세 번째 섹션: 방명록 목록 */}
-      <div className="py-16 snap-start relative" style={{ height: 'calc(100vh - 64px)', overflowY: 'auto' }}>
-        {/* 가독성을 위한 반투명 배경 - 완전 제거 */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4">
+      <div className="py-16 snap-start relative z-10" style={{ height: 'calc(100vh - 64px)', overflowY: 'auto' }}>
+        <div className="relative max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-16">
             방명록 ({entries.length})
           </h2>
