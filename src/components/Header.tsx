@@ -42,7 +42,7 @@ const Header = () => {
               key={item.path}
               to={item.path}
               className={`text-2xl xl:text-3xl ease-out duration-300 ${
-                location.pathname === item.path ? 'text-white font-bold' : 'text-foreground'
+                location.pathname.startsWith(item.path) ? 'text-white font-bold' : 'text-foreground'
               }`}
             >
               {item.label}
