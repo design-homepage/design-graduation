@@ -13,7 +13,6 @@ export const DetailModal = ({ selected }: DetailModalProps) => {
   if (!isOpen || !selected) return null;
 
   const gotoDetail = (id: number) => {
-    closeModal();
     navigate(`${ROUTES.WORK}/${id}`);
   };
   const handleClose = (e: React.MouseEvent) => {
@@ -24,7 +23,7 @@ export const DetailModal = ({ selected }: DetailModalProps) => {
   return (
     <div className="flex fixed lg:top-[170px] md:top-[124px] sm:top-[108px] top-[104px] left-0 w-full h-full bg-black/60 xl:px-[100px] md:px-[50px] px-[20px] pb-[50px] justify-center items-center">
       <div
-        className="flex w-full xl:flex-row flex-col gap-[30px] xl:gap-5"
+        className="flex w-full xl:flex-row flex-col gap-[30px] xl:gap-5 cursor-pointer"
         onClick={() => gotoDetail(selected)}
       >
         <img src="/work/work_image.png" alt="Work Detail" />
