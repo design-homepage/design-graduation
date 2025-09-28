@@ -1,13 +1,32 @@
+import { ROUTES } from '@/constants';
 import { useModal } from '@/contexts/ModalContext';
+import { useNavigate } from 'react-router-dom';
 
-export const DetailModal = () => {
+type DetailModalProps = {
+  selected: number | null;
+};
+
+export const DetailModal = ({ selected }: DetailModalProps) => {
   const { isOpen, closeModal } = useModal();
+  const navigate = useNavigate();
 
-  if (!isOpen) return null;
+  if (!isOpen || !selected) return null;
+
+  const gotoDetail = (id: number) => {
+    closeModal();
+    navigate(`${ROUTES.WORK}/${id}`);
+  };
+  const handleClose = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    closeModal();
+  };
 
   return (
     <div className="flex fixed lg:top-[170px] md:top-[124px] sm:top-[108px] top-[104px] left-0 w-full h-full bg-black/60 xl:px-[100px] md:px-[50px] px-[20px] pb-[50px] justify-center items-center">
-      <div className="flex w-full xl:flex-row flex-col gap-[30px] xl:gap-5">
+      <div
+        className="flex w-full xl:flex-row flex-col gap-[30px] xl:gap-5"
+        onClick={() => gotoDetail(selected)}
+      >
         <img src="/work_image.png" alt="Work Detail" />
         <div className="flex xl:flex-col flex-row gap-5 justify-between">
           <div>
@@ -29,7 +48,7 @@ export const DetailModal = () => {
               src="/chevron-left.svg"
               alt="Left Arrow"
               className="w-6 h-6 sm:w-12 sm:h-12 flex-shrink-0 cursor-pointer"
-              onClick={closeModal}
+              onClick={(e) => handleClose(e)}
             />
           </div>
         </div>
