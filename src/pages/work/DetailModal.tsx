@@ -27,7 +27,7 @@ export const DetailModal = ({ selected }: DetailModalProps) => {
         className="flex w-full xl:flex-row flex-col gap-[30px] xl:gap-5"
         onClick={() => gotoDetail(selected)}
       >
-        <img src="/work_image.png" alt="Work Detail" />
+        <img src="/work/work_image.png" alt="Work Detail" />
         <div className="flex xl:flex-col flex-row gap-5 justify-between">
           <div>
             <p className="text-xl md:text-3xl lg:text-4xl text-white font-bold">
