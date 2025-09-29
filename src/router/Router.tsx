@@ -17,7 +17,7 @@ import { ROUTES } from '@/constants';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: <Layout color="primary" />,
     children: [
       {
         path: ROUTES.HOME,
@@ -32,16 +32,28 @@ const router = createBrowserRouter([
         element: <WorkPage />,
       },
       {
+        path: ROUTES.GUESTBOOK,
+        element: <GuestBookPage />,
+      },
+    ],
+  },
+  {
+    path: '/',
+    element: <Layout color="black" />,
+    children: [
+      {
         path: ROUTES.WORK_DETAIL,
         element: <WorkDetailPage />,
       },
+    ],
+  },
+  {
+    path: '/',
+    element: <Layout color="white" />,
+    children: [
       {
         path: ROUTES.PROFILE,
         element: <ProfilePage />,
-      },
-      {
-        path: ROUTES.GUESTBOOK,
-        element: <GuestBookPage />,
       },
       {
         path: ROUTES.ARCHIVE,

@@ -2,7 +2,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { ROUTES } from '@/constants';
 import { useState } from 'react';
 
-const Header = () => {
+type HeaderProps = {
+  color: 'primary' | 'black' | 'white';
+};
+
+const Header = ({ color }: HeaderProps) => {
   const location = useLocation();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -14,22 +18,27 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed w-full top-0 bg-primary/70 backdrop-blur-md h-[104px] sm:h-[108px] md:h-[124px] lg:h-[170px] flex items-center z-10">
-      <div className="w-full flex items-center justify-between px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px]">
-        <Link
-          to={ROUTES.ABOUT}
-          className="text-xl font-bold text-white flex gap-[17px] md:gap-5 items-center px-5"
-        >
+    <header
+      className={`fixed w-full top-0 bg-${color}/70 backdrop-blur-[30px] h-[104px] sm:h-[108px] md:h-[124px] lg:h-[170px] flex items-center z-10`}
+    >
+      <div
+        className={`w-full flex items-center justify-between px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] ${color === 'black' ? 'text-white' : 'text-foreground'}`}
+      >
+        <Link to={ROUTES.ABOUT} className="flex gap-[17px] md:gap-5 items-center px-5">
           <img
-            src="/logo_L=W.png"
+            src={
+              color === 'black' || location.pathname === ROUTES.ABOUT
+                ? '/logo_W.png'
+                : '/logo_B.png'
+            }
             alt="Logo"
-            className="w-[42px] h-[27px] md:w-[70px] md:h-[40px]"
+            className="w-[42px] h-[27px] md:w-[70px] md:h-[40px] ease-out duration-300"
           />
           <div>
-            <p className="font-bold text-foreground text-sm md:text-xl">
+            <p className="font-bold text-inherit text-sm md:text-xl">
               2025 경북대학교 디자인학과 졸업전시회
             </p>
-            <p className="font-bold text-foreground text-sm md:text-xl">
+            <p className="font-bold text-inherit text-sm md:text-xl">
               KNUD Graduation Exhibition Archive
             </p>
           </div>
@@ -41,8 +50,10 @@ const Header = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`text-2xl xl:text-3xl ease-out duration-300 ${
-                location.pathname.startsWith(item.path) ? 'text-white font-bold' : 'text-foreground'
+              className={`text-2xl xl:text-3xl ease-out duration-300 text-inherit ${
+                location.pathname.startsWith(item.path)
+                  ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
+                  : 'text-foreground'
               }`}
             >
               {item.label}
@@ -52,7 +63,10 @@ const Header = () => {
 
         {/* 모바일 메뉴 버튼 (추후 구현) */}
         <div className="lg:hidden">
-          <button className="text-black" onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
+          <button
+            className={color === 'black' ? 'text-white' : 'text-black'}
+            onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+          >
             <svg
               className="h-6 w-6 sm:h-12 sm:w-12"
               fill="none"
@@ -85,7 +99,7 @@ const Header = () => {
               </Link>
             ))}
           </nav>
-          <img src="/logo_L=W.png" alt="Logo" className="w-[42px] h-[27px]" />
+          <img src="/logo_W.png" alt="Logo" className="w-[42px] h-[27px]" />
         </div>
       )}
     </header>
