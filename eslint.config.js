@@ -1,31 +1,37 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import prettier from 'eslint-config-prettier'
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
 
-export default [
-  { ignores: ['dist'] },
+export default js.flatConfig([
   {
-    files: ['**/*.{ts,tsx}'],
+    ignores: ['dist', 'node_modules'],
+  },
+  {
+    files: ['**/*.{js,ts,tsx}'],
     languageOptions: {
-      ecmaVersion: 2020,
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: 'module',
+      },
       globals: globals.browser,
     },
     plugins: {
       'react-hooks': reactHooks,
+      '@typescript-eslint': tsPlugin,
       'react-refresh': reactRefresh,
     },
     rules: {
-      ...js.configs.recommended.rules,
-      ...tseslint.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      ...tsPlugin.configs.recommended.rules,
+      // 필요하면 커스텀 룰 추가
+    },
+    linterOptions: {
+      reportUnusedDisableDirectives: false,
     },
   },
-  prettier,
-]
+  js.configs.recommended,
+]);

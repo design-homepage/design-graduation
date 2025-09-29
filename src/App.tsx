@@ -1,10 +1,12 @@
-import React from 'react';
 import { Router } from '@/router';
+import { ModalProvider } from './contexts/ModalContext';
 
-interface AppProps {}
-
-const App = (props: AppProps) => {
-  return <Router />;
+const App = () => {
+  return (
+    <ModalProvider>
+      <Router />
+    </ModalProvider>
+  );
 };
 
 export default App;

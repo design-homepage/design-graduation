@@ -1,14 +1,11 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 
-interface LayoutProps {}
-
-const Layout = (props: LayoutProps) => {
+const Layout = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
-      <main>
+      <main className="flex-grow">
         <Outlet />
       </main>
     </div>
