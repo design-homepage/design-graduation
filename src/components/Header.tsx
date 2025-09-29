@@ -99,7 +99,7 @@ const Header = ({ color }: HeaderProps) => {
               </Link>
             ))}
           </nav>
-          <img src="/logo_L=W.png" alt="Logo" className="w-[42px] h-[27px]" />
+          <img src="/logo_W.png" alt="Logo" className="w-[42px] h-[27px]" />
         </div>
       )}
     </header>
