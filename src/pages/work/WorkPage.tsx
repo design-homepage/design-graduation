@@ -16,7 +16,7 @@ const WorkPage = () => {
   };
 
   return (
-    <div className="pt-[104px] sm:pt-[108px] md:pt-[124px] lg:pt-[170px] bg-primary min-h-screen">
+    <>
       <div className="flex flex-col p-[50px] md:p-[100px]">
         {rowCounts.map((count, rowIndex) => {
           const rowArrows = arrows.slice(startIndex, startIndex + count);
@@ -40,7 +40,7 @@ const WorkPage = () => {
         })}
       </div>
       <DetailModal selected={selectedId} />
-    </div>
+    </>
   );
 };
 
