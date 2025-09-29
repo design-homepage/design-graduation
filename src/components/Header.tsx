@@ -2,7 +2,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { ROUTES } from '@/constants';
 import { useState } from 'react';
 
-const Header = () => {
+type HeaderProps = {
+  color: 'primary' | 'black' | 'white';
+};
+
+const Header = ({ color }: HeaderProps) => {
   const location = useLocation();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -14,7 +18,9 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed w-full top-0 bg-primary/70 backdrop-blur-md h-[104px] sm:h-[108px] md:h-[124px] lg:h-[170px] flex items-center z-10">
+    <header
+      className={`fixed w-full top-0 bg-${color}/70 backdrop-blur-[30px] h-[104px] sm:h-[108px] md:h-[124px] lg:h-[170px] flex items-center z-10`}
+    >
       <div className="w-full flex items-center justify-between px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px]">
         <Link
           to={ROUTES.ABOUT}
