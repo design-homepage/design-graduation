@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
+import Footer from './Footer';
 
 type LayoutProps = {
   color: 'primary' | 'black' | 'white';
@@ -14,6 +15,7 @@ const Layout = ({ color }: LayoutProps) => {
       >
         <Outlet />
       </main>
+      <Footer />
     </div>
   );
 };
