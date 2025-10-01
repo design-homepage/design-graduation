@@ -16,7 +16,7 @@
   --secondary-hover: #00e53a; /* 보조 액션 호버 상태 */
 
   /* 비활성/서브 텍스트 색상 */
-  --muted: ##666666; /* 비활성 상태 배경색 */
+  --muted: #666666; /* 비활성 상태 배경색 */
   --muted-foreground: ##666666; /* 서브 텍스트, 설명, placeholder 색상 */
   --muted-hover: #666666; /* 비활성 상태 호버 */
 
@@ -50,4 +50,19 @@
 
   /* 기본 둥글기 */
   --radius: 0.5rem; /* 사용법: rounded, rounded-lg (기본값) */
+
+  /* 반응형 breakpoint 지정 */
+  --breakpoint-sm: 400px;
+  --breakpoint-md: 600px;
+  --breakpoint-lg: 1020px;
+  --breakpoint-xl: 1350px;
+  --breakpoint-2xl: 1920px;
+
+  /* 폰트 사이즈 scale 지정 */
+  --text-8xl: 200px;
+  --text-7xl: 120px;
+  --text-6xl: 90px;
+  --text-5xl: 70px;
+  --text-4xl: 40px;
+  --text-3xl: 32px;
 }

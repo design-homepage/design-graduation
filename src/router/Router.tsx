@@ -1,4 +1,3 @@
-import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   HomePage,
@@ -7,6 +6,7 @@ import {
   ProfilePage,
   GuestBookPage,
   ArchivePage,
+  WorkDetailPage,
 } from '@/pages';
 import { Layout } from '@/components';
 import { ROUTES } from '@/constants';
@@ -17,7 +17,7 @@ import { ROUTES } from '@/constants';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: <Layout color="primary" />,
     children: [
       {
         path: ROUTES.HOME,
@@ -32,12 +32,28 @@ const router = createBrowserRouter([
         element: <WorkPage />,
       },
       {
-        path: ROUTES.PROFILE,
-        element: <ProfilePage />,
-      },
-      {
         path: ROUTES.GUESTBOOK,
         element: <GuestBookPage />,
+      },
+    ],
+  },
+  {
+    path: '/',
+    element: <Layout color="black" />,
+    children: [
+      {
+        path: ROUTES.WORK_DETAIL,
+        element: <WorkDetailPage />,
+      },
+    ],
+  },
+  {
+    path: '/',
+    element: <Layout color="white" />,
+    children: [
+      {
+        path: ROUTES.PROFILE,
+        element: <ProfilePage />,
       },
       {
         path: ROUTES.ARCHIVE,
