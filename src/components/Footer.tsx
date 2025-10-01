@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const Footer: React.FC = () => {
     const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1920);
+    const location = useLocation();
+    const isGuestbook = location.pathname === '/guestbook';
 
     useEffect(() => {
         const handleResize = () => setWindowWidth(window.innerWidth);
@@ -62,7 +65,7 @@ const Footer: React.FC = () => {
 
     return (
         <footer
-            className="bg-white flex items-start"
+            className="flex items-start relative z-150"
             style={{
                 width: '100%',
                 maxWidth: styles.width,
@@ -71,13 +74,13 @@ const Footer: React.FC = () => {
                 paddingRight: styles.paddingRight,
                 paddingBottom: styles.paddingBottom,
                 paddingLeft: styles.paddingLeft,
-                margin: '0 auto'
+                margin: '0 auto',
             }}
         >
             {/* 로고 */}
             <div className="flex-shrink-0 mr-8 pt-2">
                 <img
-                    src="/logo_L.png"
+                    src={isGuestbook ? "/logo_W.png" : "/logo_L.png"}
                     alt="me"
                     style={{
                         height: '40px'
@@ -87,12 +90,12 @@ const Footer: React.FC = () => {
 
             {/* 중간: 한국어 + 영어 정보 */}
             <div className="flex-1 mr-8">
-                <div className="mb-2" style={{ color: '#00E53A', fontSize: '20px' }}>
+                <div className="mb-2" style={{ color: isGuestbook ? '#FFFFFF' : '#00E53A', fontSize: '20px' }}>
                     <div>경북대학교 디자인학과</div>
                     <div>북구 대학로 80 경북대학교 대구캠퍼스 Space 9</div>
                     <div>2025. 10. 28 TUE - 2025. 11. 8 SAT</div>
                 </div>
-                <div style={{ color: '#00E53A', fontSize: '20px' }}>
+                <div style={{ color: isGuestbook ? '#FFFFFF' : '#00E53A', fontSize: '20px' }}>
                     <div>Kyungpook National University, Department of Design</div>
                     <div>80 Daehak-ro, Buk-gu, Kyungpook National University, Daegu Campus Space 9</div>
                     <div>2025. 10. 28 TUE - 2025. 11. 8 SAT</div>
@@ -101,7 +104,7 @@ const Footer: React.FC = () => {
 
             {/* 오른쪽: 연락처 정보 */}
             <div className="flex-shrink-0">
-                <div style={{ color: '#00E53A', fontSize: '20px' }}>
+                <div style={{ color: isGuestbook ? '#FFFFFF' : '#00E53A', fontSize: '20px' }}>
                     <div>Instagram @knu_design_</div>
                     <div>T.053-950-5694</div>
                     <div>https://vcd.knu.ac.kr</div>
