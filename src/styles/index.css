@@ -2,6 +2,35 @@
 @import 'tailwindcss';
 @import './theme.css';
 
+/* 스냅 스크롤을 위한 전역 스타일 */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* CSS Scroll Snap 스타일 */
+.snap-container {
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.snap-section {
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
 /* 기본 스타일 */
 @layer base {
 
@@ -59,4 +88,34 @@
   select:disabled {
     @apply cursor-not-allowed opacity-60 pointer-events-none;
   }
+
+  /* 스크롤바 숨기기 */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Swiper 커스텀 스타일 */
+@layer components {
+  .custom-pagination {
+    @apply flex flex-col space-y-3;
+  }
+
+  .swiper-pagination-bullet {
+    @apply w-3 h-3 bg-white/30 rounded-full transition-all duration-300 cursor-pointer;
+  }
+
+  .swiper-pagination-bullet-active {
+    @apply bg-white scale-125;
+  }
+
+  .swiper-pagination-bullet:hover {
+    @apply bg-white/50 scale-110;
+  }
+
 }
