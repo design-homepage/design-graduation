@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import DdayHero from './components/DdayHero';
 import ArchiveGrid from './components/ArchiveGrid';
+import { getReleaseDate } from './config';
 
-// 공개일 설정 (로컬타임 기준 ISO)
-const RELEASE_AT = new Date('2025-01-15T00:00:00').getTime();
+// 릴리즈 날짜 (config.ts에서 설정)
+const RELEASE_AT = getReleaseDate().getTime();
 
 const ArchivePage: React.FC = () => {
     const [now, setNow] = useState(Date.now());
