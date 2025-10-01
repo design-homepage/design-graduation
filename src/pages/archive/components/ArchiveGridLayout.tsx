@@ -28,7 +28,7 @@ const ArchiveGridLayout: React.FC<ArchiveGridLayoutProps> = ({
         <div className="relative z-20" style={{
             width: '100%',
             maxWidth: containerWidth,
-            height: containerHeight,
+            height: 'auto',
             margin: '0 auto',
             display: 'flex',
             gap: columnGap

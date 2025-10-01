@@ -49,28 +49,40 @@ const ArchiveGrid: React.FC = () => {
         if (windowWidth >= 1350) {
             return {
                 containerWidth: '1920px',
-                containerHeight: '897px',
+                containerHeight: '3934.66px',
+                textAreaHeight: '897px',
                 columnCount: 3,
                 columnGap: '15px'
             };
         } else if (windowWidth >= 1020) {
             return {
                 containerWidth: '1350px',
-                containerHeight: '600px',
+                containerHeight: '2,999.27px',
+                textAreaHeight: '600px',
                 columnCount: 3,
                 columnGap: '15px'
             };
         } else if (windowWidth >= 600) {
             return {
                 containerWidth: '1020px',
-                containerHeight: '3088px',
+                containerHeight: '3,088.62px',
+                textAreaHeight: '600px',
                 columnCount: 2,
+                columnGap: '15px'
+            };
+        } else if (windowWidth >= 400) {
+            return {
+                containerWidth: '600px',
+                containerHeight: '3,260.76px',
+                textAreaHeight: '400px',
+                columnCount: 1,
                 columnGap: '15px'
             };
         } else {
             return {
-                containerWidth: '600px',
-                containerHeight: '3260px',
+                containerWidth: '400px',
+                containerHeight: '2315.19px',
+                textAreaHeight: '400px',
                 columnCount: 1,
                 columnGap: '15px'
             };
@@ -86,15 +98,15 @@ const ArchiveGrid: React.FC = () => {
                 <link key={`preload-${index}`} rel="preload" as="image" href={imagePath} />
             ))}
 
-            <div className="relative z-[1] px-8 pb-28 pt-24">
+            <div className="relative z-[1] min-h-screen w-full px-8 pb-28 pt-24">
                 <ArchiveBackground
                     containerWidth={responsiveStyles.containerWidth}
                     containerHeight={responsiveStyles.containerHeight}
                 />
 
                 <ArchiveIntro
-                    containerWidth={responsiveStyles.containerWidth}
-                    containerHeight={responsiveStyles.containerHeight}
+                    containerWidth={responsiveStyles.textAreaWidth}
+                    containerHeight={responsiveStyles.textAreaHeight}
                 />
 
                 <ArchiveGridLayout

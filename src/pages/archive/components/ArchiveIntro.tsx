@@ -17,14 +17,13 @@ const ArchiveIntro: React.FC<ArchiveIntroProps> = ({ containerWidth, containerHe
             justifyContent: 'center',
             alignItems: 'center'
         }}>
-            <p className="text-lg text-gray-700 mb-4">
-                이곳은 <span className="text-gray-900 font-medium">ME</span>:<span className="text-green-500 font-medium">WE</span>의 모든 순간을 담은 아카이브입니다.
-            </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm md:text-lg lg:text-xl xl:text-[32px] font-bold text-black mb-4">
+                이곳은 ME:WE의 모든 순간을 담은 아카이브입니다.
+                <br />
                 작은 불빛이 모여 우리를 밝히는 등불이 됩니다.
             </p>
-            <p className="text-sm text-gray-500 mt-2">
-                This archive encompasses every moment of ME:WE, where small lights come together as a guiding beacon for us all.
+            <p className="text-xs md:text-sm lg:text-base xl:text-lg text-black mt-2">
+                This archive encompasses every moment of ME:WE,<br />where small lights come together as a guiding beacon for us all.
             </p>
         </div>
     );
