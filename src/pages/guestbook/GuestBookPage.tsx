@@ -8,8 +8,6 @@ interface GuestBookEntry {
   date: string;
 }
 
-interface GuestBookPageProps {}
-
 const GuestBookPage = () => {
   const [entries, setEntries] = useState<GuestBookEntry[]>([
     {
@@ -87,36 +85,48 @@ const GuestBookPage = () => {
   };
 
   return (
-    <div className="relative snap-y snap-mandatory" style={{ height: 'calc(100vh - 64px)', overflowY: 'auto' }}>
+    <div 
+      className="relative snap-y snap-mandatory smooth-scroll-snap" 
+      style={{ 
+        height: 'calc(100vh - 64px)', 
+        overflowY: 'auto'
+      }}
+    >
       <div 
         className="guestbook-container relative" 
         style={{ 
           minHeight: '300vh',
-          backgroundImage: 'url(/guestbook/background-white.png)',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'top center',
-          backgroundSize: 'cover'
+          backgroundColor: '#00E53A'
         }}
       >
-        {/* 초록색 오버레이 */}
-        <div className="absolute inset-0 bg-green-400 bg-opacity-20 z-0"></div>
+        {/* 배경 이미지 오버레이 (30% 투명도) */}
+        <div 
+          className="absolute inset-0 z-0" 
+          style={{
+            backgroundImage: 'url(/guestbook/background-white.png)',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'top center',
+            backgroundSize: 'cover',
+            opacity: 0.3
+          }}
+        ></div>
       {/* 첫 번째 섹션: 고정된 메시지 화면 */}
       <div 
         className="relative flex items-center justify-center snap-start"
         style={{ height: 'calc(100vh - 64px)' }}
       >
         {/* 메시지 컨텐츠 */}
-        <div className="relative z-10 max-w-4xl mx-auto px-8 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-8 text-center">
           {/* 한글 텍스트 */}
           <div className="space-y-8 mb-12">
-            <p className="text-3xl text-black font-bold text-center leading-10" style={{ letterSpacing: '-0.064px' }}>
-              작은 불꽃이 큰 등불이 되는 시대,
+            <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl text-black font-bold text-center leading-relaxed" style={{ letterSpacing: '-0.064px' }}>
+              작은 불꽃이 큰 등불이 되는 시대,<br/>
+              <span className="whitespace-nowrap">무하마드 알리가 던진 단 두 음절 <span className="font-bold">"ME, WE"</span>는 반세기 만에 우리 사회의 운영 원리로 떠올랐습니다.</span>
             </p>
-            <p className="text-3xl text-black font-bold text-center leading-10" style={{ letterSpacing: '-0.064px' }}>
-              무하마드 알리가 던진 단 두 음절 <span className="font-bold">"ME, WE"</span>는 반세기 만에 우리 사회의 운영 원리로 떠올랐습니다.
-            </p>
-            <p className="text-3xl text-black font-bold text-center leading-10 mt-12" style={{ letterSpacing: '-0.064px' }}>
-              당신이 전하는 응원의 메세지로 또 다른 누군가에게 <span className="font-bold">'우리'</span>를 밝혀줄 불빛이 되어주세요.
+            <br/><br/>
+            <p className="text-xl md:text-2xl lg:text-3xl xl:text-3xl text-black font-bold text-center leading-relaxed mt-12" style={{ letterSpacing: '-0.064px' }}>
+              당신이 전하는 응원의 메세지로<br/>
+              또 다른 누군가에게 <span className="font-bold">'우리'</span>를 밝혀줄 불빛이 되어주세요.
             </p>
           </div>
 

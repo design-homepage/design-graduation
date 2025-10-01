@@ -55,4 +55,16 @@
   select:disabled {
     @apply cursor-not-allowed opacity-60 pointer-events-none;
   }
+
+  /* 부드러운 스크롤 스냅 */
+  .smooth-scroll-snap {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 0;
+  }
+
+  .smooth-scroll-snap::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
 }
