@@ -79,7 +79,7 @@ const GuestBookCard = memo(({ entry, index }: { entry: GuestBookEntry; index: nu
 
 const GuestBookPage = () => {
   // Supabase에서 방명록 데이터 가져오기
-  const { entries, loading, error, refetch } = useGuestBook();
+  const { entries, loading, error, addEntry, refetch } = useGuestBook();
   
   const [formData, setFormData] = useState({
     sender: '',
@@ -96,7 +96,7 @@ const GuestBookPage = () => {
     }));
   }, []);
 
-  const handleSubmit = useCallback((e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.sender.trim() || !formData.message.trim() || !formData.receiver.trim()) {
@@ -104,11 +104,20 @@ const GuestBookPage = () => {
       return;
     }
 
-    // 현재는 GET 전용이므로 로컬 상태에만 추가
-    // 추후 POST API가 추가되면 여기서 API 호출
-    alert('방명록이 등록되었습니다! (현재는 로컬 저장)');
-    setFormData({ sender: '', message: '', receiver: '' });
-  }, [formData]);
+    try {
+      await addEntry({
+        sender: formData.sender.trim(),
+        message: formData.message.trim(),
+        receiver: formData.receiver.trim()
+      });
+      
+      alert('방명록이 성공적으로 등록되었습니다!');
+      setFormData({ sender: '', message: '', receiver: '' });
+    } catch (error) {
+      alert('방명록 등록에 실패했습니다. 다시 시도해주세요.');
+      console.error('Failed to add guestbook entry:', error);
+    }
+  }, [formData, addEntry]);
 
   return (
     <div 
