@@ -29,49 +29,57 @@ const DotsPattern = memo(() => (
 ));
 
 // 메모이제이션된 카드 컴포넌트
-const GuestBookCard = memo(({ entry, index }: { entry: GuestBookEntry; index: number }) => (
-  <div
-    className={`group relative ${index % 2 === 0 ? 'mt-0' : 'mt-8'}`}
-  >
-    {/* 다이아몬드 카드 */}
-    <div className="relative w-full h-48">
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-500 transform rotate-45 rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
-      </div>
-      <div className="absolute inset-4 bg-white bg-opacity-60 backdrop-blur-sm transform rotate-45 rounded-xl overflow-hidden">
-        <div className="absolute inset-0 transform -rotate-45 p-6 flex flex-col justify-center">
-          <div className="text-center">
+const GuestBookCard = memo(({ entry }: { entry: GuestBookEntry }) => (
+  <div className="group relative">
+    {/* 사각형 카드 */}
+    <div className="relative w-full h-64 bg-white bg-opacity-80 backdrop-blur-sm rounded-2xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105 border border-gray-200">
+      <div className="p-6 h-full flex flex-col">
+        {/* 상단: 보내는 사람과 받는 사람 */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-3">
             {/* 아바타 */}
-            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg mx-auto mb-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
               {entry.sender.charAt(0)}
             </div>
-            {/* 보내는 사람 */}
-            <h3 className="font-bold text-gray-800 text-sm mb-2 truncate">
-              {entry.sender}
-            </h3>
-            {/* 메시지 */}
-            <p className="text-gray-600 text-xs leading-relaxed mb-2 overflow-hidden" style={{
-              display: '-webkit-box',
-              WebkitLineClamp: 3,
-              WebkitBoxOrient: 'vertical'
-            }}>
-              {entry.message}
-            </p>
-            {/* 받는 사람 */}
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm">
+                {entry.sender}
+              </h3>
+              <span className="text-gray-500 text-xs">
+                To: {entry.receiver}
+              </span>
+            </div>
+          </div>
+          {/* ID 표시 */}
+          <span className="text-gray-400 text-xs bg-gray-100 px-2 py-1 rounded">
+            #{entry.id}
+          </span>
+        </div>
+
+        {/* 메시지 내용 */}
+        <div className="flex-1">
+          <p className="text-gray-700 text-sm leading-relaxed overflow-hidden" style={{
+            display: '-webkit-box',
+            WebkitLineClamp: 6,
+            WebkitBoxOrient: 'vertical'
+          }}>
+            {entry.message}
+          </p>
+        </div>
+
+        {/* 하단 구분선 */}
+        <div className="mt-4 pt-4 border-t border-gray-200">
+          <div className="flex items-center justify-between">
             <span className="text-gray-400 text-xs">
-              To: {entry.receiver}
+              방명록 메시지
             </span>
+            <div className="w-6 h-6 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+              <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+              </svg>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    
-    {/* 호버 시 상세 정보 */}
-    <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 bg-white bg-opacity-90 backdrop-blur-sm rounded-xl p-4 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 w-72 max-w-sm">
-      <div className="text-center">
-        <h4 className="font-semibold text-gray-800 mb-2">From: {entry.sender}</h4>
-        <p className="text-sm text-gray-500 mb-2">To: {entry.receiver}</p>
-        <p className="text-gray-700 text-sm leading-relaxed">{entry.message}</p>
-        <p className="text-gray-400 text-xs mt-2">ID: {entry.id}</p>
       </div>
     </div>
   </div>
@@ -306,11 +314,11 @@ const GuestBookPage = () => {
             </div>
           )}
           
-          {/* 다이아몬드 그리드 방명록 목록 */}
+          {/* 사각형 그리드 방명록 목록 */}
           {!loading && !error && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {entries.map((entry, index) => (
-                <GuestBookCard key={entry.id} entry={entry} index={index} />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {entries.map((entry) => (
+                <GuestBookCard key={entry.id} entry={entry} />
               ))}
             </div>
           )}
