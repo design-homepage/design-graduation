@@ -1,8 +1,4 @@
-import React from 'react';
-
-interface AboutPageProps {}
-
-const AboutPage = (props: AboutPageProps) => {
+const AboutPage = () => {
   return (
     <div className="py-12">
       <div className="max-w-4xl mx-auto px-4">

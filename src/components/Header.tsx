@@ -1,10 +1,7 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ROUTES } from '@/constants';
 
-interface HeaderProps {}
-
-const Header = (props: HeaderProps) => {
+const Header = () => {
   const location = useLocation();
 
   const navItems = [

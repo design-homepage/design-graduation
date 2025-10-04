@@ -1,4 +1,3 @@
-import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   HomePage,
@@ -64,9 +63,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-interface RouterProps {}
-
-const Router = (props: RouterProps) => {
+const Router = () => {
   return <RouterProvider router={router} />;
 };
 

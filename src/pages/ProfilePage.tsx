@@ -1,8 +1,4 @@
-import React from 'react';
-
-interface ProfilePageProps {}
-
-const ProfilePage = (props: ProfilePageProps) => {
+const ProfilePage = () => {
   return (
     <div className="py-12">
       <div className="max-w-4xl mx-auto px-4">

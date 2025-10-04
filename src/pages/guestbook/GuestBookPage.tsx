@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useCallback, memo } from 'react';
 
 interface GuestBookEntry {
   id: string;
@@ -7,6 +7,83 @@ interface GuestBookEntry {
   email?: string;
   date: string;
 }
+
+// 메모이제이션된 점 렌더링 컴포넌트
+const DotsPattern = memo(() => (
+  <div className="space-y-2">
+    <div className="flex items-center space-x-1 flex-wrap">
+      {Array.from({ length: 80 }, (_, i) => (
+        <div key={i} className="w-1 h-1 bg-black rounded-full"></div>
+      ))}
+    </div>
+    <div className="flex items-center space-x-1 flex-wrap">
+      {Array.from({ length: 75 }, (_, i) => (
+        <div key={i} className="w-1 h-1 bg-black rounded-full"></div>
+      ))}
+    </div>
+    <div className="flex items-center space-x-1 flex-wrap">
+      {Array.from({ length: 82 }, (_, i) => (
+        <div key={i} className="w-1 h-1 bg-black rounded-full"></div>
+      ))}
+    </div>
+    <div className="flex items-center space-x-1 flex-wrap">
+      {Array.from({ length: 45 }, (_, i) => (
+        <div key={i} className="w-1 h-1 bg-black rounded-full"></div>
+      ))}
+    </div>
+  </div>
+));
+
+// 메모이제이션된 카드 컴포넌트
+const GuestBookCard = memo(({ entry, index }: { entry: GuestBookEntry; index: number }) => (
+  <div
+    className={`group relative ${index % 2 === 0 ? 'mt-0' : 'mt-8'}`}
+  >
+    {/* 다이아몬드 카드 */}
+    <div className="relative w-full h-48">
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-500 transform rotate-45 rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
+      </div>
+      <div className="absolute inset-4 bg-white bg-opacity-60 backdrop-blur-sm transform rotate-45 rounded-xl overflow-hidden">
+        <div className="absolute inset-0 transform -rotate-45 p-6 flex flex-col justify-center">
+          <div className="text-center">
+            {/* 아바타 */}
+            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg mx-auto mb-3">
+              {entry.name.charAt(0)}
+            </div>
+            {/* 이름 */}
+            <h3 className="font-bold text-gray-800 text-sm mb-2 truncate">
+              {entry.name}
+            </h3>
+            {/* 메시지 */}
+            <p className="text-gray-600 text-xs leading-relaxed mb-2 overflow-hidden" style={{
+              display: '-webkit-box',
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: 'vertical'
+            }}>
+              {entry.message}
+            </p>
+            {/* 날짜 */}
+            <span className="text-gray-400 text-xs">
+              {entry.date}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {/* 호버 시 상세 정보 */}
+    <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 bg-white bg-opacity-90 backdrop-blur-sm rounded-xl p-4 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 w-72 max-w-sm">
+      <div className="text-center">
+        <h4 className="font-semibold text-gray-800 mb-2">{entry.name}</h4>
+        {entry.email && (
+          <p className="text-sm text-gray-500 mb-2">{entry.email}</p>
+        )}
+        <p className="text-gray-700 text-sm leading-relaxed">{entry.message}</p>
+        <p className="text-gray-400 text-xs mt-2">{entry.date}</p>
+      </div>
+    </div>
+  </div>
+));
 
 const GuestBookPage = () => {
   const [entries, setEntries] = useState<GuestBookEntry[]>([
@@ -56,15 +133,15 @@ const GuestBookPage = () => {
   });
 
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
-  };
+  }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.name.trim() || !formData.message.trim()) {
@@ -82,7 +159,7 @@ const GuestBookPage = () => {
 
     setEntries(prev => [newEntry, ...prev]);
     setFormData({ name: '', message: '', email: '' });
-  };
+  }, [formData]);
 
   return (
     <div 
@@ -99,7 +176,7 @@ const GuestBookPage = () => {
           backgroundColor: '#00E53A'
         }}
       >
-        {/* 배경 이미지 오버레이 (30% 투명도) */}
+        {/* 배경 이미지 오버레이 (30% 투명도) - 지연 로딩 */}
         <div 
           className="absolute inset-0 z-0" 
           style={{
@@ -107,7 +184,8 @@ const GuestBookPage = () => {
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'top center',
             backgroundSize: 'cover',
-            opacity: 0.3
+            opacity: 0.3,
+            willChange: 'auto'
           }}
         ></div>
       {/* 첫 번째 섹션: 고정된 메시지 화면 */}
@@ -146,52 +224,59 @@ const GuestBookPage = () => {
       </div>
 
       {/* 두 번째 섹션: 방명록 작성 폼 */}
-      <div className="relative snap-start z-10" style={{ height: 'calc(100vh - 64px)' }}>
-        <div className="relative max-w-2xl mx-auto px-4 py-16">
+      <div 
+        className="relative snap-start z-10" 
+        style={{ height: 'calc(100vh - 64px)' }}
+      >
+        <div 
+          className="backdrop-blur-sm mx-auto" 
+          style={{ 
+            height: '400px',
+            width: 'fit-content',
+            maxWidth: '800px',
+            display: 'flex',
+            padding: '47px 41px',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexShrink: 0,
+            borderRadius: '10px',
+            background: 'rgba(0, 0, 0, 0.00)',
+            marginTop: 'calc((100vh - 64px - 400px) / 2)'
+          }}
+        >
+          <div 
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: '7px',
+              alignSelf: 'stretch'
+            }}
+          >
           {/* ME 섹션 */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-bold text-blue-600 mb-6">ME: 나의 이야기</h3>
-            <div className="bg-blue-50 bg-opacity-20 border border-blue-200 border-opacity-30 rounded-xl p-6 backdrop-blur-sm">
-              <div className="space-y-4">
-                <div className="flex items-center space-x-2">
-                  {Array.from({ length: 50 }, (_, i) => (
-                    <div key={i} className="w-2 h-2 bg-blue-300 rounded-full"></div>
-                  ))}
-                </div>
-                <div className="flex items-center space-x-2">
-                  {Array.from({ length: 48 }, (_, i) => (
-                    <div key={i} className="w-2 h-2 bg-blue-300 rounded-full"></div>
-                  ))}
-                </div>
-                <div className="flex items-center space-x-2">
-                  {Array.from({ length: 52 }, (_, i) => (
-                    <div key={i} className="w-2 h-2 bg-blue-300 rounded-full"></div>
-                  ))}
-                </div>
-                <div className="flex items-center space-x-2">
-                  {Array.from({ length: 30 }, (_, i) => (
-                    <div key={i} className="w-2 h-2 bg-blue-300 rounded-full"></div>
-                  ))}
-                </div>
-              </div>
+          <div style={{ width: '100%' }}>
+            <h3 className="text-lg font-bold text-black mb-3">ME: 보내이</h3>
+            <div className="bg-white bg-opacity-60 border border-gray-300 border-opacity-50 rounded-lg p-4 backdrop-blur-sm" style={{ width: '100%' }}>
+              <DotsPattern />
             </div>
           </div>
 
           {/* WE 섹션 */}
-          <div className="mb-12">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold text-blue-600">WE: 방문자 (이름을 정자로 기입해주세요.)</h3>
-              <span className="text-sm text-gray-500">0/200</span>
+          <div style={{ width: '100%' }}>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-lg font-bold text-black">WE: 방문자 (이름을 정자로 기입해주세요.)</h3>
+              <span className="text-xs text-gray-600">0/200</span>
             </div>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-3" style={{ width: '100%' }}>
               <div>
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 border-opacity-30 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white bg-opacity-40 backdrop-blur-sm"
+                  className="w-full px-3 py-2 border border-gray-300 border-opacity-50 rounded-md focus:ring-1 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-white bg-opacity-60 backdrop-blur-sm text-sm"
                   placeholder="이름을 입력해주세요"
                   required
                 />
@@ -202,8 +287,8 @@ const GuestBookPage = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
-                  rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 border-opacity-30 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none bg-white bg-opacity-40 backdrop-blur-sm"
+                  rows={4}
+                  className="w-full px-3 py-2 border border-gray-300 border-opacity-50 rounded-md focus:ring-1 focus:ring-green-500 focus:border-transparent transition-all duration-200 resize-none bg-white bg-opacity-60 backdrop-blur-sm text-sm"
                   placeholder="메시지를 입력해주세요"
                   required
                 />
@@ -215,24 +300,28 @@ const GuestBookPage = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 border-opacity-30 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white bg-opacity-40 backdrop-blur-sm"
+                  className="w-full px-3 py-2 border border-gray-300 border-opacity-50 rounded-md focus:ring-1 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-white bg-opacity-60 backdrop-blur-sm text-sm"
                   placeholder="이메일을 입력해주세요 (선택)"
                 />
               </div>
-              
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-4 px-6 rounded-xl font-medium hover:bg-blue-700 transition-all duration-200 text-lg"
-              >
-                메시지 남기기
-              </button>
-            </form>
+            </div>
           </div>
+        </div>
+        </div>
+        
+        {/* 메시지 보내기 버튼 */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+          <button
+            onClick={handleSubmit}
+            className="bg-black text-white py-3 px-8 rounded-md font-medium hover:bg-gray-800 transition-all duration-200 text-sm"
+          >
+            메시지 남기기
+          </button>
         </div>
       </div>
 
       {/* 세 번째 섹션: 방명록 목록 */}
-      <div className="py-16 snap-start relative z-10" style={{ height: 'calc(100vh - 64px)', overflowY: 'auto' }}>
+      <div className="py-16 snap-start relative z-10" style={{ height: 'calc(100vh - 64px)', overflowY: 'auto', contain: 'layout style paint' }}>
         <div className="relative max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-16">
             방명록 ({entries.length})
@@ -241,54 +330,7 @@ const GuestBookPage = () => {
           {/* 다이아몬드 그리드 방명록 목록 */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {entries.map((entry, index) => (
-              <div
-                key={entry.id}
-                className={`group relative ${index % 2 === 0 ? 'mt-0' : 'mt-8'}`}
-              >
-                {/* 다이아몬드 카드 */}
-                <div className="relative w-full h-48">
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-500 transform rotate-45 rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
-                  </div>
-                  <div className="absolute inset-4 bg-white bg-opacity-60 backdrop-blur-sm transform rotate-45 rounded-xl overflow-hidden">
-                    <div className="absolute inset-0 transform -rotate-45 p-6 flex flex-col justify-center">
-                      <div className="text-center">
-                        {/* 아바타 */}
-                        <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg mx-auto mb-3">
-                          {entry.name.charAt(0)}
-                        </div>
-                        {/* 이름 */}
-                        <h3 className="font-bold text-gray-800 text-sm mb-2 truncate">
-                          {entry.name}
-                        </h3>
-                        {/* 메시지 */}
-                        <p className="text-gray-600 text-xs leading-relaxed mb-2 overflow-hidden" style={{
-                          display: '-webkit-box',
-                          WebkitLineClamp: 3,
-                          WebkitBoxOrient: 'vertical'
-                        }}>
-                          {entry.message}
-                        </p>
-                        {/* 날짜 */}
-                        <span className="text-gray-400 text-xs">
-                          {entry.date}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* 호버 시 상세 정보 */}
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 bg-white bg-opacity-90 backdrop-blur-sm rounded-xl p-4 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 w-72 max-w-sm">
-                  <div className="text-center">
-                    <h4 className="font-semibold text-gray-800 mb-2">{entry.name}</h4>
-                    {entry.email && (
-                      <p className="text-sm text-gray-500 mb-2">{entry.email}</p>
-                    )}
-                    <p className="text-gray-700 text-sm leading-relaxed">{entry.message}</p>
-                    <p className="text-gray-400 text-xs mt-2">{entry.date}</p>
-                  </div>
-                </div>
-              </div>
+              <GuestBookCard key={entry.id} entry={entry} index={index} />
             ))}
           </div>
         </div>

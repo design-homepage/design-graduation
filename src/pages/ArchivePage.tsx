@@ -1,8 +1,4 @@
-import React from 'react';
-
-interface ArchivePageProps {}
-
-const ArchivePage = (props: ArchivePageProps) => {
+const ArchivePage = () => {
   return (
     <div className="py-12">
       <div className="max-w-4xl mx-auto px-4">
