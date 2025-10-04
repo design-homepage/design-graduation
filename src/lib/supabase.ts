@@ -11,20 +11,16 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 // 방명록 관련 타입 정의
 export interface GuestBookEntry {
-  id: string
-  name: string
+  id: number
+  sender: string
   message: string
-  email?: string
-  created_at: string
-  updated_at: string
+  receiver: string
 }
 
 // 방명록 테이블 타입
 export interface GuestBookTable {
-  id: string
-  name: string
+  id: number
+  sender: string
   message: string
-  email?: string
-  created_at: string
-  updated_at: string
+  receiver: string
 }

@@ -6,7 +6,7 @@ export const useGuestBook = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  // 방명록 목록 가져오기
+  // 방명록 목록 가져오기 (GET 전용)
   const fetchEntries = useCallback(async () => {
     try {
       setLoading(true)
@@ -15,7 +15,7 @@ export const useGuestBook = () => {
       const { data, error } = await supabase
         .from('guestbook')
         .select('*')
-        .order('created_at', { ascending: false })
+        .order('id', { ascending: false })
 
       if (error) {
         throw error
@@ -30,56 +30,6 @@ export const useGuestBook = () => {
     }
   }, [])
 
-  // 방명록 추가
-  const addEntry = useCallback(async (entry: Omit<GuestBookEntry, 'id' | 'created_at' | 'updated_at'>) => {
-    try {
-      setError(null)
-      
-      const { data, error } = await supabase
-        .from('guestbook')
-        .insert([entry])
-        .select()
-        .single()
-
-      if (error) {
-        throw error
-      }
-
-      if (data) {
-        setEntries(prev => [data, ...prev])
-        return data
-      }
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : '방명록 추가에 실패했습니다.'
-      setError(errorMessage)
-      console.error('Error adding guestbook entry:', err)
-      throw new Error(errorMessage)
-    }
-  }, [])
-
-  // 방명록 삭제
-  const deleteEntry = useCallback(async (id: string) => {
-    try {
-      setError(null)
-      
-      const { error } = await supabase
-        .from('guestbook')
-        .delete()
-        .eq('id', id)
-
-      if (error) {
-        throw error
-      }
-
-      setEntries(prev => prev.filter(entry => entry.id !== id))
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : '방명록 삭제에 실패했습니다.'
-      setError(errorMessage)
-      console.error('Error deleting guestbook entry:', err)
-      throw new Error(errorMessage)
-    }
-  }, [])
-
   // 초기 로드
   useEffect(() => {
     fetchEntries()
@@ -89,8 +39,6 @@ export const useGuestBook = () => {
     entries,
     loading,
     error,
-    addEntry,
-    deleteEntry,
     refetch: fetchEntries
   }
 }

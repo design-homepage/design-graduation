@@ -1,12 +1,6 @@
 import { useState, useCallback, memo } from 'react';
-
-interface GuestBookEntry {
-  id: string;
-  name: string;
-  message: string;
-  email?: string;
-  date: string;
-}
+import { useGuestBook } from '@/hooks/useGuestBook';
+import type { GuestBookEntry } from '@/types/guestbook';
 
 // 메모이제이션된 점 렌더링 컴포넌트
 const DotsPattern = memo(() => (
@@ -48,11 +42,11 @@ const GuestBookCard = memo(({ entry, index }: { entry: GuestBookEntry; index: nu
           <div className="text-center">
             {/* 아바타 */}
             <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg mx-auto mb-3">
-              {entry.name.charAt(0)}
+              {entry.sender.charAt(0)}
             </div>
-            {/* 이름 */}
+            {/* 보내는 사람 */}
             <h3 className="font-bold text-gray-800 text-sm mb-2 truncate">
-              {entry.name}
+              {entry.sender}
             </h3>
             {/* 메시지 */}
             <p className="text-gray-600 text-xs leading-relaxed mb-2 overflow-hidden" style={{
@@ -62,9 +56,9 @@ const GuestBookCard = memo(({ entry, index }: { entry: GuestBookEntry; index: nu
             }}>
               {entry.message}
             </p>
-            {/* 날짜 */}
+            {/* 받는 사람 */}
             <span className="text-gray-400 text-xs">
-              {entry.date}
+              To: {entry.receiver}
             </span>
           </div>
         </div>
@@ -74,62 +68,23 @@ const GuestBookCard = memo(({ entry, index }: { entry: GuestBookEntry; index: nu
     {/* 호버 시 상세 정보 */}
     <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 bg-white bg-opacity-90 backdrop-blur-sm rounded-xl p-4 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 w-72 max-w-sm">
       <div className="text-center">
-        <h4 className="font-semibold text-gray-800 mb-2">{entry.name}</h4>
-        {entry.email && (
-          <p className="text-sm text-gray-500 mb-2">{entry.email}</p>
-        )}
+        <h4 className="font-semibold text-gray-800 mb-2">From: {entry.sender}</h4>
+        <p className="text-sm text-gray-500 mb-2">To: {entry.receiver}</p>
         <p className="text-gray-700 text-sm leading-relaxed">{entry.message}</p>
-        <p className="text-gray-400 text-xs mt-2">{entry.date}</p>
+        <p className="text-gray-400 text-xs mt-2">ID: {entry.id}</p>
       </div>
     </div>
   </div>
 ));
 
 const GuestBookPage = () => {
-  const [entries, setEntries] = useState<GuestBookEntry[]>([
-    {
-      id: '1',
-      name: '홍길동',
-      message: '안녕하세요! 정말 멋진 포트폴리오네요. 앞으로도 좋은 작품 기대하겠습니다!',
-      email: 'hong@example.com',
-      date: '2024-03-15'
-    },
-    {
-      id: '2', 
-      name: '김민수',
-      message: '디자인이 너무 깔끔하고 좋아요. 특히 UX/UI 작업이 인상깊었습니다.',
-      date: '2024-03-14'
-    },
-    {
-      id: '3', 
-      name: '이영희',
-      message: '창의적인 아이디어가 돋보이는 작품들이네요!',
-      date: '2024-03-13'
-    },
-    {
-      id: '4', 
-      name: '박철수',
-      message: 'UX 디자인 센스가 정말 뛰어나신 것 같아요.',
-      date: '2024-03-12'
-    },
-    {
-      id: '5', 
-      name: '최민정',
-      message: '앞으로의 성장이 기대됩니다!',
-      date: '2024-03-11'
-    },
-    {
-      id: '6', 
-      name: '정동현',
-      message: '색감과 레이아웃이 매우 조화롭네요.',
-      date: '2024-03-10'
-    }
-  ]);
+  // Supabase에서 방명록 데이터 가져오기
+  const { entries, loading, error, refetch } = useGuestBook();
   
   const [formData, setFormData] = useState({
-    name: '',
+    sender: '',
     message: '',
-    email: ''
+    receiver: ''
   });
 
 
@@ -144,21 +99,15 @@ const GuestBookPage = () => {
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name.trim() || !formData.message.trim()) {
-      alert('이름과 메시지를 입력해주세요.');
+    if (!formData.sender.trim() || !formData.message.trim() || !formData.receiver.trim()) {
+      alert('보내는 사람, 메시지, 받는 사람을 모두 입력해주세요.');
       return;
     }
 
-    const newEntry: GuestBookEntry = {
-      id: Date.now().toString(),
-      name: formData.name,
-      message: formData.message,
-      email: formData.email || undefined,
-      date: new Date().toISOString().split('T')[0]
-    };
-
-    setEntries(prev => [newEntry, ...prev]);
-    setFormData({ name: '', message: '', email: '' });
+    // 현재는 GET 전용이므로 로컬 상태에만 추가
+    // 추후 POST API가 추가되면 여기서 API 호출
+    alert('방명록이 등록되었습니다! (현재는 로컬 저장)');
+    setFormData({ sender: '', message: '', receiver: '' });
   }, [formData]);
 
   return (
@@ -273,11 +222,11 @@ const GuestBookPage = () => {
               <div>
                 <input
                   type="text"
-                  name="name"
-                  value={formData.name}
+                  name="sender"
+                  value={formData.sender}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-300 border-opacity-50 rounded-md focus:ring-1 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-white bg-opacity-60 backdrop-blur-sm text-sm"
-                  placeholder="이름을 입력해주세요"
+                  placeholder="보내는 사람을 입력해주세요"
                   required
                 />
               </div>
@@ -296,12 +245,13 @@ const GuestBookPage = () => {
               
               <div>
                 <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
+                  type="text"
+                  name="receiver"
+                  value={formData.receiver}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-300 border-opacity-50 rounded-md focus:ring-1 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-white bg-opacity-60 backdrop-blur-sm text-sm"
-                  placeholder="이메일을 입력해주세요 (선택)"
+                  placeholder="받는 사람을 입력해주세요"
+                  required
                 />
               </div>
             </div>
@@ -327,12 +277,34 @@ const GuestBookPage = () => {
             방명록 ({entries.length})
           </h2>
           
+          {/* 로딩 상태 */}
+          {loading && (
+            <div className="flex justify-center items-center py-16">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
+          )}
+          
+          {/* 에러 상태 */}
+          {error && (
+            <div className="text-center py-16">
+              <p className="text-red-600 mb-4">방명록을 불러오는데 실패했습니다.</p>
+              <button 
+                onClick={refetch}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              >
+                다시 시도
+              </button>
+            </div>
+          )}
+          
           {/* 다이아몬드 그리드 방명록 목록 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {entries.map((entry, index) => (
-              <GuestBookCard key={entry.id} entry={entry} index={index} />
-            ))}
-          </div>
+          {!loading && !error && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              {entries.map((entry, index) => (
+                <GuestBookCard key={entry.id} entry={entry} index={index} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
       </div>
