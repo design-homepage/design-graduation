@@ -7,6 +7,7 @@ import {
   GuestBookPage,
   ArchivePage,
   WorkDetailPage,
+  ProfileDetailPage,
 } from '@/pages';
 import { Layout } from '@/components';
 import { ROUTES } from '@/constants';
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: ROUTES.PROFILE,
         element: <ProfilePage />,
+      },
+      {
+        path: ROUTES.PROFILE_DETAIL,
+        element: <ProfileDetailPage />,
       },
       {
         path: ROUTES.ARCHIVE,
