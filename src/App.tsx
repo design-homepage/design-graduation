@@ -1,7 +1,12 @@
 import { Router } from '@/router';
+import { ModalProvider } from './contexts/ModalContext';
 
 const App = () => {
-  return <Router />;
+  return (
+    <ModalProvider>
+      <Router />
+    </ModalProvider>
+  );
 };
 
 export default App;
