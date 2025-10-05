@@ -90,7 +90,11 @@
 }
 
 .infinite-scroll-container:hover .infinite-scroll-track {
-  animation-play-state: paused;
+  animation-play-state: paused !important;
+}
+
+.infinite-scroll-track:hover {
+  animation-play-state: paused !important;
 }
 
 /* 개별 카드 호버 효과 */

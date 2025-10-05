@@ -335,12 +335,18 @@ const GuestBookPage = () => {
             onMouseEnter={(e) => {
               // 마우스 진입 시 애니메이션 일시정지
               const container = e.currentTarget;
-              container.style.setProperty('--animation-play-state', 'paused');
+              const track = container.querySelector('.infinite-scroll-track') as HTMLElement;
+              if (track) {
+                track.style.animationPlayState = 'paused';
+              }
             }}
             onMouseLeave={(e) => {
               // 마우스 벗어날 시 애니메이션 재생
               const container = e.currentTarget;
-              container.style.setProperty('--animation-play-state', 'running');
+              const track = container.querySelector('.infinite-scroll-track') as HTMLElement;
+              if (track) {
+                track.style.animationPlayState = 'running';
+              }
             }}
           >
             {/* 무한 스크롤 트랙 */}
