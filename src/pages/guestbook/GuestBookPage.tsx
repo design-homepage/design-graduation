@@ -7,22 +7,36 @@ import type { TeamMember } from '@/types/teamMembers';
 
 // 메모이제이션된 카드 컴포넌트
 const GuestBookCard = memo(({ entry }: { entry: GuestBookEntry }) => (
-  <div className="group relative">
-    {/* 화살표 모양 말풍선 카드 */}
-    <div className="relative w-full h-48 bg-gradient-to-r from-green-100 to-green-200 rounded-2xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105 border border-green-300">
-      {/* 화살표 꼬리 */}
-      <div className="absolute -left-4 top-1/2 transform -translate-y-1/2">
-        <div className="w-0 h-0 border-t-[24px] border-b-[24px] border-r-[24px] border-t-transparent border-b-transparent border-r-green-200"></div>
-      </div>
+  <div className="group relative GuestBookCard" style={{ margin: '0' }}>
+    {/* 화살표 배경을 사용한 카드 */}
+    <div className="relative w-80 h-28 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105" 
+         style={{
+           backgroundImage: 'url(/guestbook/img/arrow_basic_L.png)',
+           backgroundSize: 'contain',
+           backgroundRepeat: 'no-repeat',
+           backgroundPosition: 'center'
+         }}>
       
-      <div className="p-6 h-full flex">
-        {/* 왼쪽: 받는 사람 이미지 */}
-        <div className="flex-shrink-0 w-20 h-full flex items-center justify-center">
+      {/* 투명한 네모박스 (형태 잡기용) */}
+      <div className="absolute inset-0 rounded-lg" 
+           style={{
+             background: 'rgba(255, 255, 255, 0.15)',
+             backdropFilter: 'blur(20px)',
+             border: '1px solid rgba(255, 255, 255, 0.2)',
+             boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
+           }}>
+        
+        {/* 왼쪽 화살표 영역 */}
+        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 w-16 h-16 flex items-center justify-center">
           <img 
             src={getTeamMemberImage(entry.receiver)} 
             alt={entry.receiver}
-            className="w-16 h-16 object-contain"
+            className="w-12 h-12 object-contain"
+            onLoad={() => {
+              console.log('이미지 로드 성공:', getTeamMemberImage(entry.receiver));
+            }}
             onError={(e) => {
+              console.log('이미지 로드 실패:', getTeamMemberImage(entry.receiver));
               // 이미지 로드 실패 시 기본 아이콘 표시
               e.currentTarget.style.display = 'none';
               const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
@@ -32,30 +46,25 @@ const GuestBookCard = memo(({ entry }: { entry: GuestBookEntry }) => (
             }}
           />
           {/* 기본 아이콘 (이미지 로드 실패 시) */}
-          <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg hidden">
+          <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm hidden">
             {entry.receiver.charAt(0)}
           </div>
         </div>
 
-        {/* 오른쪽: 메시지 내용 */}
-        <div className="flex-1 flex flex-col justify-between">
+        {/* 메시지 내용 영역 */}
+        <div className="ml-20 pr-4 pl-4 h-full flex flex-col justify-center py-4">
           {/* 메시지 텍스트 */}
           <div className="flex-1">
-            <p className="text-gray-800 text-sm leading-relaxed">
+            <p className="text-gray-800 text-sm leading-relaxed line-clamp-3">
               {entry.message}
             </p>
           </div>
           
           {/* 하단: 보내는 사람 */}
-          <div className="mt-4 pt-3 border-t border-green-300">
-            <div className="flex items-center justify-between">
-              <span className="text-gray-600 text-xs font-medium">
-                - {entry.sender}
-              </span>
-              <span className="text-gray-500 text-xs">
-                To: {entry.receiver}
-              </span>
-            </div>
+          <div className="mt-2 pt-2 border-t border-gray-300 border-opacity-30">
+            <p className="text-right text-xs text-gray-600 font-medium">
+              - {entry.sender}
+            </p>
           </div>
         </div>
       </div>
@@ -66,6 +75,17 @@ const GuestBookCard = memo(({ entry }: { entry: GuestBookEntry }) => (
 const GuestBookPage = () => {
   // Supabase에서 방명록 데이터 가져오기
   const { entries, loading, error, addEntry, refetch } = useGuestBook();
+  
+  // 데이터를 5개씩 그룹으로 나누기
+  const chunkArray = (array: any[], chunkSize: number) => {
+    const chunks = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+      chunks.push(array.slice(i, i + chunkSize));
+    }
+    return chunks;
+  };
+  
+  const entryChunks = chunkArray(entries, 5);
   
   const [formData, setFormData] = useState({
     sender: '',
@@ -300,39 +320,91 @@ const GuestBookPage = () => {
         </div>
       </div>
 
-      {/* 세 번째 섹션: 방명록 목록 */}
-      <div className="py-16 snap-start relative z-10" style={{ height: 'calc(100vh - 64px)', overflowY: 'auto', contain: 'layout style paint' }}>
-        <div className="relative max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-16">
-            방명록 ({entries.length})
-          </h2>
-          
-          {/* 로딩 상태 */}
+      {/* 세 번째 섹션: 방명록 목록 - 무한 스크롤 */}
+      <div className="py-16 snap-start relative z-10" style={{ height: 'calc(100vh - 64px)', overflow: 'hidden' }}>
+        <div className="relative w-full h-full">
+          {/* 무한 스크롤 컨테이너 */}
+          <div 
+            className="infinite-scroll-container"
+            style={{
+              width: '100%',
+              height: '100%',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+            onMouseEnter={(e) => {
+              // 마우스 진입 시 애니메이션 일시정지
+              const container = e.currentTarget;
+              container.style.setProperty('--animation-play-state', 'paused');
+            }}
+            onMouseLeave={(e) => {
+              // 마우스 벗어날 시 애니메이션 재생
+              const container = e.currentTarget;
+              container.style.setProperty('--animation-play-state', 'running');
+            }}
+          >
+            {/* 무한 스크롤 트랙 */}
+            <div 
+              className="infinite-scroll-track"
+              style={{
+                display: 'flex',
+                width: `${entryChunks.length * 2 * 400}px`, // 동적 너비 계산
+                height: '100%',
+                animation: `scroll-left ${entryChunks.length * 10}s linear infinite`,
+                animationPlayState: 'var(--animation-play-state, running)'
+              }}
+            >
+              {/* 첫 번째 세트 */}
+              <div className="scroll-section" style={{ display: 'flex', height: '100%', padding: '10px' }}>
+                {entryChunks.map((chunk, chunkIndex) => (
+                  <div key={`first-chunk-${chunkIndex}`} style={{ width: '400px', height: '100%', marginRight: '0' }}>
+                    <div className="grid grid-cols-1 h-full" style={{ gridTemplateRows: 'repeat(5, 1fr)', gap: '0' }}>
+                      {chunk.map((entry) => (
+                        <GuestBookCard key={`first-${entry.id}`} entry={entry} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* 두 번째 세트 (중복) */}
+              <div className="scroll-section" style={{ display: 'flex', height: '100%', padding: '10px' }}>
+                {entryChunks.map((chunk, chunkIndex) => (
+                  <div key={`second-chunk-${chunkIndex}`} style={{ width: '400px', height: '100%', marginRight: '0' }}>
+                    <div className="grid grid-cols-1 h-full" style={{ gridTemplateRows: 'repeat(5, 1fr)', gap: '0' }}>
+                      {chunk.map((entry) => (
+                        <GuestBookCard key={`second-${entry.id}`} entry={entry} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* 로딩 및 에러 상태 */}
           {loading && (
-            <div className="flex justify-center items-center py-16">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-80">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
             </div>
           )}
-          
-          {/* 에러 상태 */}
+
           {error && (
-            <div className="text-center py-16">
-              <p className="text-red-600 mb-4">방명록을 불러오는데 실패했습니다.</p>
+            <div className="absolute inset-0 flex flex-col justify-center items-center bg-white bg-opacity-80">
+              <p className="text-red-500 mb-4">오류가 발생했습니다: {error}</p>
               <button 
                 onClick={refetch}
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
               >
                 다시 시도
               </button>
             </div>
           )}
-          
-          {/* 사각형 그리드 방명록 목록 */}
-          {!loading && !error && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {entries.map((entry) => (
-                <GuestBookCard key={entry.id} entry={entry} />
-              ))}
+
+          {!loading && !error && entries.length === 0 && (
+            <div className="absolute inset-0 flex flex-col justify-center items-center">
+              <p className="text-gray-500 mb-4">아직 남겨진 메시지가 없습니다.</p>
+              <p className="text-gray-400">첫 번째 메시지를 남겨보세요!</p>
             </div>
           )}
         </div>
