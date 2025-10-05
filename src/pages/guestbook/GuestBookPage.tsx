@@ -179,7 +179,7 @@ const GuestBookPage = () => {
               display: 'flex',
               width: '828px',
               height: '521px',
-              padding: '47px 41px',
+              padding: '30px 41px',
               flexDirection: 'column',
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -193,72 +193,78 @@ const GuestBookPage = () => {
           >
             {/* 1. 보낸이 섹션 */}
             <div style={{ width: '100%' }}>
-              <h3 className="text-lg font-bold text-white mb-3 drop-shadow-lg">ME: 보낸이</h3>
-              <div 
-                className="rounded-lg p-4" 
-                style={{ 
-                  width: '100%',
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.2)'
-                }}
-              >
+              <div className="flex items-center gap-4">
+                <h3 className="text-lg font-bold text-black drop-shadow-lg">ME:</h3>
+                <input
+                  type="text"
+                  name="sender"
+                  value={formData.sender}
+                  onChange={handleInputChange}
+                  className="px-3 py-2 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800 placeholder-gray-600"
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    backdropFilter: 'none'
+                  }}
+                  placeholder="보낸이"
+                  required
+                />
               </div>
             </div>
 
             {/* 구분선 */}
-            <div className="border-t border-gray-400 border-opacity-30" style={{ width: '100%' }}></div>
+            <div className="border-t border-gray-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
 
-            {/* 2. 메시지 섹션 */}
-            <div style={{ width: '100%' }}>
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-lg font-bold text-white drop-shadow-lg">메시지 (200자 이내)</h3>
-                <span className="text-xs text-white drop-shadow-lg">{formData.message.length}/200</span>
+              {/* 2. 메시지 섹션 */}
+              <div style={{ width: '100%', flex: 1 }}>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={8}
+                  className="w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800 placeholder-gray-600 resize-none"
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    backdropFilter: 'none',
+                    height: '100%',
+                    minHeight: '200px'
+                  }}
+                  placeholder="메시지를 입력해주세요"
+                  required
+                  maxLength={200}
+                />
+                <div className="flex justify-end mt-2">
+                  <span className="text-xs text-black drop-shadow-lg">{formData.message.length}/200</span>
+                </div>
               </div>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                rows={4}
-                className="w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800 placeholder-gray-600 resize-none"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.2)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
-                  boxShadow: '0 2px 8px 0 rgba(31, 38, 135, 0.15)'
-                }}
-                placeholder="메시지를 입력해주세요"
-                required
-                maxLength={200}
-              />
-            </div>
 
             {/* 구분선 */}
-            <div className="border-t border-gray-400 border-opacity-30" style={{ width: '100%' }}></div>
+            <div className="border-t border-gray-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
 
             {/* 3. 받는이 섹션 */}
             <div style={{ width: '100%' }}>
-              <h3 className="text-lg font-bold text-white mb-3 drop-shadow-lg">WE: 받는이 (이름을 정자로 기입해주세요.)</h3>
-              <select
-                name="receiver"
-                value={formData.receiver}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.2)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
-                  boxShadow: '0 2px 8px 0 rgba(31, 38, 135, 0.15)'
-                }}
-                required
-              >
-                {teamMemberNames.map((member) => (
-                  <option key={member} value={member}>
-                    {member}
-                  </option>
-                ))}
-              </select>
+              <div className="flex items-center gap-4">
+                <h3 className="text-lg font-bold text-black drop-shadow-lg">WE:</h3>
+                <select
+                  name="receiver"
+                  value={formData.receiver}
+                  onChange={handleInputChange}
+                  className="px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800"
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    backdropFilter: 'none'
+                  }}
+                  required
+                >
+                  {teamMemberNames.map((member) => (
+                    <option key={member} value={member}>
+                      {member}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
         </div>
