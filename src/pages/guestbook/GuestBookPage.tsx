@@ -198,7 +198,7 @@ const GuestBookPage = () => {
         style={{ height: 'calc(100vh - 64px)' }}
       >
         <div 
-          className="backdrop-blur-sm mx-auto" 
+          className="mx-auto glassmorphism-container" 
           style={{ 
             height: '400px',
             width: 'fit-content',
@@ -209,8 +209,11 @@ const GuestBookPage = () => {
             justifyContent: 'center',
             alignItems: 'center',
             flexShrink: 0,
-            borderRadius: '10px',
-            background: 'rgba(0, 0, 0, 0.00)',
+            borderRadius: '20px',
+            background: 'rgba(255, 255, 255, 0.15)',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
             marginTop: 'calc((100vh - 64px - 400px) / 2)'
           }}
         >
@@ -225,8 +228,17 @@ const GuestBookPage = () => {
           >
           {/* ME 섹션 */}
           <div style={{ width: '100%' }}>
-            <h3 className="text-lg font-bold text-black mb-3">ME: 보내이</h3>
-            <div className="bg-white bg-opacity-60 border border-gray-300 border-opacity-50 rounded-lg p-4 backdrop-blur-sm" style={{ width: '100%' }}>
+            <h3 className="text-lg font-bold text-white mb-3 drop-shadow-lg">ME: 보내이</h3>
+            <div 
+              className="rounded-lg p-4" 
+              style={{ 
+                width: '100%',
+                background: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
+                boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.2)'
+              }}
+            >
               <DotsPattern />
             </div>
           </div>
@@ -234,8 +246,8 @@ const GuestBookPage = () => {
           {/* WE 섹션 */}
           <div style={{ width: '100%' }}>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-lg font-bold text-black">WE: 방문자 (이름을 정자로 기입해주세요.)</h3>
-              <span className="text-xs text-gray-600">0/200</span>
+              <h3 className="text-lg font-bold text-white drop-shadow-lg">WE: 방문자 (이름을 정자로 기입해주세요.)</h3>
+              <span className="text-xs text-white drop-shadow-lg">{formData.message.length}/200</span>
             </div>
             
             <div className="space-y-3" style={{ width: '100%' }}>
@@ -245,7 +257,13 @@ const GuestBookPage = () => {
                   name="sender"
                   value={formData.sender}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 border-opacity-50 rounded-md focus:ring-1 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-white bg-opacity-60 backdrop-blur-sm text-sm"
+                  className="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800 placeholder-gray-600"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.2)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                    boxShadow: '0 2px 8px 0 rgba(31, 38, 135, 0.15)'
+                  }}
                   placeholder="보내는 사람을 입력해주세요"
                   required
                 />
@@ -257,7 +275,13 @@ const GuestBookPage = () => {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 border-opacity-50 rounded-md focus:ring-1 focus:ring-green-500 focus:border-transparent transition-all duration-200 resize-none bg-white bg-opacity-60 backdrop-blur-sm text-sm"
+                  className="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 resize-none text-sm text-gray-800 placeholder-gray-600"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.2)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                    boxShadow: '0 2px 8px 0 rgba(31, 38, 135, 0.15)'
+                  }}
                   placeholder="메시지를 입력해주세요"
                   required
                 />
@@ -268,7 +292,13 @@ const GuestBookPage = () => {
                   name="receiver"
                   value={formData.receiver}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 border-opacity-50 rounded-md focus:ring-1 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-white bg-opacity-60 backdrop-blur-sm text-sm"
+                  className="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.2)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                    boxShadow: '0 2px 8px 0 rgba(31, 38, 135, 0.15)'
+                  }}
                   required
                 >
                   {teamMemberNames.map((member) => (
@@ -287,7 +317,13 @@ const GuestBookPage = () => {
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
           <button
             onClick={handleSubmit}
-            className="bg-black text-white py-3 px-8 rounded-md font-medium hover:bg-gray-800 transition-all duration-200 text-sm"
+            className="py-3 px-8 rounded-lg font-medium transition-all duration-200 text-sm text-white hover:scale-105"
+            style={{
+              background: 'rgba(255, 255, 255, 0.2)',
+              backdropFilter: 'blur(15px)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.3)'
+            }}
           >
             메시지 남기기
           </button>
