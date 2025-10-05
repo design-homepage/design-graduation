@@ -89,33 +89,59 @@ html {
     @apply cursor-not-allowed opacity-60 pointer-events-none;
   }
 
-  /* 스크롤바 숨기기 */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  /* 부드러운 스크롤 스냅 */
+  .smooth-scroll-snap {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 0;
   }
 
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+  .smooth-scroll-snap::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
   }
 }
 
-/* Swiper 커스텀 스타일 */
-@layer components {
-  .custom-pagination {
-    @apply flex flex-col space-y-3;
+/* 방명록 무한 스크롤 애니메이션 */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
   }
-
-  .swiper-pagination-bullet {
-    @apply w-3 h-3 bg-white/30 rounded-full transition-all duration-300 cursor-pointer;
+  100% {
+    transform: translateX(-50%);
   }
+}
 
-  .swiper-pagination-bullet-active {
-    @apply bg-white scale-125;
-  }
+/* 동적 애니메이션을 위한 기본 클래스 */
+.infinite-scroll-track {
+  animation: scroll-left 30s linear infinite;
+}
 
-  .swiper-pagination-bullet:hover {
-    @apply bg-white/50 scale-110;
-  }
+/* 무한 스크롤 호버 효과 */
+.infinite-scroll-container {
+  --animation-play-state: running;
+}
 
+.infinite-scroll-container:hover .infinite-scroll-track {
+  animation-play-state: paused !important;
+}
+
+.infinite-scroll-track:hover {
+  animation-play-state: paused !important;
+}
+
+/* 개별 카드 호버 효과 */
+.GuestBookCard:hover {
+  transform: scale(1.05);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+/* 텍스트 줄 제한 */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

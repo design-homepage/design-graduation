@@ -1,8 +1,4 @@
-import React from 'react';
-
-interface HomePageProps {}
-
-const HomePage = (props: HomePageProps) => {
+const HomePage = () => {
   return (
     <div className="py-20">
       <div className="max-w-4xl mx-auto text-center px-4">
