@@ -4,31 +4,6 @@ import type { GuestBookEntry } from '@/types/guestbook';
 import { getTeamMemberImage, teamMemberNames } from '@/types/teamMembers';
 import type { TeamMember } from '@/types/teamMembers';
 
-// 메모이제이션된 점 렌더링 컴포넌트
-const DotsPattern = memo(() => (
-  <div className="space-y-2">
-    <div className="flex items-center space-x-1 flex-wrap">
-      {Array.from({ length: 80 }, (_, i) => (
-        <div key={i} className="w-1 h-1 bg-black rounded-full"></div>
-      ))}
-    </div>
-    <div className="flex items-center space-x-1 flex-wrap">
-      {Array.from({ length: 75 }, (_, i) => (
-        <div key={i} className="w-1 h-1 bg-black rounded-full"></div>
-      ))}
-    </div>
-    <div className="flex items-center space-x-1 flex-wrap">
-      {Array.from({ length: 82 }, (_, i) => (
-        <div key={i} className="w-1 h-1 bg-black rounded-full"></div>
-      ))}
-    </div>
-    <div className="flex items-center space-x-1 flex-wrap">
-      {Array.from({ length: 45 }, (_, i) => (
-        <div key={i} className="w-1 h-1 bg-black rounded-full"></div>
-      ))}
-    </div>
-  </div>
-));
 
 // 메모이제이션된 카드 컴포넌트
 const GuestBookCard = memo(({ entry }: { entry: GuestBookEntry }) => (
@@ -197,120 +172,95 @@ const GuestBookPage = () => {
         className="relative snap-start z-10" 
         style={{ height: 'calc(100vh - 64px)' }}
       >
-        <div 
-          className="mx-auto glassmorphism-container" 
-          style={{ 
-            height: '400px',
-            width: 'fit-content',
-            maxWidth: '800px',
-            display: 'flex',
-            padding: '47px 41px',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexShrink: 0,
-            borderRadius: '20px',
-            background: 'rgba(255, 255, 255, 0.15)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-            marginTop: 'calc((100vh - 64px - 400px) / 2)'
-          }}
-        >
+        <div className="flex items-center justify-center h-full">
           <div 
-            style={{
+            className="glassmorphism-container" 
+            style={{ 
               display: 'flex',
+              width: '828px',
+              height: '521px',
+              padding: '47px 41px',
               flexDirection: 'column',
-              alignItems: 'flex-start',
-              gap: '7px',
-              alignSelf: 'stretch'
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexShrink: 0,
+              borderRadius: '20px',
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
             }}
           >
-          {/* ME 섹션 */}
-          <div style={{ width: '100%' }}>
-            <h3 className="text-lg font-bold text-white mb-3 drop-shadow-lg">ME: 보내이</h3>
-            <div 
-              className="rounded-lg p-4" 
-              style={{ 
-                width: '100%',
-                background: 'rgba(255, 255, 255, 0.1)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.2)'
-              }}
-            >
-              <DotsPattern />
+            {/* 1. 보낸이 섹션 */}
+            <div style={{ width: '100%' }}>
+              <h3 className="text-lg font-bold text-white mb-3 drop-shadow-lg">ME: 보낸이</h3>
+              <div 
+                className="rounded-lg p-4" 
+                style={{ 
+                  width: '100%',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.2)'
+                }}
+              >
+              </div>
             </div>
-          </div>
 
-          {/* WE 섹션 */}
-          <div style={{ width: '100%' }}>
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-lg font-bold text-white drop-shadow-lg">WE: 방문자 (이름을 정자로 기입해주세요.)</h3>
-              <span className="text-xs text-white drop-shadow-lg">{formData.message.length}/200</span>
+            {/* 구분선 */}
+            <div className="border-t border-gray-400 border-opacity-30" style={{ width: '100%' }}></div>
+
+            {/* 2. 메시지 섹션 */}
+            <div style={{ width: '100%' }}>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-lg font-bold text-white drop-shadow-lg">메시지 (200자 이내)</h3>
+                <span className="text-xs text-white drop-shadow-lg">{formData.message.length}/200</span>
+              </div>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
+                rows={4}
+                className="w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800 placeholder-gray-600 resize-none"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  boxShadow: '0 2px 8px 0 rgba(31, 38, 135, 0.15)'
+                }}
+                placeholder="메시지를 입력해주세요"
+                required
+                maxLength={200}
+              />
             </div>
-            
-            <div className="space-y-3" style={{ width: '100%' }}>
-              <div>
-                <input
-                  type="text"
-                  name="sender"
-                  value={formData.sender}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800 placeholder-gray-600"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.2)',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255, 255, 255, 0.3)',
-                    boxShadow: '0 2px 8px 0 rgba(31, 38, 135, 0.15)'
-                  }}
-                  placeholder="보내는 사람을 입력해주세요"
-                  required
-                />
-              </div>
-              
-              <div>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  rows={4}
-                  className="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 resize-none text-sm text-gray-800 placeholder-gray-600"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.2)',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255, 255, 255, 0.3)',
-                    boxShadow: '0 2px 8px 0 rgba(31, 38, 135, 0.15)'
-                  }}
-                  placeholder="메시지를 입력해주세요"
-                  required
-                />
-              </div>
-              
-              <div>
-                <select
-                  name="receiver"
-                  value={formData.receiver}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.2)',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255, 255, 255, 0.3)',
-                    boxShadow: '0 2px 8px 0 rgba(31, 38, 135, 0.15)'
-                  }}
-                  required
-                >
-                  {teamMemberNames.map((member) => (
-                    <option key={member} value={member}>
-                      {member}
-                    </option>
-                  ))}
-                </select>
-              </div>
+
+            {/* 구분선 */}
+            <div className="border-t border-gray-400 border-opacity-30" style={{ width: '100%' }}></div>
+
+            {/* 3. 받는이 섹션 */}
+            <div style={{ width: '100%' }}>
+              <h3 className="text-lg font-bold text-white mb-3 drop-shadow-lg">WE: 받는이 (이름을 정자로 기입해주세요.)</h3>
+              <select
+                name="receiver"
+                value={formData.receiver}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  boxShadow: '0 2px 8px 0 rgba(31, 38, 135, 0.15)'
+                }}
+                required
+              >
+                {teamMemberNames.map((member) => (
+                  <option key={member} value={member}>
+                    {member}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
-        </div>
         </div>
         
         {/* 메시지 보내기 버튼 */}
