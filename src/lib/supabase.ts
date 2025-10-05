@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
+import type { TeamMember } from '@/types/teamMembers';
 
 // 환경 변수 디버깅
 console.log('Environment variables:', {
@@ -21,7 +22,7 @@ export interface GuestBookEntry {
   id: number
   sender: string
   message: string
-  receiver: string
+  receiver: TeamMember
 }
 
 // 방명록 테이블 타입
