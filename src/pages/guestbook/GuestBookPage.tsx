@@ -213,7 +213,7 @@ const GuestBookPage = () => {
             </div>
 
             {/* 구분선 */}
-            <div className="border-t border-gray-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
+            <div className="border-t border-black-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
 
               {/* 2. 메시지 섹션 */}
               <div style={{ width: '100%', flex: 1 }}>
@@ -273,12 +273,26 @@ const GuestBookPage = () => {
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
           <button
             onClick={handleSubmit}
-            className="py-3 px-8 rounded-lg font-medium transition-all duration-200 text-sm text-white hover:scale-105"
+            className="transition-all duration-200 hover:scale-105"
             style={{
-              background: 'rgba(255, 255, 255, 0.2)',
-              backdropFilter: 'blur(15px)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.3)'
+              display: 'flex',
+              padding: '15px 30px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '10px',
+              borderRadius: '40px',
+              background: 'rgba(0, 0, 0, 0.00)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+              color: 'var(--Black, #000)',
+              textAlign: 'center',
+              fontFamily: 'Pretendard',
+              fontSize: '20px',
+              fontStyle: 'normal',
+              fontWeight: '700',
+              lineHeight: '26px',
+              letterSpacing: '-0.04px'
             }}
           >
             메시지 남기기
