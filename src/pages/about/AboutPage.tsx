@@ -1,5 +1,7 @@
 import VideoSection from './components/VideoSection';
 import TextSection from './components/TextSection';
+import AboutInfoSection from "./components/AboutInfoSection";
+
 
 /**
  * About 페이지 컴포넌트
@@ -19,7 +21,11 @@ const AboutPage: React.FC = () => {
             <VideoSection />
 
             {/* 글자 + 배경 이미지 애니메이션 영역 */}
+
+            {/* 내용 영역 */}
             <TextSection />
+            <AboutInfoSection />
+
         </div>
     );
 };
