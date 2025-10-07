@@ -314,16 +314,16 @@ const AboutInfoSection: React.FC = () => {
                 <StickyFrame id="sec-7">
                     <div className="w-[1720px] mx-auto">
                         <TwoColumn title="졸업구성원" className="mb-0">
-                            <div className="grid grid-cols-2 gap-y-3 text-[20px] leading-[1.9]">
+                            <div className="text-[20px] w-[714px] leading-[2.5]">
                                 {memberLines.map((m) => (
                                     <div key={m.role} className="flex gap-6">
-                                        <span className="w-[90px] font-semibold">{m.role}</span>
+                                        <span className="w-[90px] font-bold">{m.role}</span>
                                         <span>{m.names}</span>
                                     </div>
                                 ))}
                             </div>
                         </TwoColumn>
-                        <div className="mt-[170px]">
+                        <div className="mt-10">
                             <HorizontalGallery items={teamImages} />
                         </div>
                     </div>
