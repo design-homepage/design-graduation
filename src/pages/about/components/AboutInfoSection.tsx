@@ -228,7 +228,7 @@ const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
 
 /* ---------- 메인 컴포넌트 ---------- */
 const AboutInfoSection: React.FC = () => {
-    // 네비 단계(0~8 중, 여기선 1~8만 — Video/Text용 맨위 버튼은 요구사항상 제외)
+    // 네비 단계(0~7 중, 여기선 1~7만 — Video/Text용 맨위 버튼은 요구사항상 제외)
     const steps: Step[] = useMemo(
         () => [
             { id: "sec-1", label: "ME" },
@@ -237,8 +237,7 @@ const AboutInfoSection: React.FC = () => {
             { id: "sec-4", label: "학과장 인사말" },
             { id: "sec-5", label: "지도 교수" },
             { id: "sec-6", label: "졸준위 인사말" },
-            { id: "sec-7", label: "졸업구성원 텍스트" },
-            { id: "sec-8", label: "졸업구성원 갤러리" },
+            { id: "sec-7", label: "졸업구성원" },
         ],
         []
     );
@@ -311,7 +310,7 @@ const AboutInfoSection: React.FC = () => {
                     </TwoColumn>
                 </StickyFrame>
 
-                {/* 7) 졸업 구성원 — 중앙 sticky + 가로 스크롤만 (텍스트) */}
+                {/* 7) 졸업 구성원 — 텍스트와 갤러리 함께 */}
                 <StickyFrame id="sec-7">
                     <div className="w-[1720px] mx-auto">
                         <TwoColumn title="졸업구성원" className="mb-0">
@@ -324,13 +323,9 @@ const AboutInfoSection: React.FC = () => {
                                 ))}
                             </div>
                         </TwoColumn>
-                    </div>
-                </StickyFrame>
-
-                {/* 8) 졸업 구성원 — 갤러리(가로 스크롤) */}
-                <StickyFrame id="sec-8">
-                    <div className="w-[1720px] mx-auto">
-                        <HorizontalGallery items={teamImages} />
+                        <div className="mt-[170px]">
+                            <HorizontalGallery items={teamImages} />
+                        </div>
                     </div>
                 </StickyFrame>
             </div>
