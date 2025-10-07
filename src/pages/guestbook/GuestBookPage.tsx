@@ -1,4 +1,4 @@
-import { useState, useCallback, memo } from 'react';
+import { useState, useCallback, memo, useEffect } from 'react';
 import { useGuestBook } from '@/hooks/useGuestBook';
 import type { GuestBookEntry } from '@/types/guestbook';
 import { getTeamMemberImage, teamMemberNames } from '@/types/teamMembers';
@@ -6,16 +6,18 @@ import type { TeamMember } from '@/types/teamMembers';
 
 
 // 메모이제이션된 카드 컴포넌트
-const GuestBookCard = memo(({ entry }: { entry: GuestBookEntry }) => (
-  <div className="group relative GuestBookCard" style={{ margin: '0' }}>
-    {/* 화살표 배경을 사용한 카드 */}
-    <div className="relative w-80 h-28 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105" 
-         style={{
-           backgroundImage: 'url(/guestbook/img/arrow_basic_L.png)',
-           backgroundSize: 'contain',
-           backgroundRepeat: 'no-repeat',
-           backgroundPosition: 'center'
-         }}>
+const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: GuestBookEntry, cardDimensions: { width: string, height: string }, windowWidth: number }) => (
+        <div className="group relative GuestBookCard" style={{ margin: '0' }}>
+          {/* 화살표 배경을 사용한 카드 */}
+          <div className="relative shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105" 
+               style={{
+                 width: cardDimensions.width,
+                 height: cardDimensions.height,
+                 backgroundImage: 'url(/guestbook/img/arrow_basic_L.png)',
+                 backgroundSize: 'contain',
+                 backgroundRepeat: 'no-repeat',
+                 backgroundPosition: 'center'
+               }}>
       
       {/* 투명한 네모박스 (형태 잡기용) */}
       <div className="absolute inset-0 rounded-lg" 
@@ -26,12 +28,20 @@ const GuestBookCard = memo(({ entry }: { entry: GuestBookEntry }) => (
              boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
            }}>
         
-        {/* 왼쪽 화살표 영역 */}
-        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 w-16 h-16 flex items-center justify-center">
-          <img 
-            src={getTeamMemberImage(entry.receiver)} 
-            alt={entry.receiver}
-            className="w-12 h-12 object-contain"
+            {/* 왼쪽 화살표 영역 */}
+            <div className="absolute left-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center" 
+                 style={{ 
+                   width: windowWidth >= 600 ? '48px' : '32px', 
+                   height: windowWidth >= 600 ? '48px' : '32px' 
+                 }}>
+              <img 
+                src={getTeamMemberImage(entry.receiver)} 
+                alt={entry.receiver}
+                className="object-contain"
+                style={{ 
+                  width: windowWidth >= 600 ? '36px' : '24px', 
+                  height: windowWidth >= 600 ? '36px' : '24px' 
+                }}
             onLoad={() => {
               console.log('이미지 로드 성공:', getTeamMemberImage(entry.receiver));
             }}
@@ -51,18 +61,29 @@ const GuestBookCard = memo(({ entry }: { entry: GuestBookEntry }) => (
           </div>
         </div>
 
-        {/* 메시지 내용 영역 */}
-        <div className="ml-20 pr-4 pl-4 h-full flex flex-col justify-center py-4">
+            {/* 메시지 내용 영역 */}
+            <div className="h-full flex flex-col justify-center py-2" 
+                 style={{ 
+                   marginLeft: windowWidth >= 600 ? '60px' : '40px',
+                   paddingRight: windowWidth >= 600 ? '16px' : '8px',
+                   paddingLeft: windowWidth >= 600 ? '16px' : '8px'
+                 }}>
           {/* 메시지 텍스트 */}
           <div className="flex-1">
-            <p className="text-gray-800 text-sm leading-relaxed line-clamp-3">
+            <p className="text-gray-800 leading-relaxed line-clamp-3"
+               style={{ 
+                 fontSize: windowWidth >= 600 ? '14px' : '12px'
+               }}>
               {entry.message}
             </p>
           </div>
           
           {/* 하단: 보내는 사람 */}
           <div className="mt-2 pt-2 border-t border-gray-300 border-opacity-30">
-            <p className="text-right text-xs text-gray-600 font-medium">
+            <p className="text-right text-gray-600 font-medium"
+               style={{ 
+                 fontSize: windowWidth >= 600 ? '12px' : '10px'
+               }}>
               - {entry.sender}
             </p>
           </div>
@@ -75,6 +96,132 @@ const GuestBookCard = memo(({ entry }: { entry: GuestBookEntry }) => (
 const GuestBookPage = () => {
   // Supabase에서 방명록 데이터 가져오기
   const { entries, loading, error, addEntry, refetch } = useGuestBook();
+  
+  // 반응형을 위한 상태
+  const [windowWidth, setWindowWidth] = useState(0);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    
+    handleResize(); // 초기값 설정
+    window.addEventListener('resize', handleResize);
+    
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  // 반응형 스타일 계산
+  const getResponsiveStyles = () => {
+    if (windowWidth >= 1350) {
+      return {
+        containerWidth: '828px',
+        containerHeight: '521px',
+        cardWidth: '320px',
+        cardHeight: '112px',
+        padding: '47px 41px',
+        // Web 사이즈 폰트 스타일
+        labelFontSize: '24px',
+        labelFontWeight: '700',
+        labelLineHeight: '32px',
+        labelLetterSpacing: '-0.048px',
+        inputFontSize: '20px',
+        inputFontWeight: '400',
+        inputLineHeight: '26px',
+        inputLetterSpacing: '-0.04px',
+        buttonFontSize: '20px',
+        buttonFontWeight: '700',
+        buttonLineHeight: '26px',
+        buttonLetterSpacing: '-0.04px'
+      };
+    } else if (windowWidth >= 1020) {
+      return {
+        containerWidth: '828px',
+        containerHeight: '521px',
+        cardWidth: '280px',
+        cardHeight: '100px',
+        padding: '47px 41px',
+        // Web>Tab 사이즈 폰트 스타일
+        labelFontSize: '24px',
+        labelFontWeight: '700',
+        labelLineHeight: '32px',
+        labelLetterSpacing: '-0.048px',
+        inputFontSize: '20px',
+        inputFontWeight: '400',
+        inputLineHeight: '26px',
+        inputLetterSpacing: '-0.04px',
+        buttonFontSize: '20px',
+        buttonFontWeight: '700',
+        buttonLineHeight: '26px',
+        buttonLetterSpacing: '-0.04px'
+      };
+    } else if (windowWidth >= 600) {
+      return {
+        containerWidth: 'stretch',
+        containerHeight: '521px',
+        cardWidth: '200px',
+        cardHeight: '80px',
+        padding: '47px 41px',
+        // Tab 사이즈 폰트 스타일
+        labelFontSize: '24px',
+        labelFontWeight: '700',
+        labelLineHeight: '32px',
+        labelLetterSpacing: '-0.048px',
+        inputFontSize: '20px',
+        inputFontWeight: '400',
+        inputLineHeight: '26px',
+        inputLetterSpacing: '-0.04px',
+        buttonFontSize: '20px',
+        buttonFontWeight: '700',
+        buttonLineHeight: '26px',
+        buttonLetterSpacing: '-0.04px'
+      };
+    } else if (windowWidth >= 400) {
+      return {
+        containerWidth: 'stretch',
+        containerHeight: '521px',
+        cardWidth: '160px',
+        cardHeight: '70px',
+        padding: '47px 41px',
+        // Tab>Mobile 사이즈 폰트 스타일
+        labelFontSize: '24px',
+        labelFontWeight: '700',
+        labelLineHeight: '32px',
+        labelLetterSpacing: '-0.048px',
+        inputFontSize: '20px',
+        inputFontWeight: '400',
+        inputLineHeight: '26px',
+        inputLetterSpacing: '-0.04px',
+        buttonFontSize: '16px',
+        buttonFontWeight: '700',
+        buttonLineHeight: '24px',
+        buttonLetterSpacing: '-0.032px'
+      };
+    } else {
+      return {
+        containerWidth: 'stretch',
+        containerHeight: 'auto',
+        cardWidth: '140px',
+        cardHeight: '60px',
+        padding: '0 30px',
+        // Mobile 사이즈 폰트 스타일
+        labelFontSize: '14px',
+        labelFontWeight: '700',
+        labelLineHeight: '18px',
+        labelLetterSpacing: '-0.028px',
+        inputFontSize: '14px',
+        inputFontWeight: '400',
+        inputLineHeight: '18px',
+        inputLetterSpacing: '-0.028px',
+        buttonFontSize: '14px',
+        buttonFontWeight: '700',
+        buttonLineHeight: '18px',
+        buttonLetterSpacing: '-0.028px'
+      };
+    }
+  };
+  
+  const responsiveStyles = getResponsiveStyles();
   
   // 데이터를 5개씩 그룹으로 나누기
   const chunkArray = (array: any[], chunkSize: number) => {
@@ -92,6 +239,23 @@ const GuestBookPage = () => {
     message: '',
     receiver: '강유진' as TeamMember
   });
+  
+  // 반응형 카드 크기 계산
+  const getCardDimensions = () => {
+    if (windowWidth >= 1350) {
+      return { width: '320px', height: '112px' };
+    } else if (windowWidth >= 1020) {
+      return { width: '280px', height: '100px' };
+    } else if (windowWidth >= 600) {
+      return { width: '200px', height: '80px' };
+    } else if (windowWidth >= 400) {
+      return { width: '160px', height: '70px' };
+    } else {
+      return { width: '140px', height: '60px' };
+    }
+  };
+  
+  const cardDimensions = getCardDimensions();
 
 
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -197,9 +361,9 @@ const GuestBookPage = () => {
             className="glassmorphism-container" 
             style={{ 
               display: 'flex',
-              width: '828px',
-              height: '521px',
-              padding: '30px 41px',
+              width: responsiveStyles.containerWidth,
+              height: responsiveStyles.containerHeight,
+              padding: responsiveStyles.padding,
               flexDirection: 'column',
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -214,17 +378,30 @@ const GuestBookPage = () => {
             {/* 1. 보낸이 섹션 */}
             <div style={{ width: '100%' }}>
               <div className="flex items-center gap-4">
-                <h3 className="text-lg font-bold text-black drop-shadow-lg">ME:</h3>
+                <h3 className="text-black drop-shadow-lg"
+                    style={{
+                      fontFamily: 'Pretendard',
+                      fontSize: responsiveStyles.labelFontSize || '24px',
+                      fontWeight: responsiveStyles.labelFontWeight || '700',
+                      lineHeight: responsiveStyles.labelLineHeight || '32px',
+                      letterSpacing: responsiveStyles.labelLetterSpacing || '-0.048px'
+                    }}>ME:</h3>
                 <input
                   type="text"
                   name="sender"
                   value={formData.sender}
                   onChange={handleInputChange}
-                  className="px-3 py-2 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800 placeholder-gray-600"
+                  className="px-3 py-2 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-gray-800 placeholder-gray-600"
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    backdropFilter: 'none'
+                    backdropFilter: 'none',
+                    fontFamily: 'Pretendard',
+                    fontSize: responsiveStyles.inputFontSize || '20px',
+                    fontWeight: responsiveStyles.inputFontWeight || '400',
+                    lineHeight: responsiveStyles.inputLineHeight || '26px',
+                    letterSpacing: responsiveStyles.inputLetterSpacing || '-0.04px',
+                    color: '#666'
                   }}
                   placeholder="보낸이"
                   required
@@ -265,16 +442,29 @@ const GuestBookPage = () => {
             {/* 3. 받는이 섹션 */}
             <div style={{ width: '100%' }}>
               <div className="flex items-center gap-4">
-                <h3 className="text-lg font-bold text-black drop-shadow-lg">WE:</h3>
+                <h3 className="text-black drop-shadow-lg"
+                    style={{
+                      fontFamily: 'Pretendard',
+                      fontSize: responsiveStyles.labelFontSize || '24px',
+                      fontWeight: responsiveStyles.labelFontWeight || '700',
+                      lineHeight: responsiveStyles.labelLineHeight || '32px',
+                      letterSpacing: responsiveStyles.labelLetterSpacing || '-0.048px'
+                    }}>WE:</h3>
                 <select
                   name="receiver"
                   value={formData.receiver}
                   onChange={handleInputChange}
-                  className="px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800"
+                  className="px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-gray-800"
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    backdropFilter: 'none'
+                    backdropFilter: 'none',
+                    fontFamily: 'Pretendard',
+                    fontSize: responsiveStyles.inputFontSize || '20px',
+                    fontWeight: responsiveStyles.inputFontWeight || '400',
+                    lineHeight: responsiveStyles.inputLineHeight || '26px',
+                    letterSpacing: responsiveStyles.inputLetterSpacing || '-0.04px',
+                    color: '#666'
                   }}
                   required
                 >
@@ -308,11 +498,11 @@ const GuestBookPage = () => {
               color: 'var(--Black, #000)',
               textAlign: 'center',
               fontFamily: 'Pretendard',
-              fontSize: '20px',
+              fontSize: responsiveStyles.buttonFontSize || '20px',
               fontStyle: 'normal',
-              fontWeight: '700',
-              lineHeight: '26px',
-              letterSpacing: '-0.04px'
+              fontWeight: responsiveStyles.buttonFontWeight || '700',
+              lineHeight: responsiveStyles.buttonLineHeight || '26px',
+              letterSpacing: responsiveStyles.buttonLetterSpacing || '-0.04px'
             }}
           >
             메시지 남기기
@@ -354,7 +544,7 @@ const GuestBookPage = () => {
               className="infinite-scroll-track"
               style={{
                 display: 'flex',
-                width: `${entryChunks.length * 2 * 400}px`, // 동적 너비 계산
+                width: `${entryChunks.length * 2 * parseInt(cardDimensions.width)}px`, // 동적 너비 계산
                 height: '100%',
                 animation: `scroll-left ${entryChunks.length * 10}s linear infinite`,
                 animationPlayState: 'var(--animation-play-state, running)'
@@ -363,12 +553,12 @@ const GuestBookPage = () => {
               {/* 첫 번째 세트 */}
               <div className="scroll-section" style={{ display: 'flex', height: '100%', padding: '10px' }}>
                 {entryChunks.map((chunk, chunkIndex) => (
-                  <div key={`first-chunk-${chunkIndex}`} style={{ width: '400px', height: '100%', marginRight: '0' }}>
-                    <div className="grid grid-cols-1 h-full" style={{ gridTemplateRows: 'repeat(5, 1fr)', gap: '0' }}>
-                      {chunk.map((entry) => (
-                        <GuestBookCard key={`first-${entry.id}`} entry={entry} />
-                      ))}
-                    </div>
+                  <div key={`first-chunk-${chunkIndex}`} style={{ width: cardDimensions.width, height: '100%', marginRight: '0' }}>
+                <div className="grid grid-cols-1 h-full" style={{ gridTemplateRows: 'repeat(5, 1fr)', gap: '0' }}>
+                  {chunk.map((entry) => (
+                    <GuestBookCard key={`first-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                  ))}
+                </div>
                   </div>
                 ))}
               </div>
@@ -376,12 +566,12 @@ const GuestBookPage = () => {
               {/* 두 번째 세트 (중복) */}
               <div className="scroll-section" style={{ display: 'flex', height: '100%', padding: '10px' }}>
                 {entryChunks.map((chunk, chunkIndex) => (
-                  <div key={`second-chunk-${chunkIndex}`} style={{ width: '400px', height: '100%', marginRight: '0' }}>
-                    <div className="grid grid-cols-1 h-full" style={{ gridTemplateRows: 'repeat(5, 1fr)', gap: '0' }}>
-                      {chunk.map((entry) => (
-                        <GuestBookCard key={`second-${entry.id}`} entry={entry} />
-                      ))}
-                    </div>
+                  <div key={`second-chunk-${chunkIndex}`} style={{ width: cardDimensions.width, height: '100%', marginRight: '0' }}>
+                <div className="grid grid-cols-1 h-full" style={{ gridTemplateRows: 'repeat(5, 1fr)', gap: '0' }}>
+                  {chunk.map((entry) => (
+                    <GuestBookCard key={`second-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                  ))}
+                </div>
                   </div>
                 ))}
               </div>
