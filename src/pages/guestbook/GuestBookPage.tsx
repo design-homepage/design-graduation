@@ -444,30 +444,99 @@ const GuestBookPage = () => {
         style={{ height: 'calc(100vh - 64px)' }}
       >
         {/* 메시지 컨텐츠 */}
-        <div className="relative z-10 max-w-7xl mx-auto px-8 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto text-center"
+             style={windowWidth <= 768 ? {
+               display: 'flex',
+               width: '400px',
+               padding: '0 40px',
+               flexDirection: 'column',
+               alignItems: 'center',
+               gap: '70px'
+             } : { padding: '0 2rem' }}>
           {/* 한글 텍스트 */}
-          <div className="space-y-8 mb-12">
-            <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl text-black font-bold text-center leading-relaxed" style={{ letterSpacing: '-0.064px' }}>
+          <div className={windowWidth <= 768 ? "space-y-2" : "space-y-8 mb-12"}>
+            <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl text-black font-bold text-center leading-relaxed" 
+               style={windowWidth <= 768 ? {
+                 color: 'var(--Black, #000)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '14px',
+                 fontStyle: 'normal',
+                 fontWeight: '700',
+                 lineHeight: '18px',
+                 letterSpacing: '-0.028px'
+               } : { letterSpacing: '-0.064px' }}>
+              {windowWidth <= 768 ? (
+                <>
+                  작은 불꽃이 큰 등불이 되는 시대,<br/>
+                  무하마드 알리가 던진 단 두 음절 "ME, WE"는
+                  반세기 만에<br/>우리 사회의 운영 원리로 떠올랐습니다.
+                </>
+              ) : (
+                <>
               작은 불꽃이 큰 등불이 되는 시대,<br/>
-              <span className="whitespace-nowrap">무하마드 알리가 던진 단 두 음절 <span className="font-bold">"ME, WE"</span>는 반세기 만에 우리 사회의 운영 원리로 떠올랐습니다.</span>
+                  <span className="whitespace-nowrap">무하마드 알리가 던진 단 두 음절 "ME, WE"는 반세기 만에 우리 사회의 운영 원리로 떠올랐습니다.</span>
+                </>
+              )}
             </p>
-            <br/><br/>
-            <p className="text-xl md:text-2xl lg:text-3xl xl:text-3xl text-black font-bold text-center leading-relaxed mt-12" style={{ letterSpacing: '-0.064px' }}>
+            {windowWidth <= 768 ? null : <><br/><br/></>}
+            <p className={windowWidth <= 768 ? "text-black font-bold text-center" : "text-xl md:text-2xl lg:text-3xl xl:text-3xl text-black font-bold text-center leading-relaxed mt-12"}
+               style={windowWidth <= 768 ? {
+                 color: 'var(--Black, #000)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '14px',
+                 fontStyle: 'normal',
+                 fontWeight: '700',
+                 lineHeight: '18px',
+                 letterSpacing: '-0.028px',
+                 marginTop: '8px'
+               } : { letterSpacing: '-0.064px' }}>
               당신이 전하는 응원의 메세지로<br/>
               또 다른 누군가에게 <span className="font-bold">'우리'</span>를 밝혀줄 불빛이 되어주세요.
             </p>
           </div>
 
           {/* 영문 텍스트 */}
-          <div className="space-y-6 mt-16">
-            <p className="text-lg md:text-xl text-blue-100 italic leading-relaxed">
+          <div className={windowWidth <= 768 ? "space-y-2" : "space-y-6 mt-16"}>
+            <p className="text-lg md:text-xl text-blue-100 italic leading-relaxed"
+               style={windowWidth <= 768 ? {
+                 color: 'var(--60, #666)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '14px',
+                 fontStyle: 'normal',
+                 fontWeight: '300',
+                 lineHeight: '18px',
+                 letterSpacing: '-0.028px'
+               } : {}}>
               In an age where small sparks can become powerful lights,
             </p>
-            <p className="text-lg md:text-xl text-blue-100 italic leading-relaxed">
-              Muhammad Ali's simple two-syllable motto, <span className="font-semibold text-yellow-200">"ME, WE,"</span> has emerged as the guiding principle of our society in half a century.
+            <p className="text-lg md:text-xl text-blue-100 italic leading-relaxed"
+               style={windowWidth <= 768 ? {
+                 color: 'var(--60, #666)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '14px',
+                 fontStyle: 'normal',
+                 fontWeight: '300',
+                 lineHeight: '18px',
+                 letterSpacing: '-0.028px'
+               } : {}}>
+              Muhammad Ali's simple two-syllable motto, "ME, WE," has emerged as the guiding principle of our society in half a century.
             </p>
-            <p className="text-lg md:text-xl text-blue-100 italic leading-relaxed mt-8">
-              With your message of encouragement, become a beacon of light that illuminates <span className="font-semibold text-yellow-200">"us"</span> for someone else.
+            <p className="text-lg md:text-xl text-blue-100 italic leading-relaxed mt-8"
+               style={windowWidth <= 768 ? {
+                 color: 'var(--60, #666)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '14px',
+                 fontStyle: 'normal',
+                 fontWeight: '300',
+                 lineHeight: '18px',
+                 letterSpacing: '-0.028px'
+               } : {}}>
+              With your message of encouragement, become a beacon of light that illuminates "us" for someone else.
             </p>
           </div>
         </div>
@@ -478,10 +547,35 @@ const GuestBookPage = () => {
         className="relative snap-start z-10" 
         style={{ height: 'calc(100vh - 64px)' }}
       >
-        <div className="flex items-center justify-center h-full">
+        <div className={windowWidth <= 768 ? "flex items-center justify-center" : "flex items-center justify-center h-full"}
+             style={windowWidth <= 768 ? {
+               display: 'flex',
+               width: '400px',
+               flexDirection: 'column',
+               alignItems: 'center',
+               gap: '5px',
+               margin: '0 auto',
+               height: 'auto',
+               paddingTop: '140px',
+               paddingBottom: '70px'
+             } : {}}>
+          {/* 글래스모피즘 컨테이너 */}
           <div 
             className="glassmorphism-container" 
-            style={{
+            style={windowWidth <= 768 ? {
+              display: 'flex',
+              width: '350px',
+              height: '440px',
+              padding: '20px 30px 0 30px',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              borderRadius: '20px',
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
+            } : {
               display: 'flex',
               width: responsiveStyles.containerWidth,
               height: responsiveStyles.containerHeight,
@@ -497,9 +591,24 @@ const GuestBookPage = () => {
               boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
             }}
           >
+            {/* 텍스트 입력 영역 */}
+            <div style={windowWidth <= 768 ? {
+              display: 'flex',
+              width: '290px',
+              height: '100%',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              paddingBottom: '10px'
+            } : { width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             {/* 1. 보낸이 섹션 */}
-          <div style={{ width: '100%' }}>
-              <div className="flex items-center gap-4">
+          <div style={windowWidth <= 768 ? {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            gap: '7px',
+            alignSelf: 'stretch'
+          } : { width: '100%' }}>
+              <div className="flex items-center gap-4" style={{ width: '100%' }}>
                 <h3 className="text-black drop-shadow-lg"
                     style={{
                       fontFamily: 'Pretendard',
@@ -532,10 +641,18 @@ const GuestBookPage = () => {
             </div>
 
             {/* 구분선 */}
-            <div className="border-t border-black-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
+            <div className="border-t border-black-400 border-opacity-30" style={windowWidth <= 768 ? { width: '100%', margin: '5px 0' } : { width: '100%', margin: '10px 0' }}></div>
               
               {/* 2. 메시지 섹션 */}
-              <div style={{ width: '100%', flex: 1 }}>
+              <div style={windowWidth <= 768 ? {
+                display: 'flex',
+                padding: '15px 0',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                flex: '1 0 0',
+                alignSelf: 'stretch',
+                position: 'relative'
+              } : { width: '100%', flex: 1, position: 'relative' }}>
                 <textarea
                   name="message"
                   value={formData.message}
@@ -547,23 +664,35 @@ const GuestBookPage = () => {
                     border: 'none',
                     backdropFilter: 'none',
                     height: '100%',
-                    minHeight: '200px'
+                    minHeight: '200px',
+                    paddingBottom: '30px'
                   }}
                   placeholder="메시지를 입력해주세요"
                   required
                   maxLength={200}
                 />
-                <div className="flex justify-end mt-2">
+                <div style={{ 
+                  position: 'absolute', 
+                  bottom: windowWidth <= 768 ? '30px' : '10px', 
+                  right: '0',
+                  paddingRight: '4px'
+                }}>
                   <span className="text-xs text-black drop-shadow-lg">{formData.message.length}/200</span>
                 </div>
               </div>
               
             {/* 구분선 */}
-            <div className="border-t border-gray-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
+            <div className="border-t border-gray-400 border-opacity-30" style={windowWidth <= 768 ? { width: '100%', margin: '5px 0' } : { width: '100%', margin: '10px 0' }}></div>
 
             {/* 3. 받는이 섹션 */}
-            <div style={{ width: '100%' }}>
-              <div className="flex items-center gap-4">
+            <div style={windowWidth <= 768 ? {
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: '7px',
+              alignSelf: 'stretch'
+            } : { width: '100%' }}>
+              <div className="flex items-center gap-4" style={{ width: '100%' }}>
                 <h3 className="text-black drop-shadow-lg"
                     style={{
                       fontFamily: 'Pretendard',
@@ -596,13 +725,20 @@ const GuestBookPage = () => {
                     </option>
                   ))}
                 </select>
+              </div>
             </div>
           </div>
         </div>
         </div>
         
         {/* 메시지 보내기 버튼 */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+        <div className={windowWidth <= 768 ? "" : "absolute bottom-8 left-1/2 transform -translate-x-1/2"}
+             style={windowWidth <= 768 ? {
+               display: 'flex',
+               justifyContent: 'center',
+               alignItems: 'center',
+               width: '100%'
+             } : {}}>
           <button
             onClick={handleSubmit}
             className="transition-all duration-200 hover:scale-105"
@@ -632,75 +768,109 @@ const GuestBookPage = () => {
         </div>
       </div>
 
-      {/* 세 번째 섹션: 방명록 목록 - 무한 스크롤 */}
+      {/* 세 번째 섹션: 방명록 목록 */}
       <div className="py-16 snap-start relative z-10" style={{ minHeight: 'calc(100vh - 64px)', overflow: 'hidden', overflowY: 'auto' }}>
         <div className="relative w-full" style={{ minHeight: 'calc(100vh - 64px - 128px)' }}>
-          {/* 무한 스크롤 컨테이너 (Swiper 스타일) */}
-          <div 
-            className="infinite-scroll-container swiper-wrapper"
-            style={{
+          {/* Mobile에서는 정적 레이아웃, 그 외에는 무한 스크롤 */}
+          {windowWidth <= 768 ? (
+            // Mobile: 정적 레이아웃 (무한 스크롤 없음)
+            <div className="mobile-static-layout" style={{
               width: '100%',
               minHeight: 'calc(100vh - 64px - 128px)',
               position: 'relative',
-              overflow: 'hidden'
-            }}
-            onMouseEnter={(e) => {
-              // 마우스 진입 시 애니메이션 일시정지
-              const container = e.currentTarget;
-              const track = container.querySelector('.infinite-scroll-track') as HTMLElement;
-              if (track) {
-                track.style.animationPlayState = 'paused';
-              }
-            }}
-            onMouseLeave={(e) => {
-              // 마우스 벗어날 시 애니메이션 재생
-              const container = e.currentTarget;
-              const track = container.querySelector('.infinite-scroll-track') as HTMLElement;
-              if (track) {
-                track.style.animationPlayState = 'running';
-              }
-            }}
-          >
-            {/* 무한 스크롤 트랙 */}
-            <div 
-              className="infinite-scroll-track"
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: `${Math.max(...distributedRows.map(row => row.length)) * 2 * 400 + window.innerWidth}px`,
-                height: '100%',
-                animationName: 'scroll-from-right',
-                animationDuration: `${Math.max(...distributedRows.map(row => row.length)) * 8}s`,
-                animationTimingFunction: 'linear',
-                animationIterationCount: 'infinite',
-                animationPlayState: 'running'
-              }}
-            >
-              {/* 첫 번째 세트 - 5개 행 */}
-              <div className="scroll-section" style={{ 
+              overflow: 'hidden',
+              padding: '15px'
+            }}>
+              <div style={{ 
                 display: 'flex', 
                 flexDirection: 'column',
                 height: '100%', 
-                padding: '15px', 
-                gap: '40px',
-                justifyContent: 'space-around'
+                gap: '20px',
+                justifyContent: 'flex-start'
               }}>
                 {distributedRows.map((row, rowIndex) => (
-                  <div key={`first-row-${rowIndex}`} style={{ 
+                  <div key={`mobile-row-${rowIndex}`} style={{ 
                     display: 'flex', 
-                    gap: '50px', 
+                    gap: '20px', 
                     alignItems: 'center',
-                    minHeight: `${100 / 5}%`
+                    flexWrap: 'wrap',
+                    justifyContent: 'center'
                   }}>
                     {row.map((entry) => (
-                      <GuestBookCard key={`first-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                      <GuestBookCard key={`mobile-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
                     ))}
                   </div>
                 ))}
+              </div>
+                        </div>
+          ) : (
+            // Desktop/Tablet: 무한 스크롤 적용
+            <div 
+              className="infinite-scroll-container swiper-wrapper"
+              style={{
+                width: '100%',
+                minHeight: 'calc(100vh - 64px - 128px)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+              onMouseEnter={(e) => {
+                // 마우스 진입 시 애니메이션 일시정지
+                const container = e.currentTarget;
+                const track = container.querySelector('.infinite-scroll-track') as HTMLElement;
+                if (track) {
+                  track.style.animationPlayState = 'paused';
+                }
+              }}
+              onMouseLeave={(e) => {
+                // 마우스 벗어날 시 애니메이션 재생
+                const container = e.currentTarget;
+                const track = container.querySelector('.infinite-scroll-track') as HTMLElement;
+                if (track) {
+                  track.style.animationPlayState = 'running';
+                }
+              }}
+            >
+              {/* 무한 스크롤 트랙 */}
+              <div 
+                className="infinite-scroll-track"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: `${Math.max(...distributedRows.map(row => row.length)) * 2 * 400 + window.innerWidth}px`,
+                  height: '100%',
+                  animationName: 'scroll-from-right',
+                  animationDuration: `${Math.max(...distributedRows.map(row => row.length)) * 8}s`,
+                  animationTimingFunction: 'linear',
+                  animationIterationCount: 'infinite',
+                  animationPlayState: 'running'
+                }}
+              >
+                {/* 첫 번째 세트 - 5개 행 */}
+                <div className="scroll-section" style={{ 
+                  display: 'flex', 
+                  flexDirection: 'column',
+                  height: '100%', 
+                  padding: '15px', 
+                  gap: '40px',
+                  justifyContent: 'space-around'
+                }}>
+                  {distributedRows.map((row, rowIndex) => (
+                    <div key={`first-row-${rowIndex}`} style={{ 
+                      display: 'flex', 
+                      gap: '50px', 
+                      alignItems: 'center',
+                      minHeight: `${100 / 5}%`
+                    }}>
+                      {row.map((entry) => (
+                        <GuestBookCard key={`first-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                      ))}
+                    </div>
+                  ))}
                 </div>
-                
                   </div>
                 </div>
+          )}
+        </div>
 
           {/* 로딩 및 에러 상태 */}
           {loading && (
@@ -713,7 +883,7 @@ const GuestBookPage = () => {
             <div className="absolute inset-0 flex flex-col justify-center items-center bg-white bg-opacity-80">
               <p className="text-red-500 mb-4">오류가 발생했습니다: {error}</p>
               <button 
-                onClick={refetch}
+                onClick={() => refetch()}
                 className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
               >
                 다시 시도
@@ -727,7 +897,6 @@ const GuestBookPage = () => {
               <p className="text-gray-400">첫 번째 메시지를 남겨보세요!</p>
           </div>
           )}
-        </div>
       </div>
       </div>
     </div>
