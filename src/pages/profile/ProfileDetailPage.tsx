@@ -16,9 +16,18 @@ const ProfileDetailPage = () => {
 
   return (
     <div className="flex flex-col px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] gap-15 sm:gap-[100px] md:gap-[140px] lg:gap-[200px] xl:gap-[350px]">
-      <ProfileDesignerSection profileData={profileData} />
+      <ProfileDesignerSection
+        name={profileData.name}
+        englishName={profileData.englishName}
+        email={profileData.email}
+        instagram={profileData.instagram}
+        behance={profileData.link}
+        intro={profileData.intro}
+        imageUrl={profileData.profileDetailUrl}
+        arrowUrl={profileData.arrowUrl}
+      />
       <div className="flex flex-col gap-15 sm:gap-[70px] md:gap-[50px] lg:gap-[120px] xl:gap-[100px]">
-        <ProfileInterviewSection profileData={profileData} />
+        <ProfileInterviewSection q1={profileData.q1} q2={profileData.q2} />
         <ProfileWorkSection profileData={profileData} />
       </div>
     </div>
