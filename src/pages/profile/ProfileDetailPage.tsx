@@ -15,7 +15,7 @@ const ProfileDetailPage = () => {
   }
 
   return (
-    <div className="flex flex-col px-[10px] gap-15">
+    <div className="flex flex-col px-[10px] sm:px-[20px] gap-15 sm:gap-[100px]">
       <ProfileDesignerSection profileData={profileData} />
       <ProfileInterviewSection profileData={profileData} />
       <ProfileWorkSection profileData={profileData} />

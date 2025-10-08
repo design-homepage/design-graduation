@@ -1,3 +1,5 @@
+import { ProfileSectionContainer } from './ProfileSectionContainer';
+
 type ProfileDesignerSectionProps = {
   profileData: {
     profileDetailUrl: string;
@@ -8,17 +10,21 @@ type ProfileDesignerSectionProps = {
 
 export const ProfileDesignerSection = ({ profileData }: ProfileDesignerSectionProps) => {
   return (
-    <div className="flex flex-col">
-      <p className="text-base font-bold text-primary border-b border-primary">DESIGNER</p>
+    <ProfileSectionContainer title="DESIGNER">
       <div className="flex">
-        <div className="flex items-center w-[calc(100%-246px)]">
+        <div className="flex items-start pt-[25px] w-[calc(100%-246px)] sm:w-[calc(100%-410px)]">
           <img src={profileData.profileDetailUrl} alt="Profile" className="object-cover" />
         </div>
+        <div className="absolute mx-[calc(100%-246px)] sm:mx-[calc(100%-410px)] w-[246px] sm:w-[410px]">
+          <img
+            src={profileData.arrowUrl}
+            alt="Arrow"
+            className="w-[246px] sm:w-[410px] h-[246px] sm:h-[410px] opacity-20"
+          />
+        </div>
         <div className="relative">
-          <img src={profileData.arrowUrl} alt="Arrow" className="w-[246px] h-[246px] opacity-20" />
-
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="pt-[35px] flex flex-col gap-5">
+          <div className="absolute inset-0 flex items-start pl-[25px]">
+            <div className="flex flex-col gap-5 pt-[50px]">
               <div className="text-primary">
                 <div className="text-2xl font-bold border-b border-primary">{profileData.name}</div>
                 <div className="text-base font-bold border-b border-primary">Park Soyeon</div>
@@ -45,6 +51,6 @@ export const ProfileDesignerSection = ({ profileData }: ProfileDesignerSectionPr
         확장시키고 증폭시키는 에너지가 될 수 있다는 믿음에서 출발합니다. 나를 통해 우리가 되고, 우리
         안에서 나를 본 이야기를 통해 모두 함께 새로운 에너지를 일으켜 보세요. 가ㅏㅏㅏ ME:WE
       </div>
-    </div>
+    </ProfileSectionContainer>
   );
 };

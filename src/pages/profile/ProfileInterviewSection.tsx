@@ -1,3 +1,5 @@
+import { ProfileSectionContainer } from './ProfileSectionContainer';
+
 type ProfileInterviewSectionProps = {
   profileData: {
     profileDetailUrl: string;
@@ -8,8 +10,7 @@ type ProfileInterviewSectionProps = {
 
 export const ProfileInterviewSection = ({ profileData }: ProfileInterviewSectionProps) => {
   return (
-    <div className="flex flex-col gap-7">
-      <p className="text-base font-bold text-primary border-b border-primary">INTERVIEW</p>
+    <ProfileSectionContainer title="INTERVIEW">
       <div className="flex flex-col gap-2">
         <p className="text-sm font-bold text-primary border-b border-primary">
           Q. 자신만의 ME:WE 이야기가 있을까요?
@@ -32,6 +33,6 @@ export const ProfileInterviewSection = ({ profileData }: ProfileInterviewSection
           가ㅏㅏㅏ디자이너 소개) ME:WE는 개인의 개별성이 서로를 밀어내는 것이 아니라, 우리의 정
         </p>
       </div>
-    </div>
+    </ProfileSectionContainer>
   );
 };

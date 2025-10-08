@@ -1,3 +1,4 @@
+import { ProfileSectionContainer } from './ProfileSectionContainer';
 import WorkImage from '/work/work_image.png';
 
 type ProfileWorkSectionProps = {
@@ -10,9 +11,8 @@ type ProfileWorkSectionProps = {
 
 export const ProfileWorkSection = ({ profileData }: ProfileWorkSectionProps) => {
   return (
-    <div className="flex flex-col">
-      <p className="text-base font-bold text-primary border-b border-primary">WORK</p>
+    <ProfileSectionContainer title="WORK">
       <img src={WorkImage} alt="Work" className="object-cover" />
-    </div>
+    </ProfileSectionContainer>
   );
 };

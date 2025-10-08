@@ -4,3 +4,4 @@ export * from './ProfileCard';
 export * from './ProfileDesignerSection';
 export * from './ProfileInterviewSection';
 export * from './ProfileWorkSection';
+export * from './ProfileSectionContainer';
