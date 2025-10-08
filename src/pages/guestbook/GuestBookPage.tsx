@@ -3,44 +3,73 @@ import { useGuestBook } from '@/hooks/useGuestBook';
 import type { GuestBookEntry } from '@/types/guestbook';
 import { getTeamMemberImage, teamMemberNames } from '@/types/teamMembers';
 import type { TeamMember } from '@/types/teamMembers';
+import arrowBasicL from './img/arrow_basic_L.png';
+import arrowBasicS from './img/arrow_basic_S.png';
 
 
 // 메모이제이션된 카드 컴포넌트
-const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: GuestBookEntry, cardDimensions: { width: string, height: string }, windowWidth: number }) => (
-        <div className="group relative GuestBookCard" style={{ margin: '0' }}>
-          {/* 화살표 배경을 사용한 카드 */}
-          <div className="relative shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105" 
-               style={{
-                 width: cardDimensions.width,
-                 height: cardDimensions.height,
-                 backgroundImage: 'url(/guestbook/img/arrow_basic_L.png)',
-                 backgroundSize: 'contain',
-                 backgroundRepeat: 'no-repeat',
-                 backgroundPosition: 'center'
-               }}>
-      
-      {/* 투명한 네모박스 (형태 잡기용) */}
-      <div className="absolute inset-0 rounded-lg" 
+const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: GuestBookEntry, cardDimensions: { width: string, height: string }, windowWidth: number }) => {
+  // 메시지 길이에 따라 배경 이미지 선택
+  const getBackgroundImage = () => {
+    const messageLength = entry.message.length;
+    if (messageLength >= 98) {
+      return arrowBasicL; // 98-200자: L 이미지
+    } else {
+      return arrowBasicS; // 1-97자: S 이미지
+    }
+  };
+
+  // 카드 컨테이너 크기 설정
+  const getCardSize = () => {
+    const messageLength = entry.message.length;
+    if (messageLength >= 98) {
+      return { width: '548px', height: '230px' }; // L 카드 크기
+    } else {
+      return { width: '332px', height: '230px' }; // S 카드 크기
+    }
+  };
+
+  const cardSize = getCardSize();
+
+  return (
+    <div className="group relative GuestBookCard" style={{ margin: '0 17px' }}>
+      {/* 화살표 이미지를 사용한 카드 */}
+      <div className="relative group-hover:scale-105 transition-all duration-300" 
            style={{
-             background: 'rgba(255, 255, 255, 0.15)',
-             backdropFilter: 'blur(20px)',
-             border: '1px solid rgba(255, 255, 255, 0.2)',
-             boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
+             width: cardSize.width,
+             height: cardSize.height
            }}>
         
-            {/* 왼쪽 화살표 영역 */}
-            <div className="absolute left-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center" 
+        {/* 화살표 배경 이미지 */}
+        <img 
+          src={getBackgroundImage()}
+          alt="arrow background"
+          className="absolute inset-0 w-full h-full object-contain"
+          style={{ 
+            zIndex: 1
+          }}
+        />
+        
+        {/* 왼쪽 화살표 영역 */}
+        <div className="absolute top-1/2 transform -translate-y-1/2" 
                  style={{ 
-                   width: windowWidth >= 600 ? '48px' : '32px', 
-                   height: windowWidth >= 600 ? '48px' : '32px' 
+                   display: 'flex',
+                   width: '74px',
+                   height: '74px',
+                   justifyContent: 'center',
+                   alignItems: 'center',
+                   flexShrink: 0,
+                   aspectRatio: '1/1',
+                   left: '30px',
+                   zIndex: 2
                  }}>
               <img 
                 src={getTeamMemberImage(entry.receiver)} 
                 alt={entry.receiver}
                 className="object-contain"
                 style={{ 
-                  width: windowWidth >= 600 ? '36px' : '24px', 
-                  height: windowWidth >= 600 ? '36px' : '24px' 
+                  width: '74px', 
+                  height: '74px' 
                 }}
             onLoad={() => {
               console.log('이미지 로드 성공:', getTeamMemberImage(entry.receiver));
@@ -62,17 +91,29 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
         </div>
 
             {/* 메시지 내용 영역 */}
-            <div className="h-full flex flex-col justify-center py-2" 
+            <div className="flex flex-col justify-center" 
                  style={{ 
-                   marginLeft: windowWidth >= 600 ? '60px' : '40px',
-                   paddingRight: windowWidth >= 600 ? '16px' : '8px',
-                   paddingLeft: windowWidth >= 600 ? '16px' : '8px'
+                   position: 'absolute',
+                   top: '50%',
+                   left: '140px',
+                   right: '40px',
+                   height: '120px',
+                   transform: 'translateY(-50%)',
+                   zIndex: 3,
+                   paddingRight: '20px',
+                   paddingLeft: '10px'
                  }}>
           {/* 메시지 텍스트 */}
           <div className="flex-1">
-            <p className="text-gray-800 leading-relaxed line-clamp-3"
+            <p className="leading-relaxed line-clamp-3"
                style={{ 
-                 fontSize: windowWidth >= 600 ? '14px' : '12px'
+                 color: '#000',
+                 fontFamily: 'Pretendard',
+                 fontSize: '14px',
+                 fontStyle: 'normal',
+                 fontWeight: '400',
+                 lineHeight: '20px',
+                 letterSpacing: '-0.028px'
                }}>
               {entry.message}
             </p>
@@ -80,9 +121,15 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
           
           {/* 하단: 보내는 사람 */}
           <div className="mt-2 pt-2 border-t border-gray-300 border-opacity-30">
-            <p className="text-right text-gray-600 font-medium"
+            <p className="text-right"
                style={{ 
-                 fontSize: windowWidth >= 600 ? '12px' : '10px'
+                 color: '#000',
+                 fontFamily: 'Pretendard',
+                 fontSize: '14px',
+                 fontStyle: 'normal',
+                 fontWeight: '400',
+                 lineHeight: '20px',
+                 letterSpacing: '-0.028px'
                }}>
               - {entry.sender}
             </p>
@@ -90,8 +137,8 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
         </div>
       </div>
     </div>
-  </div>
-));
+  );
+});
 
 const GuestBookPage = () => {
   // Supabase에서 방명록 데이터 가져오기
@@ -359,7 +406,7 @@ const GuestBookPage = () => {
         <div className="flex items-center justify-center h-full">
           <div 
             className="glassmorphism-container" 
-            style={{ 
+            style={{
               display: 'flex',
               width: responsiveStyles.containerWidth,
               height: responsiveStyles.containerHeight,
@@ -376,7 +423,7 @@ const GuestBookPage = () => {
             }}
           >
             {/* 1. 보낸이 섹션 */}
-            <div style={{ width: '100%' }}>
+          <div style={{ width: '100%' }}>
               <div className="flex items-center gap-4">
                 <h3 className="text-black drop-shadow-lg"
                     style={{
@@ -411,7 +458,7 @@ const GuestBookPage = () => {
 
             {/* 구분선 */}
             <div className="border-t border-black-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
-
+              
               {/* 2. 메시지 섹션 */}
               <div style={{ width: '100%', flex: 1 }}>
                 <textarea
@@ -435,7 +482,7 @@ const GuestBookPage = () => {
                   <span className="text-xs text-black drop-shadow-lg">{formData.message.length}/200</span>
                 </div>
               </div>
-
+              
             {/* 구분선 */}
             <div className="border-t border-gray-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
 
@@ -474,9 +521,9 @@ const GuestBookPage = () => {
                     </option>
                   ))}
                 </select>
-              </div>
             </div>
           </div>
+        </div>
         </div>
         
         {/* 메시지 보내기 버튼 */}
@@ -554,27 +601,27 @@ const GuestBookPage = () => {
               <div className="scroll-section" style={{ display: 'flex', height: '100%', padding: '10px' }}>
                 {entryChunks.map((chunk, chunkIndex) => (
                   <div key={`first-chunk-${chunkIndex}`} style={{ width: cardDimensions.width, height: '100%', marginRight: '0' }}>
-                <div className="grid grid-cols-1 h-full" style={{ gridTemplateRows: 'repeat(5, 1fr)', gap: '0' }}>
+                <div className="grid grid-cols-1 h-full" style={{ gridTemplateRows: 'repeat(5, 1fr)', gap: '40px' }}>
                   {chunk.map((entry) => (
                     <GuestBookCard key={`first-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
                   ))}
                 </div>
                   </div>
                 ))}
-              </div>
-              
+                </div>
+                
               {/* 두 번째 세트 (중복) */}
               <div className="scroll-section" style={{ display: 'flex', height: '100%', padding: '10px' }}>
                 {entryChunks.map((chunk, chunkIndex) => (
                   <div key={`second-chunk-${chunkIndex}`} style={{ width: cardDimensions.width, height: '100%', marginRight: '0' }}>
-                <div className="grid grid-cols-1 h-full" style={{ gridTemplateRows: 'repeat(5, 1fr)', gap: '0' }}>
+                <div className="grid grid-cols-1 h-full" style={{ gridTemplateRows: 'repeat(5, 1fr)', gap: '40px' }}>
                   {chunk.map((entry) => (
                     <GuestBookCard key={`second-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
                   ))}
                 </div>
-                  </div>
-                ))}
               </div>
+            ))}
+          </div>
             </div>
           </div>
 
