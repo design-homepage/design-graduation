@@ -5,17 +5,21 @@ import { getTeamMemberImage, teamMemberNames } from '@/types/teamMembers';
 import type { TeamMember } from '@/types/teamMembers';
 import arrowBasicL from './img/arrow_basic_L.png';
 import arrowBasicS from './img/arrow_basic_S.png';
+import arrowHoverL from './img/arrow_Hover_L.png';
+import arrowHoverS from './img/arrow_Hover_S.png';
 
 
 // 메모이제이션된 카드 컴포넌트
 const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: GuestBookEntry, cardDimensions: { width: string, height: string }, windowWidth: number }) => {
-  // 메시지 길이에 따라 배경 이미지 선택
+  const [isHovered, setIsHovered] = useState(false);
+
+  // 메시지 길이에 따라 배경 이미지 선택 (호버 상태 반영)
   const getBackgroundImage = () => {
     const messageLength = entry.message.length;
     if (messageLength >= 98) {
-      return arrowBasicL; // 98-200자: L 이미지
+      return isHovered ? arrowHoverL : arrowBasicL; // 98-200자: L 이미지
     } else {
-      return arrowBasicS; // 1-97자: S 이미지
+      return isHovered ? arrowHoverS : arrowBasicS; // 1-97자: S 이미지
     }
   };
 
@@ -32,12 +36,18 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
   const cardSize = getCardSize();
 
   return (
-    <div className="group relative GuestBookCard" style={{ margin: '0 17px' }}>
+    <div 
+      className="group relative GuestBookCard swiper-slide" 
+      style={{ zIndex: -1, background: 'transparent' }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {/* 화살표 이미지를 사용한 카드 */}
-      <div className="relative group-hover:scale-105 transition-all duration-300" 
+      <div className="relative transition-all duration-300" 
            style={{
              width: cardSize.width,
-             height: cardSize.height
+             height: cardSize.height,
+             background: 'transparent'
            }}>
       
       {/* 중앙 정렬 코드 (주석처리) */}
@@ -56,7 +66,18 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
           alt="arrow background"
           className="absolute inset-0 w-full h-full object-contain"
           style={{ 
-            zIndex: 1
+            zIndex: 1,
+            opacity: isHovered ? 1 : 0.5  // 호버 시에는 불투명, 기본 상태에서는 반투명
+          }}
+        />
+
+        {/* 호버 시 검은색 오버레이 */}
+        <div 
+          className="absolute inset-0 w-full h-full transition-all duration-300"
+          style={{
+            background: isHovered ? 'rgba(0, 0, 0, 0.5)' : 'transparent',
+            zIndex: 2,
+            pointerEvents: 'none'
           }}
         />
         
@@ -71,7 +92,7 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
                    flexShrink: 0,
                    aspectRatio: '1/1',
                    left: '30px',
-                   zIndex: 2
+                   zIndex: 3
                  }}>
               <img 
                 src={getTeamMemberImage(entry.receiver)} 
@@ -79,7 +100,7 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
                 className="object-contain"
                 style={{ 
                   width: '74px', 
-                  height: '74px' 
+                  height: '74px'
                 }}
             onLoad={() => {
               console.log('이미지 로드 성공:', getTeamMemberImage(entry.receiver));
@@ -101,15 +122,15 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
         </div>
 
             {/* 메시지 내용 영역 */}
-            <div className="flex flex-col justify-center" 
-                 style={{ 
+            <div className="flex flex-col justify-center"
+                 style={{
                    position: 'absolute',
                    top: '50%',
                    left: '140px',
                    right: '40px',
                    height: '120px',
                    transform: 'translateY(-50%)',
-                   zIndex: 3,
+                   zIndex: 4,
                    paddingRight: '20px',
                    paddingLeft: '10px'
                  }}>
@@ -570,9 +591,9 @@ const GuestBookPage = () => {
       {/* 세 번째 섹션: 방명록 목록 - 무한 스크롤 */}
       <div className="py-16 snap-start relative z-10" style={{ height: 'calc(100vh - 64px)', overflow: 'hidden' }}>
         <div className="relative w-full h-full">
-          {/* 무한 스크롤 컨테이너 */}
+          {/* 무한 스크롤 컨테이너 (Swiper 스타일) */}
           <div 
-            className="infinite-scroll-container"
+            className="infinite-scroll-container swiper-wrapper"
             style={{
               width: '100%',
               height: '100%',
@@ -601,22 +622,19 @@ const GuestBookPage = () => {
               className="infinite-scroll-track"
               style={{
                 display: 'flex',
-                width: `${entryChunks.length * 2 * parseInt(cardDimensions.width) + window.innerWidth * 3}px`, // 동적 너비 계산 + 간격
+                width: `${entries.length * 2 * 600 + window.innerWidth * 3}px`, // 동적 너비 계산 + 간격 (평균 카드 너비 600px 사용)
                 height: '100%',
-                animation: `scroll-left ${entryChunks.length * 20}s linear infinite`,
-                animationPlayState: 'var(--animation-play-state, running)'
+                animationName: 'scroll-left',
+                animationDuration: `${entries.length * 12}s`,
+                animationTimingFunction: 'linear',
+                animationIterationCount: 'infinite',
+                animationPlayState: 'running'
               }}
             >
               {/* 첫 번째 세트 */}
-              <div className="scroll-section" style={{ display: 'flex', height: '100%', padding: '10px' }}>
-                {entryChunks.map((chunk, chunkIndex) => (
-                  <div key={`first-chunk-${chunkIndex}`} style={{ width: cardDimensions.width, height: '100%', marginRight: '0' }}>
-                <div className="grid grid-cols-1 h-full" style={{ gridTemplateRows: 'repeat(5, 1fr)', gap: '40px' }}>
-                  {chunk.map((entry) => (
-                    <GuestBookCard key={`first-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
-                  ))}
-                    </div>
-                  </div>
+              <div className="scroll-section" style={{ display: 'flex', height: '100%', padding: '10px', alignItems: 'center', gap: '50px' }}>
+                {entries.map((entry) => (
+                  <GuestBookCard key={`first-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
                 ))}
                 </div>
                 
@@ -624,18 +642,12 @@ const GuestBookPage = () => {
               <div style={{ width: `${window.innerWidth * 3}px`, height: '100%' }}></div>
                 
               {/* 두 번째 세트 (중복) */}
-              <div className="scroll-section" style={{ display: 'flex', height: '100%', padding: '10px' }}>
-                {entryChunks.map((chunk, chunkIndex) => (
-                  <div key={`second-chunk-${chunkIndex}`} style={{ width: cardDimensions.width, height: '100%', marginRight: '0' }}>
-                <div className="grid grid-cols-1 h-full" style={{ gridTemplateRows: 'repeat(5, 1fr)', gap: '40px' }}>
-                  {chunk.map((entry) => (
-                    <GuestBookCard key={`second-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
-                  ))}
+              <div className="scroll-section" style={{ display: 'flex', height: '100%', padding: '10px', alignItems: 'center', gap: '50px' }}>
+                {entries.map((entry) => (
+                  <GuestBookCard key={`second-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                ))}
                 </div>
               </div>
-            ))}
-          </div>
-            </div>
           </div>
 
           {/* 로딩 및 에러 상태 */}

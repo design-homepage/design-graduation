@@ -117,7 +117,7 @@ html {
   animation: scroll-left 30s linear infinite;
 }
 
-/* 무한 스크롤 호버 효과 */
+/* 무한 스크롤 호버 효과 (Swiper 스타일) */
 .infinite-scroll-container {
   --animation-play-state: running;
 }
@@ -130,12 +130,30 @@ html {
   animation-play-state: paused !important;
 }
 
-/* 개별 카드 호버 효과 */
-.GuestBookCard:hover {
-  transform: scale(1.05);
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
+/* Swiper 라이브러리와 유사한 호버 효과 */
+.swiper-wrapper:hover .infinite-scroll-track {
+  animation-play-state: paused !important;
+}
+
+/* 개별 카드 호버 효과 (Swiper 슬라이드 스타일) */
+.GuestBookCard.swiper-slide {
   transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.GuestBookCard.swiper-slide:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+/* 개별 카드 호버 오버레이 효과 */
+.GuestBookCard .hover-overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.GuestBookCard:hover .hover-overlay {
+  opacity: 1;
 }
 
 /* 텍스트 줄 제한 */
