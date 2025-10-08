@@ -550,23 +550,27 @@ const GuestBookPage = () => {
         <div className={windowWidth <= 768 ? "flex items-center justify-center" : "flex items-center justify-center h-full"}
              style={windowWidth <= 768 ? {
             display: 'flex',
-               width: '400px',
+               width: '100%',
+               maxWidth: '400px',
             flexDirection: 'column',
             alignItems: 'center',
                gap: '5px',
                margin: '0 auto',
                height: 'auto',
-               paddingTop: '140px',
-               paddingBottom: '70px'
+               paddingTop: windowWidth <= 375 ? '100px' : '140px',
+               paddingBottom: windowWidth <= 375 ? '50px' : '70px',
+               paddingLeft: '20px',
+               paddingRight: '20px'
              } : {}}>
           {/* 글래스모피즘 컨테이너 */}
           <div 
             className="glassmorphism-container" 
             style={windowWidth <= 768 ? {
               display: 'flex',
-              width: '350px',
-              height: '440px',
-              padding: '20px 30px 0 30px',
+              width: '100%',
+              maxWidth: '350px',
+              height: windowWidth <= 375 ? '400px' : '440px',
+              padding: windowWidth <= 375 ? '15px 20px 0 20px' : '20px 30px 0 30px',
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -594,7 +598,8 @@ const GuestBookPage = () => {
             {/* 텍스트 입력 영역 */}
             <div style={windowWidth <= 768 ? {
               display: 'flex',
-              width: '290px',
+              width: '100%',
+              maxWidth: '290px',
               height: '100%',
               flexDirection: 'column',
               justifyContent: 'space-between',
@@ -789,7 +794,7 @@ const GuestBookPage = () => {
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  width: `${Math.max(...distributedRows.map(row => row.length)) * 2 * 400 + window.innerWidth}px`,
+                  width: `${(Math.max(...distributedRows.map(row => row.length)) * 450) + 100}px`,
                   height: '100%',
                   animationName: 'scroll-from-right',
                   animationDuration: `${Math.max(...distributedRows.map(row => row.length)) * 8}s`,
@@ -820,7 +825,7 @@ const GuestBookPage = () => {
                     </div>
                   ))}
                 </div>
-                  </div>
+              </div>
                         </div>
           ) : (
             // Desktop/Tablet: 무한 스크롤 + 호버 효과
@@ -855,7 +860,7 @@ const GuestBookPage = () => {
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  width: `${Math.max(...distributedRows.map(row => row.length)) * 2 * 400 + window.innerWidth}px`,
+                  width: `${(Math.max(...distributedRows.map(row => row.length)) * 450) + 100}px`,
                   height: '100%',
                   animationName: 'scroll-from-right',
                   animationDuration: `${Math.max(...distributedRows.map(row => row.length)) * 8}s`,
@@ -886,7 +891,7 @@ const GuestBookPage = () => {
                     </div>
                   ))}
                 </div>
-                  </div>
+              </div>
                 </div>
           )}
         </div>
