@@ -1,7 +1,6 @@
 export { default as HomePage } from './HomePage';
-export { default as AboutPage } from './about/AboutPage';
-export { default as ProfilePage } from './ProfilePage';
-export { default as GuestBookPage } from './guestbook/GuestBookPage';
-export { default as ArchivePage } from './archive/ArchivePage';
+export * from './about';
+export * from './guestbook';
+export * from './archive';
 export * from './work';
-
+export * from './profile';
