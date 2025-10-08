@@ -39,6 +39,16 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
              width: cardSize.width,
              height: cardSize.height
            }}>
+      
+      {/* 중앙 정렬 코드 (주석처리) */}
+      {/* 
+      <div className="group relative GuestBookCard" style={{ 
+        margin: '0 17px',
+        display: 'flex',
+        justifyContent: 'center',
+        width: '548px' // 최대 카드 크기로 고정
+      }}>
+      */}
         
         {/* 화살표 배경 이미지 */}
         <img 
@@ -591,9 +601,9 @@ const GuestBookPage = () => {
               className="infinite-scroll-track"
               style={{
                 display: 'flex',
-                width: `${entryChunks.length * 2 * parseInt(cardDimensions.width)}px`, // 동적 너비 계산
+                width: `${entryChunks.length * 2 * parseInt(cardDimensions.width) + window.innerWidth * 3}px`, // 동적 너비 계산 + 간격
                 height: '100%',
-                animation: `scroll-left ${entryChunks.length * 10}s linear infinite`,
+                animation: `scroll-left ${entryChunks.length * 20}s linear infinite`,
                 animationPlayState: 'var(--animation-play-state, running)'
               }}
             >
@@ -605,10 +615,13 @@ const GuestBookPage = () => {
                   {chunk.map((entry) => (
                     <GuestBookCard key={`first-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
                   ))}
-                </div>
+                    </div>
                   </div>
                 ))}
                 </div>
+                
+              {/* 간격 추가 (화면 너비의 3배) */}
+              <div style={{ width: `${window.innerWidth * 3}px`, height: '100%' }}></div>
                 
               {/* 두 번째 세트 (중복) */}
               <div className="scroll-section" style={{ display: 'flex', height: '100%', padding: '10px' }}>
