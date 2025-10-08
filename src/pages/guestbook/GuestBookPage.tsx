@@ -16,11 +16,14 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
   // 메시지 길이에 따라 배경 이미지 선택 (호버 상태 반영)
   const getBackgroundImage = () => {
     const messageLength = entry.message.length;
-    if (messageLength >= 98) {
-      return isHovered ? arrowHoverL : arrowBasicL; // 98-200자: L 이미지
-    } else {
-      return isHovered ? arrowHoverS : arrowBasicS; // 1-97자: S 이미지
-    }
+    const imageType = messageLength >= 98 ? 'L' : 'S';
+    const selectedImage = messageLength >= 98 
+      ? (isHovered ? arrowHoverL : arrowBasicL) 
+      : (isHovered ? arrowHoverS : arrowBasicS);
+    
+    console.log(`[${entry.id}] 호버 상태: ${isHovered}, 이미지 타입: ${imageType}, 메시지 길이: ${messageLength}`);
+    
+    return selectedImage;
   };
 
   // 카드 컨테이너 크기 설정
@@ -38,9 +41,20 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
   return (
     <div 
       className="group relative GuestBookCard swiper-slide" 
-      style={{ zIndex: -1, background: 'transparent' }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      style={{ 
+        zIndex: 10, 
+        background: 'transparent',
+        position: 'relative',
+        cursor: 'pointer'
+      }}
+      onMouseEnter={() => {
+        console.log(`[${entry.id}] 마우스 진입 - 호버 상태 변경: false → true`);
+        setIsHovered(true);
+      }}
+      onMouseLeave={() => {
+        console.log(`[${entry.id}] 마우스 벗어남 - 호버 상태 변경: true → false`);
+        setIsHovered(false);
+      }}
     >
       {/* 화살표 이미지를 사용한 카드 */}
       <div className="relative transition-all duration-300" 
@@ -80,6 +94,7 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
             pointerEvents: 'none'
           }}
         />
+
         
         {/* 왼쪽 화살표 영역 */}
         <div className="absolute top-1/2 transform -translate-y-1/2" 
@@ -386,7 +401,7 @@ const GuestBookPage = () => {
         <div 
           className="absolute inset-0 z-0" 
           style={{
-            backgroundImage: 'url(/guestbook/background-white.png)',
+            // backgroundImage: 'url(/guestbook/background-white.png)',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'top center',
             backgroundSize: 'cover',
