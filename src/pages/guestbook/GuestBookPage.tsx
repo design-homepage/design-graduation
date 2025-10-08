@@ -478,12 +478,27 @@ const GuestBookPage = () => {
                  fontWeight: '700',
                  lineHeight: '18px',
                  letterSpacing: '-0.028px'
+               } : (windowWidth >= 400 && windowWidth < 600) ? {
+                 color: 'var(--Black, #000)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '14px',
+                 fontStyle: 'normal',
+                 fontWeight: '700',
+                 lineHeight: '18px',
+                 letterSpacing: '-0.028px'
                } : { letterSpacing: '-0.064px' }}>
               {windowWidth <= 768 ? (
                 <>
                   작은 불꽃이 큰 등불이 되는 시대,<br/>
                   무하마드 알리가 던진 단 두 음절 "ME, WE"는
                   반세기 만에<br/>우리 사회의 운영 원리로 떠올랐습니다.
+                </>
+              ) : (windowWidth >= 400 && windowWidth < 600) ? (
+                <>
+                  작은 불꽃이 큰 등불이 되는 시대,<br/>
+                  무하마드 알리가 던진 단 두 음절 "ME, WE"는 반세기 만에 우리 사회의 운영 원리로<br/>
+                  떠올랐습니다.
                 </>
               ) : (
                 <>
@@ -495,6 +510,16 @@ const GuestBookPage = () => {
             {windowWidth <= 768 ? null : <><br/><br/></>}
             <p className={windowWidth <= 768 ? "text-black font-bold text-center" : "text-xl md:text-2xl lg:text-3xl xl:text-3xl text-black font-bold text-center leading-relaxed mt-12"}
                style={windowWidth <= 768 ? {
+                 color: 'var(--Black, #000)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '14px',
+                 fontStyle: 'normal',
+                 fontWeight: '700',
+                 lineHeight: '18px',
+                 letterSpacing: '-0.028px',
+                 marginTop: '8px'
+               } : (windowWidth >= 400 && windowWidth < 600) ? {
                  color: 'var(--Black, #000)',
                  textAlign: 'center',
                  fontFamily: 'Pretendard',
@@ -517,11 +542,20 @@ const GuestBookPage = () => {
                  color: 'var(--60, #666)',
                  textAlign: 'center',
                  fontFamily: 'Pretendard',
-                 fontSize: '14px',
+                 fontSize: '12px',
                  fontStyle: 'normal',
                  fontWeight: '300',
-                 lineHeight: '18px',
-                 letterSpacing: '-0.028px'
+                 lineHeight: 'normal',
+                 letterSpacing: '-0.024px'
+               } : (windowWidth >= 400 && windowWidth < 600) ? {
+                 color: 'var(--60, #666)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '12px',
+                 fontStyle: 'normal',
+                 fontWeight: '300',
+                 lineHeight: 'normal',
+                 letterSpacing: '-0.024px'
                } : {}}>
               In an age where small sparks can become powerful lights,
             </p>
@@ -530,11 +564,20 @@ const GuestBookPage = () => {
                  color: 'var(--60, #666)',
                  textAlign: 'center',
                  fontFamily: 'Pretendard',
-                 fontSize: '14px',
+                 fontSize: '12px',
                  fontStyle: 'normal',
                  fontWeight: '300',
-                 lineHeight: '18px',
-                 letterSpacing: '-0.028px'
+                 lineHeight: 'normal',
+                 letterSpacing: '-0.024px'
+               } : (windowWidth >= 400 && windowWidth < 600) ? {
+                 color: 'var(--60, #666)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '12px',
+                 fontStyle: 'normal',
+                 fontWeight: '300',
+                 lineHeight: 'normal',
+                 letterSpacing: '-0.024px'
                } : {}}>
               Muhammad Ali's simple two-syllable motto, "ME, WE," has emerged as the guiding principle of our society in half a century.
             </p>
@@ -543,11 +586,20 @@ const GuestBookPage = () => {
                  color: 'var(--60, #666)',
                  textAlign: 'center',
                  fontFamily: 'Pretendard',
-                 fontSize: '14px',
+                 fontSize: '12px',
                  fontStyle: 'normal',
                  fontWeight: '300',
-                 lineHeight: '18px',
-                 letterSpacing: '-0.028px'
+                 lineHeight: 'normal',
+                 letterSpacing: '-0.024px'
+               } : (windowWidth >= 400 && windowWidth < 600) ? {
+                 color: 'var(--60, #666)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '12px',
+                 fontStyle: 'normal',
+                 fontWeight: '300',
+                 lineHeight: 'normal',
+                 letterSpacing: '-0.024px'
                } : {}}>
               With your message of encouragement, become a beacon of light that illuminates "us" for someone else.
             </p>
@@ -563,17 +615,17 @@ const GuestBookPage = () => {
         <div className="flex items-center justify-center h-full">
           <form onSubmit={handleSubmit} className="w-full max-w-4xl mx-auto p-8">
             {/* 글래스모피즘 컨테이너 */}
-            <div 
+        <div 
               className="glassmorphism-container" 
-              style={{
-                display: 'flex',
+          style={{ 
+            display: 'flex',
                 width: responsiveStyles.containerWidth,
                 height: responsiveStyles.containerHeight,
                 padding: responsiveStyles.padding,
-                flexDirection: 'column',
+            flexDirection: 'column',
                 justifyContent: 'space-between',
-                alignItems: 'center',
-                flexShrink: 0,
+            alignItems: 'center',
+            flexShrink: 0,
                 borderRadius: '20px',
                 background: 'rgba(255, 255, 255, 0.15)',
                 backdropFilter: 'blur(20px)',
@@ -587,18 +639,18 @@ const GuestBookPage = () => {
                 <div style={{ width: '100%' }}>
                   <div className="flex items-center gap-4" style={{ width: '100%' }}>
                     <h3 className="text-black drop-shadow-lg"
-                        style={{
+            style={{
                           fontFamily: 'Pretendard',
                           fontSize: responsiveStyles.labelFontSize || '24px',
                           fontWeight: responsiveStyles.labelFontWeight || '700',
                           lineHeight: responsiveStyles.labelLineHeight || '32px',
                           letterSpacing: responsiveStyles.labelLetterSpacing || '-0.048px'
                         }}>ME:</h3>
-                    <input
-                      type="text"
+                <input
+                  type="text"
                       name="sender"
                       value={formData.sender}
-                      onChange={handleInputChange}
+                  onChange={handleInputChange}
                       className="px-3 py-2 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-gray-800 placeholder-gray-600"
                       style={{
                         background: 'transparent',
@@ -612,20 +664,20 @@ const GuestBookPage = () => {
                         color: '#666'
                       }}
                       placeholder="보낸이"
-                      required
-                    />
-                  </div>
+                  required
+                />
+              </div>
                 </div>
 
                 {/* 구분선 */}
                 <div className="border-t border-black-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
-                  
+              
                 {/* 2. 메시지 섹션 */}
                 <div style={{ width: '100%', flex: 1, position: 'relative' }}>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                     rows={8}
                     className="w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800 placeholder-gray-600 resize-none"
                     style={{
@@ -636,8 +688,8 @@ const GuestBookPage = () => {
                       minHeight: '200px',
                       paddingBottom: '30px'
                     }}
-                    placeholder="메시지를 입력해주세요"
-                    required
+                  placeholder="메시지를 입력해주세요"
+                  required
                     maxLength={200}
                   />
                   <div style={{ 
@@ -648,8 +700,8 @@ const GuestBookPage = () => {
                   }}>
                     <span className="text-xs text-black drop-shadow-lg">{formData.message.length}/200</span>
                   </div>
-                </div>
-                  
+              </div>
+              
                 {/* 구분선 */}
                 <div className="border-t border-gray-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
 
@@ -667,7 +719,7 @@ const GuestBookPage = () => {
                     <select
                       name="receiver"
                       value={formData.receiver}
-                      onChange={handleInputChange}
+                  onChange={handleInputChange}
                       className="px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-gray-800"
                       style={{
                         background: 'transparent',
@@ -688,14 +740,14 @@ const GuestBookPage = () => {
                         </option>
                       ))}
                     </select>
-                  </div>
-                </div>
-              </div>
             </div>
-            
-            {/* 메시지 보내기 버튼 */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-              <button
+          </div>
+        </div>
+        </div>
+        
+        {/* 메시지 보내기 버튼 */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+          <button
                 type="submit"
                 className="transition-all duration-200 hover:scale-105"
                 style={{
@@ -718,9 +770,9 @@ const GuestBookPage = () => {
                   lineHeight: responsiveStyles.buttonLineHeight || '26px',
                   letterSpacing: responsiveStyles.buttonLetterSpacing || '-0.04px'
                 }}
-              >
-                메시지 남기기
-              </button>
+          >
+            메시지 남기기
+          </button>
             </div>
           </form>
         </div>
@@ -847,13 +899,13 @@ const GuestBookPage = () => {
                   </div>
                 </div>
           )}
-        </div>
+                  </div>
 
           {/* 로딩 및 에러 상태 */}
           {loading && (
             <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-80">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
-            </div>
+                </div>
           )}
 
           {error && (
@@ -1029,9 +1081,9 @@ const GuestBookPage = () => {
               >
                 메세지 전하기
               </button>
-            </div>
-          </div>
         </div>
+      </div>
+      </div>
       )}
     </div>
   );
