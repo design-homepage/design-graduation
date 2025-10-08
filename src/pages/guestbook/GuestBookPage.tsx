@@ -549,10 +549,10 @@ const GuestBookPage = () => {
       >
         <div className={windowWidth <= 768 ? "flex items-center justify-center" : "flex items-center justify-center h-full"}
              style={windowWidth <= 768 ? {
-               display: 'flex',
+            display: 'flex',
                width: '400px',
-               flexDirection: 'column',
-               alignItems: 'center',
+            flexDirection: 'column',
+            alignItems: 'center',
                gap: '5px',
                margin: '0 auto',
                height: 'auto',
@@ -771,40 +771,59 @@ const GuestBookPage = () => {
       {/* 세 번째 섹션: 방명록 목록 */}
       <div className="py-16 snap-start relative z-10" style={{ minHeight: 'calc(100vh - 64px)', overflow: 'hidden', overflowY: 'auto' }}>
         <div className="relative w-full" style={{ minHeight: 'calc(100vh - 64px - 128px)' }}>
-          {/* Mobile에서는 정적 레이아웃, 그 외에는 무한 스크롤 */}
+          {/* 모든 화면에서 무한 스크롤 적용 */}
           {windowWidth <= 768 ? (
-            // Mobile: 정적 레이아웃 (무한 스크롤 없음)
-            <div className="mobile-static-layout" style={{
-              width: '100%',
-              minHeight: 'calc(100vh - 64px - 128px)',
-              position: 'relative',
-              overflow: 'hidden',
-              padding: '15px'
-            }}>
-              <div style={{ 
-                display: 'flex', 
-                flexDirection: 'column',
-                height: '100%', 
-                gap: '20px',
-                justifyContent: 'flex-start'
-              }}>
-                {distributedRows.map((row, rowIndex) => (
-                  <div key={`mobile-row-${rowIndex}`} style={{ 
-                    display: 'flex', 
-                    gap: '20px', 
-                    alignItems: 'center',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center'
-                  }}>
-                    {row.map((entry) => (
-                      <GuestBookCard key={`mobile-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
-                    ))}
+            // Mobile: 무한 스크롤 (호버 효과 없음)
+            <div 
+              className="infinite-scroll-container swiper-wrapper"
+              style={{
+                width: '100%',
+                minHeight: 'calc(100vh - 64px - 128px)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+            >
+              {/* 무한 스크롤 트랙 */}
+              <div 
+                className="infinite-scroll-track"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: `${Math.max(...distributedRows.map(row => row.length)) * 2 * 400 + window.innerWidth}px`,
+                  height: '100%',
+                  animationName: 'scroll-from-right',
+                  animationDuration: `${Math.max(...distributedRows.map(row => row.length)) * 8}s`,
+                  animationTimingFunction: 'linear',
+                  animationIterationCount: 'infinite',
+                  animationPlayState: 'running'
+                }}
+              >
+                {/* 첫 번째 세트 - 5개 행 */}
+                <div className="scroll-section" style={{ 
+                  display: 'flex', 
+                  flexDirection: 'column',
+                  height: '100%', 
+                  padding: '15px', 
+                  gap: '40px',
+                  justifyContent: 'space-around'
+                }}>
+                  {distributedRows.map((row, rowIndex) => (
+                    <div key={`mobile-row-${rowIndex}`} style={{ 
+                      display: 'flex', 
+                      gap: '50px', 
+                      alignItems: 'center',
+                      minHeight: `${100 / 5}%`
+                    }}>
+                      {row.map((entry) => (
+                        <GuestBookCard key={`mobile-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                      ))}
+                    </div>
+                  ))}
+                </div>
                   </div>
-                ))}
-              </div>
                         </div>
           ) : (
-            // Desktop/Tablet: 무한 스크롤 적용
+            // Desktop/Tablet: 무한 스크롤 + 호버 효과
             <div 
               className="infinite-scroll-container swiper-wrapper"
               style={{
