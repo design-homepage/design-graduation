@@ -478,6 +478,15 @@ const GuestBookPage = () => {
                  fontWeight: '700',
                  lineHeight: '18px',
                  letterSpacing: '-0.028px'
+               } : (windowWidth >= 1020 && windowWidth < 1350) ? {
+                 color: 'var(--Black, #000)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '24px',
+                 fontStyle: 'normal',
+                 fontWeight: '700',
+                 lineHeight: '32px',
+                 letterSpacing: '-0.048px'
                } : (windowWidth >= 600 && windowWidth < 1020) ? {
                  color: 'var(--Black, #000)',
                  textAlign: 'center',
@@ -521,7 +530,7 @@ const GuestBookPage = () => {
                 </>
               )}
             </p>
-            {windowWidth <= 768 ? null : (windowWidth >= 600 && windowWidth < 1020) ? null : <><br/><br/></>}
+            {windowWidth <= 768 ? null : (windowWidth >= 600 && windowWidth < 1350) ? null : <><br/><br/></>}
             <p className={windowWidth <= 768 ? "text-black font-bold text-center" : "text-xl md:text-2xl lg:text-3xl xl:text-3xl text-black font-bold text-center leading-relaxed mt-12"}
                style={windowWidth <= 768 ? {
                  color: 'var(--Black, #000)',
@@ -532,6 +541,16 @@ const GuestBookPage = () => {
                  fontWeight: '700',
                  lineHeight: '18px',
                  letterSpacing: '-0.028px',
+                 marginTop: '8px'
+               } : (windowWidth >= 1020 && windowWidth < 1350) ? {
+                 color: 'var(--Black, #000)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '24px',
+                 fontStyle: 'normal',
+                 fontWeight: '700',
+                 lineHeight: '32px',
+                 letterSpacing: '-0.048px',
                  marginTop: '8px'
                } : (windowWidth >= 600 && windowWidth < 1020) ? {
                  color: 'var(--Black, #000)',
@@ -554,7 +573,7 @@ const GuestBookPage = () => {
                  letterSpacing: '-0.028px',
                  marginTop: '8px'
                } : { letterSpacing: '-0.064px' }}>
-              {(windowWidth >= 600 && windowWidth < 1020) ? (
+              {(windowWidth >= 600 && windowWidth < 1350) ? (
                 <>당신이 전하는 응원의 메세지로 또 다른 누군가에게 <span className="font-bold">'우리'</span>를 밝혀줄 불빛이 되어주세요.</>
               ) : (
                 <>
@@ -577,6 +596,15 @@ const GuestBookPage = () => {
                  fontWeight: '300',
                  lineHeight: 'normal',
                  letterSpacing: '-0.024px'
+               } : (windowWidth >= 1020 && windowWidth < 1350) ? {
+                 color: 'var(--60, #666)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '16px',
+                 fontStyle: 'normal',
+                 fontWeight: '400',
+                 lineHeight: '24px',
+                 letterSpacing: '-0.032px'
                } : (windowWidth >= 600 && windowWidth < 1020) ? {
                  color: 'var(--60, #666)',
                  textAlign: 'center',
@@ -608,6 +636,15 @@ const GuestBookPage = () => {
                  fontWeight: '300',
                  lineHeight: 'normal',
                  letterSpacing: '-0.024px'
+               } : (windowWidth >= 1020 && windowWidth < 1350) ? {
+                 color: 'var(--60, #666)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '16px',
+                 fontStyle: 'normal',
+                 fontWeight: '400',
+                 lineHeight: '24px',
+                 letterSpacing: '-0.032px'
                } : (windowWidth >= 600 && windowWidth < 1020) ? {
                  color: 'var(--60, #666)',
                  textAlign: 'center',
@@ -639,6 +676,15 @@ const GuestBookPage = () => {
                  fontWeight: '300',
                  lineHeight: 'normal',
                  letterSpacing: '-0.024px'
+               } : (windowWidth >= 1020 && windowWidth < 1350) ? {
+                 color: 'var(--60, #666)',
+                 textAlign: 'center',
+                 fontFamily: 'Pretendard',
+                 fontSize: '16px',
+                 fontStyle: 'normal',
+                 fontWeight: '400',
+                 lineHeight: '24px',
+                 letterSpacing: '-0.032px'
                } : (windowWidth >= 600 && windowWidth < 1020) ? {
                  color: 'var(--60, #666)',
                  textAlign: 'center',
