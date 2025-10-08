@@ -332,6 +332,7 @@ const GuestBookPage = () => {
     message: '',
     receiver: '강유진' as TeamMember
   });
+  const [showModal, setShowModal] = useState(false);
   
   // 반응형 카드 크기 계산
   const getCardDimensions = () => {
@@ -396,6 +397,12 @@ const GuestBookPage = () => {
       return;
     }
 
+    // 모달 열기
+    setShowModal(true);
+  }, [formData]);
+
+  // 모달에서 실제 전송 처리
+  const handleConfirmSubmit = useCallback(async () => {
     try {
       await addEntry({
         sender: formData.sender.trim(),
@@ -405,11 +412,17 @@ const GuestBookPage = () => {
       
       alert('방명록이 성공적으로 등록되었습니다!');
       setFormData({ sender: '', message: '', receiver: '강유진' as TeamMember });
+      setShowModal(false);
     } catch (error) {
       alert('방명록 등록에 실패했습니다. 다시 시도해주세요.');
       console.error('Failed to add guestbook entry:', error);
     }
   }, [formData, addEntry]);
+
+  // 모달 닫기
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
 
   return (
     <div 
@@ -547,229 +560,169 @@ const GuestBookPage = () => {
         className="relative snap-start z-10" 
         style={{ height: 'calc(100vh - 64px)' }}
       >
-        <div className={windowWidth <= 768 ? "flex items-center justify-center" : "flex items-center justify-center h-full"}
-             style={windowWidth <= 768 ? {
-            display: 'flex',
-               width: '100%',
-               maxWidth: '400px',
-            flexDirection: 'column',
-            alignItems: 'center',
-               gap: '5px',
-               margin: '0 auto',
-               height: 'auto',
-               paddingTop: windowWidth <= 375 ? '100px' : '140px',
-               paddingBottom: windowWidth <= 375 ? '50px' : '70px',
-               paddingLeft: '20px',
-               paddingRight: '20px'
-             } : {}}>
-          {/* 글래스모피즘 컨테이너 */}
-          <div 
-            className="glassmorphism-container" 
-            style={windowWidth <= 768 ? {
-              display: 'flex',
-              width: '100%',
-              maxWidth: '350px',
-              height: windowWidth <= 375 ? '400px' : '440px',
-              padding: windowWidth <= 375 ? '15px 20px 0 20px' : '20px 30px 0 30px',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              borderRadius: '20px',
-              background: 'rgba(255, 255, 255, 0.15)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
-            } : {
-              display: 'flex',
-              width: responsiveStyles.containerWidth,
-              height: responsiveStyles.containerHeight,
-              padding: responsiveStyles.padding,
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexShrink: 0,
-              borderRadius: '20px',
-              background: 'rgba(255, 255, 255, 0.15)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
-            }}
-          >
-            {/* 텍스트 입력 영역 */}
-            <div style={windowWidth <= 768 ? {
-              display: 'flex',
-              width: '100%',
-              maxWidth: '290px',
-              height: '100%',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              paddingBottom: '10px'
-            } : { width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            {/* 1. 보낸이 섹션 */}
-          <div style={windowWidth <= 768 ? {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            gap: '7px',
-            alignSelf: 'stretch'
-          } : { width: '100%' }}>
-              <div className="flex items-center gap-4" style={{ width: '100%' }}>
-                <h3 className="text-black drop-shadow-lg"
-                    style={{
-                      fontFamily: 'Pretendard',
-                      fontSize: responsiveStyles.labelFontSize || '24px',
-                      fontWeight: responsiveStyles.labelFontWeight || '700',
-                      lineHeight: responsiveStyles.labelLineHeight || '32px',
-                      letterSpacing: responsiveStyles.labelLetterSpacing || '-0.048px'
-                    }}>ME:</h3>
-                <input
-                  type="text"
-                  name="sender"
-                  value={formData.sender}
-                  onChange={handleInputChange}
-                  className="px-3 py-2 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-gray-800 placeholder-gray-600"
-                  style={{
-                    background: 'transparent',
-                    border: 'none',
-                    backdropFilter: 'none',
-                    fontFamily: 'Pretendard',
-                    fontSize: responsiveStyles.inputFontSize || '20px',
-                    fontWeight: responsiveStyles.inputFontWeight || '400',
-                    lineHeight: responsiveStyles.inputLineHeight || '26px',
-                    letterSpacing: responsiveStyles.inputLetterSpacing || '-0.04px',
-                    color: '#666'
-                  }}
-                  placeholder="보낸이"
-                  required
-                />
-              </div>
-            </div>
-
-            {/* 구분선 */}
-            <div className="border-t border-black-400 border-opacity-30" style={windowWidth <= 768 ? { width: '100%', margin: '5px 0' } : { width: '100%', margin: '10px 0' }}></div>
-              
-              {/* 2. 메시지 섹션 */}
-              <div style={windowWidth <= 768 ? {
+        <div className="flex items-center justify-center h-full">
+          <form onSubmit={handleSubmit} className="w-full max-w-4xl mx-auto p-8">
+            {/* 글래스모피즘 컨테이너 */}
+            <div 
+              className="glassmorphism-container" 
+              style={{
                 display: 'flex',
-                padding: '15px 0',
+                width: responsiveStyles.containerWidth,
+                height: responsiveStyles.containerHeight,
+                padding: responsiveStyles.padding,
                 flexDirection: 'column',
-                alignItems: 'flex-start',
-                flex: '1 0 0',
-                alignSelf: 'stretch',
-                position: 'relative'
-              } : { width: '100%', flex: 1, position: 'relative' }}>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  rows={8}
-                  className="w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800 placeholder-gray-600 resize-none"
-                  style={{
-                    background: 'transparent',
-                    border: 'none',
-                    backdropFilter: 'none',
-                    height: '100%',
-                    minHeight: '200px',
-                    paddingBottom: '30px'
-                  }}
-                  placeholder="메시지를 입력해주세요"
-                  required
-                  maxLength={200}
-                />
-                <div style={{ 
-                  position: 'absolute', 
-                  bottom: windowWidth <= 768 ? '30px' : '10px', 
-                  right: '0',
-                  paddingRight: '4px'
-                }}>
-                  <span className="text-xs text-black drop-shadow-lg">{formData.message.length}/200</span>
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexShrink: 0,
+                borderRadius: '20px',
+                background: 'rgba(255, 255, 255, 0.15)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
+              }}
+            >
+              {/* 텍스트 입력 영역 */}
+              <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                {/* 1. 보낸이 섹션 */}
+                <div style={{ width: '100%' }}>
+                  <div className="flex items-center gap-4" style={{ width: '100%' }}>
+                    <h3 className="text-black drop-shadow-lg"
+                        style={{
+                          fontFamily: 'Pretendard',
+                          fontSize: responsiveStyles.labelFontSize || '24px',
+                          fontWeight: responsiveStyles.labelFontWeight || '700',
+                          lineHeight: responsiveStyles.labelLineHeight || '32px',
+                          letterSpacing: responsiveStyles.labelLetterSpacing || '-0.048px'
+                        }}>ME:</h3>
+                    <input
+                      type="text"
+                      name="sender"
+                      value={formData.sender}
+                      onChange={handleInputChange}
+                      className="px-3 py-2 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-gray-800 placeholder-gray-600"
+                      style={{
+                        background: 'transparent',
+                        border: 'none',
+                        backdropFilter: 'none',
+                        fontFamily: 'Pretendard',
+                        fontSize: responsiveStyles.inputFontSize || '20px',
+                        fontWeight: responsiveStyles.inputFontWeight || '400',
+                        lineHeight: responsiveStyles.inputLineHeight || '26px',
+                        letterSpacing: responsiveStyles.inputLetterSpacing || '-0.04px',
+                        color: '#666'
+                      }}
+                      placeholder="보낸이"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* 구분선 */}
+                <div className="border-t border-black-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
+                  
+                {/* 2. 메시지 섹션 */}
+                <div style={{ width: '100%', flex: 1, position: 'relative' }}>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows={8}
+                    className="w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800 placeholder-gray-600 resize-none"
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      backdropFilter: 'none',
+                      height: '100%',
+                      minHeight: '200px',
+                      paddingBottom: '30px'
+                    }}
+                    placeholder="메시지를 입력해주세요"
+                    required
+                    maxLength={200}
+                  />
+                  <div style={{ 
+                    position: 'absolute', 
+                    bottom: '10px', 
+                    right: '0',
+                    paddingRight: '4px'
+                  }}>
+                    <span className="text-xs text-black drop-shadow-lg">{formData.message.length}/200</span>
+                  </div>
+                </div>
+                  
+                {/* 구분선 */}
+                <div className="border-t border-gray-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
+
+                {/* 3. 받는이 섹션 */}
+                <div style={{ width: '100%' }}>
+                  <div className="flex items-center gap-4" style={{ width: '100%' }}>
+                    <h3 className="text-black drop-shadow-lg"
+                        style={{
+                          fontFamily: 'Pretendard',
+                          fontSize: responsiveStyles.labelFontSize || '24px',
+                          fontWeight: responsiveStyles.labelFontWeight || '700',
+                          lineHeight: responsiveStyles.labelLineHeight || '32px',
+                          letterSpacing: responsiveStyles.labelLetterSpacing || '-0.048px'
+                        }}>WE:</h3>
+                    <select
+                      name="receiver"
+                      value={formData.receiver}
+                      onChange={handleInputChange}
+                      className="px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-gray-800"
+                      style={{
+                        background: 'transparent',
+                        border: 'none',
+                        backdropFilter: 'none',
+                        fontFamily: 'Pretendard',
+                        fontSize: responsiveStyles.inputFontSize || '20px',
+                        fontWeight: responsiveStyles.inputFontWeight || '400',
+                        lineHeight: responsiveStyles.inputLineHeight || '26px',
+                        letterSpacing: responsiveStyles.inputLetterSpacing || '-0.04px',
+                        color: '#666'
+                      }}
+                      required
+                    >
+                      {teamMemberNames.map((member) => (
+                        <option key={member} value={member}>
+                          {member}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               </div>
-              
-            {/* 구분선 */}
-            <div className="border-t border-gray-400 border-opacity-30" style={windowWidth <= 768 ? { width: '100%', margin: '5px 0' } : { width: '100%', margin: '10px 0' }}></div>
-
-            {/* 3. 받는이 섹션 */}
-            <div style={windowWidth <= 768 ? {
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              gap: '7px',
-              alignSelf: 'stretch'
-            } : { width: '100%' }}>
-              <div className="flex items-center gap-4" style={{ width: '100%' }}>
-                <h3 className="text-black drop-shadow-lg"
-                    style={{
-                      fontFamily: 'Pretendard',
-                      fontSize: responsiveStyles.labelFontSize || '24px',
-                      fontWeight: responsiveStyles.labelFontWeight || '700',
-                      lineHeight: responsiveStyles.labelLineHeight || '32px',
-                      letterSpacing: responsiveStyles.labelLetterSpacing || '-0.048px'
-                    }}>WE:</h3>
-                <select
-                  name="receiver"
-                  value={formData.receiver}
-                  onChange={handleInputChange}
-                  className="px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-gray-800"
-                  style={{
-                    background: 'transparent',
-                    border: 'none',
-                    backdropFilter: 'none',
-                    fontFamily: 'Pretendard',
-                    fontSize: responsiveStyles.inputFontSize || '20px',
-                    fontWeight: responsiveStyles.inputFontWeight || '400',
-                    lineHeight: responsiveStyles.inputLineHeight || '26px',
-                    letterSpacing: responsiveStyles.inputLetterSpacing || '-0.04px',
-                    color: '#666'
-                  }}
-                  required
-                >
-                  {teamMemberNames.map((member) => (
-                    <option key={member} value={member}>
-                      {member}
-                    </option>
-                  ))}
-                </select>
-              </div>
             </div>
-          </div>
-        </div>
-        </div>
-        
-        {/* 메시지 보내기 버튼 */}
-        <div className={windowWidth <= 768 ? "" : "absolute bottom-8 left-1/2 transform -translate-x-1/2"}
-             style={windowWidth <= 768 ? {
-               display: 'flex',
-               justifyContent: 'center',
-               alignItems: 'center',
-               width: '100%'
-             } : {}}>
-          <button
-            onClick={handleSubmit}
-            className="transition-all duration-200 hover:scale-105"
-            style={{
-              display: 'flex',
-              padding: '15px 30px',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '10px',
-              borderRadius: '40px',
-              background: 'rgba(0, 0, 0, 0.00)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-              color: 'var(--Black, #000)',
-              textAlign: 'center',
-              fontFamily: 'Pretendard',
-              fontSize: responsiveStyles.buttonFontSize || '20px',
-              fontStyle: 'normal',
-              fontWeight: responsiveStyles.buttonFontWeight || '700',
-              lineHeight: responsiveStyles.buttonLineHeight || '26px',
-              letterSpacing: responsiveStyles.buttonLetterSpacing || '-0.04px'
-            }}
-          >
-            메시지 남기기
-          </button>
+            
+            {/* 메시지 보내기 버튼 */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+              <button
+                type="submit"
+                className="transition-all duration-200 hover:scale-105"
+                style={{
+                  display: 'flex',
+                  padding: '15px 30px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '10px',
+                  borderRadius: '40px',
+                  background: 'rgba(0, 0, 0, 0.00)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+                  color: 'var(--Black, #000)',
+                  textAlign: 'center',
+                  fontFamily: 'Pretendard',
+                  fontSize: responsiveStyles.buttonFontSize || '20px',
+                  fontStyle: 'normal',
+                  fontWeight: responsiveStyles.buttonFontWeight || '700',
+                  lineHeight: responsiveStyles.buttonLineHeight || '26px',
+                  letterSpacing: responsiveStyles.buttonLetterSpacing || '-0.04px'
+                }}
+              >
+                메시지 남기기
+              </button>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -825,7 +778,7 @@ const GuestBookPage = () => {
                     </div>
                   ))}
                 </div>
-              </div>
+                  </div>
                         </div>
           ) : (
             // Desktop/Tablet: 무한 스크롤 + 호버 효과
@@ -888,10 +841,10 @@ const GuestBookPage = () => {
                       {row.map((entry) => (
                         <GuestBookCard key={`first-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
                       ))}
-                    </div>
+                      </div>
                   ))}
-                </div>
-              </div>
+                    </div>
+                  </div>
                 </div>
           )}
         </div>
@@ -921,8 +874,165 @@ const GuestBookPage = () => {
               <p className="text-gray-400">첫 번째 메시지를 남겨보세요!</p>
           </div>
           )}
+        </div>
+
+          {/* 로딩 및 에러 상태 */}
+          {loading && (
+            <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-80">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
+            </div>
+          )}
+
+          {error && (
+            <div className="absolute inset-0 flex flex-col justify-center items-center bg-white bg-opacity-80">
+              <p className="text-red-500 mb-4">오류가 발생했습니다: {error}</p>
+              <button 
+                onClick={() => refetch()}
+                className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+              >
+                다시 시도
+              </button>
+            </div>
+          )}
+
+          {!loading && !error && entries.length === 0 && (
+            <div className="absolute inset-0 flex flex-col justify-center items-center">
+              <p className="text-gray-500 mb-4">아직 남겨진 메시지가 없습니다.</p>
+              <p className="text-gray-400">첫 번째 메시지를 남겨보세요!</p>
+            </div>
+          )}
       </div>
-      </div>
+
+      {/* 모달 */}
+      {showModal && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ backgroundColor: '#000000B2' }}
+          onClick={handleModalClose}
+        >
+          {/* 모달 컨텐츠 */}
+          <div 
+            className="relative"
+            style={{
+              width: '380px',
+              height: '159px',
+              borderRadius: '20px',
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* 질문 */}
+            <div style={{ 
+              textAlign: 'center',
+              paddingTop: '15px'
+            }}>
+              <h2 style={{
+                color: 'var(--White, #FFF)',
+                fontFamily: 'Pretendard',
+                fontSize: '16px',
+                fontStyle: 'normal',
+                fontWeight: '700',
+                lineHeight: '24px',
+                margin: 0
+              }}>
+                응원의 메세지를 남기겠습니까?
+              </h2>
+            </div>
+            
+            {/* 확인 메시지 */}
+            <div style={{
+              textAlign: 'center',
+              padding: '20px'
+            }}>
+              <p style={{
+                color: 'var(--White, #FFF)',
+                fontFamily: 'Pretendard',
+                fontSize: '14px',
+                fontStyle: 'normal',
+                fontWeight: '400',
+                lineHeight: '18px',
+                letterSpacing: '-0.028px',
+                margin: 0
+              }}>
+                보낸이와 받는이를 정확하게 기입했는지<br/>다시 한번 확인해주세요.
+              </p>
+            </div>
+
+            {/* 버튼들 */}
+            <div style={{
+              display: 'flex',
+              gap: '20px',
+              paddingBottom: '30px'
+            }}>
+              <button
+                onClick={handleModalClose}
+                style={{
+                  width: '91px',
+                  height: '34px',
+                  display: 'flex',
+                  padding: '8px 15px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '10px',
+                  borderRadius: '5px',
+                  background: 'var(--White, #FFF)',
+                  border: 'none',
+                  fontFamily: 'Pretendard',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  color: '#666666',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#F5F5F5';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#FFFFFF';
+                }}
+              >
+                되돌아가기
+              </button>
+              
+              <button
+                onClick={handleConfirmSubmit}
+                style={{
+                  width: '106px',
+                  height: '34px',
+                  display: 'flex',
+                  padding: '8px 15px',
+                  alignItems: 'center',
+                  gap: '10px',
+                  borderRadius: '5px',
+                  background: 'var(--Green, #00E53A)',
+                  border: 'none',
+                  fontFamily: 'Pretendard',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: '#FFFFFF',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#00CC33';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#00E53A';
+                }}
+              >
+                메세지 전하기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
