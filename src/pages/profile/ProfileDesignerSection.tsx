@@ -12,11 +12,11 @@ export const ProfileDesignerSection = ({ profileData }: ProfileDesignerSectionPr
   return (
     <ProfileSectionContainer title="DESIGNER">
       <div className="flex box-border">
-        <div className="flex items-start pt-[25px] w-[calc(100%-226px)] sm:w-[calc(100%-370px)] md:w-[calc(100%-521px)] lg:w-[calc(100%-698px)] xl:w-fit min-h-[171px] md:min-h-[500px] lg:min-h-[674px] xl:min-h-[800px]">
+        <div className="flex items-start pt-[25px] w-fit z-1">
           <img
             src={profileData.profileDetailUrl}
             alt="Profile"
-            className="object-contain max-h-[800px]"
+            className="object-contain h-[171px] md:h-[500px] lg:h-[674px] xl:h-[800px]"
           />
         </div>
         <div className="absolute mx-[calc(100%-256px)] sm:mx-[calc(100%-430px)] md:mx-[calc(100%-671px)] lg:mx-[calc(100%-848px)] xl:mx-[calc(100%-1062px)] w-[246px] sm:w-[410px] md:w-[621px] lg:w-[798px] xl:w-[962px]">
@@ -26,7 +26,7 @@ export const ProfileDesignerSection = ({ profileData }: ProfileDesignerSectionPr
             className="w-[246px] sm:w-[410px] md:w-[621px] lg:w-[798px] xl:w-[962px] h-[246px] sm:h-[410px] md:h-[621px] lg:h-[798px] xl:h-[962px] opacity-20"
           />
         </div>
-        <div className="relative md:w-[621px] lg:w-[798px] xl:w-[calc(100%-654px)]">
+        <div className="relative md:w-[calc(100%-409px)] lg:w-[calc(100%-551px)] xl:w-[calc(100%-654px)]">
           <div className="absolute inset-0 flex items-start pl-[25px] lg:pl-[53px]">
             <div className="flex flex-col gap-5 md:gap-9 lg:gap-11 xl:gap-[50px] pt-[50px] md:pt-[25px]">
               <div className="text-primary">
