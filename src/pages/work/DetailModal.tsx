@@ -26,7 +26,7 @@ export const DetailModal = ({ selected }: DetailModalProps) => {
   };
 
   return (
-    <div className="flex fixed lg:top-[170px] md:top-[124px] sm:top-[108px] top-[104px] left-0 w-full h-full bg-black/60 xl:px-[100px] md:px-[50px] px-[20px] pb-[50px] justify-center items-center">
+    <div className="flex fixed lg:top-[170px] md:top-[124px] sm:top-[108px] top-[104px] left-0 w-full h-full bg-black/60 xl:px-[100px] md:px-[50px] px-[20px] pb-[50px] justify-center items-center z-200">
       <div
         className="flex w-full xl:flex-row flex-col gap-[30px] xl:gap-5 cursor-pointer"
         onClick={() => gotoDetail(selected)}
