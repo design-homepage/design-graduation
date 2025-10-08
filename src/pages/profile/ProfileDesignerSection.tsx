@@ -22,7 +22,7 @@ export const ProfileDesignerSection = ({
   arrowUrl,
 }: ProfileDesignerSectionProps) => {
   return (
-    <ProfileSectionContainer title="DESIGNER">
+    <ProfileSectionContainer title="DESIGNER" gap={false}>
       <div className="flex box-border">
         <div className="flex items-start pt-[25px] w-fit z-1">
           <img
@@ -38,9 +38,9 @@ export const ProfileDesignerSection = ({
             className="w-[246px] sm:w-[410px] md:w-[621px] lg:w-[798px] xl:w-[962px] h-[246px] sm:h-[410px] md:h-[621px] lg:h-[798px] xl:h-[962px] opacity-20"
           />
         </div>
-        <div className="relative md:w-[calc(100%-409px)] lg:w-[calc(100%-551px)] xl:w-[calc(100%-654px)]">
+        <div className="relative w-[calc(100%-145px)] md:w-[calc(100%-409px)] lg:w-[calc(100%-551px)] xl:w-[calc(100%-654px)] overflow-hidden">
           <div className="absolute inset-0 flex items-start pl-[25px] lg:pl-[53px]">
-            <div className="flex flex-col gap-5 md:gap-9 lg:gap-11 xl:gap-[50px] pt-[50px] md:pt-[25px]">
+            <div className="flex flex-col gap-5 md:gap-9 lg:gap-11 xl:gap-[50px] pt-[50px] md:pt-[25px] w-full">
               <div className="text-primary">
                 <div className="w-fit text-2xl md:text-4xl lg:text-[60px] font-bold border-b border-primary leading-[1.2]">
                   {name}
@@ -49,32 +49,32 @@ export const ProfileDesignerSection = ({
                   {englishName}
                 </div>
               </div>
-              <div className="flex gap-5 md:gap-[70px] lg:gap-[95px] text-xs md:text-base lg:text-2xl text-black">
-                <div className="flex flex-col">
+              <div className="flex gap-5 md:gap-[70px] lg:gap-[95px] text-xs md:text-base lg:text-2xl text-black w-full">
+                <div className="flex flex-col flex-shrink-0">
                   <p>Email</p>
                   <p>Instagram</p>
                   <p>Behance</p>
                 </div>
-                <div className="flex flex-col">
-                  <p>{email}</p>
-                  <p>
+                <div className="flex flex-col min-w-0 flex-1">
+                  <p className="truncate">{email}</p>
+                  <p className="truncate">
                     <a href={instagram.split(' / ')[1]} target="_blank" rel="noopener noreferrer">
                       {instagram.split(' / ')[0]}
                     </a>
                   </p>
-                  <p>
+                  <p className="truncate">
                     <a href={behance} target="_blank" rel="noopener noreferrer">
                       {behance}
                     </a>
                   </p>
                 </div>
               </div>
-              <div className="hidden md:flex lg:text-xl">{intro}</div>
+              <div className="hidden md:flex lg:text-xl">디자이너 소개) {intro}</div>
             </div>
           </div>
         </div>
       </div>
-      <div className="md:hidden text-sm">{intro}</div>
+      <div className="md:hidden text-sm">디자이너 소개) {intro}</div>
     </ProfileSectionContainer>
   );
 };
