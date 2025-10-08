@@ -113,7 +113,8 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
                 className="object-contain"
                 style={{ 
                   width: '60px', 
-                  height: '60px'
+                  height: '60px',
+                  filter: isHovered ? 'none' : 'brightness(0) saturate(100%) invert(6%) sepia(98%) saturate(7482%) hue-rotate(240deg) brightness(95%) contrast(102%)'
                 }}
             onLoad={() => {
               console.log('이미지 로드 성공:', isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.png`);
@@ -577,8 +578,8 @@ const GuestBookPage = () => {
                 <>당신이 전하는 응원의 메세지로 또 다른 누군가에게 <span className="font-bold">'우리'</span>를 밝혀줄 불빛이 되어주세요.</>
               ) : (
                 <>
-                  당신이 전하는 응원의 메세지로<br/>
-                  또 다른 누군가에게 <span className="font-bold">'우리'</span>를 밝혀줄 불빛이 되어주세요.
+              당신이 전하는 응원의 메세지로<br/>
+              또 다른 누군가에게 <span className="font-bold">'우리'</span>를 밝혀줄 불빛이 되어주세요.
                 </>
               )}
             </p>
