@@ -80,20 +80,17 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
           alt="arrow background"
           className="absolute inset-0 w-full h-full object-contain"
           style={{ 
-            zIndex: 1,
-            opacity: isHovered ? 1 : 0.5  // 호버 시에는 불투명, 기본 상태에서는 반투명
+            zIndex: 1
+          }}
+          onLoad={() => {
+            console.log(`[${entry.id}] 화살표 이미지 로드 성공:`, getBackgroundImage());
+          }}
+          onError={(e) => {
+            console.log(`[${entry.id}] 화살표 이미지 로드 실패:`, getBackgroundImage());
+            console.log('이미지 경로:', e.currentTarget.src);
           }}
         />
 
-        {/* 호버 시 검은색 오버레이 */}
-        <div 
-          className="absolute inset-0 w-full h-full transition-all duration-300"
-          style={{
-            background: isHovered ? 'rgba(0, 0, 0, 0.5)' : 'transparent',
-            zIndex: 2,
-            pointerEvents: 'none'
-          }}
-        />
 
         
         {/* 왼쪽 화살표 영역 */}
@@ -153,13 +150,14 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
           <div className="flex-1">
             <p className="leading-relaxed line-clamp-3"
                style={{ 
-                 color: '#000',
+                 color: isHovered ? '#00FF00' : '#000', // 호버 시 초록색, 기본 시 검은색
                  fontFamily: 'Pretendard',
                  fontSize: '14px',
                  fontStyle: 'normal',
                  fontWeight: '400',
                  lineHeight: '20px',
-                 letterSpacing: '-0.028px'
+                 letterSpacing: '-0.028px',
+                 transition: 'color 0.3s ease'
                }}>
               {entry.message}
             </p>
@@ -169,13 +167,14 @@ const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: { entry: Gue
           <div className="mt-2 pt-2 border-t border-gray-300 border-opacity-30">
             <p className="text-right"
                style={{ 
-                 color: '#000',
+                 color: isHovered ? '#00FF00' : '#000', // 호버 시 초록색, 기본 시 검은색
                  fontFamily: 'Pretendard',
                  fontSize: '14px',
                  fontStyle: 'normal',
                  fontWeight: '400',
                  lineHeight: '20px',
-                 letterSpacing: '-0.028px'
+                 letterSpacing: '-0.028px',
+                 transition: 'color 0.3s ease'
                }}>
               - {entry.sender}
             </p>
