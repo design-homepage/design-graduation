@@ -8,14 +8,9 @@ import {
     graduationCommitteeMessage,
 } from "@/pages/about/constants/aboutContent";
 
-const PAGE_W = 1920;
-const PAGE_H = 8400;
-const PAD_X = 100;
-const PAD_Y = 58;
-const GAP = 98;
 
-const PANEL_W = 1720;
-const PANEL_H = 1080;
+const PAGE_H = 8400;
+const GAP = 98;
 
 /* 50% 이상 보이면 가운데로 살짝 스크롤 (옵션) */
 function useAutoCenterOnVisible(ref: React.RefObject<HTMLElement>, enabled = true) {
@@ -44,32 +39,74 @@ function useAutoCenterOnVisible(ref: React.RefObject<HTMLElement>, enabled = tru
     }, [ref, enabled]);
 }
 
-/* ✅ mx-auto 없이, 좌/우 space-between 레이아웃 */
+/* ✅ TwoColumn */
 const TwoColumn: React.FC<{
     title: React.ReactNode;
     children: React.ReactNode;
     className?: string;
-    center?: boolean; // 호환성 유지용(미사용)
 }> = ({ title, children, className = "" }) => (
-    <div className={`flex items-start justify-between mt-[170px] gap-20 w-[1720px] ${className}`}>
-        {/* 좌측 타이틀 고정폭 420px */}
-        <div className="w-[420px] shrink-0 pt-1">
-            <h2 className="whitespace-pre-line text-[60px] font-bold leading-[1.1] tracking-[-0.01em]">
+    <div
+        className={[
+            "flex items-start justify-between gap-20 w-full max-w-[1720px] mt-[170px]",
+            "max-[1350px]:max-w-[1260px]",
+            "max-[1020px]:max-w-[960px] max-[1020px]:flex-col max-[1020px]:gap-8",
+            "max-[600px]:max-w-[560px]",
+            "max-[400px]:max-w-[360px]",
+            className,
+        ].join(" ")}
+    >
+        {/* 좌측 타이틀 */}
+        <div
+            className={[
+                "w-[420px] shrink-0 pt-1",
+                "max-[1020px]:w-full",
+                "max-[600px]:text-center",
+            ].join(" ")}
+            style={{ minWidth: 0 }}
+        >
+            <h2
+                className={[
+                    "whitespace-pre-line font-bold leading-[1.1] tracking-[-0.01em]",
+                    "text-[60px]",
+                    "max-[600px]:text-[40px]",
+                ].join(" ")}
+            >
                 {title}
             </h2>
         </div>
-        {/* 우측 내용: 내부에서 폭을 제어(예: BodyText w-[720px]) */}
-        <div className="shrink-0">{children}</div>
+
+        {/* 우측 내용 */}
+        <div
+            className={[
+                "shrink-0",
+                "max-[1020px]:w-full",
+                // 모바일도 좌정렬
+                "max-[600px]:flex max-[600px]:flex-col max-[600px]:items-start",
+            ].join(" ")}
+            style={{ minWidth: 0 }}
+        >
+            {children}
+        </div>
     </div>
 );
 
+/* 본문 텍스트 */
 const BodyText: React.FC<{ text: string }> = ({ text }) => (
-    <p className="whitespace-pre-line w-[720px] text-[20px] tracking-[-0.01em] text-[#111]">
+    <p
+        className={[
+            "whitespace-pre-line w-[720px] text-[#111] leading-[1.3] tracking-[-0.01em]",
+            "text-[20px]",
+            "max-[1020px]:w-full",
+            "max-[600px]:text-[14px]",
+            "max-[400px]:text-[14px]",
+        ].join(" ")}
+        style={{ wordBreak: "keep-all" }}
+    >
         {text}
     </p>
 );
 
-/* ✅ 진짜 중앙 sticky (그대로 유지) — id를 받아서 앵커로 사용 */
+/* ✅ StickyFrame */
 const StickyFrame: React.FC<{ children: React.ReactNode; autoCenter?: boolean; id?: string }> = ({
     children,
     autoCenter = true,
@@ -79,11 +116,18 @@ const StickyFrame: React.FC<{ children: React.ReactNode; autoCenter?: boolean; i
     useAutoCenterOnVisible(ref, autoCenter);
 
     return (
-        <div id={id} className="relative flex justify-center">
-            {/* sticky를 뷰포트 중앙(50vh)에 두고 */}
+        <div id={id} className="relative flex justify-center w-full">
             <div className="sticky" style={{ top: "50vh" }}>
-                {/* 실제 패널은 위로 50% 당겨 정확히 세로 중앙 정렬 */}
-                <div ref={ref} className="justify-center items-center flex" style={{ width: PANEL_W, height: PANEL_H }}>
+                <div
+                    ref={ref}
+                    className={[
+                        "justify-center items-center flex w-full",
+                        "h-[1080px]",
+                        "max-[600px]:h-[635px]",
+                        "max-[400px]:h-[725px]",
+                    ].join(" ")}
+                    style={{ maxWidth: "1720px" }}
+                >
                     {children}
                 </div>
             </div>
@@ -93,9 +137,9 @@ const StickyFrame: React.FC<{ children: React.ReactNode; autoCenter?: boolean; i
 
 const SignatureBlock: React.FC<{ role: string; name: string; date: string }> = ({ role, name, date }) => (
     <div className="mt-10 text-left">
-        <div className="text-[20px] leading-[1.2]">{role}</div>
-        <div className="mt-1 text-[32px] font-bold leading-[1.2]">{name}</div>
-        <div className="mt-1 text-[20px] leading-[1.2]">{date}</div>
+        <div className="text-[20px] leading-[1.2] max-[600px]:text-[14px]">{role}</div>
+        <div className="mt-1 text-[32px] font-bold leading-[1.2] max-[600px]:text-[24px]">{name}</div>
+        <div className="mt-1 text-[20px] leading-[1.2] max-[600px]:text-[14px]">{date}</div>
     </div>
 );
 
@@ -109,7 +153,9 @@ const advisorsRight = [
     { role: "경북대학교 디자인학과 교수", name: "안지선" },
 ];
 
-/* 가로 갤러리: 스냅 없음, 원본 크기, 최대 높이 689px */
+const advisorsAll = [...advisorsLeft, ...advisorsRight];
+
+/* 팀 갤러리: 가로 스크롤 유지 */
 const HorizontalGallery: React.FC<{ items: { src: string; label: string }[] }> = ({ items }) => {
     const onWheel: React.WheelEventHandler<HTMLDivElement> = (e) => {
         const el = e.currentTarget;
@@ -132,8 +178,16 @@ const HorizontalGallery: React.FC<{ items: { src: string; label: string }[] }> =
             <div className="flex items-start gap-12 px-10 pr-14">
                 {items.map(({ src, label }, i) => (
                     <figure key={src} className="flex flex-col items-center justify-start shrink-0" style={{ height: "689px" }}>
-                        <figcaption className="mb-4 text-center text-[20px] font-medium">{label}</figcaption>
-                        <img src={src} alt={label} className="max-h-[689px]" draggable={false} loading={i > 2 ? "lazy" : "eager"} />
+                        <figcaption className="mb-4 text-center text-[20px] font-medium max-[600px]:text-[14px]">
+                            {label}
+                        </figcaption>
+                        <img
+                            src={src}
+                            alt={label}
+                            className="h-[689px] max-[600px]:h-[433px] w-auto object-contain"
+                            draggable={false}
+                            loading={i > 2 ? "lazy" : "eager"}
+                        />
                     </figure>
                 ))}
             </div>
@@ -157,7 +211,7 @@ const teamImages = [
     { src: "/about/team-profiles/웹팀.jpg", label: "웹팀" },
 ];
 
-/* ---------- 우측 점 네비 (현재 섹션: MoveLeft) ---------- */
+/* ---------- 우측 점 네비 ---------- */
 type Step = { id: string; label: string };
 
 const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
@@ -210,10 +264,7 @@ const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
                                     }`}
                             >
                                 {isActive ? (
-                                    <LiaLongArrowAltLeftSolid
-                                        size={18}
-                                        className="text-black animate-move-left"
-                                    />
+                                    <LiaLongArrowAltLeftSolid size={18} className="text-black animate-move-left" />
                                 ) : (
                                     <span className="h-[8px] w-[8px] rounded-full bg-black hover:bg-black/10 transition" />
                                 )}
@@ -228,7 +279,6 @@ const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
 
 /* ---------- 메인 컴포넌트 ---------- */
 const AboutInfoSection: React.FC = () => {
-    // 네비 단계(0~7 중, 여기선 1~7만 — Video/Text용 맨위 버튼은 요구사항상 제외)
     const steps: Step[] = useMemo(
         () => [
             { id: "sec-1", label: "ME" },
@@ -243,9 +293,16 @@ const AboutInfoSection: React.FC = () => {
     );
 
     return (
-        <section className="relative mx-auto box-border" style={{ width: PAGE_W, height: PAGE_H, padding: `${PAD_Y}px ${PAD_X}px` }}>
-            {/* 우측 점 네비 */}
+        <section
+            className={[
+                "relative mx-auto box-border w-full max-w-[1920px]",
+                "overflow-x-hidden",
+                "px-6 md:px-10 lg:px-[100px]",
+            ].join(" ")}
+            style={{ height: PAGE_H, paddingTop: 58, paddingBottom: 58 }}
+        >
             <RightDotNav steps={steps} />
+
 
             <div className="flex h-full flex-col" style={{ rowGap: GAP }}>
                 {/* 1) ME */}
@@ -280,21 +337,34 @@ const AboutInfoSection: React.FC = () => {
 
                 {/* 5) 지도 교수 */}
                 <StickyFrame id="sec-5">
-                    <TwoColumn title="지도 교수">
-                        <div className="grid grid-cols-2 gap-x-24 gap-y-8 w-[720px]">
+                    <TwoColumn title="지도 교수" className="max-[600px]:items-start">
+                        {/* >=1021px: 2컬럼 그리드 */}
+                        <div className="grid grid-cols-2 gap-x-24 gap-y-8 w-[720px] max-[1020px]:w-full max-[600px]:hidden">
                             <ul className="space-y-8">
                                 {advisorsLeft.map((p) => (
                                     <li key={p.name}>
-                                        <div className="text-[18px] leading-[1.6] text-[#333]">{p.role}</div>
-                                        <div className="mt-1 text-[32px] font-extrabold leading-[1.4]">{p.name}</div>
+                                        <div className="text-[18px] leading-[1.6] text-[#333] max-[600px]:text-[14px]">{p.role}</div>
+                                        <div className="mt-1 text-[32px] font-extrabold leading-[1.4] max-[600px]:text-[24px]">{p.name}</div>
                                     </li>
                                 ))}
                             </ul>
                             <ul className="space-y-8">
                                 {advisorsRight.map((p) => (
                                     <li key={p.name}>
-                                        <div className="text-[18px] leading-[1.6] text-[#333]">{p.role}</div>
-                                        <div className="mt-1 text-[32px] font-extrabold leading-[1.4]">{p.name}</div>
+                                        <div className="text-[18px] leading-[1.6] text-[#333] max-[600px]:text-[14px]">{p.role}</div>
+                                        <div className="mt-1 text-[32px] font-extrabold leading-[1.4] max-[600px]:text-[24px]">{p.name}</div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* ≤600px: 세로 리스트 */}
+                        <div className="hidden max-[600px]:block w-full">
+                            <ul className="flex flex-col gap-6">
+                                {advisorsAll.map((p) => (
+                                    <li key={p.name} className="text-left">
+                                        <div className="text-[24px] leading-[1.5] text-[#333]">{p.role}</div>
+                                        <div className="mt-1 text-[24px] font-extrabold leading-[1.4]">{p.name}</div>
                                     </li>
                                 ))}
                             </ul>
@@ -310,19 +380,35 @@ const AboutInfoSection: React.FC = () => {
                     </TwoColumn>
                 </StickyFrame>
 
-                {/* 7) 졸업 구성원 — 텍스트와 갤러리 함께 */}
+                {/* 7) 졸업 구성원 */}
                 <StickyFrame id="sec-7">
-                    <div className="w-[1720px] mx-auto">
-                        <TwoColumn title="졸업구성원" className="mb-0">
-                            <div className="text-[20px] w-[714px] leading-[2.5]">
-                                {memberLines.map((m) => (
-                                    <div key={m.role} className="flex gap-6">
-                                        <span className="w-[90px] font-bold">{m.role}</span>
-                                        <span>{m.names}</span>
-                                    </div>
-                                ))}
+                    <div className="w-full max-w-[1720px] mx-auto max-[1350px]:max-w-[1260px] max-[1020px]:max-w-[960px] max-[600px]:max-w-[560px] max-[400px]:max-w-[360px]">
+                        <TwoColumn title="졸업구성원" className="mb-20 max-[600px]:items-start mt-[900px]">
+                            {/* 데스크톱/태블릿: 본문과 동일하게 20px, 모바일 14px */}
+                            <div className="w-[714px] max-[1020px]:w-full">
+                                <div className="text-[20px] max-[600px]:text-[14px] leading-[1.9]">
+                                    {memberLines.map((m) => (
+                                        <div
+                                            key={m.role}
+                                            className="
+                                            grid items-center
+                                            grid-cols-[110px_1fr] gap-x-6
+                                            max-[600px]:grid-cols-[84px_1fr] max-[600px]:gap-x-4
+                                            mb-2
+                                            "
+                                        >
+                                            {/* 팀명: 굵게 + 오른쪽 정렬(고정폭) */}
+                                            <span className="font-bold text-left break-keep">{m.role}</span>
+                                            {/* 이름: 왼쪽 정렬 + 자연 줄바꿈 */}
+                                            <span className="break-keep whitespace-normal">
+                                                {m.names}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </TwoColumn>
+
                         <div className="mt-10">
                             <HorizontalGallery items={teamImages} />
                         </div>

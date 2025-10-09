@@ -1,18 +1,11 @@
+// TextSection.tsx
 import React, { useEffect, useRef, useState } from "react";
 
-/**
- * 스크롤 구간/치수 (px)
- * - 전체 섹션 높이: 6817
- * - 텍스트 고정 영역: 1280
- * - 이미지 높이: 3341
- * - 트리거: start=100, overlay=START_MOVE, end=overlay+IMG_H
- */
 const TEXT_H = 1280;
 const IMG_H = 3341;
-
-const START_MOVE = 100;                 // 이미지 이동 시작
-const OVERLAY_START = START_MOVE;       // 블러 시작(이미지와 동시)
-const MOVE_END = OVERLAY_START + IMG_H; // 이미지 이동 종료
+const START_MOVE = 100;
+const OVERLAY_START = START_MOVE;
+const MOVE_END = OVERLAY_START + IMG_H;
 const SECTION_H = MOVE_END;
 
 const clamp = (v: number, min: number, max: number) =>
@@ -20,7 +13,7 @@ const clamp = (v: number, min: number, max: number) =>
 
 const TextSection: React.FC = () => {
     const sectionRef = useRef<HTMLDivElement | null>(null);
-    const [offset, setOffset] = useState(0); // 섹션 로컬 스크롤 오프셋(px)
+    const [offset, setOffset] = useState(0);
 
     useEffect(() => {
         const el = sectionRef.current;
@@ -54,11 +47,8 @@ const TextSection: React.FC = () => {
         };
     }, []);
 
-    // 이미지 translateY 계산 (위로 이동 = 음수)
-    const moveAmount = clamp(offset - START_MOVE, 0, IMG_H); // 0 → 3341
+    const moveAmount = clamp(offset - START_MOVE, 0, IMG_H);
     const imageTranslateY = -moveAmount;
-
-    // 블러 활성 구간: 이미지가 진행하는 동안(동시 시작~동시 끝)
     const blurActive = offset >= OVERLAY_START && offset <= MOVE_END;
 
     return (
@@ -68,57 +58,91 @@ const TextSection: React.FC = () => {
             style={{ height: SECTION_H }}
             aria-label="About page text & image scroll section"
         >
-            {/* 텍스트 고정 레이어 (z-10) */}
+            {/* 텍스트 고정 영역 */}
             <div
                 className="sticky top-0 z-10 flex h-screen items-center justify-center"
                 style={{ height: TEXT_H }}
             >
-                <div className="relative w-full max-w-[1920px] px-8 md:px-16 lg:px-24">
-                    <div className="space-y-8">
-                        <h2 className="text-[min(12.5vw,200px)] leading-[0.95] font-extrabold text-black text-left">
+                <div className="relative w-full max-w-[1920px] px-8 md:pb-16 lg:pb-24">
+                    <div
+                        className={`
+                        space-y-0
+                        min-[1600px]:-space-y-8
+                        leading-[0.95]
+                        font-black text-black
+                        max-[600px]:text-center
+                    `}
+                    >
+                        <h2
+                            className="
+                            font-black
+                        text-left max-[600px]:text-center
+                        text-[min(12.5vw,200px)] max-[1020px]:text-[120px] max-[600px]:!text-[70px]
+                        "
+                        >
                             나를 통해
                         </h2>
-                        <h2 className="text-[min(12.5vw,200px)] leading-[0.95] font-extrabold text-black text-center">
+
+                        <h2
+                            className="
+                            font-black
+                        text-center
+                        text-[min(12.5vw,200px)] max-[1020px]:text-[120px] max-[600px]:!text-[70px]
+                        "
+                        >
                             우리가 되고
                         </h2>
-                        <h2 className="text-[min(12.5vw,200px)] leading-[0.95] font-extrabold text-black text-center">
+
+                        <h2
+                            className="
+                            font-black
+                        text-center
+                        text-[min(12.5vw,200px)] max-[1020px]:text-[120px] max-[600px]:!text-[70px]
+                        "
+                        >
                             우리 안에서
                         </h2>
-                        <h2 className="text-[min(12.5vw,200px)] leading-[0.95] font-extrabold text-black text-right">
+
+                        <h2
+                            className="
+                            font-black
+                        text-right max-[600px]:text-center
+                        text-[min(12.5vw,200px)] max-[1020px]:text-[120px] max-[600px]:!text-[70px]
+                        "
+                        >
                             나를 본다
                         </h2>
                     </div>
                 </div>
             </div>
 
-            {/* ====== 이동 그룹: 오버레이(중간) + 이미지(맨 위) ====== */}
+            {/* 이동 그룹 — 가로폭(100vw) 기준으로 비율 유지 */}
             <div
-                className="absolute left-1/2 z-20 "
+                className="absolute left-1/2 z-20 w-[100vw] max-w-full"
                 style={{
-                    top: TEXT_H,                         // 텍스트 바로 아래에서 시작
-                    width: 1920,
-                    height: IMG_H,
+                    top: TEXT_H,
+                    // 1920 기준 IMG_H(3341px)의 비율을 그대로 유지: 높이 = 100vw * (3341/1920)
+                    height: `calc(100vw * ${IMG_H / 1920})`,
                     transform: `translate(-50%, ${imageTranslateY}px)`,
                     willChange: "transform",
                 }}
             >
-                {/* 🔹 배경 블러 오버레이 (텍스트 위, 이미지 아래) */}
+                {/* 오버레이 (이미지 영역 전체를 덮도록 그대로 유지) */}
                 <div
                     className={`absolute inset-0 z-10 pointer-events-none transition-opacity duration-200 ${blurActive ? "opacity-100" : "opacity-0"
                         }`}
                     style={{
                         backdropFilter: "blur(19px)",
                         WebkitBackdropFilter: "blur(19px)",
-                        backgroundColor: "rgba(255,255,255,0.06)", // 살짝 안개 느낌 (옵션)
+                        backgroundColor: "rgba(255,255,255,0.06)",
                     }}
-                    aria-hidden
                 />
 
-                {/* 🔹 이미지 (오버레이 위) */}
+                {/* 이미지: 가로 100vw에 맞추고, 세로는 비율대로 자동 */}
                 <img
                     src="/about/about-background.webp"
                     alt="About background"
-                    className="absolute inset-0 z-20 h-full w-full object-cover"
+                    className="absolute left-1/2 top-0 -translate-x-1/2 z-20 w-[100vw] h-auto object-contain"
                     draggable={false}
                 />
             </div>
