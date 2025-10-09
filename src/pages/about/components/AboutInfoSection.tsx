@@ -8,6 +8,9 @@ import {
     graduationCommitteeMessage,
 } from "@/pages/about/constants/aboutContent";
 
+// ✅ NEW: sec-0로 사용할 컴포넌트 임포트
+import VideoSection from "@/pages/about/components/VideoSection";
+import TextSection from "@/pages/about/components/TextSection";
 
 const PAGE_H = 8400;
 const GAP = 98;
@@ -166,13 +169,7 @@ const HorizontalGallery: React.FC<{ items: { src: string; label: string }[] }> =
     };
     return (
         <div
-            className="
-        mt-10 overflow-x-auto overflow-y-hidden
-        [scrollbar-width:thin]
-        [&::-webkit-scrollbar]:h-2
-        [&::-webkit-scrollbar-thumb]:bg-neutral-400/50
-        [&::-webkit-scrollbar-track]:bg-transparent
-      "
+            className="mt-10 overflow-x-auto overflow-y-hidden scrollbar-hide"
             onWheel={onWheel}
         >
             <div className="flex items-start gap-12 px-10 pr-14">
@@ -281,6 +278,8 @@ const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
 const AboutInfoSection: React.FC = () => {
     const steps: Step[] = useMemo(
         () => [
+            // ✅ NEW: sec-0(인트로) 추가
+            { id: "sec-0", label: "INTRO" },
             { id: "sec-1", label: "ME" },
             { id: "sec-2", label: "VIDUAL IDENTITY" },
             { id: "sec-3", label: "예술대학장 인사말" },
@@ -293,129 +292,135 @@ const AboutInfoSection: React.FC = () => {
     );
 
     return (
-        <section
-            className={[
-                "relative mx-auto box-border w-full max-w-[1920px]",
-                "overflow-x-hidden",
-                "px-6 md:px-10 lg:px-[100px]",
-            ].join(" ")}
-            style={{ height: PAGE_H, paddingTop: 58, paddingBottom: 58 }}
-        >
-            <RightDotNav steps={steps} />
+        <>
+            {/* ✅ NEW: sec-0 — 패딩/최대폭 래퍼 밖(=풀블리드) */}
+            <div id="sec-0">
+                <VideoSection />
+                <TextSection />
+            </div>
 
+            {/* 기존 섹션: 여기부터는 페이지 패딩/최대폭 래퍼 사용 */}
+            <section
+                className={[
+                    "relative mx-auto box-border w-full max-w-[1920px]",
+                    "overflow-x-hidden",
+                    "px-6 md:px-10 lg:px-[100px]",
+                ].join(" ")}
+                style={{ height: PAGE_H, paddingTop: 58, paddingBottom: 58 }}
+            >
+                <RightDotNav steps={steps} />
 
-            <div className="flex h-full flex-col" style={{ rowGap: GAP }}>
-                {/* 1) ME */}
-                <StickyFrame id="sec-1">
-                    <TwoColumn title="ME">
-                        <BodyText text={meContent} />
-                    </TwoColumn>
-                </StickyFrame>
+                <div className="flex h-full flex-col" style={{ rowGap: GAP }}>
+                    {/* 1) ME */}
+                    <StickyFrame id="sec-1">
+                        <TwoColumn title="ME">
+                            <BodyText text={meContent} />
+                        </TwoColumn>
+                    </StickyFrame>
 
-                {/* 2) VIDUAL IDENTITY */}
-                <StickyFrame id="sec-2">
-                    <TwoColumn title={"VIDUAL\nIDENTITY"}>
-                        <BodyText text={visualIdentityContent} />
-                    </TwoColumn>
-                </StickyFrame>
+                    {/* 2) VIDUAL IDENTITY */}
+                    <StickyFrame id="sec-2">
+                        <TwoColumn title={"VIDUAL\nIDENTITY"}>
+                            <BodyText text={visualIdentityContent} />
+                        </TwoColumn>
+                    </StickyFrame>
 
-                {/* 3) 예술대학장 인사말 */}
-                <StickyFrame id="sec-3">
-                    <TwoColumn title={"예술대학장\n인사말"}>
-                        <BodyText text={deanMessage.split("\n\n예술대학 학장")[0]} />
-                        <SignatureBlock role="예술대학 학장" name="조철희" date="2025년 10월" />
-                    </TwoColumn>
-                </StickyFrame>
+                    {/* 3) 예술대학장 인사말 */}
+                    <StickyFrame id="sec-3">
+                        <TwoColumn title={"예술대학장\n인사말"}>
+                            <BodyText text={deanMessage.split("\n\n예술대학 학장")[0]} />
+                            <SignatureBlock role="예술대학 학장" name="조철희" date="2025년 10월" />
+                        </TwoColumn>
+                    </StickyFrame>
 
-                {/* 4) 학과장 인사말 */}
-                <StickyFrame id="sec-4">
-                    <TwoColumn title={"학과장 인사말"}>
-                        <BodyText text={departmentHeadMessage.split("\n\n디자인학과 학과장")[0]} />
-                        <SignatureBlock role="디자인학과 학과장" name="김성년" date="2025년 10월" />
-                    </TwoColumn>
-                </StickyFrame>
+                    {/* 4) 학과장 인사말 */}
+                    <StickyFrame id="sec-4">
+                        <TwoColumn title={"학과장 인사말"}>
+                            <BodyText text={departmentHeadMessage.split("\n\n디자인학과 학과장")[0]} />
+                            <SignatureBlock role="디자인학과 학과장" name="김성년" date="2025년 10월" />
+                        </TwoColumn>
+                    </StickyFrame>
 
-                {/* 5) 지도 교수 */}
-                <StickyFrame id="sec-5">
-                    <TwoColumn title="지도 교수" className="max-[600px]:items-start">
-                        {/* >=1021px: 2컬럼 그리드 */}
-                        <div className="grid grid-cols-2 gap-x-24 gap-y-8 w-[720px] max-[1020px]:w-full max-[600px]:hidden">
-                            <ul className="space-y-8">
-                                {advisorsLeft.map((p) => (
-                                    <li key={p.name}>
-                                        <div className="text-[18px] leading-[1.6] text-[#333] max-[600px]:text-[14px]">{p.role}</div>
-                                        <div className="mt-1 text-[32px] font-extrabold leading-[1.4] max-[600px]:text-[24px]">{p.name}</div>
-                                    </li>
-                                ))}
-                            </ul>
-                            <ul className="space-y-8">
-                                {advisorsRight.map((p) => (
-                                    <li key={p.name}>
-                                        <div className="text-[18px] leading-[1.6] text-[#333] max-[600px]:text-[14px]">{p.role}</div>
-                                        <div className="mt-1 text-[32px] font-extrabold leading-[1.4] max-[600px]:text-[24px]">{p.name}</div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* ≤600px: 세로 리스트 */}
-                        <div className="hidden max-[600px]:block w-full">
-                            <ul className="flex flex-col gap-6">
-                                {advisorsAll.map((p) => (
-                                    <li key={p.name} className="text-left">
-                                        <div className="text-[24px] leading-[1.5] text-[#333]">{p.role}</div>
-                                        <div className="mt-1 text-[24px] font-extrabold leading-[1.4]">{p.name}</div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </TwoColumn>
-                </StickyFrame>
-
-                {/* 6) 졸준위 인사말 */}
-                <StickyFrame id="sec-6">
-                    <TwoColumn title={"졸준위 인사말"}>
-                        <BodyText text={graduationCommitteeMessage.split("\n\n졸업준비위원회 위원장")[0]} />
-                        <SignatureBlock role="졸업준비위원회 위원장" name="김승화" date="2025년 10월" />
-                    </TwoColumn>
-                </StickyFrame>
-
-                {/* 7) 졸업 구성원 */}
-                <StickyFrame id="sec-7">
-                    <div className="w-full max-w-[1720px] mx-auto max-[1350px]:max-w-[1260px] max-[1020px]:max-w-[960px] max-[600px]:max-w-[560px] max-[400px]:max-w-[360px]">
-                        <TwoColumn title="졸업구성원" className="mb-20 max-[600px]:items-start mt-[900px]">
-                            {/* 데스크톱/태블릿: 본문과 동일하게 20px, 모바일 14px */}
-                            <div className="w-[714px] max-[1020px]:w-full">
-                                <div className="text-[20px] max-[600px]:text-[14px] leading-[1.9]">
-                                    {memberLines.map((m) => (
-                                        <div
-                                            key={m.role}
-                                            className="
-                                            grid items-center
-                                            grid-cols-[110px_1fr] gap-x-6
-                                            max-[600px]:grid-cols-[84px_1fr] max-[600px]:gap-x-4
-                                            mb-2
-                                            "
-                                        >
-                                            {/* 팀명: 굵게 + 오른쪽 정렬(고정폭) */}
-                                            <span className="font-bold text-left break-keep">{m.role}</span>
-                                            {/* 이름: 왼쪽 정렬 + 자연 줄바꿈 */}
-                                            <span className="break-keep whitespace-normal">
-                                                {m.names}
-                                            </span>
-                                        </div>
+                    {/* 5) 지도 교수 */}
+                    <StickyFrame id="sec-5">
+                        <TwoColumn title="지도 교수" className="max-[600px]:items-start">
+                            {/* >=1021px: 2컬럼 그리드 */}
+                            <div className="grid grid-cols-2 gap-x-24 gap-y-8 w-[720px] max-[1020px]:w-full max-[600px]:hidden">
+                                <ul className="space-y-8">
+                                    {advisorsLeft.map((p) => (
+                                        <li key={p.name}>
+                                            <div className="text-[18px] leading-[1.6] text-[#333] max-[600px]:text-[14px]">{p.role}</div>
+                                            <div className="mt-1 text-[32px] font-extrabold leading-[1.4] max-[600px]:text-[24px]">{p.name}</div>
+                                        </li>
                                     ))}
-                                </div>
+                                </ul>
+                                <ul className="space-y-8">
+                                    {advisorsRight.map((p) => (
+                                        <li key={p.name}>
+                                            <div className="text-[18px] leading-[1.6] text-[#333] max-[600px]:text-[14px]">{p.role}</div>
+                                            <div className="mt-1 text-[32px] font-extrabold leading-[1.4] max-[600px]:text-[24px]">{p.name}</div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            {/* ≤600px: 세로 리스트 */}
+                            <div className="hidden max-[600px]:block w-full">
+                                <ul className="flex flex-col gap-6">
+                                    {advisorsAll.map((p) => (
+                                        <li key={p.name} className="text-left">
+                                            <div className="text-[24px] leading-[1.5] text-[#333]">{p.role}</div>
+                                            <div className="mt-1 text-[24px] font-extrabold leading-[1.4]">{p.name}</div>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
                         </TwoColumn>
+                    </StickyFrame>
 
-                        <div className="mt-10">
-                            <HorizontalGallery items={teamImages} />
+                    {/* 6) 졸준위 인사말 */}
+                    <StickyFrame id="sec-6">
+                        <TwoColumn title={"졸준위 인사말"}>
+                            <BodyText text={graduationCommitteeMessage.split("\n\n졸업준비위원회 위원장")[0]} />
+                            <SignatureBlock role="졸업준비위원회 위원장" name="김승화" date="2025년 10월" />
+                        </TwoColumn>
+                    </StickyFrame>
+
+                    {/* 7) 졸업 구성원 */}
+                    <StickyFrame id="sec-7">
+                        <div className="w-full max-w-[1720px] mx-auto max-[1350px]:max-w-[1260px] max-[1020px]:max-w-[960px] max-[600px]:max-w-[560px] max-[400px]:max-w-[360px]">
+                            <TwoColumn title="졸업구성원" className="mb-20 max-[600px]:items-start mt-[900px]">
+                                {/* 데스크톱/태블릿: 본문과 동일하게 20px, 모바일 14px */}
+                                <div className="w-[714px] max-[1020px]:w-full">
+                                    <div className="text-[20px] max-[600px]:text-[14px] leading-[1.9]">
+                                        {memberLines.map((m) => (
+                                            <div
+                                                key={m.role}
+                                                className="
+                          grid items-center
+                          grid-cols-[110px_1fr] gap-x-6
+                          max-[600px]:grid-cols-[84px_1fr] max-[600px]:gap-x-4
+                          mb-2
+                        "
+                                            >
+                                                {/* 팀명: 굵게 + 오른쪽 정렬(고정폭) */}
+                                                <span className="font-bold text-left break-keep">{m.role}</span>
+                                                {/* 이름: 왼쪽 정렬 + 자연 줄바꿈 */}
+                                                <span className="break-keep whitespace-normal">{m.names}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </TwoColumn>
+
+                            <div className="mt-10">
+                                <HorizontalGallery items={teamImages} />
+                            </div>
                         </div>
-                    </div>
-                </StickyFrame>
-            </div>
-        </section>
+                    </StickyFrame>
+                </div>
+            </section>
+        </>
     );
 };
 

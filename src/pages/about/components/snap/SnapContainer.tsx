@@ -156,43 +156,25 @@ const SnapContainer: React.FC<SnapContainerProps> = ({
                 className="snap-container scrollbar-hide"
                 style={{
                     scrollSnapType: 'y mandatory',
-                    height: '100dvh',            // 모바일 브라우저 뷰포트 이슈 방지
+                    height: '100vh',
                     overflowY: 'auto',
                     scrollBehavior: 'smooth',
                     position: 'relative'
                 }}
             >
-                {React.Children.map(children, (child, idx) => {
-                    // ids[idx]와 children 순서가 1:1 매칭된다고 가정
-                    const sectionId = ids[idx];
-
-                    // 각 섹션을 우리가 감싸서 ref/속성/스타일을 강제로 부여
-                    return (
-                        <div
-                            key={sectionId ?? idx}
-                            id={sectionId}
-                            data-section-id={sectionId}
-                            ref={(el) => registerSection(sectionId, el)}
-                            // scroll-snap에 필요한 속성들
-                            style={{
-                                scrollSnapAlign: 'center',   // 중앙 스냅
-                                scrollSnapStop: 'always',    // 스냅 강제(지원 브라우저에서)
-                                minHeight: '100dvh',         // 스냅 기준 높이
-                                display: 'flex',             // 가운데 정렬 등 필요하면
-                                alignItems: 'center',        // (선택) 수직 가운데
-                                justifyContent: 'center'     // (선택) 수평 가운데
-                            }}
-                        >
-                            {/* 자식은 그대로 렌더링 (ref는 래퍼에만) */}
-                            {React.isValidElement(child)
-                                ? React.cloneElement(child as React.ReactElement<any>, {
-                                    // optional: isActive/isScrolling 내려주고 싶으면 여기에
-                                    isActive: activeSection === sectionId,
-                                    isScrolling,
-                                })
-                                : child}
-                        </div>
-                    );
+                {React.Children.map(children, (child) => {
+                    if (React.isValidElement(child) && child.props && typeof child.props === 'object' && 'id' in child.props) {
+                        const childProps = child.props as { id: string };
+                        return React.cloneElement(child as React.ReactElement<any>, {
+                            ...child.props,
+                            ref: (element: HTMLElement | null) => {
+                                registerSection(childProps.id, element);
+                            },
+                            isActive: activeSection === childProps.id,
+                            isScrolling
+                        });
+                    }
+                    return child;
                 })}
             </div>
 
