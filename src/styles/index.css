@@ -148,7 +148,7 @@ body::-webkit-scrollbar {
 /* 오른쪽에서 시작하는 스크롤 애니메이션 */
 @keyframes scroll-from-right {
   0% {
-    transform: translateX(100%);
+    transform: translateX(33.3%);
   }
   100% {
     transform: translateX(-50%);
