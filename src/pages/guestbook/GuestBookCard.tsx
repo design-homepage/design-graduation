@@ -21,13 +21,9 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
   // 메시지 길이에 따라 배경 이미지 선택 (호버 상태 반영)
   const getBackgroundImage = () => {
     const messageLength = entry.message.length;
-    const imageType = messageLength >= 98 ? 'L' : 'S';
     const selectedImage = messageLength >= 98
       ? (isHovered ? arrowHoverL : arrowBasicL)
       : (isHovered ? arrowHoverS : arrowBasicS);
-
-    console.log(`[${entry.id}] 호버 상태: ${isHovered}, 이미지 타입: ${imageType}, 메시지 길이: ${messageLength}`);
-
     return selectedImage;
   };
 
@@ -52,14 +48,8 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
         position: 'relative',
         cursor: 'pointer'
       }}
-      onMouseEnter={() => {
-        console.log(`[${entry.id}] 마우스 진입 - 호버 상태 변경: false → true`);
-        setIsHovered(true);
-      }}
-      onMouseLeave={() => {
-        console.log(`[${entry.id}] 마우스 벗어남 - 호버 상태 변경: true → false`);
-        setIsHovered(false);
-      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {/* 화살표 이미지를 사용한 카드 */}
       <div className="relative transition-all duration-300"
@@ -76,24 +66,7 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
           className="absolute inset-0 w-full h-full object-contain"
           style={{
             zIndex: 1,
-            opacity: isHovered ? 1 : 0.5  // 호버 시 불투명, 기본 상태 반투명
-          }}
-          onLoad={() => {
-            console.log(`[${entry.id}] 화살표 이미지 로드 성공:`, getBackgroundImage());
-          }}
-          onError={(e) => {
-            console.log(`[${entry.id}] 화살표 이미지 로드 실패:`, getBackgroundImage());
-            console.log('이미지 경로:', e.currentTarget.src);
-          }}
-        />
-
-        {/* 호버 시 검은색 오버레이 */}
-        <div
-          className="absolute inset-0 w-full h-full transition-all duration-300"
-          style={{
-            background: isHovered ? 'rgba(0, 0, 0, 0.5)' : 'transparent',
-            zIndex: 2,
-            pointerEvents: 'none'
+            opacity: isHovered ? 1 : 0.5
           }}
         />
 
@@ -111,19 +84,15 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
             zIndex: 3
           }}>
           <img
-            src={isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.webp`}
+            src={`/guestbook/arrows-green/Property 1=${entry.receiver}_G.webp`}
             alt={entry.receiver}
             className="object-contain"
             style={{
               width: '60px',
               height: '60px',
-              filter: isHovered ? 'none' : 'brightness(0) saturate(100%) invert(6%) sepia(98%) saturate(7482%) hue-rotate(240deg) brightness(95%) contrast(102%)'
-            }}
-            onLoad={() => {
-              console.log('이미지 로드 성공:', isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.webp`);
+              filter: 'brightness(0) saturate(100%) invert(6%) sepia(98%) saturate(7482%) hue-rotate(240deg) brightness(95%) contrast(102%)'
             }}
             onError={(e) => {
-              console.log('이미지 로드 실패:', isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.webp`);
               // 이미지 로드 실패 시 기본 아이콘 표시
               e.currentTarget.style.display = 'none';
               const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
@@ -155,14 +124,13 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
           <div className="flex-1">
             <p className="leading-relaxed line-clamp-3"
               style={{
-                color: isHovered ? '#00FF00' : '#000', // 호버 시 초록색, 기본 시 검은색
+                color: '#000',
                 fontFamily: 'Pretendard',
                 fontSize: '14px',
                 fontStyle: 'normal',
                 fontWeight: '400',
                 lineHeight: '20px',
-                letterSpacing: '-0.028px',
-                transition: 'color 0.3s ease'
+                letterSpacing: '-0.028px'
               }}>
               {entry.message}
             </p>
@@ -172,14 +140,13 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
           <div className="mt-2 pt-2 border-t border-gray-300 border-opacity-30">
             <p className="text-right"
               style={{
-                color: isHovered ? '#00FF00' : '#000', // 호버 시 초록색, 기본 시 검은색
+                color: '#000',
                 fontFamily: 'Pretendard',
                 fontSize: '14px',
                 fontStyle: 'normal',
                 fontWeight: '400',
                 lineHeight: '20px',
-                letterSpacing: '-0.028px',
-                transition: 'color 0.3s ease'
+                letterSpacing: '-0.028px'
               }}>
               - {entry.sender}
             </p>
