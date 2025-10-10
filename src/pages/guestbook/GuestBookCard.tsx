@@ -1,6 +1,5 @@
 import { useState, memo } from 'react';
 import type { GuestBookEntry } from '@/types/guestbook';
-import { getTeamMemberImage } from '@/types/teamMembers';
 
 // Arrow 이미지 경로들 (런타임에 참조)
 const arrowBasicL = '/guestbook/img/arrow_basic_L.webp';
