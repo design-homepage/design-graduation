@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import type { TeamMember } from '@/types/teamMembers';
 import { teamMemberNames } from '@/types/teamMembers';
 
@@ -31,15 +30,15 @@ interface GuestBookFormProps {
 
 export const GuestBookForm = ({ formData, onInputChange, onSubmit, responsiveStyles }: GuestBookFormProps) => {
   return (
-    <div 
-      className="relative snap-start z-10" 
+    <div
+      className="relative snap-start z-10"
       style={{ height: 'calc(100vh - 64px)' }}
     >
       <div className="flex items-center justify-center h-full" style={{ paddingBottom: '40px' }}>
         <form onSubmit={onSubmit} className="w-full max-w-4xl mx-auto p-8">
           {/* 글래스모피즘 컨테이너 */}
-          <div 
-            className="glassmorphism-container" 
+          <div
+            className="glassmorphism-container"
             style={{
               display: 'flex',
               width: responsiveStyles.containerWidth,
@@ -62,13 +61,13 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, responsiveSty
               <div style={{ width: '100%' }}>
                 <div className="flex items-center gap-4" style={{ width: '100%' }}>
                   <h3 className="text-black drop-shadow-lg"
-                      style={{
-                        fontFamily: 'Pretendard',
-                        fontSize: responsiveStyles.labelFontSize || '24px',
-                        fontWeight: responsiveStyles.labelFontWeight || '700',
-                        lineHeight: responsiveStyles.labelLineHeight || '32px',
-                        letterSpacing: responsiveStyles.labelLetterSpacing || '-0.048px'
-                      }}>ME:</h3>
+                    style={{
+                      fontFamily: 'Pretendard',
+                      fontSize: responsiveStyles.labelFontSize || '24px',
+                      fontWeight: responsiveStyles.labelFontWeight || '700',
+                      lineHeight: responsiveStyles.labelLineHeight || '32px',
+                      letterSpacing: responsiveStyles.labelLetterSpacing || '-0.048px'
+                    }}>ME:</h3>
                   <input
                     type="text"
                     name="sender"
@@ -94,7 +93,7 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, responsiveSty
 
               {/* 구분선 */}
               <div className="border-t border-black-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
-                
+
               {/* 2. 메시지 섹션 */}
               <div style={{ width: '100%', flex: 1, position: 'relative' }}>
                 <textarea
@@ -115,16 +114,16 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, responsiveSty
                   required
                   maxLength={200}
                 />
-                <div style={{ 
-                  position: 'absolute', 
-                  bottom: '10px', 
+                <div style={{
+                  position: 'absolute',
+                  bottom: '10px',
                   right: '0',
                   paddingRight: '4px'
                 }}>
                   <span className="text-xs text-black drop-shadow-lg">{formData.message.length}/200</span>
                 </div>
               </div>
-                
+
               {/* 구분선 */}
               <div className="border-t border-gray-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
 
@@ -132,13 +131,13 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, responsiveSty
               <div style={{ width: '100%' }}>
                 <div className="flex items-center gap-4" style={{ width: '100%' }}>
                   <h3 className="text-black drop-shadow-lg"
-                      style={{
-                        fontFamily: 'Pretendard',
-                        fontSize: responsiveStyles.labelFontSize || '24px',
-                        fontWeight: responsiveStyles.labelFontWeight || '700',
-                        lineHeight: responsiveStyles.labelLineHeight || '32px',
-                        letterSpacing: responsiveStyles.labelLetterSpacing || '-0.048px'
-                      }}>WE:</h3>
+                    style={{
+                      fontFamily: 'Pretendard',
+                      fontSize: responsiveStyles.labelFontSize || '24px',
+                      fontWeight: responsiveStyles.labelFontWeight || '700',
+                      lineHeight: responsiveStyles.labelLineHeight || '32px',
+                      letterSpacing: responsiveStyles.labelLetterSpacing || '-0.048px'
+                    }}>WE:</h3>
                   <select
                     name="receiver"
                     value={formData.receiver}
@@ -167,7 +166,7 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, responsiveSty
               </div>
             </div>
           </div>
-          
+
           {/* 메시지 보내기 버튼 */}
           <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2">
             <button

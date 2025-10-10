@@ -1,5 +1,4 @@
 // VideoSection.tsx
-import React from "react";
 
 /**
  * 영상이 들어가는 회색 섹션 컴포넌트

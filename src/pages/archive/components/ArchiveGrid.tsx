@@ -105,14 +105,13 @@ const ArchiveGrid: React.FC = () => {
                 />
 
                 <ArchiveIntro
-                    containerWidth={responsiveStyles.textAreaWidth}
+                    containerWidth={responsiveStyles.containerWidth}
                     containerHeight={responsiveStyles.textAreaHeight}
                 />
 
                 <ArchiveGridLayout
                     columnCount={responsiveStyles.columnCount}
                     containerWidth={responsiveStyles.containerWidth}
-                    containerHeight={responsiveStyles.containerHeight}
                     columnGap={responsiveStyles.columnGap}
                     leftColumn={leftColumn}
                     middleColumn={middleColumn}

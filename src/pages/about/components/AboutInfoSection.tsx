@@ -16,7 +16,7 @@ const PAGE_H = 8400;
 const GAP = 98;
 
 /* 50% 이상 보이면 가운데로 살짝 스크롤 (옵션) */
-function useAutoCenterOnVisible(ref: React.RefObject<HTMLElement>, enabled = true) {
+function useAutoCenterOnVisible(ref: React.RefObject<HTMLDivElement | null>, enabled = true) {
     useEffect(() => {
         if (!enabled || !ref.current) return;
         let timer: number | null = null;

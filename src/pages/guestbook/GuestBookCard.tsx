@@ -15,7 +15,7 @@ interface GuestBookCardProps {
 }
 
 // 메모이제이션된 카드 컴포넌트
-export const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: GuestBookCardProps) => {
+export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   // 메시지 길이에 따라 배경 이미지 선택 (호버 상태 반영)

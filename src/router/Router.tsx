@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
-  HomePage,
   AboutPage,
   WorkPage,
   ProfilePage,
@@ -81,9 +80,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-interface RouterProps { }
-
-const Router = (props: RouterProps) => {
+const Router = () => {
   return <RouterProvider router={router} />;
 };
 

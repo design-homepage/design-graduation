@@ -1,15 +1,7 @@
 import { ProfileSectionContainer } from './ProfileSectionContainer';
 import WorkImage from '/work/work_image.webp';
 
-type ProfileWorkSectionProps = {
-  profileData: {
-    profileDetailUrl: string;
-    arrowUrl: string;
-    name: string;
-  };
-};
-
-export const ProfileWorkSection = ({ profileData }: ProfileWorkSectionProps) => {
+export const ProfileWorkSection = () => {
   return (
     <ProfileSectionContainer title="WORK">
       <img src={WorkImage} alt="Work" className="object-cover" />

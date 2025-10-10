@@ -28,7 +28,7 @@ const ProfileDetailPage = () => {
       />
       <div className="flex flex-col gap-15 sm:gap-[70px] md:gap-[50px] lg:gap-[120px] xl:gap-[100px]">
         <ProfileInterviewSection q1={profileData.q1} q2={profileData.q2} />
-        <ProfileWorkSection profileData={profileData} />
+        <ProfileWorkSection />
       </div>
     </div>
   );

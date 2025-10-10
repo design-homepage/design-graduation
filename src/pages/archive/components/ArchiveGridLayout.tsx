@@ -4,7 +4,6 @@ import ArchiveColumn from './ArchiveColumn';
 interface ArchiveGridLayoutProps {
     columnCount: number;
     containerWidth: string;
-    containerHeight: string;
     columnGap: string;
     leftColumn: string[];
     middleColumn: string[];
@@ -16,7 +15,6 @@ interface ArchiveGridLayoutProps {
 const ArchiveGridLayout: React.FC<ArchiveGridLayoutProps> = ({
     columnCount,
     containerWidth,
-    containerHeight,
     columnGap,
     leftColumn,
     middleColumn,
