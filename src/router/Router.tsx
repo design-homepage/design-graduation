@@ -22,10 +22,6 @@ const router = createBrowserRouter([
     children: [
       {
         path: ROUTES.HOME,
-        element: <HomePage />,
-      },
-      {
-        path: ROUTES.ABOUT,
         element: <AboutPage />,
       },
       {

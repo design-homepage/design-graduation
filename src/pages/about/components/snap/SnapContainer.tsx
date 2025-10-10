@@ -26,8 +26,8 @@ const SnapContainer: React.FC<SnapContainerProps> = ({
 
         const options: IntersectionObserverInit = {
             root: containerRef.current, // 컨테이너를 root로 설정
-            rootMargin: '-40% 0px -40% 0px', // 살짝만 보여도 중앙으로 스냅
-            threshold: 0.1
+            rootMargin: '-20% 0px -20% 0px', // 더 관대한 마진으로 스냅 감지 개선
+            threshold: 0.3 // 더 높은 threshold로 정확한 감지
         };
 
         observerRef.current = new IntersectionObserver((entries) => {
@@ -153,7 +153,7 @@ const SnapContainer: React.FC<SnapContainerProps> = ({
             {/* 메인 스냅 컨테이너 - CSS scroll-snap 사용 */}
             <div
                 ref={containerRef}
-                className="snap-container"
+                className="snap-container scrollbar-hide"
                 style={{
                     scrollSnapType: 'y mandatory',
                     height: '100vh',

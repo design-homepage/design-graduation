@@ -11,6 +11,32 @@ body,
 
 html {
   scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+/* 모든 요소의 스크롤바 숨기기 (강력한 설정) */
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* body에도 추가 적용 */
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* CSS Scroll Snap 스타일 */
@@ -19,6 +45,13 @@ html {
   height: 100vh;
   overflow-y: auto;
   scroll-behavior: smooth;
+  /* 스크롤바 숨기기 */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.snap-container::-webkit-scrollbar {
+  display: none;
 }
 
 .snap-section {

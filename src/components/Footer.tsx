@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
         if (windowWidth >= 1300) {
             return {
                 width: '1920px',
-                height: '361px',
+                minHeight: '361px',
                 paddingTop: '70px',
                 paddingRight: '100px',
                 paddingBottom: '70px',
@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
         } else if (windowWidth >= 1020) {
             return {
                 width: '1350px',
-                height: '361px',
+                minHeight: '361px',
                 paddingTop: '70px',
                 paddingRight: '50px',
                 paddingBottom: '70px',
@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
         } else if (windowWidth >= 600) {
             return {
                 width: '1020px',
-                height: '333px',
+                minHeight: '333px',
                 paddingTop: '30px',
                 paddingRight: '50px',
                 paddingBottom: '30px',
@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
         } else if (windowWidth >= 400) {
             return {
                 width: '600px',
-                height: '235px',
+                minHeight: '235px',
                 paddingTop: '30px',
                 paddingRight: '20px',
                 paddingBottom: '30px',
@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
         } else { // windowWidth < 400
             return {
                 width: '400px',
-                height: '243px',
+                minHeight: '243px',
                 paddingTop: '30px',
                 paddingRight: '10px',
                 paddingBottom: '30px',
@@ -69,7 +69,7 @@ const Footer: React.FC = () => {
             style={{
                 width: '100%',
                 maxWidth: styles.width,
-                height: styles.height,
+                minHeight: styles.minHeight,
                 paddingTop: styles.paddingTop,
                 paddingRight: styles.paddingRight,
                 paddingBottom: styles.paddingBottom,
@@ -90,12 +90,20 @@ const Footer: React.FC = () => {
 
             {/* 중간: 한국어 + 영어 정보 */}
             <div className="flex-1 mr-8">
-                <div className="mb-2" style={{ color: isGuestbook ? '#FFFFFF' : '#00E53A', fontSize: '20px' }}>
+                <div className="mb-2" style={{
+                    color: isGuestbook ? '#FFFFFF' : '#00E53A',
+                    fontSize: windowWidth < 600 ? '12px' : '20px',
+                    fontWeight: windowWidth < 600 ? 'bold' : 'normal'
+                }}>
                     <div>경북대학교 디자인학과</div>
                     <div>북구 대학로 80 경북대학교 대구캠퍼스 Space 9</div>
                     <div>2025. 10. 28 TUE - 2025. 11. 8 SAT</div>
                 </div>
-                <div style={{ color: isGuestbook ? '#FFFFFF' : '#00E53A', fontSize: '20px' }}>
+                <div style={{
+                    color: isGuestbook ? '#FFFFFF' : '#00E53A',
+                    fontSize: windowWidth < 600 ? '12px' : '20px',
+                    fontWeight: windowWidth < 600 ? 'bold' : 'normal'
+                }}>
                     <div>Kyungpook National University, Department of Design</div>
                     <div>80 Daehak-ro, Buk-gu, Kyungpook National University, Daegu Campus Space 9</div>
                     <div>2025. 10. 28 TUE - 2025. 11. 8 SAT</div>
@@ -104,7 +112,11 @@ const Footer: React.FC = () => {
 
             {/* 오른쪽: 연락처 정보 */}
             <div className="flex-shrink-0">
-                <div style={{ color: isGuestbook ? '#FFFFFF' : '#00E53A', fontSize: '20px' }}>
+                <div style={{
+                    color: isGuestbook ? '#FFFFFF' : '#00E53A',
+                    fontSize: windowWidth < 600 ? '12px' : '20px',
+                    fontWeight: windowWidth < 600 ? 'bold' : 'normal'
+                }}>
                     <div>Instagram @knu_design_</div>
                     <div>T.053-950-5694</div>
                     <div>https://vcd.knu.ac.kr</div>
