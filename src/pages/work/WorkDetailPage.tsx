@@ -15,10 +15,10 @@ const WorkDetailPage = () => {
 
   return (
     <>
-      <img src="/work/work_image.png" alt="Work Detail" className="w-full h-auto" />
+      <img src="/work/work_image.webp" alt="Work Detail" className="w-full h-auto" />
       <PropSmallSection arrowData={arrowData} />
       <PropLargeSection arrowData={arrowData} />
-      <img src="/work/work_person.png" alt="Work Person" className="w-full h-auto" />
+      <img src="/work/work_person.webp" alt="Work Person" className="w-full h-auto" />
     </>
   );
 };

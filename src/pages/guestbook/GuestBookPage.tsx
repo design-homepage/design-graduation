@@ -222,7 +222,7 @@ const GuestBookPage = () => {
         <div 
           className="absolute inset-0 z-0" 
           style={{
-            backgroundImage: 'url(/guestbook/background-white.png)',
+            backgroundImage: 'url(/guestbook/background-white.webp)',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'top center',
             backgroundSize: 'cover',

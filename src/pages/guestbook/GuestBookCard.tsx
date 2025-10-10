@@ -1,10 +1,12 @@
 import { useState, memo } from 'react';
 import type { GuestBookEntry } from '@/types/guestbook';
 import { getTeamMemberImage } from '@/types/teamMembers';
-import arrowBasicL from './img/arrow_basic_L.png';
-import arrowBasicS from './img/arrow_basic_S.png';
-import arrowHoverL from './img/arrow_Hover_L.png';
-import arrowHoverS from './img/arrow_Hover_S.png';
+
+// Arrow 이미지 경로들 (런타임에 참조)
+const arrowBasicL = '/guestbook/img/arrow_basic_L.webp';
+const arrowBasicS = '/guestbook/img/arrow_basic_S.webp';
+const arrowHoverL = '/guestbook/img/arrow_Hover_L.webp';
+const arrowHoverS = '/guestbook/img/arrow_Hover_S.webp';
 
 interface GuestBookCardProps {
   entry: GuestBookEntry;
@@ -20,12 +22,12 @@ export const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: Guest
   const getBackgroundImage = () => {
     const messageLength = entry.message.length;
     const imageType = messageLength >= 98 ? 'L' : 'S';
-    const selectedImage = messageLength >= 98 
-      ? (isHovered ? arrowHoverL : arrowBasicL) 
+    const selectedImage = messageLength >= 98
+      ? (isHovered ? arrowHoverL : arrowBasicL)
       : (isHovered ? arrowHoverS : arrowBasicS);
-    
+
     console.log(`[${entry.id}] 호버 상태: ${isHovered}, 이미지 타입: ${imageType}, 메시지 길이: ${messageLength}`);
-    
+
     return selectedImage;
   };
 
@@ -42,10 +44,10 @@ export const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: Guest
   const cardSize = getCardSize();
 
   return (
-    <div 
-      className="group relative GuestBookCard swiper-slide" 
-      style={{ 
-        zIndex: 10, 
+    <div
+      className="group relative GuestBookCard swiper-slide"
+      style={{
+        zIndex: 10,
         background: 'transparent',
         position: 'relative',
         cursor: 'pointer'
@@ -60,19 +62,19 @@ export const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: Guest
       }}
     >
       {/* 화살표 이미지를 사용한 카드 */}
-      <div className="relative transition-all duration-300" 
-           style={{
-             width: cardSize.width,
-             height: cardSize.height,
-             background: 'transparent'
-           }}>
-      
+      <div className="relative transition-all duration-300"
+        style={{
+          width: cardSize.width,
+          height: cardSize.height,
+          background: 'transparent'
+        }}>
+
         {/* 화살표 배경 이미지 */}
-        <img 
+        <img
           src={getBackgroundImage()}
           alt="arrow background"
           className="absolute inset-0 w-full h-full object-contain"
-          style={{ 
+          style={{
             zIndex: 1,
             opacity: isHovered ? 1 : 0.5  // 호버 시 불투명, 기본 상태 반투명
           }}
@@ -86,7 +88,7 @@ export const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: Guest
         />
 
         {/* 호버 시 검은색 오버레이 */}
-        <div 
+        <div
           className="absolute inset-0 w-full h-full transition-all duration-300"
           style={{
             background: isHovered ? 'rgba(0, 0, 0, 0.5)' : 'transparent',
@@ -94,34 +96,34 @@ export const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: Guest
             pointerEvents: 'none'
           }}
         />
-        
+
         {/* 왼쪽 화살표 영역 */}
-        <div className="absolute top-1/2 transform -translate-y-1/2" 
-             style={{ 
-               display: 'flex',
-               width: '60px',
-               height: '60px',
-               justifyContent: 'center',
-               alignItems: 'center',
-               flexShrink: 0,
-               aspectRatio: '1/1',
-               left: '20px',
-               zIndex: 3
-             }}>
-          <img 
-            src={isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.png`} 
+        <div className="absolute top-1/2 transform -translate-y-1/2"
+          style={{
+            display: 'flex',
+            width: '60px',
+            height: '60px',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexShrink: 0,
+            aspectRatio: '1/1',
+            left: '20px',
+            zIndex: 3
+          }}>
+          <img
+            src={isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.webp`}
             alt={entry.receiver}
             className="object-contain"
-            style={{ 
-              width: '60px', 
+            style={{
+              width: '60px',
               height: '60px',
               filter: isHovered ? 'none' : 'brightness(0) saturate(100%) invert(6%) sepia(98%) saturate(7482%) hue-rotate(240deg) brightness(95%) contrast(102%)'
             }}
             onLoad={() => {
-              console.log('이미지 로드 성공:', isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.png`);
+              console.log('이미지 로드 성공:', isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.webp`);
             }}
             onError={(e) => {
-              console.log('이미지 로드 실패:', isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.png`);
+              console.log('이미지 로드 실패:', isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.webp`);
               // 이미지 로드 실패 시 기본 아이콘 표시
               e.currentTarget.style.display = 'none';
               const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
@@ -138,47 +140,47 @@ export const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: Guest
 
         {/* 메시지 내용 영역 */}
         <div className="flex flex-col justify-center"
-             style={{
-               position: 'absolute',
-               top: '50%',
-               left: '100px',
-               right: '30px',
-               height: '100px',
-               transform: 'translateY(-50%)',
-               zIndex: 4,
-               paddingRight: '15px',
-               paddingLeft: '8px'
-             }}>
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '100px',
+            right: '30px',
+            height: '100px',
+            transform: 'translateY(-50%)',
+            zIndex: 4,
+            paddingRight: '15px',
+            paddingLeft: '8px'
+          }}>
           {/* 메시지 텍스트 */}
           <div className="flex-1">
             <p className="leading-relaxed line-clamp-3"
-               style={{ 
-                 color: isHovered ? '#00FF00' : '#000', // 호버 시 초록색, 기본 시 검은색
-                 fontFamily: 'Pretendard',
-                 fontSize: '14px',
-                 fontStyle: 'normal',
-                 fontWeight: '400',
-                 lineHeight: '20px',
-                 letterSpacing: '-0.028px',
-                 transition: 'color 0.3s ease'
-               }}>
+              style={{
+                color: isHovered ? '#00FF00' : '#000', // 호버 시 초록색, 기본 시 검은색
+                fontFamily: 'Pretendard',
+                fontSize: '14px',
+                fontStyle: 'normal',
+                fontWeight: '400',
+                lineHeight: '20px',
+                letterSpacing: '-0.028px',
+                transition: 'color 0.3s ease'
+              }}>
               {entry.message}
             </p>
           </div>
-          
+
           {/* 하단: 보내는 사람 */}
           <div className="mt-2 pt-2 border-t border-gray-300 border-opacity-30">
             <p className="text-right"
-               style={{ 
-                 color: isHovered ? '#00FF00' : '#000', // 호버 시 초록색, 기본 시 검은색
-                 fontFamily: 'Pretendard',
-                 fontSize: '14px',
-                 fontStyle: 'normal',
-                 fontWeight: '400',
-                 lineHeight: '20px',
-                 letterSpacing: '-0.028px',
-                 transition: 'color 0.3s ease'
-               }}>
+              style={{
+                color: isHovered ? '#00FF00' : '#000', // 호버 시 초록색, 기본 시 검은색
+                fontFamily: 'Pretendard',
+                fontSize: '14px',
+                fontStyle: 'normal',
+                fontWeight: '400',
+                lineHeight: '20px',
+                letterSpacing: '-0.028px',
+                transition: 'color 0.3s ease'
+              }}>
               - {entry.sender}
             </p>
           </div>

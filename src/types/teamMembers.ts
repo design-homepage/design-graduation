@@ -51,5 +51,5 @@ export const teamMemberNames: TeamMember[] = [
 
 // 팀 멤버 이미지 경로 생성 함수
 export const getTeamMemberImage = (memberName: TeamMember): string => {
-  return `/guestbook/arrows-green/Property 1=${memberName}_G.png`;
+  return `/guestbook/arrows-green/Property 1=${memberName}_G.webp`;
 };

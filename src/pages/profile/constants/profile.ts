@@ -10,9 +10,9 @@ export const profile = [
     q2: '작품은 ‘나는 무엇인가?’라는 질문에서 시작합니다. 답을 찾기보다는, 스스로에게 같은 질문을 던지며 작품을 읽어내려가는 태도가 필요합니다.',
     intro:
       '사유와 감각을 함께 경험하게 하는 편집물을 지향하며, 디자인을 읽히는 것을 넘어 만지고 경험하는 언어로 다룹니다.',
-    profileUrl: '/profile/individual-profiles-all/강유진.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/강유진.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_강유진_G.png',
+    profileUrl: '/profile/individual-profiles-all/강유진.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/강유진.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_강유진_G.webp',
   },
   {
     id: 2,
@@ -25,9 +25,9 @@ export const profile = [
     q2: 'HOME은 단순한 감정 발산이 아니라 흐려진 나를 찾아가는 과정입니다. 숨을 고르고 솔직한 감정에 귀 기울일 때 자신을 이해하고 회복할 수 있습니다. 작품 앞에서 지금의 나에게 집중하는 순간, 나다움이 회복되는 HOME의 첫걸음이 됩니다.',
     intro:
       '디자인은 기능을 넘어 마음을 어떻게 움직이는가에 더 가까운 것 같습니다. 머리로 이해되는 디자인이 아니라, 심장에 닿아 공감을 일으키고, 누군가 꼭 듣고 싶어 했던 말을 대신 건네주는 디자인을 하고 싶습니다.',
-    profileUrl: '/profile/individual-profiles-all/강현정.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/강현정.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_강현정_G.png',
+    profileUrl: '/profile/individual-profiles-all/강현정.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/강현정.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_강현정_G.webp',
   },
   {
     id: 3,
@@ -40,9 +40,9 @@ export const profile = [
     q2: '우리가 잠든 사이 24시간 돌아가는 데이터센터 속 85%가 디지털 폐기물로 밝혀졌습니다. 디지털 사용량은 증가하지만 그 위험성은 간과되고 있으며, 이제 우리는 보이지 않는 위협에 대해 경각심을 가져야 할 시기입니다.',
     intro:
       "'모두가 위대한 예술가가 될 수는 없지만, 위대한 예술가는 어디에서나 나올 수 있다'는 말처럼, 실패할 기회를 두려워하지 않고, 일상 속 가능성을 찾아내는 디자이너를 목표로 합니다.",
-    profileUrl: '/profile/individual-profiles-all/권민정.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/권민정.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_권민정_G.png',
+    profileUrl: '/profile/individual-profiles-all/권민정.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/권민정.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_권민정_G.webp',
   },
   {
     id: 4,
@@ -55,9 +55,9 @@ export const profile = [
     q2: '이 작품은 단순한 영화가 아니라, 한 번 더 생각하게 만드는 질문을 던집니다. 그 속에 담긴 의미와 의도, 철학적 메시지를 각자 성찰하며, 관객 스스로 해당 세상을 상상해보기를 바랍니다.',
     intro:
       '저는 단순히 보기 좋은 이미지를 만드는 것에 그치지 않고, 좋은 의도를 심미적으로 담아내는 디자이너입니다. 디자인은 제게 있어 단순한 시각적 장식이 아니라, 메시지를 전달하고 사람들의 마음을 움직이는 강력한 수단입니다.',
-    profileUrl: '/profile/individual-profiles-all/김도영.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/김도영.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_김도영_G.png',
+    profileUrl: '/profile/individual-profiles-all/김도영.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/김도영.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_김도영_G.webp',
   },
   {
     id: 5,
@@ -69,9 +69,9 @@ export const profile = [
     q1: '혼자서 감당하던 작업이 이제는 다양한 기술을 통해 마치 여러 사람의 노력이 결집된 것과 같은 성과를 만들어낼 수 있게 되었습니다. 매일 새로운 도전과 마주하며 그 과정 속에서 배우고 성장하는 나를 느낍니다.',
     q2: 'HEDN은 소유와 사용을 연결해 브랜드 경험을 재구성합니다. 이 작품을 단순한 가방으로 보지 말고 패키지와 제품의 경계를 허물어 일상의 경험을 확장하는 디자인 실험으로 바라봐 주시길 희망합니다.',
     intro: '익숙함을 낯설게, 당연함을 새롭게. 그 전환의 순간을 디자인하는 디자이너를 꿈꿉니다.',
-    profileUrl: '/profile/individual-profiles-all/김민구.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/김민구.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_김민구_G.png',
+    profileUrl: '/profile/individual-profiles-all/김민구.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/김민구.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_김민구_G.webp',
   },
   {
     id: 6,
@@ -84,9 +84,9 @@ export const profile = [
     q2: "딱딱한 이론으로 접근하기보다, 언어가 사실은 아무 이유 없는 약속이라는 사실을 떠올려 보세요. 우리가 매일 쓰는 글자가 도형과 색으로 낯설게 변할 때, 언어의 또 다른 얼굴을 마주할 수 있습니다. 그 순간 '읽는다'는 행위가 얼마나 유연하고 흥미로운 경험이 될 수 있는지 느껴보시길 바랍니다.",
     intro:
       '저는 세상을 다른 각도에서 바라보고, 익숙한 것들 속에서 새로운 이야기를 길어 올리는 디자이너입니다. 디자인은 답을 정리하는 일이 아니라, 더 많은 질문을 던지는 일이라고 믿습니다. 그래서 제 작업은 언제나 완결보다는 여백을 남기고, 그 여백 속에서 사람들과 더 넓은 대화를 꿈꿉니다.',
-    profileUrl: '/profile/individual-profiles-all/김승화.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/김승화.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_김승화_G.png',
+    profileUrl: '/profile/individual-profiles-all/김승화.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/김승화.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_김승화_G.webp',
   },
   {
     id: 7,
@@ -99,9 +99,9 @@ export const profile = [
     q2: '혼란의 파편이 모여 새로운 질서로 피어나는 장면을 떠올리며 바라봐 주세요. 이 작품은 당신의 고민이 곧 성장의 씨앗이 되는 여정을 담고 있습니다.',
     intro:
       '내가 만든 무대에서 내가 트렌드가 되고, 나의 이름이 브랜드가 될 수 있는 디자이너를 꿈꾸고 있습니다.',
-    profileUrl: '/profile/individual-profiles-all/김은지.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/김은지.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_김은지_G.png',
+    profileUrl: '/profile/individual-profiles-all/김은지.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/김은지.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_김은지_G.webp',
   },
   {
     id: 8,
@@ -114,9 +114,9 @@ export const profile = [
     q2: 'DOT은 하루의 작은 실천을 기록하며 자기 돌봄을 발견하고 이어가도록 돕는 브랜드입니다. 작은 점 하나는 나를 챙긴 흔적이며, 쌓이면 나만의 패턴과 삶의 흐름을 드러냅니다. 작품을 보실 때 “오늘 내가 나를 위해 챙긴 작은 순간은 무엇이었을까?”를 떠올려 보시길 바랍니다.',
     intro:
       '디자인은 관점을 바꾸게 하는 힘이 있으며, 누군가의 마음을 움직이고 스스로를 돌아보게 하는 계기라고 믿습니다.저는 사람들에게 필요한 이야기와 메시지를 비추고, 그것을 통해 새로운 관점을 열어주는 질문을 던지며, 서로의 경험을 이어주는 연결의 지점을 만들어가는 디자인을 하고 싶습니다.',
-    profileUrl: '/profile/individual-profiles-all/김주훈.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/김주훈.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_김주훈_G.png',
+    profileUrl: '/profile/individual-profiles-all/김주훈.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/김주훈.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_김주훈_G.webp',
   },
   {
     id: 9,
@@ -129,9 +129,9 @@ export const profile = [
     q2: '수면은 본질적으로 개인적 경험이며, 그 누구도 같은 방식으로 편안함을 느끼지 않습니다. 이 작품을 바라보며 당신의 밤을 떠올려 보세요. ‘ZZZ’가 제안하는 수면의 가치 속에서, 단순한 휴식이 아닌 깊은 치유와 회복의 경험을 발견할 수 있을 것입니다.',
     intro:
       '디자인을 통해 개인의 감각과 몰입에서 비롯되는 경험을 탐색하며, 이를 통해 개인과 주변 세계를 잇고 싶습니다. 단순한 형태나 시각적 장식이 아닌, 오롯이 나 자신을 느끼고 내면을 새롭게 발견하며, 그 과정이 타인과의 관계와 삶의 맥락으로 확장되는 여정을 선사하고자 합니다.',
-    profileUrl: '/profile/individual-profiles-all/박소연.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/박소연.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_박소연_G.png',
+    profileUrl: '/profile/individual-profiles-all/박소연.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/박소연.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_박소연_G.webp',
   },
   {
     id: 10,
@@ -144,9 +144,9 @@ export const profile = [
     q2: '휘발되는 감정을 붙잡는 일은 사라짐을 거슬러 의미를 남기려는 창조적 행위입니다. 진(Gin)의 증류와 잔향은 곧 감정이 걸러지고 침전되어 기억으로 전환되는 과정을 상징합니다. 이 작품을 통해 잊혀 가는 감정의 흔적을 다시 환기하고, 그것이 우리 안에서 새로운 기억과 공감으로 이어지길 바랍니다.',
     intro:
       '익숙한 틀에 머무르기보다 실험과 실패를 통해 새로운 가능성을 발견하며, 감정과 경험을 시각 언어로 재구성합니다. 디자인은 저에게 기록이자 대화이며, 그 과정을 통해 사람들의 마음속에 오래 남을 이야기를 만들어가고자 합니다.',
-    profileUrl: '/profile/individual-profiles-all/박수민.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/박수민.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_박수민_G.png',
+    profileUrl: '/profile/individual-profiles-all/박수민.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/박수민.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_박수민_G.webp',
   },
   {
     id: 11,
@@ -159,9 +159,9 @@ export const profile = [
     q2: '해화 우체국의 아기자기한 이야기들을 통해서 우리가 잊고 있던 편지라는 소통 수단을 다시 한번 생각해 보는 계기가 되었으면 좋겠습니다.',
     intro:
       '바쁘고 힘든 삶을 살아가는 사람들이 평범한 일상 속에서 작은 즐거움을 가질 수 있도록 하는 디자이너가 될 수 있기를 바라고 있습니다.',
-    profileUrl: '/profile/individual-profiles-all/박해연.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/박해연.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_박해연_G.png',
+    profileUrl: '/profile/individual-profiles-all/박해연.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/박해연.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_박해연_G.webp',
   },
   {
     id: 12,
@@ -174,9 +174,9 @@ export const profile = [
     q2: '그저 보이는 대로 느껴주셨으면 합니다. 누군가의 이름, 누군가의 얼굴이 떠오른다면 떠오르는 대로 제 작업에 대입하여 감상해 주신다면 더할 나위 없이 좋을 것 같습니다. 그리고 그들이 있기에 우리가 우리다울 수 있다는 사실을 상기하셨으면 합니다.',
     intro:
       '디자인에 있어서 비우는 것이 채우는 것보다 중요하듯이, 사사로운 것으로 어지럽게 삶을 채우기보다 본질에 집중하는 디자이너, 또 그런 사람이 되고 싶습니다.',
-    profileUrl: '/profile/individual-profiles-all/박희건.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/박희건.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_박희건_G.png',
+    profileUrl: '/profile/individual-profiles-all/박희건.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/박희건.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_박희건_G.webp',
   },
   {
     id: 13,
@@ -189,9 +189,9 @@ export const profile = [
     q2: '짧은 휴식을 위한 매개체이자, 하루를 정리하는 작은 의식입니다. QUACK!의 오리 캐릭터는 나이트 루틴의 동반자로, 바쁜 일상 속에서도 친근하고 편안한 회복의 순간을 선사합니다.',
     intro:
       '저는 일상 속에서 새로운 이야기를 이어 나가는 디자이너입니다. 디자인이 단순한 미적 장치를 만들기 위한 도구가 아니라, 사람들의 감정과 경험을 이해하고 일상과 마음을 연결하는 매개가 될 수 있기를 바랍니다.',
-    profileUrl: '/profile/individual-profiles-all/신유빈.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/신유빈.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_신유빈_G.png',
+    profileUrl: '/profile/individual-profiles-all/신유빈.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/신유빈.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_신유빈_G.webp',
   },
   {
     id: 14,
@@ -204,9 +204,9 @@ export const profile = [
     q2: '도깨비는 단순한 미신적 존재가 아닌 한국의 사회·문화적 맥락 속에서 함께해온 벗입니다. 인공지능이 디자인의 경계를 허물고 창작 방식을 재편하는 시대에, 그 과정에서 놓치기 쉬운 본질—무엇을 지키고, 무엇을 이어가야 하는가—에 대해 성찰을 기대합니다.',
     intro:
       '껍데기는 가라. 겉모습이나 화려한 수식어보다 중요한 것은 내 안에 무엇을 담고 있느냐입니다. 저는 본질에 집중하여 그 안에서 진정성 있는 시도를 쌓아가는 디자이너입니다.',
-    profileUrl: '/profile/individual-profiles-all/안수아.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/안수아.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_안수아_G.png',
+    profileUrl: '/profile/individual-profiles-all/안수아.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/안수아.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_안수아_G.webp',
   },
   {
     id: 15,
@@ -219,9 +219,9 @@ export const profile = [
     q2: '서로 다른 생각과 감정이 때로는 충돌과 배척으로 이어지지만, 이를 자연스럽고 부드럽게 이어주는 매개가 ‘이야기’라고 믿습니다. ‘감정우체통’은 개인의 경험을 공유된 서사로 전환함으로써 단절된 마음들을 연결하고, 다시 ‘나’와 ‘우리’를 함께 돌아보게 하는 통로를 제공하고자 합니다.',
     intro:
       '저는 인간의 감정과 관계를 깊이 이해하고, 개인들이 서로 연결될 수 있는 길을 모색하는 디자이너를 지향합니다. 단순한 시각적 즐거움에 그치지 않고 개인의 경험과 생각에 긍정적인 영향을 미치며, 나아가 사회에 필요한 이야기를 제안할 수 있는, 도움이 되는 디자이너로 성장하고자 합니다.',
-    profileUrl: '/profile/individual-profiles-all/오서현.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/오서현.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_오서현_G.png',
+    profileUrl: '/profile/individual-profiles-all/오서현.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/오서현.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_오서현_G.webp',
   },
   {
     id: 16,
@@ -234,9 +234,9 @@ export const profile = [
     q2: '이번 전시에서 메디잇은 병원의 문제를 단순한 홍보의 대상이 아니라, 데이터와 디자인을 통해 해결해야 할 과제로 바라봅니다. 각 결과물은 시각적 장식에 머무르지 않고, 병원의 가치와 환자 경험을 더 나은 방향으로 이끌기 위한 과정으로 제시됩니다. 디자인을 단순한 형식이 아닌, 병원의 정체성을 세우고 신뢰를 설계하는 일로 바라봐 주셨으면 좋겠습니다.',
     intro:
       '저는 디자인을 표면적인 미감이 아닌, 문제의 본질을 읽고 해법을 찾는 과정이라 믿습니다. 깊이 있는 통찰과 해결을 통해 본질에 충실한 디자인을 만들어가는 디자이너입니다.',
-    profileUrl: '/profile/individual-profiles-all/오지홍.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/오지홍.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_오지홍_G.png',
+    profileUrl: '/profile/individual-profiles-all/오지홍.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/오지홍.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_오지홍_G.webp',
   },
   {
     id: 17,
@@ -249,9 +249,9 @@ export const profile = [
     q2: '전통은 과거의 장식이 아니라, 오늘의 감각 속에서 다시 살아나는 흐름입니다. ‘담류’는 그 가능성에 대한 시각적 응답입니다. 이 프로젝트를 통해 관람자는 전통을 낯선 유산이 아닌, 지금 우리의 삶 속으로 천천히 스며드는 감각으로 마주하게 되길 바랍니다.',
     intro:
       '디자인은 삶의 언어라 믿습니다. 작고 사소한 감정에서 출발해, 누구에게나 닿을 수 있는 형태로 번역하는 작업이니까요. 저는 세상을 향해 질문하고, 반짝이는 관찰을 이어가는 디자이너가 되고 싶습니다.',
-    profileUrl: '/profile/individual-profiles-all/원민정.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/원민정.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_원민정_G.png',
+    profileUrl: '/profile/individual-profiles-all/원민정.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/원민정.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_원민정_G.webp',
   },
   {
     id: 18,
@@ -264,9 +264,9 @@ export const profile = [
     q2: '이 작품은 디지털을 잠시 내려놓았을 때 비로소 보이는 것들을 이야기합니다. 관람객은 완벽하게 다듬어진 화면이 아닌, 손에 남는 불완전한 흔적들과 기록들을 통해 여행의 순간을 상상해볼 수 있습니다.',
     intro:
       '사람과 사물이 맺는 관계에 관심을 가지고, 그 안에서 발견되는 감각과 이야기를 디자인으로 풀어냅니다.단순한 표현을 넘어, 경험을 담아낼 수 있는 시각 언어를 탐구합니다.',
-    profileUrl: '/profile/individual-profiles-all/이윤서.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/이윤서.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_이윤서_G.png',
+    profileUrl: '/profile/individual-profiles-all/이윤서.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/이윤서.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_이윤서_G.webp',
   },
   {
     id: 19,
@@ -279,9 +279,9 @@ export const profile = [
     q2: '이 작품은 단순 앱이나 서비스가 아니라, n잡러로 살아가는 세대의 삶의 단면을 담았습니다. 여러 일을 동시에 이어가는 과정에서의 혼란, 성취, 번아웃까지 포괄하며, “나 역시 여러 역할을 수행하며 살아가고 있지 않은가?”라는 질문 속에서 개인의 삶과 연결시켜 보시길 바랍니다.',
     intro:
       '저는 디자인을 삶 속 더 나은 경험을 만드는 도구이자 연결의 매개체로 봅니다. ‘사용자에게 어떤 의미 있는 변화를 줄 수 있을까?’를 질문하며, 복잡한 정보를 단순·감각적으로 풀고 개인의 일상과 사회가 만나는 지점에서 실용성과 진정성을 추구합니다.',
-    profileUrl: '/profile/individual-profiles-all/이지혁.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/이지혁.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_이지혁_G.png',
+    profileUrl: '/profile/individual-profiles-all/이지혁.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/이지혁.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_이지혁_G.webp',
   },
   {
     id: 20,
@@ -294,9 +294,9 @@ export const profile = [
     q2: '단순한 재미를 주는 테스트가 아니라, 나의 여행 방식을 발견하고 서로의 차이를 조율하며 새로운 시선을 얻는 과정으로 보길 바랍니다.',
     intro:
       '개인의 성향이 모여 공동체의 이야기가 되듯, 다양한 차이를 시각적으로 풀어내며 연결의 가치를 탐구합니다.',
-    profileUrl: '/profile/individual-profiles-all/전윤서.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/전윤서.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_전윤서_G.png',
+    profileUrl: '/profile/individual-profiles-all/전윤서.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/전윤서.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_전윤서_G.webp',
   },
   {
     id: 21,
@@ -309,9 +309,9 @@ export const profile = [
     q2: '정답은 없다. 중요한 건 당신의 선택이다. 개인의 선택으로 거대한 갈등을 멈출 수는 없다. 복잡한 이해관계 앞에서 평범한 사람들이 희생된다. 무력감은 위험하다. ‘어차피 달라지지 않을 텐데’라는 정당화가 침묵을 낳고, 한 사람의 침묵은 열 사람의 무관심, 백 사람의 외면을 만든다. 오늘 당신은 어떤 선택을 할 것인가? 경각심은 선택의 순간에 깨어난다.',
     intro:
       '보는 이로 하여금 스스로 사고하게 만들며 강렬한 인상의 시각적 언어를 구사하는 디자이너를 지향합니다.',
-    profileUrl: '/profile/individual-profiles-all/정현진.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/정현진.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_정현진_G.png',
+    profileUrl: '/profile/individual-profiles-all/정현진.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/정현진.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_정현진_G.webp',
   },
   {
     id: 22,
@@ -324,8 +324,8 @@ export const profile = [
     q2: '단순한 기록 도구가 아니라, 자기 자신을 돌아보고 정리하는 과정으로 보시면 좋겠습니다. 인덱스 기록박스와 다섯 카테고리를 통해 순간의 감정과 기억이 이어져, 결국 자신만의 청사진을 완성하는 여정을 경험하시길 바랍니다.',
     intro:
       '디자인은 단순한 미적 장치가 아니라, 세상을 이해하고 변화시키는 방법이라고 믿습니다. 저는 시대가 던지는 문제를 정확히 바라보고 풀어내며, 그 안에서 꾸준히 성장하는 디자이너가 되기를 지향합니다.',
-    profileUrl: '/profile/individual-profiles-all/정환이.png',
-    profileDetailUrl: '/profile/individual-profiles-detail/정환이.png',
-    arrowUrl: '/profile/arrows-profile-background/화살표_정환이_G.png',
+    profileUrl: '/profile/individual-profiles-all/정환이.webp',
+    profileDetailUrl: '/profile/individual-profiles-detail/정환이.webp',
+    arrowUrl: '/profile/arrows-profile-background/화살표_정환이_G.webp',
   },
 ] as const;

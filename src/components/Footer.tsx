@@ -80,7 +80,7 @@ const Footer: React.FC = () => {
             {/* 로고 */}
             <div className="flex-shrink-0 mr-8 pt-2">
                 <img
-                    src={isGuestbook ? "/logo_W.png" : "/logo_L.png"}
+                    src={isGuestbook ? "/logo_W.webp" : "/logo_L.webp"}
                     alt="me"
                     style={{
                         height: '40px'
