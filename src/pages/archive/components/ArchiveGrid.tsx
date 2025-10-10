@@ -5,24 +5,24 @@ import ArchiveGridLayout from './ArchiveGridLayout';
 
 // 이미지 배열을 3개 컬럼으로 분리
 const leftColumn = [
-    "/archive/example/1.png",
-    "/archive/example/2.png",
-    "/archive/example/3.png"
+    "/archive/example/1.webp",
+    "/archive/example/2.webp",
+    "/archive/example/3.webp"
 ];
 
 const middleColumn = [
-    "/archive/example/4.png",
-    "/archive/example/5.png",
-    "/archive/example/6.png",
-    "/archive/example/7.png",
-    "/archive/example/8.png"
+    "/archive/example/4.webp",
+    "/archive/example/5.webp",
+    "/archive/example/6.webp",
+    "/archive/example/7.webp",
+    "/archive/example/8.webp"
 ];
 
 const rightColumn = [
-    "/archive/example/9.png",
-    "/archive/example/10.png",
-    "/archive/example/11.png",
-    "/archive/example/12.png"
+    "/archive/example/9.webp",
+    "/archive/example/10.webp",
+    "/archive/example/11.webp",
+    "/archive/example/12.webp"
 ];
 
 const ArchiveGrid: React.FC = () => {

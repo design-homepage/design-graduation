@@ -28,8 +28,8 @@ const Header = ({ color }: HeaderProps) => {
           <img
             src={
               color === 'black' || location.pathname === ROUTES.ABOUT
-                ? '/logo_W.png'
-                : '/logo_B.png'
+                ? '/logo_W.webp'
+                : '/logo_B.webp'
             }
             alt="Logo"
             className="w-[42px] h-[27px] md:w-[70px] md:h-[40px] ease-out duration-300"
@@ -51,8 +51,8 @@ const Header = ({ color }: HeaderProps) => {
               key={item.path}
               to={item.path}
               className={`text-2xl xl:text-3xl ease-out duration-300 text-inherit ${location.pathname.startsWith(item.path)
-                  ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
-                  : 'text-foreground'
+                ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
+                : 'text-foreground'
                 }`}
             >
               {item.label}
@@ -97,7 +97,7 @@ const Header = ({ color }: HeaderProps) => {
               </Link>
             ))}
           </nav>
-          <img src="/logo_W.png" alt="Logo" className="w-[42px] h-[27px]" />
+          <img src="/logo_W.webp" alt="Logo" className="w-[42px] h-[27px]" />
         </div>
       )}
     </header>

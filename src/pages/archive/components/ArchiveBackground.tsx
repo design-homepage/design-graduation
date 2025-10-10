@@ -9,11 +9,11 @@ const ArchiveBackground: React.FC<ArchiveBackgroundProps> = ({ containerWidth, c
     return (
         <>
             {/* 배경 이미지 프리로딩 */}
-            <link rel="preload" as="image" href="/archive/background-green.png" />
+            <link rel="preload" as="image" href="/archive/background-green.webp" />
             <div
                 className="fixed inset-0"
                 style={{
-                    backgroundImage: 'url(./archive/background-green.png)',
+                    backgroundImage: 'url(./archive/background-green.webp)',
                     backgroundColor: '#f0f0f0',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center center',

@@ -1,5 +1,5 @@
 import { ProfileSectionContainer } from './ProfileSectionContainer';
-import WorkImage from '/work/work_image.png';
+import WorkImage from '/work/work_image.webp';
 
 type ProfileWorkSectionProps = {
   profileData: {

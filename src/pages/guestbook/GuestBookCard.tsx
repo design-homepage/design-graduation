@@ -1,10 +1,10 @@
 import { useState, memo } from 'react';
 import type { GuestBookEntry } from '@/types/guestbook';
 import { getTeamMemberImage } from '@/types/teamMembers';
-import arrowBasicL from './img/arrow_basic_L.png';
-import arrowBasicS from './img/arrow_basic_S.png';
-import arrowHoverL from './img/arrow_Hover_L.png';
-import arrowHoverS from './img/arrow_Hover_S.png';
+import arrowBasicL from './img/arrow_basic_L.webp';
+import arrowBasicS from './img/arrow_basic_S.webp';
+import arrowHoverL from './img/arrow_Hover_L.webp';
+import arrowHoverS from './img/arrow_Hover_S.webp';
 
 interface GuestBookCardProps {
   entry: GuestBookEntry;
@@ -109,7 +109,7 @@ export const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: Guest
                zIndex: 3
              }}>
           <img 
-            src={isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.png`} 
+            src={isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.webp`} 
             alt={entry.receiver}
             className="object-contain"
             style={{ 
@@ -118,10 +118,10 @@ export const GuestBookCard = memo(({ entry, cardDimensions, windowWidth }: Guest
               filter: isHovered ? 'none' : 'brightness(0) saturate(100%) invert(6%) sepia(98%) saturate(7482%) hue-rotate(240deg) brightness(95%) contrast(102%)'
             }}
             onLoad={() => {
-              console.log('이미지 로드 성공:', isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.png`);
+              console.log('이미지 로드 성공:', isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.webp`);
             }}
             onError={(e) => {
-              console.log('이미지 로드 실패:', isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.png`);
+              console.log('이미지 로드 실패:', isHovered ? getTeamMemberImage(entry.receiver) : `/guestbook/arrows-green/Property 1=${entry.receiver}_G.webp`);
               // 이미지 로드 실패 시 기본 아이콘 표시
               e.currentTarget.style.display = 'none';
               const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
