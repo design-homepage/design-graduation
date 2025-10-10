@@ -232,12 +232,6 @@ const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
         return () => observers.forEach((o) => o.disconnect());
     }, [steps]);
 
-    const scrollTo = (id: string) => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.scrollIntoView({ behavior: "smooth", block: "center" });
-    };
-
     return (
         <>
             <style>{`
@@ -248,14 +242,13 @@ const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
         .animate-move-left { animation: move-left 0.35s ease-out; }
       `}</style>
 
-            <div className="fixed right-6 top-1/2 z-50 -translate-y-1/2 select-none">
+            <div className="fixed right-6 top-1/2 z-50 -translate-y-1/2 select-none pointer-events-none">
                 <div className="flex flex-col items-center gap-5 p-0">
                     {steps.map((s, i) => {
                         const isActive = active === i;
                         return (
-                            <button
+                            <div
                                 key={`${s.id}-${active}`}
-                                onClick={() => scrollTo(s.id)}
                                 aria-label={s.label}
                                 className={`relative flex items-center justify-center transition-all duration-300 ${isActive ? "h-[20px] w-[20px]" : "h-[8px] w-[8px]"
                                     }`}
@@ -263,9 +256,9 @@ const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
                                 {isActive ? (
                                     <LiaLongArrowAltLeftSolid size={18} className="text-black animate-move-left" />
                                 ) : (
-                                    <span className="h-[8px] w-[8px] rounded-full bg-black hover:bg-black/10 transition" />
+                                    <span className="h-[8px] w-[8px] rounded-full bg-black" />
                                 )}
-                            </button>
+                            </div>
                         );
                     })}
                 </div>

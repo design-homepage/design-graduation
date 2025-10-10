@@ -24,7 +24,7 @@ const Header = ({ color }: HeaderProps) => {
       <div
         className={`w-full flex items-center justify-between px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] ${color === 'black' ? 'text-white' : 'text-foreground'}`}
       >
-        <Link to={ROUTES.ABOUT} className="flex gap-[17px] md:gap-5 items-center px-5">
+        <Link to={ROUTES.HOME} className="flex gap-[17px] md:gap-5 items-center px-5">
           <img
             src={
               color === 'black' || location.pathname === ROUTES.ABOUT
@@ -50,11 +50,10 @@ const Header = ({ color }: HeaderProps) => {
             <Link
               key={item.path}
               to={item.path}
-              className={`text-2xl xl:text-3xl ease-out duration-300 text-inherit ${
-                location.pathname.startsWith(item.path)
+              className={`text-2xl xl:text-3xl ease-out duration-300 text-inherit ${location.pathname.startsWith(item.path)
                   ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
                   : 'text-foreground'
-              }`}
+                }`}
             >
               {item.label}
             </Link>
@@ -91,9 +90,8 @@ const Header = ({ color }: HeaderProps) => {
                 key={item.path}
                 to={item.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`text-[60px] leading-[1.2] ${
-                  location.pathname === item.path ? 'font-bold text-primary' : 'text-white'
-                }`}
+                className={`text-[60px] leading-[1.2] ${location.pathname === item.path ? 'font-bold text-primary' : 'text-white'
+                  }`}
               >
                 {item.mobileMenu}
               </Link>
