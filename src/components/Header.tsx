@@ -50,7 +50,7 @@ const Header = ({ color }: HeaderProps) => {
             <Link
               key={item.path}
               to={item.path}
-              className={`text-2xl xl:text-3xl ease-out duration-300 text-inherit ${location.pathname.startsWith(item.path)
+              className={`text-2xl xl:text-3xl ease-out duration-300 text-inherit hover:text-white ${location.pathname.startsWith(item.path)
                 ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
                 : 'text-foreground'
                 }`}

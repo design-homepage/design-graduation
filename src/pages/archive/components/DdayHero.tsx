@@ -14,7 +14,7 @@ interface DdayHeroProps {
 }
 
 const DdayHero: React.FC<DdayHeroProps> = ({ timeRemaining }) => {
-    const { days, hours, minutes, seconds } = timeRemaining;
+    const { days } = timeRemaining;
 
     return (
         <div className="min-h-screen flex items-center justify-center relative overflow-hidden">

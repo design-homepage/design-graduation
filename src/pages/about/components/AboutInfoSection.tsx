@@ -16,7 +16,7 @@ const PAGE_H = 8400;
 const GAP = 98;
 
 /* 50% 이상 보이면 가운데로 살짝 스크롤 (옵션) */
-function useAutoCenterOnVisible(ref: React.RefObject<HTMLElement>, enabled = true) {
+function useAutoCenterOnVisible(ref: React.RefObject<HTMLDivElement | null>, enabled = true) {
     useEffect(() => {
         if (!enabled || !ref.current) return;
         let timer: number | null = null;
@@ -201,11 +201,11 @@ const memberLines = [
 ];
 
 const teamImages = [
-    { src: "/about/team-profiles/기획팀.jpg", label: "기획팀" },
-    { src: "/about/team-profiles/그래픽팀.jpg", label: "그래픽팀" },
-    { src: "/about/team-profiles/영상팀.jpeg", label: "영상팀" },
-    { src: "/about/team-profiles/편집팀.jpg", label: "편집팀" },
-    { src: "/about/team-profiles/웹팀.jpg", label: "웹팀" },
+    { src: "public/about/team-profiles/기획팀.jpg", label: "기획팀" },
+    { src: "public/about/team-profiles/그래픽팀.jpg", label: "그래픽팀" },
+    { src: "public/about/team-profiles/영상팀.jpeg", label: "영상팀" },
+    { src: "/public/about/team-profiles/편집팀.jpg", label: "편집팀" },
+    { src: "public/about/team-profiles/웹팀.jpg", label: "웹팀" },
 ];
 
 /* ---------- 우측 점 네비 ---------- */
@@ -411,6 +411,9 @@ const AboutInfoSection: React.FC = () => {
                             </div>
                         </div>
                     </StickyFrame>
+
+                    {/* 졸업구성원 섹션 아래 충분한 여백 추가 */}
+                    <div style={{ height: '400px' }} className="w-full"></div>
                 </div>
             </section>
         </>

@@ -5,7 +5,7 @@ interface ArchiveBackgroundProps {
     containerHeight: string;
 }
 
-const ArchiveBackground: React.FC<ArchiveBackgroundProps> = ({ containerWidth, containerHeight }) => {
+const ArchiveBackground: React.FC<ArchiveBackgroundProps> = () => {
     return (
         <>
             {/* 배경 이미지 프리로딩 */}
