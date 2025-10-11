@@ -31,19 +31,19 @@ const router = createBrowserRouter([
         path: ROUTES.GUESTBOOK,
         element: <GuestBookPage />,
       },
+    ],
+  },
+  {
+    path: ROUTES.PROFILE,
+    element: <Layout color="white" />,
+    children: [
       {
-        path: ROUTES.PROFILE,
-        element: <Layout color="white" />,
-        children: [
-          {
-            index: true,
-            element: <ProfilePage />,
-          },
-          {
-            path: ROUTES.PROFILE_DETAIL,
-            element: <ProfileDetailPage />,
-          },
-        ],
+        index: true,
+        element: <ProfilePage />,
+      },
+      {
+        path: ROUTES.PROFILE_DETAIL,
+        element: <ProfileDetailPage />,
       },
     ],
   },
