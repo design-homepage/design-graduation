@@ -43,11 +43,17 @@ const router = createBrowserRouter([
             path: ROUTES.PROFILE_DETAIL,
             element: <ProfileDetailPage />,
           },
-          {
-            path: ROUTES.ARCHIVE,
-            element: <ArchivePage />,
-          },
         ],
+      },
+    ],
+  },
+  {
+    path: ROUTES.ARCHIVE,
+    element: <Layout color="white" />,
+    children: [
+      {
+        index: true,
+        element: <ArchivePage />,
       },
     ],
   },
