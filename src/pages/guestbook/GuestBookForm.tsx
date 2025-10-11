@@ -34,7 +34,7 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, responsiveSty
       className="relative snap-start z-10"
       style={{ height: 'calc(100vh - 64px)' }}
     >
-      <div className="flex items-start justify-center h-full pt-36 sm:pt-28 lg:pt-20">
+      <div className="flex items-center justify-center h-full">
         <form onSubmit={onSubmit} className="w-full max-w-4xl mx-auto px-8">
           {/* 글래스모피즘 컨테이너 */}
           <div
