@@ -89,7 +89,7 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
             style={{
               width: '60px',
               height: '60px',
-              filter: 'brightness(0) saturate(100%) invert(6%) sepia(98%) saturate(7482%) hue-rotate(240deg) brightness(95%) contrast(102%)'
+              filter: isHovered ? 'none' : 'brightness(0) saturate(100%) invert(6%) sepia(98%) saturate(7482%) hue-rotate(240deg) brightness(95%) contrast(102%)'
             }}
             onError={(e) => {
               // 이미지 로드 실패 시 기본 아이콘 표시
@@ -123,13 +123,14 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
           <div className="flex-1">
             <p className="leading-relaxed line-clamp-3"
               style={{
-                color: '#000',
+                color: isHovered ? '#00FF00' : '#000',
                 fontFamily: 'Pretendard',
                 fontSize: '14px',
                 fontStyle: 'normal',
                 fontWeight: '400',
                 lineHeight: '20px',
-                letterSpacing: '-0.028px'
+                letterSpacing: '-0.028px',
+                transition: 'color 0.3s ease'
               }}>
               {entry.message}
             </p>
@@ -139,13 +140,14 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
           <div className="mt-2 pt-2 border-t border-gray-300 border-opacity-30">
             <p className="text-right"
               style={{
-                color: '#000',
+                color: isHovered ? '#00FF00' : '#000',
                 fontFamily: 'Pretendard',
                 fontSize: '14px',
                 fontStyle: 'normal',
-                fontWeight: '400',
-                lineHeight: '20px',
-                letterSpacing: '-0.028px'
+                fontWeight: '700',
+                lineHeight: '18px',
+                letterSpacing: '-0.028px',
+                transition: 'color 0.3s ease'
               }}>
               - {entry.sender}
             </p>
