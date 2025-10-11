@@ -145,10 +145,10 @@ body::-webkit-scrollbar {
   }
 }
 
-/* 오른쪽에서 시작하는 스크롤 애니메이션 */
+/* 오른쪽에서 시작하는 스크롤 애니메이션 - 무한 반복용 */
 @keyframes scroll-from-right {
   0% {
-    transform: translateX(33.3%);
+    transform: translateX(0%);
   }
   100% {
     transform: translateX(-50%);
