@@ -29,7 +29,7 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
   // 카드 컨테이너 크기 설정 (크기 축소)
   const getCardSize = () => {
     const messageLength = entry.message.length;
-    if (messageLength >= 98) {
+    if (messageLength > 59) {
       return { width: '400px', height: '180px' }; // L 카드 크기 (축소)
     } else {
       return { width: '240px', height: '180px' }; // S 카드 크기 (축소)
@@ -111,12 +111,12 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
           style={{
             position: 'absolute',
             top: '50%',
-            left: '100px',
-            right: '30px',
+            left: '95px',
+            right: '10px',
             height: '100px',
             transform: 'translateY(-50%)',
             zIndex: 4,
-            paddingRight: '15px',
+            paddingRight: '10px',
             paddingLeft: '8px'
           }}>
           {/* 메시지 텍스트 */}
