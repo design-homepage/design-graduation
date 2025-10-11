@@ -63,14 +63,14 @@ export const InfiniteScrollSection = ({
                 width: `${Math.max(...distributedRows.map(row => {
                   const gap = 50;
                   const totalCardWidth = row.reduce((sum, entry) => {
-                    const cardWidth = entry.message.length >= 98 ? 400 : 240;
+                    const cardWidth = entry.message.length > 59 ? 400 : 240;
                     return sum + cardWidth;
                   }, 0);
                   return totalCardWidth + row.length * gap;
                 }))}px`,
                 height: '100%',
                 padding: '15px',
-                gap: '40px',
+                gap: '60px',
                 justifyContent: 'space-around'
               }}
             >
@@ -109,7 +109,7 @@ export const InfiniteScrollSection = ({
                   const rowEntries = entries.slice(i * 6, (i + 1) * 6);
                   const gap = 50;
                   const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                    const cardWidth = entry.message.length >= 98 ? 400 : 240;
+                    const cardWidth = entry.message.length > 59 ? 400 : 240;
                     return sum + cardWidth;
                   }, 0);
                   return totalCardWidth + rowEntries.length * gap;
@@ -131,7 +131,7 @@ export const InfiniteScrollSection = ({
                   const rowEntries = entries.slice(i * 6, (i + 1) * 6);
                   const gap = 50;
                   const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                    const cardWidth = entry.message.length >= 98 ? 400 : 240;
+                    const cardWidth = entry.message.length > 59 ? 400 : 240;
                     return sum + cardWidth;
                   }, 0);
                   return totalCardWidth + rowEntries.length * gap;
@@ -150,7 +150,7 @@ export const InfiniteScrollSection = ({
                       const rowEntries = entries.slice(rowIndex * 6, (rowIndex + 1) * 6);
                       const gap = 50;
                       const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                        const cardWidth = entry.message.length >= 98 ? 400 : 240;
+                        const cardWidth = entry.message.length > 59 ? 400 : 240;
                         return sum + cardWidth;
                       }, 0);
                       return totalCardWidth + rowEntries.length * gap;
@@ -173,7 +173,7 @@ export const InfiniteScrollSection = ({
                   const rowEntries = entries.slice(i * 6, (i + 1) * 6);
                   const gap = 50;
                   const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                    const cardWidth = entry.message.length >= 98 ? 400 : 240;
+                    const cardWidth = entry.message.length > 59 ? 400 : 240;
                     return sum + cardWidth;
                   }, 0);
                   return totalCardWidth + rowEntries.length * gap;
@@ -192,7 +192,7 @@ export const InfiniteScrollSection = ({
                       const rowEntries = entries.slice(rowIndex * 6, (rowIndex + 1) * 6);
                       const gap = 50;
                       const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                        const cardWidth = entry.message.length >= 98 ? 400 : 240;
+                        const cardWidth = entry.message.length > 59 ? 400 : 240;
                         return sum + cardWidth;
                       }, 0);
                       return totalCardWidth + rowEntries.length * gap;
@@ -244,7 +244,7 @@ export const InfiniteScrollSection = ({
                   const rowEntries = entries.slice(i * 6, (i + 1) * 6);
                   const gap = 50;
                   const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                    const cardWidth = entry.message.length >= 98 ? 400 : 240;
+                    const cardWidth = entry.message.length > 59 ? 400 : 240;
                     return sum + cardWidth;
                   }, 0);
                   return totalCardWidth + rowEntries.length * gap;
@@ -266,7 +266,7 @@ export const InfiniteScrollSection = ({
                   const rowEntries = entries.slice(i * 6, (i + 1) * 6);
                   const gap = 50;
                   const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                    const cardWidth = entry.message.length >= 98 ? 400 : 240;
+                    const cardWidth = entry.message.length > 59 ? 400 : 240;
                     return sum + cardWidth;
                   }, 0);
                   return totalCardWidth + rowEntries.length * gap;
@@ -285,7 +285,7 @@ export const InfiniteScrollSection = ({
                       const rowEntries = entries.slice(rowIndex * 6, (rowIndex + 1) * 6);
                       const gap = 50;
                       const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                        const cardWidth = entry.message.length >= 98 ? 400 : 240;
+                        const cardWidth = entry.message.length > 59 ? 400 : 240;
                         return sum + cardWidth;
                       }, 0);
                       return totalCardWidth + rowEntries.length * gap;
@@ -308,7 +308,7 @@ export const InfiniteScrollSection = ({
                   const rowEntries = entries.slice(i * 6, (i + 1) * 6);
                   const gap = 50;
                   const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                    const cardWidth = entry.message.length >= 98 ? 400 : 240;
+                    const cardWidth = entry.message.length > 59 ? 400 : 240;
                     return sum + cardWidth;
                   }, 0);
                   return totalCardWidth + rowEntries.length * gap;
@@ -327,7 +327,7 @@ export const InfiniteScrollSection = ({
                       const rowEntries = entries.slice(rowIndex * 6, (rowIndex + 1) * 6);
                       const gap = 50;
                       const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                        const cardWidth = entry.message.length >= 98 ? 400 : 240;
+                        const cardWidth = entry.message.length > 59 ? 400 : 240;
                         return sum + cardWidth;
                       }, 0);
                       return totalCardWidth + rowEntries.length * gap;
