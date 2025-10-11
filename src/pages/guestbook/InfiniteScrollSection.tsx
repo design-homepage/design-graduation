@@ -40,7 +40,7 @@ export const InfiniteScrollSection = ({
   const distributedRows = distributeToRows(entries);
 
   return (
-    <div className="py-16 snap-start relative z-10" style={{ minHeight: 'calc(100vh - 64px)', overflow: 'hidden', overflowY: 'auto' }}>
+    <div className={`snap-start relative z-10 ${windowWidth >= 1020 ? 'py-8' : 'py-16'}`} style={{ minHeight: 'calc(100vh - 64px)', overflow: 'hidden', overflowY: 'auto' }}>
       <div className="relative w-full" style={{ minHeight: 'calc(100vh - 64px - 128px)' }}>
         {windowWidth <= 400 ? (
           // Mobile (400px 이하): 수동 스크롤 (무한 스크롤 없음)
