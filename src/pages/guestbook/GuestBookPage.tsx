@@ -239,6 +239,7 @@ const GuestBookPage = () => {
           formData={formData}
           onInputChange={handleInputChange}
           onSubmit={handleSubmit}
+          windowWidth={windowWidth}
           responsiveStyles={responsiveStyles}
         />
 
