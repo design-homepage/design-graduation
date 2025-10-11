@@ -113,7 +113,7 @@ export const InfiniteScrollSection = ({
                     return sum + cardWidth;
                   }, 0);
                   return totalCardWidth + rowEntries.length * gap;
-                })))}px`,
+                }))) * 2}px`,
                 height: '100%',
                 animationName: 'scroll-from-right',
                 animationDuration: `${Math.ceil(entries.length / 6) * 8}s`,
@@ -248,7 +248,7 @@ export const InfiniteScrollSection = ({
                     return sum + cardWidth;
                   }, 0);
                   return totalCardWidth + rowEntries.length * gap;
-                })))}px`,
+                }))) * 2}px`,
                 height: '100%',
                 animationName: 'scroll-from-right',
                 animationDuration: `${Math.ceil(entries.length / 6) * 8}s`,
