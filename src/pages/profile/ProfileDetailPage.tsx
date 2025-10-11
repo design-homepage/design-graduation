@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { profile } from './constants/profile';
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { ProfileDesignerSection } from './ProfileDesignerSection';
 import { ProfileInterviewSection } from './ProfileInterviewSection';
 import { ProfileWorkSection } from './ProfileWorkSection';
@@ -9,6 +9,11 @@ const ProfileDetailPage = () => {
   const { id } = useParams<{ id: string }>();
 
   const profileData = useMemo(() => profile.find((item) => item.id.toString() === id), [id]);
+
+  // 페이지가 로드될 때마다 스크롤을 맨 위로 이동
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   if (!profileData) {
     return <div>Profile not found</div>;
