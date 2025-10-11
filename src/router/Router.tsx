@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     element: <Layout color="primary" />,
     children: [
       {
-        path: ROUTES.HOME,
+        index: true,
         element: <AboutPage />,
       },
       {
@@ -31,33 +31,33 @@ const router = createBrowserRouter([
         path: ROUTES.GUESTBOOK,
         element: <GuestBookPage />,
       },
+      {
+        path: ROUTES.PROFILE,
+        element: <Layout color="white" />,
+        children: [
+          {
+            index: true,
+            element: <ProfilePage />,
+          },
+          {
+            path: ROUTES.PROFILE_DETAIL,
+            element: <ProfileDetailPage />,
+          },
+          {
+            path: ROUTES.ARCHIVE,
+            element: <ArchivePage />,
+          },
+        ],
+      },
     ],
   },
   {
-    path: '/',
+    path: ROUTES.WORK_DETAIL,
     element: <Layout color="black" />,
     children: [
       {
-        path: ROUTES.WORK_DETAIL,
+        index: true,
         element: <WorkDetailPage />,
-      },
-    ],
-  },
-  {
-    path: '/',
-    element: <Layout color="white" />,
-    children: [
-      {
-        path: ROUTES.PROFILE,
-        element: <ProfilePage />,
-      },
-      {
-        path: ROUTES.PROFILE_DETAIL,
-        element: <ProfileDetailPage />,
-      },
-      {
-        path: ROUTES.ARCHIVE,
-        element: <ArchivePage />,
       },
     ],
   },
