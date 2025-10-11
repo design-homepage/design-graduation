@@ -29,7 +29,7 @@ const GuestBookPage = () => {
     if (windowWidth >= 1350) {
       return {
         containerWidth: '828px',
-        containerHeight: '460px',
+        containerHeight: '420px',
         cardWidth: '320px',
         cardHeight: '112px',
         padding: '35px 41px',
@@ -50,7 +50,7 @@ const GuestBookPage = () => {
     } else if (windowWidth >= 1020) {
       return {
         containerWidth: '828px',
-        containerHeight: '460px',
+        containerHeight: '420px',
         cardWidth: '280px',
         cardHeight: '100px',
         padding: '35px 41px',
