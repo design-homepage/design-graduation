@@ -34,8 +34,8 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, responsiveSty
       className="relative snap-start z-10"
       style={{ height: 'calc(100vh - 64px)' }}
     >
-      <div className="flex items-center justify-center h-full" style={{ paddingBottom: '40px' }}>
-        <form onSubmit={onSubmit} className="w-full max-w-4xl mx-auto p-8">
+      <div className="flex items-start justify-center h-full pt-36 sm:pt-28 lg:pt-20">
+        <form onSubmit={onSubmit} className="w-full max-w-4xl mx-auto px-8">
           {/* 글래스모피즘 컨테이너 */}
           <div
             className="glassmorphism-container"
@@ -92,7 +92,7 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, responsiveSty
               </div>
 
               {/* 구분선 */}
-              <div className="border-t border-black-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
+              <div className="border-t border-black-400 border-opacity-30" style={{ width: '100%', margin: '6px 0' }}></div>
 
               {/* 2. 메시지 섹션 */}
               <div style={{ width: '100%', flex: 1, position: 'relative' }}>
@@ -107,8 +107,8 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, responsiveSty
                     border: 'none',
                     backdropFilter: 'none',
                     height: '100%',
-                    minHeight: '200px',
-                    paddingBottom: '30px'
+                    minHeight: '140px',
+                    paddingBottom: '18px'
                   }}
                   placeholder="메시지를 입력해주세요"
                   required
@@ -116,7 +116,7 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, responsiveSty
                 />
                 <div style={{
                   position: 'absolute',
-                  bottom: '10px',
+                  bottom: '8px',
                   right: '0',
                   paddingRight: '4px'
                 }}>
@@ -125,7 +125,7 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, responsiveSty
               </div>
 
               {/* 구분선 */}
-              <div className="border-t border-gray-400 border-opacity-30" style={{ width: '100%', margin: '10px 0' }}></div>
+              <div className="border-t border-gray-400 border-opacity-30" style={{ width: '100%', margin: '6px 0' }}></div>
 
               {/* 3. 받는이 섹션 */}
               <div style={{ width: '100%' }}>
@@ -168,13 +168,13 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, responsiveSty
           </div>
 
           {/* 메시지 보내기 버튼 */}
-          <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2">
+          <div className="flex justify-center" style={{ marginTop: '80px' }}>
             <button
               type="submit"
               className="transition-all duration-200 hover:scale-105"
               style={{
                 display: 'flex',
-                padding: '15px 30px',
+                padding: '12px 28px',
                 justifyContent: 'center',
                 alignItems: 'center',
                 gap: '10px',
