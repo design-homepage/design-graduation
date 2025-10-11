@@ -16,8 +16,8 @@ const WorkPage = () => {
   };
 
   return (
-    <>
-      <div className="flex flex-col p-[50px] md:p-[100px]">
+    <div className="flex justify-center items-center min-h-[calc(100vh-104px)] sm:min-h-[calc(100vh-108px)] md:min-h-[calc(100vh-124px)] lg:min-h-[calc(100vh-170px)]">
+      <div className="flex flex-col p-[50px] md:p-[100px] w-full">
         {rowCounts.map((count, rowIndex) => {
           const rowArrows = arrows.slice(startIndex, startIndex + count);
           startIndex += count;
@@ -32,7 +32,7 @@ const WorkPage = () => {
                   onClick={() => clickArrow(arrow.id)}
                   onMouseEnter={() => setHoveredId(arrow.id)}
                   onMouseLeave={() => setHoveredId(null)}
-                  className="cursor-pointer w-[42px] sm:w-[71px] md:w-[117px] lg:w-[192px] xl:w-[196px] hover:invert"
+                  className="cursor-pointer max-w-[42px] sm:max-w-[71px] md:max-w-[117px] lg:max-w-[192px] xl:max-w-[196px] object-contain min-w-0 w-[calc(100%/7)] hover:invert"
                 />
               ))}
             </div>
@@ -40,7 +40,7 @@ const WorkPage = () => {
         })}
       </div>
       <DetailModal selected={selectedId} />
-    </>
+    </div>
   );
 };
 
