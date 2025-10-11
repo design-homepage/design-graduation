@@ -49,8 +49,8 @@ export const InfiniteScrollSection = ({
   return (
     <div className="py-16 snap-start relative z-10" style={{ minHeight: 'calc(100vh - 64px)', overflow: 'hidden', overflowY: 'auto' }}>
       <div className="relative w-full" style={{ minHeight: 'calc(100vh - 64px - 128px)' }}>
-        {windowWidth <= 768 ? (
-          // Mobile: 수동 스크롤 (무한 스크롤 없음)
+        {windowWidth <= 400 ? (
+          // Mobile (400px 이하): 수동 스크롤 (무한 스크롤 없음)
           <div 
             className="mobile-scroll-container"
             style={{
@@ -86,6 +86,56 @@ export const InfiniteScrollSection = ({
                   ))}
                 </div>
               ))}
+            </div>
+          </div>
+        ) : windowWidth <= 768 ? (
+          // Tab>Mobile (400px 초과 ~ 768px 이하): 무한 스크롤 (호버 효과 없음)
+          <div 
+            className="infinite-scroll-container swiper-wrapper"
+            style={{
+              width: '100%',
+              minHeight: 'calc(100vh - 64px - 128px)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+          >
+            {/* 무한 스크롤 트랙 */}
+            <div 
+              className="infinite-scroll-track"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: `${(Math.max(...distributedRows.map(row => row.length)) * 450) + 100}px`,
+                height: '100%',
+                animationName: 'scroll-from-right',
+                animationDuration: `${Math.max(...distributedRows.map(row => row.length)) * 8}s`,
+                animationTimingFunction: 'linear',
+                animationIterationCount: 'infinite',
+                animationPlayState: 'running'
+              }}
+            >
+              {/* 첫 번째 세트 - 5개 행 */}
+              <div className="scroll-section" style={{ 
+                display: 'flex', 
+                flexDirection: 'column',
+                height: '100%', 
+                padding: '15px', 
+                gap: '40px',
+                justifyContent: 'space-around'
+              }}>
+                {distributedRows.map((row, rowIndex) => (
+                  <div key={`tablet-row-${rowIndex}`} style={{ 
+                    display: 'flex', 
+                    gap: '50px', 
+                    alignItems: 'center',
+                    minHeight: `${100 / 5}%`
+                  }}>
+                    {row.map((entry) => (
+                      <GuestBookCard key={`tablet-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         ) : (
