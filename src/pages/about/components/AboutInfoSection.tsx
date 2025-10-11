@@ -201,11 +201,11 @@ const memberLines = [
 ];
 
 const teamImages = [
-    { src: "public/about/team-profiles/기획팀.jpg", label: "기획팀" },
-    { src: "public/about/team-profiles/그래픽팀.jpg", label: "그래픽팀" },
-    { src: "public/about/team-profiles/영상팀.jpeg", label: "영상팀" },
-    { src: "/public/about/team-profiles/편집팀.jpg", label: "편집팀" },
-    { src: "public/about/team-profiles/웹팀.jpg", label: "웹팀" },
+    { src: "/about/team-profiles/planning-team.jpg", label: "기획팀" },
+    { src: "/about/team-profiles/graphic-team.jpg", label: "그래픽팀" },
+    { src: "/about/team-profiles/video-team.jpeg", label: "영상팀" },
+    { src: "/about/team-profiles/edit-team.jpg", label: "편집팀" },
+    { src: "/about/team-profiles/web-team.jpg", label: "웹팀" },
 ];
 
 /* ---------- 우측 점 네비 ---------- */
