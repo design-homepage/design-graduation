@@ -18,6 +18,7 @@ export const DetailModal = ({ selected }: DetailModalProps) => {
   if (!arrow) return null;
 
   const gotoDetail = (id: number) => {
+    closeModal();
     navigate(`${ROUTES.WORK}/${id}`);
   };
   const handleClose = (e: React.MouseEvent) => {
