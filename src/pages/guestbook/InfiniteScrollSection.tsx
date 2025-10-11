@@ -70,7 +70,7 @@ export const InfiniteScrollSection = ({
                 }))}px`,
                 height: '100%',
                 padding: '15px',
-                gap: '60px',
+                gap: '70px',
                 justifyContent: 'space-around'
               }}
             >
