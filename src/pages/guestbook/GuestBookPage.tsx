@@ -29,10 +29,10 @@ const GuestBookPage = () => {
     if (windowWidth >= 1350) {
       return {
         containerWidth: '746px',
-        containerHeight: '427px',
+        containerHeight: '387px',
         cardWidth: '320px',
         cardHeight: '112px',
-        padding: '38px 38px',
+        padding: '20px 31px',
         // Web 사이즈 폰트 스타일
         labelFontSize: '24px',
         labelFontWeight: '700',
@@ -50,10 +50,10 @@ const GuestBookPage = () => {
     } else if (windowWidth >= 1020) {
       return {
         containerWidth: '746px',
-        containerHeight: '427px',
+        containerHeight: '387px',
         cardWidth: '280px',
         cardHeight: '100px',
-        padding: '38px 38px',
+        padding: '20px 31px',
         // Web>Tab 사이즈 폰트 스타일
         labelFontSize: '24px',
         labelFontWeight: '700',
