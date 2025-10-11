@@ -69,9 +69,9 @@ export const InfiniteScrollSection = ({
                   return totalCardWidth + row.length * gap;
                 }))}px`,
                 height: '100%',
-                padding: '15px',
-                gap: '70px',
-                justifyContent: 'space-around'
+                padding: '50px 15px 15px 15px',
+                gap: '85px',
+                justifyContent: 'flex-start'
               }}
             >
               {distributedRows.map((row, rowIndex) => (
