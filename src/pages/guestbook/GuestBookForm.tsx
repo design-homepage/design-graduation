@@ -171,7 +171,7 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, windowWidth, 
           </div>
 
           {/* 메시지 보내기 버튼 */}
-          <div className="flex justify-center" style={{ marginTop: '80px' }}>
+          <div className="flex justify-center" style={{ marginTop: windowWidth >= 1020 ? '40px' : '80px' }}>
             <button
               type="submit"
               className="transition-all duration-200 hover:scale-105"
