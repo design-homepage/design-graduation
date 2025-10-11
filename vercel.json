@@ -1,8 +1,8 @@
 {
-    "rewrites": [
-        {
-            "source": "/((?!api|_next/static|_next/image|favicon.ico|assets|about|guestbook|profile|work|archive|logo_).*)",
-            "destination": "/index.html"
-        }
-    ]
+  "rewrites": [
+    {
+      "source": "/((?!api|_next/.*|.*\\..*).*)",
+      "destination": "/index.html"
+    }
+  ]
 }
