@@ -69,12 +69,12 @@ export const ProfileDesignerSection = ({
                   </p>
                 </div>
               </div>
-              <div className="hidden md:flex lg:text-xl">디자이너 소개) {intro}</div>
+              <div className="hidden md:flex lg:text-xl">{intro}</div>
             </div>
           </div>
         </div>
       </div>
-      <div className="md:hidden text-sm">디자이너 소개) {intro}</div>
+      <div className="md:hidden text-sm">{intro}</div>
     </ProfileSectionContainer>
   );
 };
