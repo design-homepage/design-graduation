@@ -32,7 +32,7 @@ const GuestBookPage = () => {
         containerHeight: '387px',
         cardWidth: '320px',
         cardHeight: '112px',
-        padding: '35px 41px',
+        padding: '20px 31px',
         // Web 사이즈 폰트 스타일
         labelFontSize: '24px',
         labelFontWeight: '700',
@@ -53,7 +53,7 @@ const GuestBookPage = () => {
         containerHeight: '387px',
         cardWidth: '280px',
         cardHeight: '100px',
-        padding: '35px 41px',
+        padding: '20px 31px',
         // Web>Tab 사이즈 폰트 스타일
         labelFontSize: '24px',
         labelFontWeight: '700',
