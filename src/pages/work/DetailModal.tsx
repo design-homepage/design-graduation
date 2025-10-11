@@ -1,7 +1,6 @@
 import { ROUTES } from '@/constants';
 import { useModal } from '@/contexts/ModalContext';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import { arrows } from './constants/arrows';
 
 type DetailModalProps = {
