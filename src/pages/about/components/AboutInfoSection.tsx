@@ -193,11 +193,11 @@ const HorizontalGallery: React.FC<{ items: { src: string; label: string }[] }> =
 };
 
 const memberLines = [
-    { role: "기획팀", names: "안수아 강현정 권민정 박소연" },
-    { role: "그래픽팀", names: "김승화 김은지 강유진 김도영 안수아 정환이" },
-    { role: "영상팀", names: "강유진 김주훈 박수민 박혜연 박현건 오지홍" },
-    { role: "편집팀", names: "김도영 김민구 이지혁 전윤서 정현진" },
-    { role: "웹팀", names: "정환이 신유빈 원민정 오서현 이윤서" },
+    { role: "기획팀", names: "김승화 김은지 강유진 김도영 안수아 정환이" },
+    { role: "그래픽팀", names: "강유진 김주훈 박수민 박혜연 박현건 오지홍" },
+    { role: "영상팀", names: "김도영 김민구 이지혁 전윤서 정현진" },
+    { role: "편집팀", names: "정환이 신유빈 원민정 오서현 이윤서" },
+    { role: "웹팀", names: "안수아 강현정 권민정 박소연" },
 ];
 
 const teamImages = [
