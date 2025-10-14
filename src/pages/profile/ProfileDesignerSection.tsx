@@ -42,10 +42,10 @@ export const ProfileDesignerSection = ({
           <div className="absolute inset-0 flex items-start pl-[25px] lg:pl-[53px]">
             <div className="flex flex-col gap-5 md:gap-9 lg:gap-11 xl:gap-[50px] pt-[50px] md:pt-[25px] w-full">
               <div className="text-primary">
-                <div className="w-fit text-2xl md:text-4xl lg:text-[60px] font-bold border-b border-primary leading-[1.2]">
+                <div className="w-fit text-2xl md:text-4xl lg:text-[60px] font-bold border-b-2 border-primary leading-[1.2]">
                   {name}
                 </div>
-                <div className="w-fit text-base md:text-2xl lg:text-3xl font-bold border-b border-primary leading-[1.2]">
+                <div className="w-fit text-base md:text-2xl lg:text-3xl font-bold border-b-2 border-primary leading-[1.2]">
                   {englishName}
                 </div>
               </div>
