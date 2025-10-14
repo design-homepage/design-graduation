@@ -1,11 +1,15 @@
 import { useParams } from 'react-router-dom';
 import { PropLargeSection } from './PropLargeSection';
 import { PropSmallSection } from './PropSmallSection';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { arrows } from './constants/arrows';
 
 const WorkDetailPage = () => {
   const { id } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   const arrowData = useMemo(() => arrows.find((item) => item.id.toString() === id), [id]);
 
