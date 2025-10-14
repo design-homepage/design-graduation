@@ -49,8 +49,8 @@ export const PropSmallSection = ({ arrowData }: PropSmallSectionProps) => {
               </a>
             </p>
             <p className="font-light text-sm sm:text-base md:text-xl text-muted break-all">
-              <a href={arrowData.instagram.split(' / ')[0]} target="_blank" rel="noreferrer">
-                {arrowData.instagram.split(' / ')[1]}
+              <a href={arrowData.instagram.split(' / ')[1]} target="_blank" rel="noreferrer">
+                @{arrowData.instagram.split(' / ')[0]}
               </a>
             </p>
             <p className="font-light text-sm sm:text-base md:text-xl text-muted break-all">
