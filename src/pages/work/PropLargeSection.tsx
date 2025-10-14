@@ -19,13 +19,13 @@ type PropLargeSectionProps = {
 export const PropLargeSection = ({ arrowData }: PropLargeSectionProps) => {
   return (
     <div className="hidden lg:flex xl:flex-col gap-21 px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] py-[100px] md:py-[150px]">
-      <div className="flex flex-col gap-7">
+      <div className="flex flex-col gap-7 lg:gap-[70px] xl:gap-7">
         <div className="flex flex-col gap-4 xl:gap-[60px] flex-shrink-0">
           <div>
-            <p className="font-bold text-sm sm:text-base md:text-xl xl:text-6xl text-primary whitespace-nowrap">
+            <p className="font-bold text-sm sm:text-base md:text-xl xl:text-6xl text-primary whitespace-nowrap leading-tight">
               {arrowData.workTitle}
             </p>
-            <p className="font-bold text-sm sm:text-base md:text-xl xl:text-6xl text-primary break-words">
+            <p className="font-bold text-sm sm:text-base md:text-xl xl:text-6xl text-primary break-words leading-tight">
               {arrowData.workTitle2}
             </p>
           </div>
