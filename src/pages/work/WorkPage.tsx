@@ -32,7 +32,7 @@ const WorkPage = () => {
                   onClick={() => clickArrow(arrow.id)}
                   onMouseEnter={() => setHoveredId(arrow.id)}
                   onMouseLeave={() => setHoveredId(null)}
-                  className="cursor-pointer max-w-[42px] sm:max-w-[71px] md:max-w-[117px] lg:max-w-[192px] xl:max-w-[196px] object-contain min-w-0 w-[calc(100%/7)] hover:invert"
+                  className="cursor-pointer max-w-[42px] sm:max-w-[71px] md:max-w-[117px] lg:max-w-[192px] xl:max-w-[196px] object-contain min-w-0 w-[calc(100%/7)] hover:mix-blend-difference"
                 />
               ))}
             </div>
