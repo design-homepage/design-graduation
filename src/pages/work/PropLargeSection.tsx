@@ -19,38 +19,40 @@ type PropLargeSectionProps = {
 export const PropLargeSection = ({ arrowData }: PropLargeSectionProps) => {
   return (
     <div className="hidden lg:flex xl:flex-col gap-21 px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] py-[100px] md:py-[150px]">
-      <div className="flex flex-col gap-7">
-        <div className="flex flex-col gap-4 xl:gap-[60px] w-30 md:w-40 lg:w-48 flex-shrink-0">
+      <div className="flex flex-col gap-7 lg:gap-[70px] xl:gap-7">
+        <div className="flex flex-col gap-4 xl:gap-[60px] flex-shrink-0">
           <div>
-            <p className="font-bold text-sm sm:text-base md:text-xl xl:text-6xl text-primary">
-              Prop
+            <p className="font-bold text-sm sm:text-base md:text-xl xl:text-6xl text-primary whitespace-nowrap leading-tight">
+              {arrowData.workTitle}
             </p>
-            <p className="font-bold text-sm sm:text-base md:text-xl xl:text-6xl text-primary">
-              프롭
+            <p className="font-bold text-sm sm:text-base md:text-xl xl:text-6xl text-primary break-words leading-tight">
+              {arrowData.workTitle2}
             </p>
           </div>
           <div>
-            <p className="font-bold text-sm sm:text-base md:text-xl text-primary">
+            <p className="font-bold text-sm sm:text-base md:text-xl text-primary whitespace-nowrap">
               {arrowData.name}
             </p>
-            <p className="font-bold text-sm sm:text-base md:text-xl text-primary">
+            <p className="font-bold text-sm sm:text-base md:text-xl text-primary whitespace-nowrap">
               {arrowData.englishName}
             </p>
           </div>
         </div>
-        <div className="flex flex-col gap-4 w-30 md:w-40 lg:w-48 flex-shrink-0">
+        <div className="flex flex-col gap-4 flex-shrink-0">
           <div>
-            <p className="font-light text-sm sm:text-base md:text-xl text-muted break-all">
+            <p className="font-light text-sm sm:text-base md:text-xl text-muted break-all whitespace-nowrap">
               <a href={`mailto:${arrowData.email}`} target="_blank" rel="noreferrer">
                 {arrowData.email}
               </a>
             </p>
-            <p className="font-light text-sm sm:text-base md:text-xl text-muted break-all">
-              <a href={arrowData.instagram.split(' / ')[0]} target="_blank" rel="noreferrer">
-                {arrowData.instagram.split(' / ')[1]}
-              </a>
+            <p className="font-light text-sm sm:text-base md:text-xl text-muted break-all whitespace-nowrap">
+              {arrowData.instagram && (
+                <a href={arrowData.instagram.split(' / ')[1]} target="_blank" rel="noreferrer">
+                  @{arrowData.instagram.split(' / ')[0]}
+                </a>
+              )}
             </p>
-            <p className="font-light text-sm sm:text-base md:text-xl text-muted break-all">
+            <p className="font-light text-sm sm:text-base md:text-xl text-muted break-all whitespace-nowrap">
               <a href={arrowData.link} target="_blank" rel="noreferrer">
                 {arrowData.link}
               </a>
