@@ -20,7 +20,7 @@ const ProfileDetailPage = () => {
   }
 
   return (
-    <div className="flex flex-col px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] gap-15 sm:gap-[100px] md:gap-[140px] lg:gap-[200px] xl:gap-[350px]">
+    <div className="flex flex-col px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] gap-15 sm:gap-[70px] md:gap-[50px] lg:gap-[120px] xl:gap-[100px]">
       <ProfileDesignerSection
         name={profileData.name}
         englishName={profileData.englishName}
@@ -31,10 +31,8 @@ const ProfileDetailPage = () => {
         imageUrl={profileData.profileDetailUrl}
         arrowUrl={profileData.arrowUrl}
       />
-      <div className="flex flex-col gap-15 sm:gap-[70px] md:gap-[50px] lg:gap-[120px] xl:gap-[100px]">
-        <ProfileInterviewSection q1={profileData.q1} q2={profileData.q2} />
-        <ProfileWorkSection />
-      </div>
+      <ProfileInterviewSection q1={profileData.q1} q2={profileData.q2} />
+      <ProfileWorkSection />
     </div>
   );
 };

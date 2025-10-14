@@ -1,4 +1,4 @@
-import { useState, useContext, createContext, useEffect } from 'react';
+import { useState, useContext, createContext } from 'react';
 
 type ModalContextType = {
   isOpen: boolean;
@@ -13,14 +13,6 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [isOpen]);
 
   return (
     <ModalContext.Provider value={{ isOpen, openModal, closeModal }}>
