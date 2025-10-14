@@ -51,16 +51,18 @@ export const ProfileDesignerSection = ({
               </div>
               <div className="flex gap-5 md:gap-[70px] lg:gap-[95px] text-xs md:text-base lg:text-2xl text-black w-full">
                 <div className="flex flex-col flex-shrink-0">
-                  <p>Email</p>
-                  <p>Instagram</p>
-                  <p>Behance</p>
+                  {email && <p>Email</p>}
+                  {instagram && <p>Instagram</p>}
+                  {behance && <p>Behance</p>}
                 </div>
                 <div className="flex flex-col min-w-0 flex-1">
                   <p className="truncate">{email}</p>
                   <p className="truncate">
-                    <a href={instagram.split(' / ')[1]} target="_blank" rel="noopener noreferrer">
-                      {instagram.split(' / ')[0]}
-                    </a>
+                    {instagram && (
+                      <a href={instagram.split(' / ')[1]} target="_blank" rel="noopener noreferrer">
+                        @{instagram.split(' / ')[0]}
+                      </a>
+                    )}
                   </p>
                   <p className="truncate">
                     <a href={behance} target="_blank" rel="noopener noreferrer">
