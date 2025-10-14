@@ -4,9 +4,10 @@ import Footer from './Footer';
 
 type LayoutProps = {
   color: 'primary' | 'black' | 'white';
+  footer?: 'default' | 'none';
 };
 
-const Layout = ({ color }: LayoutProps) => {
+const Layout = ({ color, footer = 'default' }: LayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header color={color} />
@@ -15,7 +16,7 @@ const Layout = ({ color }: LayoutProps) => {
       >
         <Outlet />
       </main>
-      <Footer />
+      {footer === 'default' && <Footer />}
     </div>
   );
 };
