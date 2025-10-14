@@ -2,6 +2,7 @@ import { ROUTES } from '@/constants';
 import { useModal } from '@/contexts/ModalContext';
 import { useNavigate } from 'react-router-dom';
 import { arrows } from './constants/arrows';
+import { useEffect } from 'react';
 
 type DetailModalProps = {
   selected: number | null;
@@ -10,6 +11,18 @@ type DetailModalProps = {
 export const DetailModal = ({ selected }: DetailModalProps) => {
   const { isOpen, closeModal } = useModal();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   if (!isOpen || !selected) return null;
 
