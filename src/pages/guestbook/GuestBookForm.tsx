@@ -103,7 +103,7 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, windowWidth, 
                   value={formData.message}
                   onChange={onInputChange}
                   rows={8}
-                  className="w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800 placeholder-gray-600 resize-none"
+                  className="w-full py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800 placeholder-gray-600 resize-none"
                   style={{
                     background: 'transparent',
                     border: 'none',
