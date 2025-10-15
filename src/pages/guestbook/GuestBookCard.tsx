@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, memo, useEffect } from 'react';
 import type { GuestBookEntry } from '@/types/guestbook';
 
 // Arrow 이미지 경로들 (런타임에 참조)
@@ -16,6 +16,20 @@ interface GuestBookCardProps {
 // 메모이제이션된 카드 컴포넌트
 export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  // isHovered 상태에 따라 애니메이션 제어
+  useEffect(() => {
+    const track = document.querySelector('.infinite-scroll-track') as HTMLElement;
+    if (track) {
+      if (isHovered) {
+        console.log('⏸️ 애니메이션 정지');
+        track.style.animationPlayState = 'paused';
+      } else {
+        console.log('▶️ 애니메이션 재생');
+        track.style.animationPlayState = 'running';
+      }
+    }
+  }, [isHovered]);
 
   // 메시지 길이에 따라 배경 이미지 선택 (호버 상태 반영)
   const getBackgroundImage = () => {
@@ -68,6 +82,26 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
             opacity: isHovered ? 1 : 0.5
           }}
         />
+        
+        {/* 화살표 모양 클릭 영역 (CSS clip-path 사용) */}
+        <div
+          className="absolute inset-0 w-full h-full"
+          style={{
+            zIndex: 2,
+            background: 'transparent',
+            cursor: 'pointer',
+            // 화살표 모양의 clip-path
+            clipPath: 'polygon(0% 0%, 0% 100%, 15% 100%, 15% 70%, 50% 70%, 50% 100%, 100% 100%, 100% 0%)'
+          }}
+          onMouseEnter={() => {
+            console.log('🟢 화살표 클릭 영역 - 마우스 진입');
+            setIsHovered(true);
+          }}
+          onMouseLeave={() => {
+            console.log('🔴 화살표 클릭 영역 - 마우스 벗어남');
+            setIsHovered(false);
+          }}
+        />
 
         {/* 왼쪽 화살표 영역 */}
         <div className="absolute top-1/2 transform -translate-y-1/2"
@@ -115,10 +149,14 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
             right: '10px',
             height: '100px',
             transform: 'translateY(-50%)',
-            zIndex: 4,
+            zIndex: 10, // 화살표 마스크 영역보다 위에
             paddingRight: '10px',
-            paddingLeft: '8px'
-          }}>
+            paddingLeft: '8px',
+            pointerEvents: 'auto' // 마우스 이벤트 활성화
+          }}
+          onMouseEnter={() => console.log('🔵 메시지 영역 - 마우스 진입')}
+          onMouseLeave={() => console.log('🔵 메시지 영역 - 마우스 벗어남')}
+        >
           {/* 메시지 텍스트 */}
           <div className="flex-1">
             <p className="leading-relaxed line-clamp-3"
