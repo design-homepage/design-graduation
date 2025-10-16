@@ -22,10 +22,8 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
     const track = document.querySelector('.infinite-scroll-track') as HTMLElement;
     if (track) {
       if (isHovered) {
-        console.log('⏸️ 애니메이션 정지');
         track.style.animationPlayState = 'paused';
       } else {
-        console.log('▶️ 애니메이션 재생');
         track.style.animationPlayState = 'running';
       }
     }
@@ -40,13 +38,13 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
     return selectedImage;
   };
 
-  // 카드 컨테이너 크기 설정 (크기 축소)
+  // 카드 컨테이너 크기 설정
   const getCardSize = () => {
     const messageLength = entry.message.length;
-    if (messageLength > 59) {
-      return { width: '400px', height: '180px' }; // L 카드 크기 (축소)
+    if (messageLength >= 98) {
+      return { width: '548px', height: '230px' }; // L 카드 크기 (98자 이상)
     } else {
-      return { width: '240px', height: '180px' }; // S 카드 크기 (축소)
+      return { width: '332px', height: '230px' }; // S 카드 크기 (97자 이하)
     }
   };
 
@@ -93,14 +91,8 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
             // 화살표 모양의 clip-path
             clipPath: 'polygon(0% 0%, 0% 100%, 15% 100%, 15% 70%, 50% 70%, 50% 100%, 100% 100%, 100% 0%)'
           }}
-          onMouseEnter={() => {
-            console.log('🟢 화살표 클릭 영역 - 마우스 진입');
-            setIsHovered(true);
-          }}
-          onMouseLeave={() => {
-            console.log('🔴 화살표 클릭 영역 - 마우스 벗어남');
-            setIsHovered(false);
-          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         />
 
         {/* 왼쪽 화살표 영역 */}
@@ -113,7 +105,7 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
             alignItems: 'center',
             flexShrink: 0,
             aspectRatio: '1/1',
-            left: '20px',
+            left: '55px',
             zIndex: 3
           }}>
           <img
@@ -145,7 +137,7 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
           style={{
             position: 'absolute',
             top: '50%',
-            left: '95px',
+            left: '135px', // 95px → 105px로 오른쪽 이동
             right: '10px',
             height: '100px',
             transform: 'translateY(-50%)',
@@ -154,14 +146,13 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
             paddingLeft: '8px',
             pointerEvents: 'auto' // 마우스 이벤트 활성화
           }}
-          onMouseEnter={() => console.log('🔵 메시지 영역 - 마우스 진입')}
-          onMouseLeave={() => console.log('🔵 메시지 영역 - 마우스 벗어남')}
         >
           {/* 메시지 텍스트 */}
           <div className="flex-1">
-            <p className="leading-relaxed line-clamp-3"
+            <p 
+              className="leading-relaxed"
               style={{
-                color: isHovered ? '#00FF00' : '#000',
+                color: isHovered ? '#00FF00' : 'var(--Black, #000)',
                 fontFamily: 'Pretendard',
                 fontSize: '14px',
                 fontStyle: 'normal',
