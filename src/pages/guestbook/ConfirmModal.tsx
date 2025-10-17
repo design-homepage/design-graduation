@@ -2,10 +2,48 @@ interface ConfirmModalProps {
   show: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  windowWidth: number;
 }
 
-export const ConfirmModal = ({ show, onClose, onConfirm }: ConfirmModalProps) => {
+export const ConfirmModal = ({ show, onClose, onConfirm, windowWidth }: ConfirmModalProps) => {
   if (!show) return null;
+
+  // 반응형 스타일 계산
+  const getModalStyles = () => {
+    if (windowWidth > 1020) {
+      // Web과 Web>Tab 사이즈
+      return {
+        width: '520px',
+        height: '226px',
+        padding: '55px 0',
+        gap: '80px',
+        borderRadius: '15px',
+        background: 'rgba(255, 255, 255, 0.10)'
+      };
+    } else if (windowWidth > 768) {
+      // Tab과 Tab>Mobile 사이즈
+      return {
+        width: '420px',
+        height: '182px',
+        padding: '40px 0',
+        gap: '60px',
+        borderRadius: '15px',
+        background: 'rgba(255, 255, 255, 0.10)'
+      };
+    } else {
+      // Mobile 사이즈
+      return {
+        width: '320px',
+        height: '159px',
+        padding: '30px 0',
+        gap: '45px',
+        borderRadius: '15px',
+        background: 'rgba(255, 255, 255, 0.10)'
+      };
+    }
+  };
+
+  const modalStyles = getModalStyles();
 
   return (
     <div 
@@ -17,32 +55,27 @@ export const ConfirmModal = ({ show, onClose, onConfirm }: ConfirmModalProps) =>
       <div 
         className="relative"
         style={{
-          width: '380px',
-          height: '159px',
-          borderRadius: '20px',
-          background: 'rgba(255, 255, 255, 0.15)',
+          ...modalStyles,
           backdropFilter: 'blur(20px)',
           border: '1px solid rgba(255, 255, 255, 0.2)',
           boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
           alignItems: 'center'
         }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* 질문 */}
         <div style={{ 
-          textAlign: 'center',
-          paddingTop: '15px'
+          textAlign: 'center'
         }}>
           <h2 style={{
             color: 'var(--White, #FFF)',
             fontFamily: 'Pretendard',
-            fontSize: '16px',
+            fontSize: windowWidth > 1020 ? '18px' : windowWidth > 768 ? '16px' : '14px',
             fontStyle: 'normal',
             fontWeight: '700',
-            lineHeight: '24px',
+            lineHeight: windowWidth > 1020 ? '28px' : windowWidth > 768 ? '24px' : '20px',
             margin: 0
           }}>
             응원의 메세지를 남기겠습니까?
@@ -51,16 +84,15 @@ export const ConfirmModal = ({ show, onClose, onConfirm }: ConfirmModalProps) =>
         
         {/* 확인 메시지 */}
         <div style={{
-          textAlign: 'center',
-          padding: '20px'
+          textAlign: 'center'
         }}>
           <p style={{
             color: 'var(--White, #FFF)',
             fontFamily: 'Pretendard',
-            fontSize: '14px',
+            fontSize: windowWidth > 1020 ? '16px' : windowWidth > 768 ? '14px' : '12px',
             fontStyle: 'normal',
             fontWeight: '400',
-            lineHeight: '18px',
+            lineHeight: windowWidth > 1020 ? '24px' : windowWidth > 768 ? '20px' : '16px',
             letterSpacing: '-0.028px',
             margin: 0
           }}>
@@ -71,14 +103,13 @@ export const ConfirmModal = ({ show, onClose, onConfirm }: ConfirmModalProps) =>
         {/* 버튼들 */}
         <div style={{
           display: 'flex',
-          gap: '20px',
-          paddingBottom: '30px'
+          gap: windowWidth > 1020 ? '30px' : windowWidth > 768 ? '25px' : '20px'
         }}>
           <button
             onClick={onClose}
             style={{
-              width: '91px',
-              height: '34px',
+              width: windowWidth > 1020 ? '120px' : windowWidth > 768 ? '100px' : '80px',
+              height: windowWidth > 1020 ? '40px' : windowWidth > 768 ? '36px' : '32px',
               display: 'flex',
               padding: '8px 15px',
               justifyContent: 'center',
@@ -88,7 +119,7 @@ export const ConfirmModal = ({ show, onClose, onConfirm }: ConfirmModalProps) =>
               background: 'var(--White, #FFF)',
               border: 'none',
               fontFamily: 'Pretendard',
-              fontSize: '14px',
+              fontSize: windowWidth > 1020 ? '16px' : windowWidth > 768 ? '14px' : '12px',
               fontWeight: '500',
               color: '#666666',
               cursor: 'pointer',
@@ -107,8 +138,8 @@ export const ConfirmModal = ({ show, onClose, onConfirm }: ConfirmModalProps) =>
           <button
             onClick={onConfirm}
             style={{
-              width: '106px',
-              height: '34px',
+              width: windowWidth > 1020 ? '140px' : windowWidth > 768 ? '120px' : '100px',
+              height: windowWidth > 1020 ? '40px' : windowWidth > 768 ? '36px' : '32px',
               display: 'flex',
               padding: '8px 15px',
               alignItems: 'center',
@@ -117,7 +148,7 @@ export const ConfirmModal = ({ show, onClose, onConfirm }: ConfirmModalProps) =>
               background: 'var(--Green, #00E53A)',
               border: 'none',
               fontFamily: 'Pretendard',
-              fontSize: '14px',
+              fontSize: windowWidth > 1020 ? '16px' : windowWidth > 768 ? '14px' : '12px',
               fontWeight: '600',
               color: '#FFFFFF',
               cursor: 'pointer',

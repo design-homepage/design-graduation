@@ -55,10 +55,9 @@ export const InfiniteScrollSection = ({
     return windowWidth > 1020 ? 34 : 30;
   };
 
-  // 애니메이션 속도 계산 (각 행의 너비에 비례)
-  const getAnimationDuration = (rowWidth: number) => {
-    const baseSpeed = 50; // 기본 속도 (픽셀/초)
-    return `${rowWidth / baseSpeed}s`;
+  // 애니메이션 속도 계산 (모든 행 동일한 속도)
+  const getAnimationDuration = () => {
+    return '20s'; // 모든 행이 동일한 속도로 움직임
   };
 
   // 5개 행으로 배치된 데이터와 각 행의 너비
@@ -150,7 +149,7 @@ export const InfiniteScrollSection = ({
                     alignItems: 'center',
                     justifyContent: 'flex-start',
                     animationName: 'scroll-from-right',
-                    animationDuration: getAnimationDuration(rowWidths[rowIndex]),
+                    animationDuration: getAnimationDuration(),
                     animationTimingFunction: 'linear',
                     animationIterationCount: 'infinite',
                     animationPlayState: 'running',
@@ -251,7 +250,7 @@ export const InfiniteScrollSection = ({
                     alignItems: 'center',
                     justifyContent: 'flex-start',
                     animationName: 'scroll-from-right',
-                    animationDuration: getAnimationDuration(rowWidths[rowIndex]),
+                    animationDuration: getAnimationDuration(),
                     animationTimingFunction: 'linear',
                     animationIterationCount: 'infinite',
                     animationPlayState: 'running',
