@@ -10,6 +10,8 @@ const Header = ({ color }: HeaderProps) => {
   const location = useLocation();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const mobileOnlyItem = { path: ROUTES.ABOUT, mobileMenu: 'ABOUT' };
+
   const navItems = [
     { path: ROUTES.WORK, label: 'Work', mobileMenu: 'WORK', korean: '작업물' },
     { path: ROUTES.PROFILE, label: 'Profile', mobileMenu: 'PROFILE', korean: '프로필' },
@@ -24,7 +26,7 @@ const Header = ({ color }: HeaderProps) => {
       <div
         className={`w-full flex items-center justify-between px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] ${color === 'black' ? 'text-white' : 'text-foreground'}`}
       >
-        <Link to={ROUTES.HOME} className="flex gap-[17px] md:gap-5 items-center px-5">
+        <Link to={ROUTES.ABOUT} className="flex gap-[17px] md:gap-5 items-center px-5">
           <img
             src={
               color === 'black' || location.pathname === ROUTES.ABOUT
@@ -96,7 +98,7 @@ const Header = ({ color }: HeaderProps) => {
       {isMobileMenuOpen && (
         <div className="lg:hidden h-[1020px] justify-between bg-black/50 backdrop-blur-[30px] absolute top-full left-0 w-full flex flex-col z-10 px-[50px] py-[15px]">
           <nav className="flex flex-col gap-[50px]">
-            {navItems.map((item) => (
+            {[mobileOnlyItem, ...navItems].map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
