@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { LiaLongArrowAltLeftSolid } from "react-icons/lia";
 import {
     meContent,
@@ -75,9 +75,41 @@ function useSmoothSectionAlignment() {
         const getScrollTarget = (index: number) => {
             const el = sections[index];
             const rect = el.getBoundingClientRect();
-            const offset = window.scrollY + rect.top - (window.innerHeight - rect.height) / 2;
-            return offset;
+            const elementTop = window.scrollY + rect.top;
+            // sec-0는 상단 정렬로 비디오가 완전히 보이도록 처리
+            if (index === 0) return Math.max(0, elementTop);
+            // 나머지는 중앙 정렬
+            const offset = elementTop - (window.innerHeight - rect.height) / 2;
+            return Math.max(0, offset);
         };
+
+        const getCurrentIndexByScroll = () => {
+            let idx = 0;
+            let minDist = Number.POSITIVE_INFINITY;
+            const currentY = window.scrollY;
+            // sec-1의 시작점 이전까지는 무조건 sec-0으로 간주하여 스냅 비활성 상태 유지
+            if (sections[1]) {
+                const sec1Rect = sections[1].getBoundingClientRect();
+                const sec1Top = window.scrollY + sec1Rect.top;
+                if (currentY < sec1Top - 1) return 0;
+            }
+            sections.forEach((el, i) => {
+                const rect = el.getBoundingClientRect();
+                const elementTop = window.scrollY + rect.top;
+                const targetY = i === 0
+                    ? elementTop
+                    : elementTop - (window.innerHeight - rect.height) / 2;
+                const dist = Math.abs(currentY - targetY);
+                if (dist < minDist) {
+                    minDist = dist;
+                    idx = i;
+                }
+            });
+            return idx;
+        };
+
+        // 초기 진입 시 현재 스크롤 위치 기준으로 인덱스 설정
+        currentIndex = getCurrentIndexByScroll();
 
         const goToSection = (index: number) => {
             if (index < 0 || index >= sections.length) return;
@@ -88,11 +120,34 @@ function useSmoothSectionAlignment() {
 
         const handleWheel = (e: WheelEvent) => {
             if (wheelLock) return;
-            e.preventDefault();
+
+            // 현재 스크롤 위치 기준으로 섹션 인덱스 동기화
+            currentIndex = getCurrentIndexByScroll();
 
             const direction = e.deltaY > 0 ? 1 : -1;
+            const isAtTopEdge = currentIndex === 0 && direction < 0;
+            const isAtBottomEdge = currentIndex === sections.length - 1 && direction > 0;
+
+            // sec-0에서는 자연 스크롤 유지 (스냅 비활성)
+            if (currentIndex === 0) return;
+
+            // 맨 위/맨 아래에선 기본 스크롤 허용 (비디오/푸터 접근)
+            if (isAtTopEdge || isAtBottomEdge) return;
+
+            // 먼저 현재 섹션을 중앙으로 정렬한 뒤, 그 다음 입력에서 다음 섹션으로 이동
+            const currentTarget = getScrollTarget(currentIndex);
+            const distanceToCurrent = Math.abs((window.scrollY || 0) - currentTarget);
+            if (distanceToCurrent > 60) {
+                e.preventDefault();
+                wheelLock = true;
+                goToSection(currentIndex);
+                setTimeout(() => (wheelLock = false), 700);
+                return;
+            }
+
             const nextIndex = currentIndex + direction;
             if (nextIndex >= 0 && nextIndex < sections.length) {
+                e.preventDefault();
                 wheelLock = true;
                 goToSection(nextIndex);
                 setTimeout(() => (wheelLock = false), 700);
@@ -101,11 +156,39 @@ function useSmoothSectionAlignment() {
 
         const handleKey = (e: KeyboardEvent) => {
             if (wheelLock) return;
+
+            // 현재 스크롤 위치 기준으로 섹션 인덱스 동기화
+            currentIndex = getCurrentIndexByScroll();
+
             if (["PageDown", "ArrowDown", "ArrowRight"].includes(e.key)) {
+                const isAtBottomEdge = currentIndex === sections.length - 1;
+                if (currentIndex === 0 || isAtBottomEdge) return; // sec-0 및 마지막 섹션에서는 기본 스크롤 허용
+                // 먼저 현재 섹션 중앙 정렬
+                const currentTarget = getScrollTarget(currentIndex);
+                const distanceToCurrent = Math.abs((window.scrollY || 0) - currentTarget);
+                if (distanceToCurrent > 60) {
+                    e.preventDefault();
+                    wheelLock = true;
+                    goToSection(currentIndex);
+                    setTimeout(() => (wheelLock = false), 700);
+                    return;
+                }
                 e.preventDefault();
                 handleWheel({ deltaY: 1 } as WheelEvent);
             }
             if (["PageUp", "ArrowUp", "ArrowLeft"].includes(e.key)) {
+                const isAtTopEdge = currentIndex === 0;
+                if (isAtTopEdge) return; // 비디오 상단 접근 허용
+                // 먼저 현재 섹션 중앙 정렬
+                const currentTarget = getScrollTarget(currentIndex);
+                const distanceToCurrent = Math.abs((window.scrollY || 0) - currentTarget);
+                if (distanceToCurrent > 60) {
+                    e.preventDefault();
+                    wheelLock = true;
+                    goToSection(currentIndex);
+                    setTimeout(() => (wheelLock = false), 700);
+                    return;
+                }
                 e.preventDefault();
                 handleWheel({ deltaY: -1 } as WheelEvent);
             }
@@ -379,12 +462,17 @@ const AboutInfoSection: React.FC = () => {
         []
     );
 
+    // 섹션 스냅 내비게이션 활성화 (휠/키보드)
+    useSmoothSectionAlignment();
+
     return (
         <>
             {/* sec-0 — 인트로 (패딩 없음, 중앙고정 제외) */}
             <div id="sec-0" className="w-full">
                 <VideoSection />
                 <TextSection />
+                {/* 여유 스크롤을 위한 스페이서 (200px) */}
+                <div style={{ height: '200px' }} />
             </div>
 
             {/* ✅ 그리드 컨테이너 (가운데 정렬) */}
@@ -406,7 +494,6 @@ const AboutInfoSection: React.FC = () => {
                     <RightDotNav steps={steps} />
 
                     {/* ✅ 자연스러운 섹션 정렬 활성화 */}
-                    {useSmoothSectionAlignment()}
 
                     <div className="flex h-full flex-col" style={{ rowGap: GAP }}>
                         {/* 1) ME */}
