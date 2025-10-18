@@ -3,7 +3,7 @@ import { ROUTES } from '@/constants';
 import { useState } from 'react';
 
 type HeaderProps = {
-  color: 'primary' | 'black' | 'white';
+  color: 'primary' | 'black' | 'white' | 'transparent';
 };
 
 const Header = ({ color }: HeaderProps) => {
@@ -19,12 +19,21 @@ const Header = ({ color }: HeaderProps) => {
     { path: ROUTES.ARCHIVE, label: 'Archive', mobileMenu: 'ARCHIVE', korean: '아카이브' },
   ];
 
+  const bgClass =
+    color === 'black'
+      ? 'bg-black/70'
+      : color === 'white'
+      ? 'bg-white/70'
+      : color === 'primary'
+      ? 'bg-primary/70'
+      : 'bg-transparent';
+
   return (
     <header
-      className={`fixed w-full top-0 bg-${color}/70 backdrop-blur-[30px] h-[104px] sm:h-[108px] md:h-[124px] lg:h-[170px] flex items-center z-100`}
+      className={`fixed w-full top-0 ${bgClass} backdrop-blur-[30px] h-[104px] sm:h-[108px] md:h-[124px] lg:h-[170px] flex items-center z-100`}
     >
       <div
-        className={`w-full flex items-center justify-between px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] ${color === 'black' ? 'text-white' : 'text-foreground'}`}
+        className={`w-full flex items-center justify-between px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] ${color === 'black' || color === 'transparent' ? 'text-white' : 'text-foreground'}`}
       >
         <Link to={ROUTES.ABOUT} className="flex gap-[17px] md:gap-5 items-center px-5">
           <img
