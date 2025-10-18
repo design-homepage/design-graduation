@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
                 paddingRight: styles.paddingRight,
                 paddingBottom: styles.paddingBottom,
                 paddingLeft: styles.paddingLeft,
-                backgroundColor: isBlackBackground ? '#000000' : '#FFFFFF',
+                backgroundColor: 'transparent',
                 position: 'relative',
                 zIndex: 50,
             }}
@@ -99,7 +99,7 @@ const Footer: React.FC = () => {
                 {/* 중간: 한국어 + 영어 정보 */}
                 <div className="flex-1 mr-8">
                     <div className="mb-2" style={{
-                        color: isGuestbook ? '#00E53A' : (isBlackBackground ? '#FFFFFF' : '#00E53A'),
+                        color: isGuestbook ? '#FFFFFF' : (isBlackBackground ? '#FFFFFF' : '#00E53A'),
                         fontSize: windowWidth < 600 ? '12px' : '20px',
                         fontWeight: windowWidth < 600 ? 'bold' : 'normal'
                     }}>
@@ -108,7 +108,7 @@ const Footer: React.FC = () => {
                         <div>2025. 10. 28 TUE - 2025. 11. 8 SAT</div>
                     </div>
                     <div style={{
-                        color: isGuestbook ? '#00E53A' : (isBlackBackground ? '#FFFFFF' : '#00E53A'),
+                        color: isGuestbook ? '#FFFFFF' : (isBlackBackground ? '#FFFFFF' : '#00E53A'),
                         fontSize: windowWidth < 600 ? '12px' : '20px',
                         fontWeight: windowWidth < 600 ? 'bold' : 'normal'
                     }}>
@@ -121,7 +121,7 @@ const Footer: React.FC = () => {
                 {/* 오른쪽: 연락처 정보 */}
                 <div className="flex-shrink-0">
                     <div style={{
-                        color: isGuestbook ? '#00E53A' : (isBlackBackground ? '#FFFFFF' : '#00E53A'),
+                        color: isGuestbook ? '#FFFFFF' : (isBlackBackground ? '#FFFFFF' : '#00E53A'),
                         fontSize: windowWidth < 600 ? '12px' : '20px',
                         fontWeight: windowWidth < 600 ? 'bold' : 'normal'
                     }}>
