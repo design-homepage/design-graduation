@@ -5,7 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 
-export default js.flatConfig([
+export default [
   {
     ignores: ['dist', 'node_modules'],
   },
@@ -34,4 +34,4 @@ export default js.flatConfig([
     },
   },
   js.configs.recommended,
-]);
+];

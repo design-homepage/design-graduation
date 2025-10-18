@@ -64,7 +64,8 @@ export const ConfirmModal = ({ show, onClose, onConfirm, windowWidth }: ConfirmM
         style={{
           ...modalStyles,
           backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.2)'
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          flexDirection: modalStyles.flexDirection as 'column' | 'row' | 'column-reverse' | 'row-reverse' | undefined
         }}
         onClick={(e) => e.stopPropagation()}
       >
