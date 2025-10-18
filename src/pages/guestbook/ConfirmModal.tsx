@@ -113,7 +113,7 @@ export const ConfirmModal = ({ show, onClose, onConfirm, windowWidth }: ConfirmM
             onClick={onClose}
             style={{
               display: 'flex',
-              padding: '8px 15px',
+              padding: windowWidth <= 400 ? '8px 15px' : '8px 15px',
               justifyContent: 'center',
               alignItems: 'center',
               gap: '10px',
@@ -127,6 +127,8 @@ export const ConfirmModal = ({ show, onClose, onConfirm, windowWidth }: ConfirmM
               textAlign: 'center',
               lineHeight: '18px',
               letterSpacing: '-0.028px',
+              width: windowWidth <= 400 ? 'auto' : 'auto',
+              flexShrink: windowWidth <= 400 ? 0 : 'auto',
               cursor: 'pointer',
               transition: 'all 0.2s ease'
             }}
@@ -144,7 +146,7 @@ export const ConfirmModal = ({ show, onClose, onConfirm, windowWidth }: ConfirmM
             onClick={onConfirm}
             style={{
               display: 'flex',
-              padding: '8px 15px',
+              padding: windowWidth <= 400 ? '8px 15px' : '8px 15px',
               alignItems: 'center',
               gap: '10px',
               borderRadius: '5px',
@@ -157,6 +159,8 @@ export const ConfirmModal = ({ show, onClose, onConfirm, windowWidth }: ConfirmM
               textAlign: 'center',
               lineHeight: '18px',
               letterSpacing: '-0.028px',
+              width: windowWidth <= 400 ? 'auto' : 'auto',
+              flexShrink: windowWidth <= 400 ? 0 : 'auto',
               cursor: 'pointer',
               transition: 'all 0.2s ease'
             }}

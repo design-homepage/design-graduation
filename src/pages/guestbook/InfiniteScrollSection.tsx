@@ -81,19 +81,19 @@ export const InfiniteScrollSection = ({
             {distributedRows.map((row, rowIndex) => (
               <div key={`mobile-row-${rowIndex}`} style={{
                 width: '100%',
-                height: `${100 / 5}%`, // 각 행이 화면의 1/5 높이
+                height: windowWidth <= 400 ? '35%' : `${100 / 5}%`, // Mobile에서는 매우 큰 높이
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                padding: '10px 0'
+                padding: windowWidth <= 400 ? '0px 0' : '14.5px 0'
               }}>
                 {/* 각 행의 독립적인 스크롤 영역 */}
                 <div style={{
                   width: '100%',
                   height: '100%',
                   overflowX: 'auto',
-                  overflowY: 'hidden',
+                  overflowY: 'visible',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'flex-start',
@@ -130,13 +130,13 @@ export const InfiniteScrollSection = ({
             {distributedRows.map((row, rowIndex) => (
               <div key={`tablet-row-${rowIndex}`} style={{
                 width: '100%',
-                height: `${100 / 5}%`, // 각 행이 화면의 1/5 높이
+                height: windowWidth <= 400 ? '35%' : `${100 / 5}%`, // Mobile에서는 매우 큰 높이
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                padding: '10px 0',
-                overflow: 'hidden',
+                padding: windowWidth <= 400 ? '30px 0' : '14.5px 0',
+                overflow: 'visible',
                 position: 'relative'
               }}>
                 {/* 각 행의 완전히 독립적인 무한 스크롤 영역 */}
@@ -231,13 +231,13 @@ export const InfiniteScrollSection = ({
             {distributedRows.map((row, rowIndex) => (
               <div key={`desktop-row-${rowIndex}`} style={{
                 width: '100%',
-                height: `${100 / 5}%`, // 각 행이 화면의 1/5 높이
+                height: windowWidth <= 400 ? '35%' : `${100 / 5}%`, // Mobile에서는 매우 큰 높이
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                padding: '10px 0',
-                overflow: 'hidden',
+                padding: windowWidth <= 400 ? '30px 0' : '14.5px 0',
+                overflow: 'visible',
                 position: 'relative'
               }}>
                 {/* 각 행의 완전히 독립적인 무한 스크롤 영역 */}

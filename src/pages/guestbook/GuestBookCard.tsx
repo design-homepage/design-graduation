@@ -7,6 +7,12 @@ const arrowBasicS = '/guestbook/img/arrow_basic_S.webp';
 const arrowHoverL = '/guestbook/img/arrow_Hover_L.webp';
 const arrowHoverS = '/guestbook/img/arrow_Hover_S.webp';
 
+// Mobile Arrow 이미지 경로들 (400px 이하)
+const mobileArrowBasicL = '/guestbook/img/Mobile_basic_L.png';
+const mobileArrowBasicS = '/guestbook/img/Mobile_basic_S.png';
+const mobileArrowHoverL = '/guestbook/img/Mobile_hover_L.png';
+const mobileArrowHoverS = '/guestbook/img/Mobile_hover_S.png';
+
 interface GuestBookCardProps {
   entry: GuestBookEntry;
   cardDimensions: { width: string; height: string };
@@ -14,7 +20,7 @@ interface GuestBookCardProps {
 }
 
 // 메모이제이션된 카드 컴포넌트
-export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
+export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   // isHovered 상태에 따라 애니메이션 제어
@@ -32,21 +38,191 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
   // 메시지 길이에 따라 배경 이미지 선택 (호버 상태 반영)
   const getBackgroundImage = () => {
     const messageLength = entry.message.length;
-    const selectedImage = messageLength >= 98
+    
+    // 400px 이하 모바일 환경에서는 Mobile 이미지 사용
+    if (windowWidth <= 400) {
+      return messageLength >= 98
+        ? (isHovered ? mobileArrowHoverL : mobileArrowBasicL)
+        : (isHovered ? mobileArrowHoverS : mobileArrowBasicS);
+    }
+    
+    // 데스크톱/태블릿 환경에서는 기본 이미지 사용
+    return messageLength >= 98
       ? (isHovered ? arrowHoverL : arrowBasicL)
       : (isHovered ? arrowHoverS : arrowBasicS);
-    return selectedImage;
+  };
+
+  // Mobile 전용 카드 렌더링
+  const renderMobileCard = () => {
+    const messageLength = entry.message.length;
+    const isLargeCard = messageLength >= 98;
+    
+    return (
+      <div
+        className="group relative GuestBookCard swiper-slide"
+        style={{
+          zIndex: 10,
+          background: 'transparent',
+          position: 'relative',
+          cursor: 'pointer',
+          width: isLargeCard ? '402px' : '292px',
+          height: '194px',
+          margin: '10px'
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Mobile 전용 이미지 컨테이너 */}
+        <div 
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: isLargeCard ? '410px' : '292px',
+            height: '194px',
+            padding: '0px 0',
+            zIndex: 1
+          }}
+        >
+          <img
+            src={getBackgroundImage()}
+            alt="arrow background"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              opacity: isHovered ? 1 : 0.5,
+              transform: 'scale(1)',
+              transformOrigin: 'center'
+            }}
+          />
+        </div>
+
+        {/* Mobile 전용 클릭 영역 */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '0',
+            left: '0',
+            right: '0',
+            bottom: '0',
+            zIndex: 2,
+            background: 'transparent',
+            cursor: 'pointer',
+            clipPath: 'polygon(0% 0%, 0% 100%, 15% 100%, 15% 70%, 50% 70%, 50% 100%, 100% 100%, 100% 0%)'
+          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        />
+
+        {/* Mobile 전용 왼쪽 화살표 영역 */}
+        <div 
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '55px',
+            transform: 'translateY(-50%)',
+            display: 'flex',
+            width: '60px',
+            height: '60px',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 3
+          }}
+        >
+          <img
+            src={`/guestbook/arrows-green/Property 1=${entry.receiver}_G.webp`}
+            alt={entry.receiver}
+            style={{
+              width: '60px',
+              height: '60px',
+              filter: 'brightness(0) saturate(100%) invert(6%) sepia(98%) saturate(7482%) hue-rotate(240deg) brightness(95%) contrast(102%)'
+            }}
+          />
+        </div>
+
+        {/* Mobile 전용 메시지 영역 */}
+        <div 
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '135px',
+            right: '10px',
+            height: '100px',
+            transform: 'translateY(-50%)',
+            zIndex: 4,
+            paddingRight: '10px',
+            paddingLeft: '8px',
+            pointerEvents: 'auto'
+          }}
+        >
+          <div style={{ flex: 1 }}>
+            <p 
+              style={{
+                color: 'var(--Black, #000)',
+                fontFamily: 'Pretendard',
+                fontSize: '14px',
+                fontStyle: 'normal',
+                fontWeight: '400',
+                lineHeight: '20px',
+                letterSpacing: '-0.028px',
+                transition: 'color 0.3s',
+                margin: 0
+              }}
+            >
+              {entry.message}
+            </p>
+          </div>
+          <div style={{ marginTop: '8px', paddingTop: '8px', borderTop: '1px solid rgba(0, 0, 0, 0.1)' }}>
+            <p 
+              style={{
+                textAlign: 'right',
+                color: 'rgb(0, 0, 0)',
+                fontFamily: 'Pretendard',
+                fontSize: '14px',
+                fontStyle: 'normal',
+                fontWeight: '700',
+                lineHeight: '18px',
+                letterSpacing: '-0.028px',
+                transition: 'color 0.3s',
+                margin: 0
+              }}
+            >
+              - {entry.sender}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   // 카드 컨테이너 크기 설정
   const getCardSize = () => {
     const messageLength = entry.message.length;
+    
+    // 400px 이하 모바일 환경에서는 Mobile 크기 사용
+    if (windowWidth <= 400) {
+      if (messageLength >= 98) {
+        return { width: '500px', height: '350px' }; // Mobile L 카드 크기 (매우 큰 크기)
+      } else {
+        return { width: '400px', height: '350px' }; // Mobile S 카드 크기 (매우 큰 크기)
+      }
+    }
+    
+    // 데스크톱/태블릿 환경에서는 기본 크기 사용
     if (messageLength >= 98) {
       return { width: '548px', height: '230px' }; // L 카드 크기 (98자 이상)
     } else {
       return { width: '332px', height: '230px' }; // S 카드 크기 (97자 이하)
     }
   };
+
+  // Mobile 환경에서는 전용 카드 렌더링
+  if (windowWidth <= 400) {
+    return renderMobileCard();
+  }
 
   const cardSize = getCardSize();
 
@@ -67,17 +243,32 @@ export const GuestBookCard = memo(({ entry }: GuestBookCardProps) => {
         style={{
           width: cardSize.width,
           height: cardSize.height,
-          background: 'transparent'
+          background: 'transparent',
+          overflow: 'visible',
+          padding: windowWidth <= 400 ? '50px' : '0',
+          margin: windowWidth <= 400 ? '30px' : '0'
         }}>
 
         {/* 화살표 배경 이미지 */}
         <img
           src={getBackgroundImage()}
           alt="arrow background"
-          className="absolute inset-0 w-full h-full object-contain"
+          className="absolute"
           style={{
             zIndex: 1,
-            opacity: isHovered ? 1 : 0.5
+            opacity: isHovered ? 1 : 0.5,
+            transform: windowWidth <= 400 ? 'scale(2) translate(-25%, -25%)' : 'scale(1)',
+            transformOrigin: 'center',
+            top: windowWidth <= 400 ? '-50px' : '0',
+            left: windowWidth <= 400 ? '-50px' : '0',
+            width: windowWidth <= 400 ? 'calc(100% + 100px)' : '100%',
+            height: windowWidth <= 400 ? 'calc(100% + 100px)' : '100%',
+            objectFit: 'contain',
+            objectPosition: 'center',
+            minWidth: windowWidth <= 400 ? '500px' : 'auto',
+            minHeight: windowWidth <= 400 ? '400px' : 'auto',
+            maxWidth: 'none',
+            maxHeight: 'none'
           }}
         />
         
