@@ -48,6 +48,7 @@ const VideoSection = () => {
                     playsInline
                     loop
                 >
+                    <source src="/about/Comp 1_1.webm" type="video/webm" />
                     <source src="/about/Comp 1_1.mp4" type="video/mp4" />
                 </video>
             </div>
