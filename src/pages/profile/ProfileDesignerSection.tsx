@@ -42,25 +42,27 @@ export const ProfileDesignerSection = ({
           <div className="absolute inset-0 flex items-start pl-[25px] lg:pl-[53px]">
             <div className="flex flex-col gap-5 md:gap-9 lg:gap-11 xl:gap-[50px] pt-[50px] md:pt-[25px] w-full">
               <div className="text-primary">
-                <div className="w-fit text-2xl md:text-4xl lg:text-[60px] font-bold border-b border-primary leading-[1.2]">
+                <div className="w-fit text-2xl md:text-4xl lg:text-[60px] font-bold border-b-2 border-primary leading-[1.2]">
                   {name}
                 </div>
-                <div className="w-fit text-base md:text-2xl lg:text-3xl font-bold border-b border-primary leading-[1.2]">
+                <div className="w-fit text-base md:text-2xl lg:text-3xl font-bold border-b-2 border-primary leading-[1.2]">
                   {englishName}
                 </div>
               </div>
               <div className="flex gap-5 md:gap-[70px] lg:gap-[95px] text-xs md:text-base lg:text-2xl text-black w-full">
                 <div className="flex flex-col flex-shrink-0">
-                  <p>Email</p>
-                  <p>Instagram</p>
-                  <p>Behance</p>
+                  {email && <p>Email</p>}
+                  {instagram && <p>Instagram</p>}
+                  {behance && <p>Behance</p>}
                 </div>
                 <div className="flex flex-col min-w-0 flex-1">
                   <p className="truncate">{email}</p>
                   <p className="truncate">
-                    <a href={instagram.split(' / ')[1]} target="_blank" rel="noopener noreferrer">
-                      {instagram.split(' / ')[0]}
-                    </a>
+                    {instagram && (
+                      <a href={instagram.split(' / ')[1]} target="_blank" rel="noopener noreferrer">
+                        @{instagram.split(' / ')[0]}
+                      </a>
+                    )}
                   </p>
                   <p className="truncate">
                     <a href={behance} target="_blank" rel="noopener noreferrer">

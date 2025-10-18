@@ -10,6 +10,8 @@ const Header = ({ color }: HeaderProps) => {
   const location = useLocation();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const mobileOnlyItem = { path: ROUTES.ABOUT, mobileMenu: 'ABOUT' };
+
   const navItems = [
     { path: ROUTES.WORK, label: 'Work', mobileMenu: 'WORK', korean: '작업물' },
     { path: ROUTES.PROFILE, label: 'Profile', mobileMenu: 'PROFILE', korean: '프로필' },
@@ -24,7 +26,7 @@ const Header = ({ color }: HeaderProps) => {
       <div
         className={`w-full flex items-center justify-between px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] ${color === 'black' ? 'text-white' : 'text-foreground'}`}
       >
-        <Link to={ROUTES.HOME} className="flex gap-[17px] md:gap-5 items-center px-5">
+        <Link to={ROUTES.ABOUT} className="flex gap-[17px] md:gap-5 items-center px-5">
           <img
             src={
               color === 'black' || location.pathname === ROUTES.ABOUT
@@ -50,10 +52,11 @@ const Header = ({ color }: HeaderProps) => {
             <Link
               key={item.path}
               to={item.path}
-              className={`text-2xl xl:text-3xl ease-out duration-300 text-inherit hover:text-white ${location.pathname.startsWith(item.path)
-                ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
-                : 'text-foreground'
-                }`}
+              className={`text-2xl xl:text-3xl ease-out duration-300 text-inherit hover:text-white ${
+                location.pathname.startsWith(item.path)
+                  ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
+                  : 'text-foreground'
+              }`}
             >
               {item.label}
             </Link>
@@ -67,17 +70,27 @@ const Header = ({ color }: HeaderProps) => {
             onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
           >
             <svg
-              className="h-6 w-6 sm:h-12 sm:w-12"
+              className="h-6 w-6 sm:h-12 sm:w-12 ease-out duration-300"
+              viewBox="0 0 48 48"
               fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+              <mask
+                id="mask0_3698_8448"
+                maskUnits="userSpaceOnUse"
+                x="0"
+                y="0"
+                width="48"
+                height="48"
+              >
+                <rect width="48" height="48" fill="#D9D9D9" />
+              </mask>
+              <g mask="url(#mask0_3698_8448)">
+                <path
+                  d="M7 13.2695V11H41V13.2695H7ZM7 37V34.7305H41V37H7ZM7 25.1345V22.8655H41V25.1345H7Z"
+                  fill="black"
+                />
+              </g>
             </svg>
           </button>
         </div>
@@ -85,13 +98,14 @@ const Header = ({ color }: HeaderProps) => {
       {isMobileMenuOpen && (
         <div className="lg:hidden h-[1020px] justify-between bg-black/50 backdrop-blur-[30px] absolute top-full left-0 w-full flex flex-col z-10 px-[50px] py-[15px]">
           <nav className="flex flex-col gap-[50px]">
-            {navItems.map((item) => (
+            {[mobileOnlyItem, ...navItems].map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`text-[60px] leading-[1.2] ${location.pathname === item.path ? 'font-bold text-primary' : 'text-white'
-                  }`}
+                className={`text-[60px] leading-[1.2] ${
+                  location.pathname === item.path ? 'font-bold text-primary' : 'text-white'
+                }`}
               >
                 {item.mobileMenu}
               </Link>

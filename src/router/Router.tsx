@@ -30,6 +30,7 @@ const router = createBrowserRouter([
     element: <Layout color="primary" />,
     children: [
       {
+
         index: true,
         element: <WorkPage />,
       },
@@ -41,7 +42,18 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+
         element: <GuestBookPage />,
+      },
+    ],
+  },
+  {
+    path: ROUTES.WORK,
+    element: <Layout color="primary" footer="none" />,
+    children: [
+      {
+        index: true,
+        element: <WorkPage />,
       },
     ],
   },

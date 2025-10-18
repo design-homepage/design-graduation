@@ -2,6 +2,7 @@ import { ROUTES } from '@/constants';
 import { useModal } from '@/contexts/ModalContext';
 import { useNavigate } from 'react-router-dom';
 import { arrows } from './constants/arrows';
+import { useEffect } from 'react';
 
 type DetailModalProps = {
   selected: number | null;
@@ -10,6 +11,18 @@ type DetailModalProps = {
 export const DetailModal = ({ selected }: DetailModalProps) => {
   const { isOpen, closeModal } = useModal();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   if (!isOpen || !selected) return null;
 
@@ -29,14 +42,12 @@ export const DetailModal = ({ selected }: DetailModalProps) => {
   return (
     <div className="fixed lg:top-[170px] md:top-[124px] sm:top-[108px] top-[104px] left-0 w-full lg:h-[calc(100vh-170px)] md:h-[calc(100vh-124px)] sm:h-[calc(100vh-108px)] h-[calc(100vh-104px)] bg-black/60 overflow-y-auto z-200">
       <div className="flex min-h-full justify-center items-center xl:px-[100px] md:px-[50px] px-[20px] py-[200px]">
-        <div
-          className="flex w-full xl:flex-row flex-col gap-[30px] xl:gap-5 cursor-pointer"
-          onClick={() => gotoDetail(selected)}
-        >
+        <div className="flex w-full xl:flex-row flex-col gap-[30px] xl:gap-5 cursor-pointer">
           <img
             src="/work/work_image.webp"
             alt="Work Detail"
             className="hover:grayscale ease-out transition-all duration-300"
+            onClick={() => gotoDetail(selected)}
           />
           <div className="flex flex-1 xl:flex-col flex-row gap-5 justify-between">
             <div>

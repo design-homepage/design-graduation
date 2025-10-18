@@ -20,10 +20,14 @@ export const PropSmallSection = ({ arrowData }: PropSmallSectionProps) => {
   return (
     <div className="lg:hidden flex flex-col gap-21 px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] py-[100px] md:py-[150px]">
       <div className="flex gap-7">
-        <div className="flex flex-col gap-4 w-30 md:w-40 lg:w-48 flex-shrink-0">
+        <div className="flex flex-col gap-4 w-30 md:w-40 flex-shrink-0">
           <div>
-            <p className="font-bold text-sm sm:text-base md:text-xl text-primary">Prop</p>
-            <p className="font-bold text-sm sm:text-base md:text-xl text-primary">프롭</p>
+            <p className="font-bold text-sm sm:text-base md:text-xl text-primary">
+              {arrowData.workTitle}
+            </p>
+            <p className="font-bold text-sm sm:text-base md:text-xl text-primary">
+              {arrowData.workTitle2}
+            </p>
           </div>
           <div>
             <p className="font-bold text-sm sm:text-base md:text-xl text-primary">
@@ -41,7 +45,7 @@ export const PropSmallSection = ({ arrowData }: PropSmallSectionProps) => {
         </div>
       </div>
       <div className="flex gap-7">
-        <div className="flex flex-col gap-4 w-30 md:w-40 lg:w-48 flex-shrink-0">
+        <div className="flex flex-col gap-4 w-30 md:w-40 flex-shrink-0">
           <div>
             <p className="font-light text-sm sm:text-base md:text-xl text-muted break-all">
               <a href={`mailto:${arrowData.email}`} target="_blank" rel="noreferrer">
@@ -49,9 +53,11 @@ export const PropSmallSection = ({ arrowData }: PropSmallSectionProps) => {
               </a>
             </p>
             <p className="font-light text-sm sm:text-base md:text-xl text-muted break-all">
-              <a href={arrowData.instagram.split(' / ')[0]} target="_blank" rel="noreferrer">
-                {arrowData.instagram.split(' / ')[1]}
-              </a>
+              {arrowData.instagram && (
+                <a href={arrowData.instagram.split(' / ')[1]} target="_blank" rel="noreferrer">
+                  @{arrowData.instagram.split(' / ')[0]}
+                </a>
+              )}
             </p>
             <p className="font-light text-sm sm:text-base md:text-xl text-muted break-all">
               <a href={arrowData.link} target="_blank" rel="noreferrer">

@@ -14,7 +14,7 @@ export const ProfileSectionContainer = ({
 }: ProfileSectionContainerProps & PropsWithChildren) => {
   return (
     <div className={`flex flex-col ${gap && 'gap-5 sm:gap-8'}`}>
-      <p className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-primary border-b border-primary">
+      <p className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-primary border-b-2 border-primary">
         {title}
       </p>
       <div className={`flex flex-col gap-5 ${option}`}>{children}</div>
