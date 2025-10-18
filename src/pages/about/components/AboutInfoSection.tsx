@@ -411,6 +411,20 @@ const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
         return () => observers.forEach((o) => o.disconnect());
     }, [steps]);
 
+    const scrollToStep = (idx: number) => {
+        const step = steps[idx];
+        if (!step) return;
+        const el = document.getElementById(step.id);
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const elementTop = window.scrollY + rect.top;
+        const isFirst = idx === 0;
+        const target = isFirst
+            ? Math.max(0, elementTop)
+            : Math.max(0, elementTop - (window.innerHeight - rect.height) / 2);
+        window.scrollTo({ top: target, behavior: "smooth" });
+    };
+
     return (
         <>
             <style>{`
@@ -421,7 +435,7 @@ const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
         .animate-move-left { animation: move-left 0.35s ease-out; }
       `}</style>
 
-            <div className="fixed right-6 top-1/2 z-50 -translate-y-1/2 select-none pointer-events-none">
+            <div className="fixed right-6 top-1/2 z-50 -translate-y-1/2 select-none pointer-events-auto">
                 <div className="flex flex-col items-center gap-5 p-0">
                     {steps.map((s, i) => {
                         const isActive = active === i;
@@ -429,8 +443,8 @@ const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
                             <div
                                 key={`${s.id}-${active}`}
                                 aria-label={s.label}
-                                className={`relative flex items-center justify-center transition-all duration-300 ${isActive ? "h-[20px] w-[20px]" : "h-[8px] w-[8px]"
-                                    }`}
+                                className={`relative flex items-center justify-center transition-all duration-300 ${isActive ? "h-[20px] w-[20px]" : "h-[8px] w-[8px]"} cursor-pointer`}
+                                onClick={() => scrollToStep(i)}
                             >
                                 {isActive ? (
                                     <LiaLongArrowAltLeftSolid size={18} className="text-black animate-move-left" />
