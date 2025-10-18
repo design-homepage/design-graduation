@@ -112,9 +112,8 @@ const Header = ({ color }: HeaderProps) => {
                 key={item.path}
                 to={item.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`text-[60px] leading-[1.2] ${
-                  location.pathname === item.path ? 'font-bold text-primary' : 'text-white'
-                }`}
+                className={`text-[60px] leading-[1.2] ${location.pathname === item.path ? 'font-bold text-primary' : 'text-white'
+                  }`}
               >
                 {item.mobileMenu}
               </Link>
