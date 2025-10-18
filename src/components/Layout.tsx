@@ -20,12 +20,12 @@ const Layout = ({ color }: LayoutProps) => {
       <Header color={color} />
       <main
         className={`flex-1 pt-[104px] sm:pt-[108px] md:pt-[124px] lg:pt-[170px] ${color === 'transparent'
-            ? ''
-            : color === 'black'
-              ? 'bg-black'
-              : color === 'white'
-                ? 'bg-white'
-                : 'bg-primary'
+          ? ''
+          : color === 'black'
+            ? 'bg-black'
+            : color === 'white'
+              ? 'bg-white'
+              : 'bg-primary'
           }`}
       >
         <Outlet />
