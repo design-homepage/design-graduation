@@ -3,15 +3,30 @@ import Header from './Header';
 import Footer from './Footer';
 
 type LayoutProps = {
-  color: 'primary' | 'black' | 'white';
+  color: 'primary' | 'black' | 'white' | 'transparent';
 };
 
 const Layout = ({ color }: LayoutProps) => {
+  const bgClass =
+    color === 'transparent'
+      ? ''
+      : color === 'black'
+        ? 'bg-black'
+        : color === 'white'
+          ? 'bg-white'
+          : 'bg-primary';
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className={`min-h-screen flex flex-col ${bgClass}`}>
       <Header color={color} />
       <main
-        className={`pt-[104px] sm:pt-[108px] md:pt-[124px] lg:pt-[170px] ${color === 'black' ? 'bg-black' : color === 'white' ? 'bg-white' : 'bg-primary'}`}
+        className={`flex-1 pt-[104px] sm:pt-[108px] md:pt-[124px] lg:pt-[170px] ${color === 'transparent'
+            ? ''
+            : color === 'black'
+              ? 'bg-black'
+              : color === 'white'
+                ? 'bg-white'
+                : 'bg-primary'
+          }`}
       >
         <Outlet />
       </main>

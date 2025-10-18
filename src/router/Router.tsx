@@ -17,18 +17,30 @@ import { ROUTES } from '@/constants';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout color="primary" />,
+    element: <Layout color="white" />,
     children: [
       {
         index: true,
         element: <AboutPage />,
       },
+    ],
+  },
+  {
+    path: ROUTES.WORK,
+    element: <Layout color="primary" />,
+    children: [
       {
-        path: ROUTES.WORK,
+        index: true,
         element: <WorkPage />,
       },
+    ],
+  },
+  {
+    path: ROUTES.GUESTBOOK,
+    element: <Layout color="transparent" />,
+    children: [
       {
-        path: ROUTES.GUESTBOOK,
+        index: true,
         element: <GuestBookPage />,
       },
     ],
