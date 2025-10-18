@@ -47,7 +47,6 @@ const VideoSection = () => {
                     className="absolute inset-0 w-full h-full object-cover"
                     playsInline
                     loop
-                    poster="/about/about-background.webp"
                 >
                     <source src="/about/Comp 1_1.mp4" type="video/mp4" />
                 </video>
