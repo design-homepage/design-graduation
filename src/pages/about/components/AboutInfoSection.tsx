@@ -300,7 +300,7 @@ const StickyFrame: React.FC<{ children: React.ReactNode; sectionId?: string; id?
         <div
             id={id}
             data-section-id={sectionId}
-            className="relative w-full flex items-center justify-center"
+            className="relative w-full flex items-start justify-center"
             style={{
                 minHeight: isLongContent ? 'auto' : sectionHeight,
                 height: isLongContent ? 'auto' : sectionHeight,
@@ -542,10 +542,10 @@ const AboutInfoSection: React.FC = () => {
 
                         {/* 5) 지도 교수 */}
                         <StickyFrame id="sec-5" sectionId="advisors">
-                            <TwoColumn title="지도 교수" className="max-[600px]:items-start">
+                            <TwoColumn title="지도 교수" className="max-[600px]:items-start pt-[100px]">
                                 {/* 그리드 기반 교수 리스트 */}
                                 <div className={[
-                                    "w-full",
+                                    "w-full pt-[100px]",
                                     "max-[1019px]:max-w-[843px]", // 1019px 이하에서는 843px
                                     "min-[1020px]:max-w-[720px]", // 1020px 이상에서는 720px
                                     "min-[1020px]:justify-between", // 1020px 이상에서는 justify-between으로 여백 분산
@@ -568,12 +568,12 @@ const AboutInfoSection: React.FC = () => {
                             </TwoColumn>
                         </StickyFrame>
 
-                        {/* 7) 졸업 구성원 (긴 내용) */}
-                        <StickyFrame id="sec-7" sectionId="members" isLongContent={true}>
+                        {/* 7) 졸업 구성원 (상단 고정) */}
+                        <StickyFrame id="sec-7" sectionId="members" isLongContent={false}>
                             <div className="w-full">
-                                <TwoColumn title="졸업구성원" className="mb-20">
+                                <TwoColumn title="졸업구성원" className="mb-20 pt-[100px] pt-[100px]">
                                     <div className={[
-                                        "w-full",
+                                        "w-full pt-[100px]",
                                         "max-[1019px]:max-w-[843px]", // 1019px 이하에서는 843px
                                         "min-[1020px]:max-w-[720px]", // 1020px 이상에서는 720px
                                         "min-[1020px]:justify-between", // 1020px 이상에서는 justify-between으로 여백 분산
