@@ -222,13 +222,14 @@ const TwoColumn: React.FC<{
         {/* 좌측 타이틀 - 1번 컬럼 */}
         <div
             className={[
-                "flex-shrink-0 pt-[100px]", // 상단 패딩 100px 추가
+                "flex-shrink-0 min-[1020px]:pt-[100px] max-[1019px]:pt-[100px]", // 데스크톱에서만 상단 패딩
                 "max-[1020px]:w-full",
             ].join(" ")}
         >
             <h2
                 className={[
-                    "whitespace-pre-line font-bold leading-[1.1] tracking-[-0.01em] pl-[20px]",
+                    "whitespace-pre-line font-bold leading-[1.1] tracking-[-0.01em]",
+                    "min-[1020px]:pl-[20px] max-[1019px]:pl-0", // 데스크톱에서만 왼쪽 패딩
                     "text-[60px]",
                     "max-[600px]:text-[40px]",
                 ].join(" ")}
@@ -252,7 +253,7 @@ const TwoColumn: React.FC<{
 /* 본문 텍스트 */
 const BodyText: React.FC<{ text: string }> = ({ text }) => (
     <div className={[
-        "w-full pt-[100px]", // 상단 패딩 100px 추가
+        "w-full min-[1020px]:pt-[100px]", // 데스크톱에서만 상단 패딩
         "max-[1019px]:max-w-[843px]", // 1019px 이하에서는 843px
         "min-[1020px]:max-w-[720px]", // 1020px 이상에서는 720px
         "min-[1020px]:justify-between", // 1020px 이상에서는 justify-between으로 여백 분산
@@ -542,10 +543,10 @@ const AboutInfoSection: React.FC = () => {
 
                         {/* 5) 지도 교수 */}
                         <StickyFrame id="sec-5" sectionId="advisors">
-                            <TwoColumn title="지도 교수" className="max-[600px]:items-start pt-[100px]">
+                            <TwoColumn title="지도 교수" className="max-[600px]:items-start min-[1020px]:pt-[100px] max-[1019px]:pt-0">
                                 {/* 그리드 기반 교수 리스트 */}
                                 <div className={[
-                                    "w-full pt-[100px]",
+                                    "w-full min-[1020px]:pt-[100px] max-[1019px]:pt-0",
                                     "max-[1019px]:max-w-[843px]", // 1019px 이하에서는 843px
                                     "min-[1020px]:max-w-[720px]", // 1020px 이상에서는 720px
                                     "min-[1020px]:justify-between", // 1020px 이상에서는 justify-between으로 여백 분산
@@ -571,9 +572,9 @@ const AboutInfoSection: React.FC = () => {
                         {/* 7) 졸업 구성원 (상단 고정) */}
                         <StickyFrame id="sec-7" sectionId="members" isLongContent={false}>
                             <div className="w-full">
-                                <TwoColumn title="졸업구성원" className="mb-20 pt-[100px] pt-[100px]">
+                                <TwoColumn title="졸업구성원" className="mb-20 min-[1020px]:pt-[100px] max-[1019px]:pt-0">
                                     <div className={[
-                                        "w-full pt-[100px]",
+                                        "w-full min-[1020px]:pt-[100px] max-[1019px]:pt-0",
                                         "max-[1019px]:max-w-[843px]", // 1019px 이하에서는 843px
                                         "min-[1020px]:max-w-[720px]", // 1020px 이상에서는 720px
                                         "min-[1020px]:justify-between", // 1020px 이상에서는 justify-between으로 여백 분산
