@@ -58,7 +58,7 @@ export const IntroSection = ({ windowWidth }: IntroSectionProps) => {
   const getEnglishTextStyle = () => {
     if (windowWidth <= 768) {
       return {
-        color: 'var(--60, #666)',
+        color: '#666666',
         textAlign: 'center' as const,
         fontFamily: 'Pretendard',
         fontSize: '12px',
@@ -69,7 +69,7 @@ export const IntroSection = ({ windowWidth }: IntroSectionProps) => {
       };
     } else if (windowWidth >= 1020 && windowWidth < 1350) {
       return {
-        color: 'var(--60, #666)',
+        color: '#666666',
         textAlign: 'center' as const,
         fontFamily: 'Pretendard',
         fontSize: '16px',
@@ -80,7 +80,7 @@ export const IntroSection = ({ windowWidth }: IntroSectionProps) => {
       };
     } else if (windowWidth >= 600 && windowWidth < 1020) {
       return {
-        color: 'var(--60, #666)',
+        color: '#666666',
         textAlign: 'center' as const,
         fontFamily: 'Pretendard',
         fontSize: '16px',
@@ -91,7 +91,7 @@ export const IntroSection = ({ windowWidth }: IntroSectionProps) => {
       };
     } else if (windowWidth >= 400 && windowWidth < 600) {
       return {
-        color: 'var(--60, #666)',
+        color: '#666666',
         textAlign: 'center' as const,
         fontFamily: 'Pretendard',
         fontSize: '12px',
@@ -101,7 +101,10 @@ export const IntroSection = ({ windowWidth }: IntroSectionProps) => {
         letterSpacing: '-0.024px'
       };
     } else {
-      return {};
+      return {
+        color: '#666666',
+        fontStyle: 'normal' as const
+      };
     }
   };
 
@@ -181,15 +184,15 @@ export const IntroSection = ({ windowWidth }: IntroSectionProps) => {
 
         {/* 영문 텍스트 */}
         <div className={windowWidth <= 768 ? "space-y-2" : "space-y-6 mt-16"}>
-          <p className="text-lg md:text-xl text-blue-100 italic leading-relaxed"
+          <p className="text-lg md:text-xl leading-relaxed"
              style={englishStyle}>
             In an age where small sparks can become powerful lights,
           </p>
-          <p className="text-lg md:text-xl text-blue-100 italic leading-relaxed"
+          <p className="text-lg md:text-xl leading-relaxed"
              style={englishStyle}>
             Muhammad Ali's simple two-syllable motto, "ME, WE," has emerged as the guiding principle of our society in half a century.
           </p>
-          <p className="text-lg md:text-xl text-blue-100 italic leading-relaxed mt-8"
+          <p className="text-lg md:text-xl leading-relaxed mt-8"
              style={englishStyle}>
             With your message of encouragement, become a beacon of light that illuminates "us" for someone else.
           </p>

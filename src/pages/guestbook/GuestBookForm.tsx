@@ -54,8 +54,7 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, windowWidth, 
               borderRadius: '20px',
               background: 'rgba(255, 255, 255, 0.15)',
               backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
+              border: '1px solid rgba(255, 255, 255, 0.2)'
             }}
           >
             {/* 텍스트 입력 영역 */}
@@ -63,7 +62,7 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, windowWidth, 
               {/* 1. 보낸이 섹션 */}
               <div style={{ width: '100%' }}>
                 <div className="flex items-center gap-4" style={{ width: '100%' }}>
-                  <h3 className="text-black drop-shadow-lg"
+                  <h3 className="text-black "
                     style={{
                       fontFamily: 'Pretendard',
                       fontSize: responsiveStyles.labelFontSize || '24px',
@@ -104,7 +103,7 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, windowWidth, 
                   value={formData.message}
                   onChange={onInputChange}
                   rows={8}
-                  className="w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800 placeholder-gray-600 resize-none"
+                  className="w-full py-3 rounded-lg focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-sm text-gray-800 placeholder-gray-600 resize-none"
                   style={{
                     background: 'transparent',
                     border: 'none',
@@ -123,7 +122,7 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, windowWidth, 
                   right: '0',
                   paddingRight: '4px'
                 }}>
-                  <span className="text-xs text-black drop-shadow-lg">{formData.message.length}/200</span>
+                  <span className="text-xs text-black ">{formData.message.length}/200</span>
                 </div>
               </div>
 
@@ -133,7 +132,7 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, windowWidth, 
               {/* 3. 받는이 섹션 */}
               <div style={{ width: '100%' }}>
                 <div className="flex items-center gap-4" style={{ width: '100%' }}>
-                  <h3 className="text-black drop-shadow-lg"
+                  <h3 className="text-black "
                     style={{
                       fontFamily: 'Pretendard',
                       fontSize: responsiveStyles.labelFontSize || '24px',
@@ -185,7 +184,6 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, windowWidth, 
                 background: 'rgba(0, 0, 0, 0.00)',
                 backdropFilter: 'blur(20px)',
                 border: '1px solid rgba(255, 255, 255, 0.2)',
-                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
                 color: 'var(--Black, #000)',
                 textAlign: 'center',
                 fontFamily: 'Pretendard',

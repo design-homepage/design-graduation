@@ -10,11 +10,12 @@ interface InfiniteScrollSectionProps {
   onRefetch: () => void;
 }
 
-// 데이터를 5개 행에 각 행당 최대 6개씩 배치하는 함수
-const distributeToRows = (data: GuestBookEntry[]) => {
-  if (data.length === 0) return [[], [], [], [], []];
+// 데이터를 행별로 배치하고 각 행의 스크롤 너비를 계산하는 함수
+const distributeToRows = (data: GuestBookEntry[], getGapSize: () => number) => {
+  if (data.length === 0) return { rows: [[], [], [], [], []], rowWidths: [0, 0, 0, 0, 0] };
   
   const rows: GuestBookEntry[][] = [[], [], [], [], []];
+  const rowWidths: number[] = [0, 0, 0, 0, 0];
   const itemsPerRow = 6;
   
   // 각 행에 6개씩 채우기 (위에서부터)
@@ -25,7 +26,20 @@ const distributeToRows = (data: GuestBookEntry[]) => {
     }
   }
   
-  return rows;
+  // 각 행의 너비 계산
+  for (let i = 0; i < rows.length; i++) {
+    const rowEntries = rows[i];
+    if (rowEntries.length > 0) {
+      const gap = getGapSize();
+      const totalCardWidth = rowEntries.reduce((sum, entry) => {
+        const cardWidth = entry.message.length >= 98 ? 548 : 332;
+        return sum + cardWidth;
+      }, 0);
+      rowWidths[i] = totalCardWidth + rowEntries.length * gap;
+    }
+  }
+  
+  return { rows, rowWidths };
 };
 
 export const InfiniteScrollSection = ({ 
@@ -36,311 +50,272 @@ export const InfiniteScrollSection = ({
   cardDimensions, 
   onRefetch 
 }: InfiniteScrollSectionProps) => {
-  // 5개 행으로 배치된 데이터
-  const distributedRows = distributeToRows(entries);
+  // 화면 크기에 따른 가로 간격 설정
+  const getGapSize = () => {
+    return windowWidth > 1020 ? 34 : 30;
+  };
+
+  // 애니메이션 속도 계산 (모든 행 동일한 속도)
+  const getAnimationDuration = () => {
+    return '20s'; // 모든 행이 동일한 속도로 움직임
+  };
+
+  // 5개 행으로 배치된 데이터와 각 행의 너비
+  const { rows: distributedRows, rowWidths } = distributeToRows(entries, getGapSize);
 
   return (
     <div className={`snap-start relative z-10 ${windowWidth >= 1020 ? 'py-8' : 'py-16'}`} style={{ minHeight: 'calc(100vh - 64px)', overflow: 'hidden', overflowY: 'auto' }}>
       <div className="relative w-full" style={{ minHeight: 'calc(100vh - 64px - 128px)' }}>
         {windowWidth <= 400 ? (
-          // Mobile (400px 이하): 수동 스크롤 (무한 스크롤 없음)
+          // Mobile (400px 이하): 각 행마다 독립적인 스크롤 영역
           <div 
             className="mobile-scroll-container"
             style={{
               width: '100%',
               height: 'calc(100vh - 64px - 128px)',
-              overflowX: 'auto',
-              overflowY: 'hidden',
-              position: 'relative',
-              WebkitOverflowScrolling: 'touch' // iOS 스크롤 부드럽게
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'relative'
             }}
           >
-            {/* 수동 스크롤 콘텐츠 */}
-            <div 
-              style={{
+            {distributedRows.map((row, rowIndex) => (
+              <div key={`mobile-row-${rowIndex}`} style={{
+                width: '100%',
+                height: windowWidth <= 400 ? '35%' : `${100 / 5}%`, // Mobile에서는 매우 큰 높이
                 display: 'flex',
                 flexDirection: 'column',
-                width: `${Math.max(...distributedRows.map(row => {
-                  const gap = 50;
-                  const totalCardWidth = row.reduce((sum, entry) => {
-                    const cardWidth = entry.message.length > 59 ? 400 : 240;
-                    return sum + cardWidth;
-                  }, 0);
-                  return totalCardWidth + row.length * gap;
-                }))}px`,
-                height: '100%',
-                padding: '50px 15px 15px 15px',
-                gap: '85px',
-                justifyContent: 'flex-start'
-              }}
-            >
-              {distributedRows.map((row, rowIndex) => (
-                <div key={`mobile-row-${rowIndex}`} style={{ 
-                  display: 'flex', 
-                  gap: '50px', 
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: windowWidth <= 400 ? '0px 0' : '14.5px 0'
+              }}>
+                {/* 각 행의 독립적인 스크롤 영역 */}
+                <div style={{
+                  width: '100%',
+                  height: '100%',
+                  overflowX: 'auto',
+                  overflowY: 'visible',
+                  display: 'flex',
                   alignItems: 'center',
-                  minHeight: `${100 / 5}%`
+                  justifyContent: 'flex-start',
+                  padding: '0 15px',
+                  WebkitOverflowScrolling: 'touch'
                 }}>
-                  {row.map((entry) => (
-                    <GuestBookCard key={`mobile-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
-                  ))}
+                  <div style={{
+                    display: 'flex',
+                    gap: `${getGapSize()}px`,
+                    alignItems: 'center',
+                    minWidth: `${rowWidths[rowIndex]}px`, // 각 행의 독립적인 너비
+                    height: '100%'
+                  }}>
+                    {row.map((entry) => (
+                      <GuestBookCard key={`mobile-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         ) : windowWidth <= 768 ? (
-          // Tab>Mobile (400px 초과 ~ 768px 이하): 무한 스크롤 (호버 효과 없음)
+          // Tab>Mobile (400px 초과 ~ 768px 이하): 각 행마다 완전히 독립적인 무한 스크롤
           <div 
-            className="infinite-scroll-container swiper-wrapper"
+            className="infinite-scroll-container"
             style={{
               width: '100%',
               minHeight: 'calc(100vh - 64px - 128px)',
-              position: 'relative',
-              overflow: 'hidden'
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'relative'
             }}
           >
-            {/* 무한 스크롤 트랙 */}
-            <div 
-              className="infinite-scroll-track"
-              style={{
+            {distributedRows.map((row, rowIndex) => (
+              <div key={`tablet-row-${rowIndex}`} style={{
+                width: '100%',
+                height: windowWidth <= 400 ? '35%' : `${100 / 5}%`, // Mobile에서는 매우 큰 높이
                 display: 'flex',
-                flexDirection: 'row',
-                width: `${(Math.max(...Array.from({ length: Math.ceil(entries.length / 6) }, (_, i) => {
-                  const rowEntries = entries.slice(i * 6, (i + 1) * 6);
-                  const gap = 50;
-                  const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                    const cardWidth = entry.message.length > 59 ? 400 : 240;
-                    return sum + cardWidth;
-                  }, 0);
-                  return totalCardWidth + rowEntries.length * gap;
-                }))) * 2}px`,
-                height: '100%',
-                animationName: 'scroll-from-right',
-                animationDuration: `${Math.ceil(entries.length / 6) * 8}s`,
-                animationTimingFunction: 'linear',
-                animationIterationCount: 'infinite',
-                animationPlayState: 'running'
-              }}
-            >
-              {/* 첫 번째 세트 - 6개씩 행으로 배치 */}
-              <div className="scroll-section" style={{ 
-                display: 'flex', 
                 flexDirection: 'column',
-                height: '100%', 
-                width: `${Math.max(...Array.from({ length: Math.ceil(entries.length / 6) }, (_, i) => {
-                  const rowEntries = entries.slice(i * 6, (i + 1) * 6);
-                  const gap = 50;
-                  const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                    const cardWidth = entry.message.length > 59 ? 400 : 240;
-                    return sum + cardWidth;
-                  }, 0);
-                  return totalCardWidth + rowEntries.length * gap;
-                }))}px`,
-                padding: '15px 0', 
-                gap: '40px',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: windowWidth <= 400 ? '30px 0' : '14.5px 0',
+                overflow: 'visible',
+                position: 'relative'
               }}>
-                {Array.from({ length: Math.ceil(entries.length / 6) }, (_, rowIndex) => (
-                  <div key={`tablet-row-${rowIndex}`} style={{ 
-                    display: 'flex', 
-                    gap: '50px', 
+                {/* 각 행의 완전히 독립적인 무한 스크롤 영역 */}
+                <div 
+                  className="infinite-scroll-track"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
-                    width: `${(() => {
-                      const rowEntries = entries.slice(rowIndex * 6, (rowIndex + 1) * 6);
-                      const gap = 50;
-                      const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                        const cardWidth = entry.message.length > 59 ? 400 : 240;
-                        return sum + cardWidth;
-                      }, 0);
-                      return totalCardWidth + rowEntries.length * gap;
-                    })()}px`,
-                    flexShrink: 0
-                  }}>
-                    {entries.slice(rowIndex * 6, (rowIndex + 1) * 6).map((entry) => (
-                      <GuestBookCard key={`tablet-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
-                    ))}
-                  </div>
-                ))}
-              </div>
-              
-              {/* 복제된 세트 - 무한 반복을 위한 imposter */}
-              <div className="scroll-section" style={{ 
-                display: 'flex', 
-                flexDirection: 'column',
-                height: '100%', 
-                width: `${Math.max(...Array.from({ length: Math.ceil(entries.length / 6) }, (_, i) => {
-                  const rowEntries = entries.slice(i * 6, (i + 1) * 6);
-                  const gap = 50;
-                  const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                    const cardWidth = entry.message.length > 59 ? 400 : 240;
-                    return sum + cardWidth;
-                  }, 0);
-                  return totalCardWidth + rowEntries.length * gap;
-                }))}px`,
-                padding: '15px 0', 
-                gap: '40px',
-                justifyContent: 'center'
-              }}>
-                {Array.from({ length: Math.ceil(entries.length / 6) }, (_, rowIndex) => (
-                  <div key={`tablet-clone-row-${rowIndex}`} style={{ 
-                    display: 'flex', 
-                    gap: '50px', 
+                    animationName: 'scroll-from-right',
+                    animationDuration: getAnimationDuration(),
+                    animationTimingFunction: 'linear',
+                    animationIterationCount: 'infinite',
+                    animationPlayState: 'running',
+                    position: 'relative'
+                  }}
+                >
+                  <div style={{
+                    display: 'flex',
+                    gap: `${getGapSize()}px`,
                     alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    width: `${(() => {
-                      const rowEntries = entries.slice(rowIndex * 6, (rowIndex + 1) * 6);
-                      const gap = 50;
-                      const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                        const cardWidth = entry.message.length > 59 ? 400 : 240;
-                        return sum + cardWidth;
-                      }, 0);
-                      return totalCardWidth + rowEntries.length * gap;
-                    })()}px`,
-                    flexShrink: 0
+                    width: `${rowWidths[rowIndex] * 4}px`, // 각 행의 독립적인 너비 * 4 (무한 스크롤용)
+                    height: '100%'
                   }}>
-                    {entries.slice(rowIndex * 6, (rowIndex + 1) * 6).map((entry) => (
-                      <GuestBookCard key={`tablet-clone-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
-                    ))}
+                    {/* 첫 번째 세트 */}
+                    <div style={{
+                      display: 'flex',
+                      gap: `${getGapSize()}px`,
+                      alignItems: 'center',
+                      width: `${rowWidths[rowIndex]}px`,
+                      height: '100%'
+                    }}>
+                      {row.map((entry) => (
+                        <GuestBookCard key={`tablet-1-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                      ))}
+                    </div>
+                    {/* 두 번째 세트 */}
+                    <div style={{
+                      display: 'flex',
+                      gap: `${getGapSize()}px`,
+                      alignItems: 'center',
+                      width: `${rowWidths[rowIndex]}px`,
+                      height: '100%'
+                    }}>
+                      {row.map((entry) => (
+                        <GuestBookCard key={`tablet-2-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                      ))}
+                    </div>
+                    {/* 세 번째 세트 */}
+                    <div style={{
+                      display: 'flex',
+                      gap: `${getGapSize()}px`,
+                      alignItems: 'center',
+                      width: `${rowWidths[rowIndex]}px`,
+                      height: '100%'
+                    }}>
+                      {row.map((entry) => (
+                        <GuestBookCard key={`tablet-3-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                      ))}
+                    </div>
+                    {/* 네 번째 세트 */}
+                    <div style={{
+                      display: 'flex',
+                      gap: `${getGapSize()}px`,
+                      alignItems: 'center',
+                      width: `${rowWidths[rowIndex]}px`,
+                      height: '100%'
+                    }}>
+                      {row.map((entry) => (
+                        <GuestBookCard key={`tablet-4-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                      ))}
+                    </div>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         ) : (
-          // Desktop/Tablet: 무한 스크롤 + 호버 효과
+          // Desktop/Tablet: 각 행마다 완전히 독립적인 무한 스크롤 + 호버 효과
           <div 
-            className="infinite-scroll-container swiper-wrapper"
+            className="infinite-scroll-container"
             style={{
               width: '100%',
               minHeight: 'calc(100vh - 64px - 128px)',
-              position: 'relative',
-              overflow: 'hidden'
-            }}
-            onMouseEnter={(e) => {
-              // 마우스 진입 시 애니메이션 일시정지
-              const container = e.currentTarget;
-              const track = container.querySelector('.infinite-scroll-track') as HTMLElement;
-              if (track) {
-                track.style.animationPlayState = 'paused';
-              }
-            }}
-            onMouseLeave={(e) => {
-              // 마우스 벗어날 시 애니메이션 재생
-              const container = e.currentTarget;
-              const track = container.querySelector('.infinite-scroll-track') as HTMLElement;
-              if (track) {
-                track.style.animationPlayState = 'running';
-              }
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'relative'
             }}
           >
-            {/* 무한 스크롤 트랙 */}
-            <div 
-              className="infinite-scroll-track"
-              style={{
+            {distributedRows.map((row, rowIndex) => (
+              <div key={`desktop-row-${rowIndex}`} style={{
+                width: '100%',
+                height: windowWidth <= 400 ? '35%' : `${100 / 5}%`, // Mobile에서는 매우 큰 높이
                 display: 'flex',
-                flexDirection: 'row',
-                width: `${(Math.max(...Array.from({ length: Math.ceil(entries.length / 6) }, (_, i) => {
-                  const rowEntries = entries.slice(i * 6, (i + 1) * 6);
-                  const gap = 50;
-                  const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                    const cardWidth = entry.message.length > 59 ? 400 : 240;
-                    return sum + cardWidth;
-                  }, 0);
-                  return totalCardWidth + rowEntries.length * gap;
-                }))) * 2}px`,
-                height: '100%',
-                animationName: 'scroll-from-right',
-                animationDuration: `${Math.ceil(entries.length / 6) * 8}s`,
-                animationTimingFunction: 'linear',
-                animationIterationCount: 'infinite',
-                animationPlayState: 'running'
-              }}
-            >
-              {/* 첫 번째 세트 - 6개씩 행으로 배치 */}
-              <div className="scroll-section" style={{ 
-                display: 'flex', 
                 flexDirection: 'column',
-                height: '100%', 
-                width: `${Math.max(...Array.from({ length: Math.ceil(entries.length / 6) }, (_, i) => {
-                  const rowEntries = entries.slice(i * 6, (i + 1) * 6);
-                  const gap = 50;
-                  const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                    const cardWidth = entry.message.length > 59 ? 400 : 240;
-                    return sum + cardWidth;
-                  }, 0);
-                  return totalCardWidth + rowEntries.length * gap;
-                }))}px`,
-                padding: '15px 0', 
-                gap: '40px',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: windowWidth <= 400 ? '30px 0' : '14.5px 0',
+                overflow: 'visible',
+                position: 'relative'
               }}>
-                {Array.from({ length: Math.ceil(entries.length / 6) }, (_, rowIndex) => (
-                  <div key={`first-row-${rowIndex}`} style={{ 
-                    display: 'flex', 
-                    gap: '50px', 
+                {/* 각 행의 완전히 독립적인 무한 스크롤 영역 */}
+                <div 
+                  className="infinite-scroll-track"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
-                    width: `${(() => {
-                      const rowEntries = entries.slice(rowIndex * 6, (rowIndex + 1) * 6);
-                      const gap = 50;
-                      const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                        const cardWidth = entry.message.length > 59 ? 400 : 240;
-                        return sum + cardWidth;
-                      }, 0);
-                      return totalCardWidth + rowEntries.length * gap;
-                    })()}px`,
-                    flexShrink: 0
-                  }}>
-                    {entries.slice(rowIndex * 6, (rowIndex + 1) * 6).map((entry) => (
-                      <GuestBookCard key={`first-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
-                    ))}
-                  </div>
-                ))}
-              </div>
-              
-              {/* 복제된 세트 - 무한 반복을 위한 imposter */}
-              <div className="scroll-section" style={{ 
-                display: 'flex', 
-                flexDirection: 'column',
-                height: '100%', 
-                width: `${Math.max(...Array.from({ length: Math.ceil(entries.length / 6) }, (_, i) => {
-                  const rowEntries = entries.slice(i * 6, (i + 1) * 6);
-                  const gap = 50;
-                  const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                    const cardWidth = entry.message.length > 59 ? 400 : 240;
-                    return sum + cardWidth;
-                  }, 0);
-                  return totalCardWidth + rowEntries.length * gap;
-                }))}px`,
-                padding: '15px 0', 
-                gap: '40px',
-                justifyContent: 'center'
-              }}>
-                {Array.from({ length: Math.ceil(entries.length / 6) }, (_, rowIndex) => (
-                  <div key={`clone-row-${rowIndex}`} style={{ 
-                    display: 'flex', 
-                    gap: '50px', 
+                    animationName: 'scroll-from-right',
+                    animationDuration: getAnimationDuration(),
+                    animationTimingFunction: 'linear',
+                    animationIterationCount: 'infinite',
+                    animationPlayState: 'running',
+                    position: 'relative'
+                  }}
+                >
+                  <div style={{
+                    display: 'flex',
+                    gap: `${getGapSize()}px`,
                     alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    width: `${(() => {
-                      const rowEntries = entries.slice(rowIndex * 6, (rowIndex + 1) * 6);
-                      const gap = 50;
-                      const totalCardWidth = rowEntries.reduce((sum, entry) => {
-                        const cardWidth = entry.message.length > 59 ? 400 : 240;
-                        return sum + cardWidth;
-                      }, 0);
-                      return totalCardWidth + rowEntries.length * gap;
-                    })()}px`,
-                    flexShrink: 0
+                    width: `${rowWidths[rowIndex] * 4}px`, // 각 행의 독립적인 너비 * 4 (무한 스크롤용)
+                    height: '100%'
                   }}>
-                    {entries.slice(rowIndex * 6, (rowIndex + 1) * 6).map((entry) => (
-                      <GuestBookCard key={`clone-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
-                    ))}
+                    {/* 첫 번째 세트 */}
+                    <div style={{
+                      display: 'flex',
+                      gap: `${getGapSize()}px`,
+                      alignItems: 'center',
+                      width: `${rowWidths[rowIndex]}px`,
+                      height: '100%'
+                    }}>
+                      {row.map((entry) => (
+                        <GuestBookCard key={`desktop-1-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                      ))}
+                    </div>
+                    {/* 두 번째 세트 */}
+                    <div style={{
+                      display: 'flex',
+                      gap: `${getGapSize()}px`,
+                      alignItems: 'center',
+                      width: `${rowWidths[rowIndex]}px`,
+                      height: '100%'
+                    }}>
+                      {row.map((entry) => (
+                        <GuestBookCard key={`desktop-2-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                      ))}
+                    </div>
+                    {/* 세 번째 세트 */}
+                    <div style={{
+                      display: 'flex',
+                      gap: `${getGapSize()}px`,
+                      alignItems: 'center',
+                      width: `${rowWidths[rowIndex]}px`,
+                      height: '100%'
+                    }}>
+                      {row.map((entry) => (
+                        <GuestBookCard key={`desktop-3-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                      ))}
+                    </div>
+                    {/* 네 번째 세트 */}
+                    <div style={{
+                      display: 'flex',
+                      gap: `${getGapSize()}px`,
+                      alignItems: 'center',
+                      width: `${rowWidths[rowIndex]}px`,
+                      height: '100%'
+                    }}>
+                      {row.map((entry) => (
+                        <GuestBookCard key={`desktop-4-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                      ))}
+                    </div>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         )}
       </div>

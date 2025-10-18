@@ -259,6 +259,7 @@ const GuestBookPage = () => {
         show={showModal}
         onClose={handleModalClose}
         onConfirm={handleConfirmSubmit}
+        windowWidth={windowWidth}
       />
     </div>
   );

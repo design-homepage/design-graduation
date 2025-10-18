@@ -2,10 +2,55 @@ interface ConfirmModalProps {
   show: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  windowWidth: number;
 }
 
-export const ConfirmModal = ({ show, onClose, onConfirm }: ConfirmModalProps) => {
+export const ConfirmModal = ({ show, onClose, onConfirm, windowWidth }: ConfirmModalProps) => {
   if (!show) return null;
+
+  // 반응형 스타일 계산
+  const getModalStyles = () => {
+    if (windowWidth > 1020) {
+      // Web과 Web>Tab 사이즈
+      return {
+        display: 'flex',
+        width: '520px',
+        padding: '55px 0',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '80px',
+        borderRadius: '15px',
+        background: 'rgba(255, 255, 255, 0.10)'
+      };
+    } else if (windowWidth > 400) {
+      // Tab과 Tab>Mobile 사이즈 (400px~1020px)
+      return {
+        display: 'flex',
+        width: '420px',
+        padding: '40px 0',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '60px',
+        borderRadius: '15px',
+        background: 'rgba(255, 255, 255, 0.10)'
+      };
+    } else {
+      // Mobile 사이즈 (400px 이하)
+      return {
+        display: 'flex',
+        width: '320px',
+        height: '219px',
+        padding: '30px 0',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '45px',
+        borderRadius: '15px',
+        background: 'rgba(255, 255, 255, 0.10)'
+      };
+    }
+  };
+
+  const modalStyles = getModalStyles();
 
   return (
     <div 
@@ -17,51 +62,43 @@ export const ConfirmModal = ({ show, onClose, onConfirm }: ConfirmModalProps) =>
       <div 
         className="relative"
         style={{
-          width: '380px',
-          height: '159px',
-          borderRadius: '20px',
-          background: 'rgba(255, 255, 255, 0.15)',
+          ...modalStyles,
           backdropFilter: 'blur(20px)',
           border: '1px solid rgba(255, 255, 255, 0.2)',
-          boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          alignItems: 'center'
+          flexDirection: modalStyles.flexDirection as 'column' | 'row' | 'column-reverse' | 'row-reverse' | undefined
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* 질문 */}
-        <div style={{ 
-          textAlign: 'center',
-          paddingTop: '15px'
+        {/* 질문과 확인 메시지 컨테이너 */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '20px'
         }}>
           <h2 style={{
             color: 'var(--White, #FFF)',
+            textAlign: 'center',
             fontFamily: 'Pretendard',
-            fontSize: '16px',
+            fontSize: windowWidth > 1020 ? '24px' : windowWidth > 400 ? '20px' : '16px',
             fontStyle: 'normal',
             fontWeight: '700',
-            lineHeight: '24px',
+            lineHeight: windowWidth > 1020 ? '32px' : windowWidth > 400 ? '26px' : '24px',
+            letterSpacing: windowWidth > 1020 ? '-0.048px' : windowWidth > 400 ? '-0.04px' : '0px',
             margin: 0
           }}>
             응원의 메세지를 남기겠습니까?
           </h2>
-        </div>
-        
-        {/* 확인 메시지 */}
-        <div style={{
-          textAlign: 'center',
-          padding: '20px'
-        }}>
+          
           <p style={{
             color: 'var(--White, #FFF)',
+            textAlign: 'center',
             fontFamily: 'Pretendard',
-            fontSize: '14px',
+            fontSize: windowWidth > 1020 ? '16px' : windowWidth > 400 ? '14px' : '14px',
             fontStyle: 'normal',
             fontWeight: '400',
-            lineHeight: '18px',
-            letterSpacing: '-0.028px',
+            lineHeight: windowWidth > 1020 ? '24px' : windowWidth > 400 ? '18px' : '18px',
+            letterSpacing: windowWidth > 1020 ? '0px' : windowWidth > 400 ? '-0.028px' : '-0.028px',
             margin: 0
           }}>
             보낸이와 받는이를 정확하게 기입했는지<br/>다시 한번 확인해주세요.
@@ -71,16 +108,13 @@ export const ConfirmModal = ({ show, onClose, onConfirm }: ConfirmModalProps) =>
         {/* 버튼들 */}
         <div style={{
           display: 'flex',
-          gap: '20px',
-          paddingBottom: '30px'
+          gap: windowWidth > 1020 ? '30px' : windowWidth > 400 ? '25px' : '20px'
         }}>
           <button
             onClick={onClose}
             style={{
-              width: '91px',
-              height: '34px',
               display: 'flex',
-              padding: '8px 15px',
+              padding: windowWidth <= 400 ? '8px 15px' : '8px 15px',
               justifyContent: 'center',
               alignItems: 'center',
               gap: '10px',
@@ -88,9 +122,14 @@ export const ConfirmModal = ({ show, onClose, onConfirm }: ConfirmModalProps) =>
               background: 'var(--White, #FFF)',
               border: 'none',
               fontFamily: 'Pretendard',
-              fontSize: '14px',
-              fontWeight: '500',
-              color: '#666666',
+              fontSize: windowWidth > 1020 ? '16px' : windowWidth > 400 ? '14px' : '14px',
+              fontWeight: '400',
+              color: 'var(--40, #999)',
+              textAlign: 'center',
+              lineHeight: '18px',
+              letterSpacing: '-0.028px',
+              width: windowWidth <= 400 ? 'auto' : 'auto',
+              flexShrink: windowWidth <= 400 ? 0 : 'auto',
               cursor: 'pointer',
               transition: 'all 0.2s ease'
             }}
@@ -107,19 +146,22 @@ export const ConfirmModal = ({ show, onClose, onConfirm }: ConfirmModalProps) =>
           <button
             onClick={onConfirm}
             style={{
-              width: '106px',
-              height: '34px',
               display: 'flex',
-              padding: '8px 15px',
+              padding: windowWidth <= 400 ? '8px 15px' : '8px 15px',
               alignItems: 'center',
               gap: '10px',
               borderRadius: '5px',
               background: 'var(--Green, #00E53A)',
               border: 'none',
               fontFamily: 'Pretendard',
-              fontSize: '14px',
-              fontWeight: '600',
-              color: '#FFFFFF',
+              fontSize: windowWidth > 1020 ? '16px' : windowWidth > 400 ? '14px' : '14px',
+              fontWeight: '700',
+              color: 'var(--White, #FFF)',
+              textAlign: 'center',
+              lineHeight: '18px',
+              letterSpacing: '-0.028px',
+              width: windowWidth <= 400 ? 'auto' : 'auto',
+              flexShrink: windowWidth <= 400 ? 0 : 'auto',
               cursor: 'pointer',
               transition: 'all 0.2s ease'
             }}
