@@ -17,7 +17,7 @@ import { ROUTES } from '@/constants';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout color="white" />,
+    element: <Layout color="primary" footerColor="white" />,
     children: [
       {
         index: true,
@@ -30,7 +30,6 @@ const router = createBrowserRouter([
     element: <Layout color="primary" />,
     children: [
       {
-
         index: true,
         element: <WorkPage />,
       },
@@ -38,11 +37,10 @@ const router = createBrowserRouter([
   },
   {
     path: ROUTES.GUESTBOOK,
-    element: <Layout color="transparent" />,
+    element: <Layout color="primary" />,
     children: [
       {
         index: true,
-
         element: <GuestBookPage />,
       },
     ],

@@ -4,14 +4,16 @@ import HoverImage from '/profile/card-hover.webp';
 type ProfileCardProps = {
   imageUrl: string;
   name: string;
+  cursor: string;
 };
 
-export const ProfileCard = ({ imageUrl, name }: ProfileCardProps) => {
+export const ProfileCard = ({ imageUrl, name, cursor }: ProfileCardProps) => {
   const [isHover, setIsHover] = useState(false);
 
   return (
     <div
       className="relative h-full overflow-hidden"
+      style={{ cursor: `url(${cursor}) 4 4, auto` }}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
