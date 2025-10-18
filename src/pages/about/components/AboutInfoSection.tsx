@@ -228,7 +228,7 @@ const TwoColumn: React.FC<{
         >
             <h2
                 className={[
-                    "whitespace-pre-line font-bold leading-[1.1] tracking-[-0.01em]",
+                    "whitespace-pre-line font-bold leading-[1.1] tracking-[-0.01em] pl-[20px]",
                     "text-[60px]",
                     "max-[600px]:text-[40px]",
                 ].join(" ")}
