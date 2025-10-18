@@ -2,7 +2,7 @@
 
 export const ARCHIVE_CONFIG = {
     // 릴리즈 날짜 (YYYY-MM-DD 형식)
-    RELEASE_DATE: '2025-10-28',
+    RELEASE_DATE: '2025-10-18',
 
     // 릴리즈 시간 (24시간 형식, 00:00 = 자정)
     RELEASE_TIME: '00:00',

@@ -1,40 +1,56 @@
 // VideoSection.tsx
+import { useEffect, useRef } from 'react';
 
 /**
- * 영상이 들어가는 회색 섹션 컴포넌트
+ * 영상이 들어가는 섹션 컴포넌트
  *
- * 크기: 가로 1920px, 세로 914px (비율 유지)
- * 배경색: 회색 (#f5f5f5)
- * 반응형: 화면 크기에 따라 비율 유지하면서 자동 축소
+ * 기능: 섹션 진입 시 비디오 재생, 섹션 이탈 시 비디오 정지
  */
 const VideoSection = () => {
-    return (
-        <section className="w-full max-w-[1920px] mx-auto bg-gray-200 relative overflow-hidden">
-            {/* aspect-ratio로 비율 고정 */}
-            <div className="relative w-full" style={{ aspectRatio: "1920 / 914" }}>
-                {/* 배경 비디오 */}
-                <video
-                    className="absolute inset-0 h-full w-full object-cover"
-                    playsInline
-                    autoPlay
-                    muted
-                    loop
-                    poster="/about/video-placeholder.jpg"
-                >
-                    {/* <source src="/about/your-video.mp4" type="video/mp4" /> */}
-                </video>
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const sectionRef = useRef<HTMLElement>(null);
 
-                {/* 오버레이 효과 */}
-                <div
-                    className="absolute inset-0 flex items-center justify-center z-[1]"
-                    style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }}
+    useEffect(() => {
+        const section = sectionRef.current;
+        const video = videoRef.current;
+
+        if (!section || !video) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        // 섹션이 보일 때 비디오 재생 (처음부터)
+                        video.currentTime = 0;
+                        video.play().catch(console.error);
+                    } else {
+                        // 섹션이 안 보일 때 비디오 정지
+                        video.pause();
+                    }
+                });
+            },
+            { threshold: 0.5 } // 50% 이상 보일 때 트리거
+        );
+
+        observer.observe(section);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
+    return (
+        <section ref={sectionRef} className="w-full max-w-[1920px] mx-auto bg-gray-200 relative overflow-hidden">
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' /* 16:9 비율 */ }}>
+                <video
+                    ref={videoRef}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    playsInline
+                    loop
+                    poster="/about/about-background.webp"
                 >
-                    <div className="text-white text-center">
-                        <p className="text-xl max-[1020px]:text-lg max-[600px]:text-base">
-                            Video Section
-                        </p>
-                    </div>
-                </div>
+                    <source src="/about/Comp 1_1.mp4" type="video/mp4" />
+                </video>
             </div>
         </section>
     );

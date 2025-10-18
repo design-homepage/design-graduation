@@ -23,10 +23,10 @@ const Header = ({ color }: HeaderProps) => {
     color === 'black'
       ? 'bg-black/70'
       : color === 'white'
-      ? 'bg-white/70'
-      : color === 'primary'
-      ? 'bg-primary/70'
-      : 'bg-transparent';
+        ? 'bg-white/70'
+        : color === 'primary'
+          ? 'bg-primary/70'
+          : 'bg-transparent';
 
   return (
     <header
@@ -61,11 +61,10 @@ const Header = ({ color }: HeaderProps) => {
             <Link
               key={item.path}
               to={item.path}
-              className={`text-2xl xl:text-3xl ease-out duration-300 text-inherit hover:text-white ${
-                location.pathname.startsWith(item.path)
-                  ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
-                  : 'text-foreground'
-              }`}
+              className={`text-2xl xl:text-3xl ease-out duration-300 text-inherit hover:text-white ${location.pathname.startsWith(item.path)
+                ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
+                : 'text-foreground'
+                }`}
             >
               {item.label}
             </Link>
@@ -112,9 +111,8 @@ const Header = ({ color }: HeaderProps) => {
                 key={item.path}
                 to={item.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`text-[60px] leading-[1.2] ${
-                  location.pathname === item.path ? 'font-bold text-primary' : 'text-white'
-                }`}
+                className={`text-[60px] leading-[1.2] ${location.pathname === item.path ? 'font-bold text-primary' : 'text-white'
+                  }`}
               >
                 {item.mobileMenu}
               </Link>

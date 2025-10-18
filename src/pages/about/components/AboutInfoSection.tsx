@@ -447,9 +447,9 @@ const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
                                 onClick={() => scrollToStep(i)}
                             >
                                 {isActive ? (
-                                    <LiaLongArrowAltLeftSolid size={18} className="text-black animate-move-left" />
+                                    <LiaLongArrowAltLeftSolid size={18} className="text-white animate-move-left" />
                                 ) : (
-                                    <span className="h-[8px] w-[8px] rounded-full bg-black" />
+                                    <span className="h-[8px] w-[8px] rounded-full bg-white" />
                                 )}
                             </div>
                         );
