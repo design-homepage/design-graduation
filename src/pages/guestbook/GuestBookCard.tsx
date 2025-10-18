@@ -122,7 +122,7 @@ export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) =
           style={{
             position: 'absolute',
             top: '50%',
-            left: '55px',
+            left: '45px',
             transform: 'translateY(-50%)',
             display: 'flex',
             width: '60px',
@@ -138,35 +138,39 @@ export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) =
             style={{
               width: '60px',
               height: '60px',
-              filter: 'brightness(0) saturate(100%) invert(6%) sepia(98%) saturate(7482%) hue-rotate(240deg) brightness(95%) contrast(102%)'
+              filter: isHovered 
+                ? 'none' 
+                : 'brightness(0) saturate(100%) invert(6%) sepia(98%) saturate(7482%) hue-rotate(240deg) brightness(95%) contrast(102%)'
             }}
           />
         </div>
 
         {/* Mobile 전용 메시지 영역 */}
         <div 
+          className="flex flex-col justify-center"
           style={{
             position: 'absolute',
             top: '50%',
-            left: '135px',
-            right: '10px',
+            left: '115px',
+            width: isLargeCard ? '300px' : '170px',
             height: '100px',
             transform: 'translateY(-50%)',
             zIndex: 4,
             paddingRight: '10px',
-            paddingLeft: '8px',
+            paddingLeft: '0px',
             pointerEvents: 'auto'
           }}
         >
-          <div style={{ flex: 1 }}>
+          <div className="flex-1">
             <p 
+              className="leading-relaxed"
               style={{
-                color: 'var(--Black, #000)',
+                color: isHovered ? 'var(--Green, #00E53A)' : 'var(--Black, #000)',
                 fontFamily: 'Pretendard',
                 fontSize: '14px',
                 fontStyle: 'normal',
                 fontWeight: '400',
-                lineHeight: '20px',
+                lineHeight: windowWidth <= 400 ? '18px' : '20px',
                 letterSpacing: '-0.028px',
                 transition: 'color 0.3s',
                 margin: 0
@@ -175,11 +179,11 @@ export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) =
               {entry.message}
             </p>
           </div>
-          <div style={{ marginTop: '8px', paddingTop: '8px', borderTop: '1px solid rgba(0, 0, 0, 0.1)' }}>
+          <div className={windowWidth <= 400 && isLargeCard ? "mt-0 pt-0" : "mt-2 pt-2 border-t border-gray-300 border-opacity-30"}>
             <p 
+              className="text-right"
               style={{
-                textAlign: 'right',
-                color: 'rgb(0, 0, 0)',
+                color: isHovered ? 'var(--Green, #00E53A)' : 'rgb(0, 0, 0)',
                 fontFamily: 'Pretendard',
                 fontSize: '14px',
                 fontStyle: 'normal',
