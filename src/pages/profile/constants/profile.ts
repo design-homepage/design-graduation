@@ -13,6 +13,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/강유진.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/강유진.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_강유진_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_강유진_G.webp',
   },
   {
     id: 2,
@@ -28,6 +29,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/강현정.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/강현정.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_강현정_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_강현정_G.webp',
   },
   {
     id: 3,
@@ -43,6 +45,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/권민정.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/권민정.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_권민정_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_권민정_G.webp',
   },
   {
     id: 4,
@@ -58,6 +61,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/김도영.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/김도영.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_김도영_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_김도영_G.webp',
   },
   {
     id: 5,
@@ -72,6 +76,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/김민구.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/김민구.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_김민구_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_김민구_G.webp',
   },
   {
     id: 6,
@@ -87,6 +92,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/김승화.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/김승화.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_김승화_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_김승화_G.webp',
   },
   {
     id: 7,
@@ -102,6 +108,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/김은지.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/김은지.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_김은지_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_김은지_G.webp',
   },
   {
     id: 8,
@@ -117,6 +124,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/김주훈.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/김주훈.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_김주훈_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_김주훈_G.webp',
   },
   {
     id: 9,
@@ -132,6 +140,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/박소연.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/박소연.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_박소연_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_박소연_G.webp',
   },
   {
     id: 10,
@@ -147,6 +156,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/박수민.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/박수민.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_박수민_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_박수민_G.webp',
   },
   {
     id: 11,
@@ -162,6 +172,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/박해연.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/박해연.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_박해연_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_박해연_G.webp',
   },
   {
     id: 12,
@@ -177,6 +188,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/박희건.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/박희건.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_박희건_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_박희건_G.webp',
   },
   {
     id: 13,
@@ -192,6 +204,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/신유빈.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/신유빈.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_신유빈_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_신유빈_G.webp',
   },
   {
     id: 14,
@@ -207,6 +220,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/안수아.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/안수아.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_안수아_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_안수아_G.webp',
   },
   {
     id: 15,
@@ -222,6 +236,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/오서현.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/오서현.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_오서현_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_오서현_G.webp',
   },
   {
     id: 16,
@@ -237,6 +252,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/오지홍.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/오지홍.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_오지홍_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_오지홍_G.webp',
   },
   {
     id: 17,
@@ -252,6 +268,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/원민정.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/원민정.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_원민정_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_원민정_G.webp',
   },
   {
     id: 18,
@@ -267,6 +284,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/이윤서.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/이윤서.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_이윤서_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_이윤서_G.webp',
   },
   {
     id: 19,
@@ -282,6 +300,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/이지혁.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/이지혁.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_이지혁_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_이지혁_G.webp',
   },
   {
     id: 20,
@@ -297,6 +316,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/전윤서.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/전윤서.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_전윤서_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_전윤서_G.webp',
   },
   {
     id: 21,
@@ -312,6 +332,7 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/정현진.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/정현진.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_정현진_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_정현진_G.webp',
   },
   {
     id: 22,
@@ -327,5 +348,6 @@ export const profile = [
     profileUrl: '/profile/individual-profiles-all/정환이.webp',
     profileDetailUrl: '/profile/individual-profiles-detail/정환이.webp',
     arrowUrl: '/profile/arrows-profile-background/화살표_정환이_G.webp',
+    cursor: '/profile/arrows-mouse-cursor/화살표_정환이_G.webp',
   },
 ] as const;

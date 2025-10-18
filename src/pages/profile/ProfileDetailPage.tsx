@@ -15,6 +15,15 @@ const ProfileDetailPage = () => {
     window.scrollTo(0, 0);
   }, [id]);
 
+  useEffect(() => {
+    if (profileData?.cursor) {
+      document.body.style.cursor = `url(${profileData.cursor}) 4 4, auto`;
+    }
+    return () => {
+      document.body.style.cursor = 'auto';
+    };
+  }, [profileData]);
+
   if (!profileData) {
     return <div>Profile not found</div>;
   }
