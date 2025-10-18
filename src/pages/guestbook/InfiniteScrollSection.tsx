@@ -81,7 +81,7 @@ export const InfiniteScrollSection = ({
             {distributedRows.map((row, rowIndex) => (
               <div key={`mobile-row-${rowIndex}`} style={{
                 width: '100%',
-                height: windowWidth <= 400 ? '35%' : `${100 / 5}%`, // Mobile에서는 매우 큰 높이
+                height: windowWidth <= 400 ? '55%' : `${100 / 5}%`, // Mobile에서는 매우 큰 높이
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
