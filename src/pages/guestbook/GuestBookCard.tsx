@@ -23,7 +23,7 @@ interface GuestBookCardProps {
 export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // isHovered 상태에 따라 애니메이션 제어 (화살표 영역에서만)
+  // isHovered 상태에 따라 애니메이션 제어 (clip-path 영역에서만)
   useEffect(() => {
     if (isHovered) {
       // 현재 카드가 속한 행의 track만 찾아서 일시정지
