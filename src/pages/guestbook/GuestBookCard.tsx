@@ -23,17 +23,25 @@ interface GuestBookCardProps {
 export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // isHovered 상태에 따라 애니메이션 제어
+  // isHovered 상태에 따라 애니메이션 제어 (화살표 영역에서만)
   useEffect(() => {
-    const track = document.querySelector('.infinite-scroll-track') as HTMLElement;
-    if (track) {
-      if (isHovered) {
-        track.style.animationPlayState = 'paused';
-      } else {
-        track.style.animationPlayState = 'running';
+    if (isHovered) {
+      // 현재 카드가 속한 행의 track만 찾아서 일시정지
+      const currentCard = document.querySelector(`[data-card-id="${entry.id}"]`);
+      if (currentCard) {
+        const track = currentCard.closest('.infinite-scroll-track') as HTMLElement;
+        if (track) {
+          track.style.animationPlayState = 'paused';
+        }
       }
+    } else {
+      // 모든 track을 다시 실행
+      const tracks = document.querySelectorAll('.infinite-scroll-track');
+      tracks.forEach(track => {
+        (track as HTMLElement).style.animationPlayState = 'running';
+      });
     }
-  }, [isHovered]);
+  }, [isHovered, entry.id]);
 
   // 메시지 길이에 따라 배경 이미지 선택 (호버 상태 반영)
   const getBackgroundImage = () => {
@@ -60,17 +68,16 @@ export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) =
     return (
       <div
         className="group relative GuestBookCard swiper-slide"
+        data-card-id={entry.id}
         style={{
           zIndex: 10,
           background: 'transparent',
           position: 'relative',
-          cursor: 'pointer',
+          cursor: 'default',
           width: isLargeCard ? '402px' : '292px',
           height: '194px',
           margin: '10px'
         }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
       >
         {/* Mobile 전용 이미지 컨테이너 */}
         <div 
@@ -82,7 +89,8 @@ export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) =
             width: isLargeCard ? '410px' : '292px',
             height: '194px',
             padding: '0px 0',
-            zIndex: 1
+            zIndex: 1,
+            pointerEvents: 'none' // 컨테이너는 마우스 이벤트 차단
           }}
         >
           <img
@@ -95,27 +103,20 @@ export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) =
               objectPosition: 'center',
               opacity: isHovered ? 1 : 0.5,
               transform: 'scale(1)',
-              transformOrigin: 'center'
+              transformOrigin: 'center',
+              cursor: 'pointer',
+              pointerEvents: 'auto', // 이미지 자체만 마우스 이벤트 허용
+              clipPath: entry.message.length >= 98 
+                ? 'polygon(24% 0, 24% 10%, 100% 10%, 100% 90%, 24% 90%, 24% 100%, 0% 50%)' // L 크기
+                : 'polygon(41% 0, 42% 11%, 100% 10%, 100% 90%, 41% 90%, 41% 100%, 0% 50%)' // S 크기
             }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           />
+
         </div>
 
-        {/* Mobile 전용 클릭 영역 */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '0',
-            left: '0',
-            right: '0',
-            bottom: '0',
-            zIndex: 2,
-            background: 'transparent',
-            cursor: 'pointer',
-            clipPath: 'polygon(0% 0%, 0% 100%, 15% 100%, 15% 70%, 50% 70%, 50% 100%, 100% 100%, 100% 0%)'
-          }}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        />
+        {/* Mobile 전용 화살표 모양 클릭 영역 제거 - 이미지 자체에서 처리 */}
 
         {/* Mobile 전용 왼쪽 화살표 영역 */}
         <div 
@@ -158,7 +159,7 @@ export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) =
             zIndex: 4,
             paddingRight: '10px',
             paddingLeft: '0px',
-            pointerEvents: 'auto'
+            pointerEvents: 'none'
           }}
         >
           <div className="flex-1">
@@ -233,14 +234,13 @@ export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) =
   return (
     <div
       className="group relative GuestBookCard swiper-slide"
+      data-card-id={entry.id}
       style={{
         zIndex: 10,
         background: 'transparent',
         position: 'relative',
-        cursor: 'pointer'
+        cursor: 'default'
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       {/* 화살표 이미지를 사용한 카드 */}
       <div className="relative transition-all duration-300"
@@ -250,7 +250,8 @@ export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) =
           background: 'transparent',
           overflow: 'visible',
           padding: windowWidth <= 400 ? '50px' : '0',
-          margin: windowWidth <= 400 ? '30px' : '0'
+          margin: windowWidth <= 400 ? '30px' : '0',
+          pointerEvents: 'none' // 컨테이너는 마우스 이벤트 차단
         }}>
 
         {/* 화살표 배경 이미지 */}
@@ -272,23 +273,19 @@ export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) =
             minWidth: windowWidth <= 400 ? '500px' : 'auto',
             minHeight: windowWidth <= 400 ? '400px' : 'auto',
             maxWidth: 'none',
-            maxHeight: 'none'
-          }}
-        />
-        
-        {/* 화살표 모양 클릭 영역 (CSS clip-path 사용) */}
-        <div
-          className="absolute inset-0 w-full h-full"
-          style={{
-            zIndex: 2,
-            background: 'transparent',
+            maxHeight: 'none',
             cursor: 'pointer',
-            // 화살표 모양의 clip-path
-            clipPath: 'polygon(0% 0%, 0% 100%, 15% 100%, 15% 70%, 50% 70%, 50% 100%, 100% 100%, 100% 0%)'
+            pointerEvents: 'auto', // 이미지 자체만 마우스 이벤트 허용
+            clipPath: entry.message.length >= 98 
+              ? 'polygon(24% 0, 24% 10%, 100% 10%, 100% 90%, 24% 90%, 24% 100%, 0% 50%)' // L 크기
+              : 'polygon(41% 0, 42% 11%, 100% 10%, 100% 90%, 41% 90%, 41% 100%, 0% 50%)' // S 크기
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         />
+
+        
+        {/* 화살표 모양 클릭 영역 제거 - 이미지 자체에서 처리 */}
 
         {/* 왼쪽 화살표 영역 */}
         <div className="absolute top-1/2 transform -translate-y-1/2"
@@ -339,7 +336,7 @@ export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) =
             zIndex: 10, // 화살표 마스크 영역보다 위에
             paddingRight: '10px',
             paddingLeft: '8px',
-            pointerEvents: 'auto' // 마우스 이벤트 활성화
+            pointerEvents: 'none' // 마우스 이벤트 비활성화
           }}
         >
           {/* 메시지 텍스트 */}
