@@ -107,8 +107,8 @@ export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) =
               cursor: 'pointer',
               pointerEvents: 'auto', // 이미지 자체만 마우스 이벤트 허용
               clipPath: entry.message.length >= 98 
-                ? 'polygon(24% 0, 24% 10%, 100% 10%, 100% 90%, 24% 90%, 24% 100%, 0% 50%)' // L 크기
-                : 'polygon(41% 0, 42% 11%, 100% 10%, 100% 90%, 41% 90%, 41% 100%, 0% 50%)' // S 크기
+                ? 'polygon(40% 0, 40% 6%, 100% 6%, 100% 94%, 40% 94%, 40% 100%, 0% 50%)' // L 크기
+                : 'polygon(39% 0, 39% 7%, 100% 7%, 100% 93%, 39% 93%, 39% 100%, 0% 50%)' // S 크기
             }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
