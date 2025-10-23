@@ -48,24 +48,6 @@ temp/
 # Vercel
 .vercel/
 
-# Exclude everything in public/ except the files we need
-public/*
-!public/work/
-public/work/*
-!public/work/work_all/
-public/work/work_all/*
-!public/work/work_all/*/
-public/work/work_all/*/*
-!public/work/work_all/*/*.webp
-!public/work/work_all/*/*.gif
-!public/work/work_all/*/*.png
-!public/work/work_all/*/*.jpg
-!public/work/work_all/*/*.jpeg
-
-# Keep other public assets
-!public/logo_*.webp
-!public/chevron-left.svg
-!public/about/
-!public/archive/
-!public/guestbook/
-!public/profile/
+# Exclude specific files but keep public assets
+# Keep all public assets except some unnecessary files
+public/_redirects
