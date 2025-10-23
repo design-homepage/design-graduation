@@ -287,10 +287,10 @@ const StickyFrame: React.FC<{ children: React.ReactNode; sectionId?: string; id?
             className="relative w-full flex items-start justify-center min-[1020px]:pt-[100px] max-[1019px]:pt-0"
             style={{
                 minHeight: isLongContent ? 'auto' : sectionHeight,
-                height: isLongContent ? 'auto' : sectionHeight,
+                height: isLongContent ? 'auto' : sectionHeight
             }}
         >
-            <div className="w-full max-w-[1720px]">
+            <div className="w-full max-w-[1720px]" style={{ background: 'transparent' }}>
                 {children}
             </div>
         </div>
