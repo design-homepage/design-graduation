@@ -516,15 +516,17 @@ const AboutInfoSection: React.FC = () => {
             {/* ✅ 그리드 컨테이너 (가운데 정렬) */}
             <section
                 className={[
-                    "box-border w-full", // mx-auto 제거
+                    "box-border w-full transition-all duration-300", // mx-auto 제거
                     "overflow-x-hidden",
                     // ✅ 반응형 패딩 적용
                     "px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px]",
                 ].join(" ")}
                 style={{
-                    height: PAGE_H,
-                    paddingTop: 100, // 상단 패딩
-                    paddingBottom: 0 // 아래 패딩 제거
+                    minHeight: '100vh', // 최소 화면 높이
+                    paddingTop: 0, // sticky 전환을 위해 패딩 제거
+                    paddingBottom: 0, // 아래 패딩 제거
+                    position: 'static', // 기본값, JS에서 sticky로 변경
+                    zIndex: 5
                 }}
             >
                 {/* 내부에서 가운데 정렬을 위한 래퍼 */}

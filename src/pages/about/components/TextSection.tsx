@@ -13,6 +13,7 @@ const clamp = (v: number, min: number, max: number) =>
 
 const TextSection: React.FC = () => {
     const sectionRef = useRef<HTMLDivElement | null>(null);
+    const textRef = useRef<HTMLDivElement | null>(null);
     const [offset, setOffset] = useState(0);
 
     useEffect(() => {
@@ -28,6 +29,29 @@ const TextSection: React.FC = () => {
             const sectionTop = docScrolledFromTop + rect.top;
             const local = clamp(docScrolledFromTop - sectionTop, 0, SECTION_H);
             setOffset(local);
+
+            // 그리드 컨테이너 sticky 제어
+            const gridContainer = document.querySelector('section[class*="box-border"]') as HTMLElement;
+            if (gridContainer && textRef.current) {
+                const textRect = textRef.current.getBoundingClientRect();
+
+                // 텍스트가 화면의 80% 지점에 도달하면 그리드 sticky 활성화
+                const transitionPoint = window.innerHeight * 0.8;
+
+                if (textRect.bottom <= transitionPoint) {
+                    // 그리드 sticky 활성화
+                    gridContainer.style.position = 'sticky';
+                    gridContainer.style.top = '0';
+                    gridContainer.style.zIndex = '5';
+                    gridContainer.style.backgroundColor = 'rgba(255, 255, 255, 0.95)'; // 배경 추가
+                } else {
+                    // 그리드 일반 위치
+                    gridContainer.style.position = 'static';
+                    gridContainer.style.zIndex = 'auto';
+                    gridContainer.style.backgroundColor = 'transparent';
+                }
+            }
+
             ticking = false;
         };
 
@@ -60,6 +84,7 @@ const TextSection: React.FC = () => {
         >
             {/* 텍스트 고정 영역 */}
             <div
+                ref={textRef}
                 className="sticky top-0 z-10 flex h-screen items-center justify-center"
                 style={{ height: TEXT_H }}
             >
