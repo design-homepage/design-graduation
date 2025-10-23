@@ -22,22 +22,6 @@ const getHeaderHeight = () => {
     return 104; // 기본: 104px
 };
 
-// 전체 높이를 콘텐츠에 맞게 자동 설정 (자연스러운 페이지 흐름)
-const getPageHeight = () => {
-    if (typeof window === 'undefined') return 8000; // 기본값
-
-    const headerHeight = getHeaderHeight();
-    const viewportHeight = window.innerHeight;
-
-    // 자연스러운 페이지 높이 설정 (콘텐츠에 맞춤)
-    // 각 섹션이 화면 높이에 맞게 배치되도록 함
-    const estimatedSections = 7; // 전체 섹션 수
-    const averageSectionHeight = viewportHeight * 0.8; // 화면의 80% 정도
-
-    return Math.round(estimatedSections * averageSectionHeight + headerHeight + 1000);
-};
-
-const PAGE_H = getPageHeight();
 const GAP = 98;
 
 // ✅ 섹션 높이 계산 함수 (뷰포트 높이 - 헤더 높이)
