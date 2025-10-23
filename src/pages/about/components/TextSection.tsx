@@ -63,7 +63,7 @@ const TextSection: React.FC = () => {
                 className="sticky top-0 z-10 flex h-screen items-center justify-center"
                 style={{ height: TEXT_H }}
             >
-                <div className="relative w-full max-w-[1920px] px-8 md:pb-16 lg:pb-24">
+                <div className="relative w-full max-w-[1920px] md:pb-16 lg:pb-24 px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px]">
                     <div
                         className={`
                         space-y-0
@@ -71,6 +71,7 @@ const TextSection: React.FC = () => {
                         leading-[0.95]
                         font-black text-black
                         max-[600px]:text-center
+                    
                     `}
                     >
                         <h2
