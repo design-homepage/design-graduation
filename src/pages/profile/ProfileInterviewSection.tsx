@@ -7,7 +7,7 @@ type ProfileInterviewSectionProps = {
 
 export const ProfileInterviewSection = ({ q1, q2 }: ProfileInterviewSectionProps) => {
   return (
-    <ProfileSectionContainer title="INTERVIEW" option="md:flex-row md:gap-20">
+    <ProfileSectionContainer title="INTERVIEW" option="md:flex-row md:gap-20 gap-5">
       <div className="flex-1 flex flex-col gap-2 md:gap-8 text-sm md:text-base lg:text-xl">
         <p className="font-bold text-primary border-b-2 border-primary">
           Q. 자신만의 ME:WE 이야기가 있을까요?

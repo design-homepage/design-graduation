@@ -13,6 +13,7 @@ type PropSmallSectionProps = {
     intro: string;
     koreanExplanation: string;
     englishExplanation: string;
+    thumbnail: string;
   };
 };
 
