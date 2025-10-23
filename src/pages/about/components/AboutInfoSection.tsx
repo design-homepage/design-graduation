@@ -229,7 +229,6 @@ const TwoColumn: React.FC<{
             <h2
                 className={[
                     "whitespace-pre-line font-bold leading-[1.1] tracking-[-0.01em]",
-                    "min-[1020px]:pl-[20px] max-[1019px]:pl-0", // 데스크톱에서만 왼쪽 패딩
                     "text-[60px]",
                     "max-[600px]:text-[40px]",
                 ].join(" ")}
