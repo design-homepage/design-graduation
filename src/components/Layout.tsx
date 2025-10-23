@@ -5,7 +5,7 @@ import Footer from './Footer';
 import { useEffect, useState } from 'react';
 
 type LayoutProps = {
-  color: 'primary' | 'black' | 'white' | 'transparent';
+  color: 'primary' | 'black' | 'white' | 'transparent' | 'about-gradient';
   footer?: 'default' | 'none';
   footerColor?: 'primary' | 'black' | 'white' | 'transparent';
 };
@@ -21,7 +21,9 @@ const Layout = ({ color, footer = 'default', footerColor = 'transparent' }: Layo
         ? 'bg-black'
         : color === 'white'
           ? 'bg-white'
-          : 'bg-primary';
+          : color === 'about-gradient'
+            ? ''
+            : 'bg-primary';
 
   const mainBgClass =
     color === 'transparent'
@@ -30,7 +32,9 @@ const Layout = ({ color, footer = 'default', footerColor = 'transparent' }: Layo
         ? 'bg-black'
         : color === 'white'
           ? 'bg-white'
-          : 'bg-primary';
+          : color === 'about-gradient'
+            ? ''
+            : 'bg-primary';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,9 +55,19 @@ const Layout = ({ color, footer = 'default', footerColor = 'transparent' }: Layo
   }, [lastScrollY]);
 
   return (
-    <div className={`min-h-screen flex flex-col ${bgClass}`}>
+    <div
+      className={`min-h-screen flex flex-col ${bgClass}`}
+      style={color === 'about-gradient' ? {
+        background: 'linear-gradient(180deg, #00E73A 53.37%, #FFFFFF 100%)'
+      } : undefined}
+    >
       <Header color={color} scroll={showHeader ? 'translate-y-0' : '-translate-y-full'} />
-      <main className={`flex-1 pt-[80px] md:pt-[100px] lg:pt-[120px] ${mainBgClass}`}>
+      <main
+        className={`flex-1 pt-[80px] md:pt-[100px] lg:pt-[120px] ${mainBgClass}`}
+        style={color === 'about-gradient' ? {
+          background: 'linear-gradient(180deg, #00E73A 53.37%, #FFFFFF 100%)'
+        } : undefined}
+      >
         <Outlet />
       </main>
       {footer === 'default' && <Footer color={footerColor} />}

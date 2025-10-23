@@ -40,7 +40,7 @@ const VideoSection = () => {
     }, []);
 
     return (
-        <section ref={sectionRef} className="w-full max-w-[1920px] mx-auto bg-gray-200 relative overflow-hidden">
+        <section ref={sectionRef} className="w-full max-w-[1920px] mx-auto relative overflow-hidden">
             <div className="relative w-full" style={{ paddingBottom: '56.25%' /* 16:9 비율 */ }}>
                 <video
                     ref={videoRef}

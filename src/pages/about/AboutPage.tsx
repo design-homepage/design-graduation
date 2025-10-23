@@ -1,6 +1,5 @@
 import AboutInfoSection from "./components/AboutInfoSection";
 
-
 /**
  * About 페이지 컴포넌트
  *
@@ -9,12 +8,7 @@ import AboutInfoSection from "./components/AboutInfoSection";
  */
 const AboutPage: React.FC = () => {
     return (
-        <div
-            className="w-full"
-            style={{
-                background: 'linear-gradient(180deg, #00E73A 53.37%, #FFFFFF 100%)'
-            }}
-        >
+        <div className="w-full">
             <AboutInfoSection />
         </div>
     );

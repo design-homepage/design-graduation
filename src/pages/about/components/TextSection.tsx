@@ -43,12 +43,10 @@ const TextSection: React.FC = () => {
                     gridContainer.style.position = 'sticky';
                     gridContainer.style.top = '0';
                     gridContainer.style.zIndex = '5';
-                    gridContainer.style.backgroundColor = 'rgba(255, 255, 255, 0.95)'; // 배경 추가
                 } else {
                     // 그리드 일반 위치
                     gridContainer.style.position = 'static';
                     gridContainer.style.zIndex = 'auto';
-                    gridContainer.style.backgroundColor = 'transparent';
                 }
             }
 
