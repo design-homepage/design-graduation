@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import HoverImage from 'card-hover.webp';
 
 type ProfileCardProps = {
   imageUrl: string;
@@ -9,6 +8,7 @@ type ProfileCardProps = {
 
 export const ProfileCard = ({ imageUrl, name, cursor }: ProfileCardProps) => {
   const [isHover, setIsHover] = useState(false);
+  const hoverImage = new URL('/profile/card-hover.webp', import.meta.url).href;
 
   return (
     <div
@@ -24,7 +24,7 @@ export const ProfileCard = ({ imageUrl, name, cursor }: ProfileCardProps) => {
         draggable={false}
       />
       <img
-        src={HoverImage}
+        src={hoverImage}
         alt={name}
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ease-out ${isHover ? 'opacity-100' : 'opacity-0'} z-20`}
         draggable={false}
