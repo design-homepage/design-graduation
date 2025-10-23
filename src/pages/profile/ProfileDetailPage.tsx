@@ -1,14 +1,21 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { profile } from './constants/profile';
 import { useMemo, useEffect } from 'react';
 import { ProfileDesignerSection } from './ProfileDesignerSection';
 import { ProfileInterviewSection } from './ProfileInterviewSection';
-import { ProfileWorkSection } from './ProfileWorkSection';
+import { arrows } from '../work/constants/arrows';
+import { ROUTES } from '@/constants';
+import { ProfileSectionContainer } from './ProfileSectionContainer';
 
 const ProfileDetailPage = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   const profileData = useMemo(() => profile.find((item) => item.id.toString() === id), [id]);
+  const workData = useMemo(() => arrows.find((item) => item.id.toString() === id), [id]);
+  const gotoWorkDetail = () => {
+    navigate(ROUTES.WORK_DETAIL.replace(':id', id || ''));
+  };
 
   // 페이지가 로드될 때마다 스크롤을 맨 위로 이동
   useEffect(() => {
@@ -41,7 +48,30 @@ const ProfileDetailPage = () => {
         arrowUrl={profileData.arrowUrl}
       />
       <ProfileInterviewSection q1={profileData.q1} q2={profileData.q2} />
-      <ProfileWorkSection />
+      <ProfileSectionContainer title="WORK">
+        {workData?.work.map((workImage, index) =>
+          typeof workImage === 'string' ? (
+            <img
+              key={index}
+              src={workImage}
+              alt={`Work ${index + 1}`}
+              onClick={gotoWorkDetail}
+              className="w-full object-cover hover:grayscale ease-out transition-all duration-300"
+            />
+          ) : (
+            <iframe
+              key={index}
+              className="w-full aspect-video hover:grayscale ease-out transition-all duration-300 cursor-pointer"
+              src={workImage[1]}
+              title={`YouTube video player ${index + 1}`}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              onClick={gotoWorkDetail}
+            />
+          )
+        )}
+      </ProfileSectionContainer>
     </div>
   );
 };

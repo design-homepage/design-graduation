@@ -22,7 +22,7 @@ export const ProfileDesignerSection = ({
   arrowUrl,
 }: ProfileDesignerSectionProps) => {
   return (
-    <ProfileSectionContainer title="DESIGNER" gap={false}>
+    <ProfileSectionContainer title="DESIGNER" gap={false} option="gap-5">
       <div className="flex box-border">
         <div className="flex items-start pt-[25px] w-fit z-1">
           <img
