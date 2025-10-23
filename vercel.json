@@ -4,5 +4,9 @@
       "source": "/((?!api|_next/.*|.*\\..*).*)",
       "destination": "/index.html"
     }
+  ],
+  "functions": {},
+  "includeFiles": [
+    "public/work/work_all/**/*.{webp,gif,png,jpg,jpeg}"
   ]
 }

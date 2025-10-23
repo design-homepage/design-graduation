@@ -1,0 +1,71 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Build outputs
+dist/
+dist-ssr/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Temporary folders
+tmp/
+temp/
+
+# Vercel
+.vercel/
+
+# Exclude everything in public/ except the files we need
+public/*
+!public/work/
+public/work/*
+!public/work/work_all/
+public/work/work_all/*
+!public/work/work_all/*/
+public/work/work_all/*/*
+!public/work/work_all/*/*.webp
+!public/work/work_all/*/*.gif
+!public/work/work_all/*/*.png
+!public/work/work_all/*/*.jpg
+!public/work/work_all/*/*.jpeg
+
+# Keep other public assets
+!public/logo_*.webp
+!public/chevron-left.svg
+!public/about/
+!public/archive/
+!public/guestbook/
+!public/profile/
