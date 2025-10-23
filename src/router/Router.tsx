@@ -71,7 +71,7 @@ const router = createBrowserRouter([
   },
   {
     path: ROUTES.ARCHIVE,
-    element: <Layout color="white" />,
+    element: <Layout color="white" footerColor="white" />,
     children: [
       {
         index: true,

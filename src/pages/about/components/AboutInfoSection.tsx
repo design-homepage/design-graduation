@@ -222,14 +222,13 @@ const TwoColumn: React.FC<{
         {/* 좌측 타이틀 - 1번 컬럼 */}
         <div
             className={[
-                "flex-shrink-0 min-[1020px]:pt-[100px] max-[1019px]:pt-[100px]", // 데스크톱에서만 상단 패딩
+                "flex-shrink-0", // 데스크톱에서만 상단 패딩
                 "max-[1020px]:w-full",
             ].join(" ")}
         >
             <h2
                 className={[
                     "whitespace-pre-line font-bold leading-[1.1] tracking-[-0.01em]",
-                    "min-[1020px]:pl-[20px] max-[1019px]:pl-0", // 데스크톱에서만 왼쪽 패딩
                     "text-[60px]",
                     "max-[600px]:text-[40px]",
                 ].join(" ")}
@@ -253,7 +252,7 @@ const TwoColumn: React.FC<{
 /* 본문 텍스트 */
 const BodyText: React.FC<{ text: string }> = ({ text }) => (
     <div className={[
-        "w-full min-[1020px]:pt-[100px]", // 데스크톱에서만 상단 패딩
+        "w-full ", // 데스크톱에서만 상단 패딩
         "max-[1019px]:max-w-[843px]", // 1019px 이하에서는 843px
         "min-[1020px]:max-w-[720px]", // 1020px 이상에서는 720px
         "min-[1020px]:justify-between", // 1020px 이상에서는 justify-between으로 여백 분산
@@ -301,7 +300,7 @@ const StickyFrame: React.FC<{ children: React.ReactNode; sectionId?: string; id?
         <div
             id={id}
             data-section-id={sectionId}
-            className="relative w-full flex items-start justify-center"
+            className="relative w-full flex items-start justify-center min-[1020px]:pt-[100px] max-[1019px]:pt-0"
             style={{
                 minHeight: isLongContent ? 'auto' : sectionHeight,
                 height: isLongContent ? 'auto' : sectionHeight,
@@ -340,17 +339,41 @@ const advisorsAll = [...advisorsLeft, ...advisorsRight];
 
 /* 팀 갤러리 */
 const HorizontalGallery: React.FC<{ items: { src: string; label: string }[] }> = ({ items }) => {
-    const onWheel: React.WheelEventHandler<HTMLDivElement> = (e) => {
-        const el = e.currentTarget;
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-            el.scrollLeft += e.deltaY;
-            e.preventDefault();
-        }
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [startScrollLeft, setStartScrollLeft] = useState(0);
+
+    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+        setIsDragging(true);
+        setStartX(e.pageX - e.currentTarget.offsetLeft);
+        setStartScrollLeft(e.currentTarget.scrollLeft);
     };
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!isDragging) return;
+
+        e.preventDefault();
+        const el = e.currentTarget;
+        const x = e.pageX - el.offsetLeft;
+        const walk = (x - startX) * 2; // 드래그 감도 조절
+        el.scrollLeft = startScrollLeft - walk;
+    };
+
+    const handleMouseUp = () => {
+        setIsDragging(false);
+    };
+
+    const handleMouseLeave = () => {
+        setIsDragging(false);
+    };
+
     return (
         <div
-            className="mt-10 overflow-x-auto overflow-y-hidden scrollbar-hide"
-            onWheel={onWheel}
+            className={`mt-10 overflow-x-auto overflow-y-hidden scrollbar-hide select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
         >
             <div className="flex items-start gap-12 px-10 pr-14">
                 {items.map(({ src, label }, i) => (
@@ -361,7 +384,7 @@ const HorizontalGallery: React.FC<{ items: { src: string; label: string }[] }> =
                         <img
                             src={src}
                             alt={label}
-                            className="h-[689px] max-[600px]:h-[433px] w-auto object-contain"
+                            className="h-[689px] max-[600px]:h-[433px] w-auto object-contain pointer-events-none"
                             draggable={false}
                             loading={i > 2 ? "lazy" : "eager"}
                         />
@@ -374,7 +397,7 @@ const HorizontalGallery: React.FC<{ items: { src: string; label: string }[] }> =
 
 const memberLines = [
     { role: "기획팀", names: "김승화 김은지 강유진 김도영 안수아 정환이" },
-    { role: "그래픽팀", names: "강유진 김주훈 박수민 박혜연 박현건 오지홍" },
+    { role: "그래픽팀", names: "강유진 김주훈 박수민 박해연 박희건 오지홍" },
     { role: "영상팀", names: "김도영 김민구 이지혁 전윤서 정현진" },
     { role: "편집팀", names: "정환이 신유빈 원민정 오서현 이윤서" },
     { role: "웹팀", names: "안수아 강현정 권민정 박소연" },
@@ -493,15 +516,17 @@ const AboutInfoSection: React.FC = () => {
             {/* ✅ 그리드 컨테이너 (가운데 정렬) */}
             <section
                 className={[
-                    "box-border w-full", // mx-auto 제거
+                    "box-border w-full transition-all duration-300", // mx-auto 제거
                     "overflow-x-hidden",
                     // ✅ 반응형 패딩 적용
                     "px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px]",
                 ].join(" ")}
                 style={{
-                    height: PAGE_H,
-                    paddingTop: 100, // 상단 패딩
-                    paddingBottom: 0 // 아래 패딩 제거
+                    minHeight: '100vh', // 최소 화면 높이
+                    paddingTop: 0, // sticky 전환을 위해 패딩 제거
+                    paddingBottom: 0, // 아래 패딩 제거
+                    position: 'static', // 기본값, JS에서 sticky로 변경
+                    zIndex: 5
                 }}
             >
                 {/* 내부에서 가운데 정렬을 위한 래퍼 */}
@@ -543,10 +568,10 @@ const AboutInfoSection: React.FC = () => {
 
                         {/* 5) 지도 교수 */}
                         <StickyFrame id="sec-5" sectionId="advisors">
-                            <TwoColumn title="지도 교수" className="max-[600px]:items-start min-[1020px]:pt-[100px] max-[1019px]:pt-0">
+                            <TwoColumn title="지도 교수" className="max-[600px]:items-start">
                                 {/* 그리드 기반 교수 리스트 */}
                                 <div className={[
-                                    "w-full min-[1020px]:pt-[100px] max-[1019px]:pt-0",
+                                    "w-full ",
                                     "max-[1019px]:max-w-[843px]", // 1019px 이하에서는 843px
                                     "min-[1020px]:max-w-[720px]", // 1020px 이상에서는 720px
                                     "min-[1020px]:justify-between", // 1020px 이상에서는 justify-between으로 여백 분산
@@ -570,11 +595,11 @@ const AboutInfoSection: React.FC = () => {
                         </StickyFrame>
 
                         {/* 7) 졸업 구성원 (상단 고정) */}
-                        <StickyFrame id="sec-7" sectionId="members" isLongContent={false}>
+                        <StickyFrame id="sec-7" sectionId="members" >
                             <div className="w-full">
-                                <TwoColumn title="졸업구성원" className="mb-20 min-[1020px]:pt-[100px] max-[1019px]:pt-0">
+                                <TwoColumn title="졸업구성원" className="mb-20">
                                     <div className={[
-                                        "w-full min-[1020px]:pt-[100px] max-[1019px]:pt-0",
+                                        "w-full ",
                                         "max-[1019px]:max-w-[843px]", // 1019px 이하에서는 843px
                                         "min-[1020px]:max-w-[720px]", // 1020px 이상에서는 720px
                                         "min-[1020px]:justify-between", // 1020px 이상에서는 justify-between으로 여백 분산
@@ -591,7 +616,7 @@ const AboutInfoSection: React.FC = () => {
                                     </div>
                                 </TwoColumn>
 
-                                <div className="mt-10">
+                                <div className="mt-0">
                                     <HorizontalGallery items={teamImages} />
                                 </div>
                             </div>
