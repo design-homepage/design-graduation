@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import HoverImage from '/profile/card-hover.webp';
+import HoverImage from 'card-hover.webp';
 
 type ProfileCardProps = {
   imageUrl: string;
