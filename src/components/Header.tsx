@@ -57,7 +57,7 @@ const Header = ({ color, scroll }: HeaderProps) => {
         </Link>
 
         {/* 네비게이션 */}
-        <nav className="hidden lg:flex gap-10">
+        <nav className="hidden md:flex gap-10 laptop-nav">
           {navItems.map((item) => (
             <Link
               key={item.path}
