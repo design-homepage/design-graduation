@@ -3,10 +3,11 @@ import { ROUTES } from '@/constants';
 import { useState } from 'react';
 
 type HeaderProps = {
-  color: 'primary' | 'black' | 'white' | 'transparent';
+  color: 'primary' | 'black' | 'white' | 'transparent' | 'about-gradient';
+  scroll: string;
 };
 
-const Header = ({ color }: HeaderProps) => {
+const Header = ({ color, scroll }: HeaderProps) => {
   const location = useLocation();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -24,18 +25,18 @@ const Header = ({ color }: HeaderProps) => {
       ? 'bg-black/70'
       : color === 'white'
         ? 'bg-white/70'
-        : color === 'primary'
+        : color === 'primary' || color === 'about-gradient'
           ? 'bg-primary/70'
           : 'bg-transparent';
 
   return (
     <header
-      className={`fixed w-full top-0 ${bgClass} backdrop-blur-[30px] h-[104px] sm:h-[108px] md:h-[124px] lg:h-[170px] flex items-center z-100`}
+      className={`fixed w-full top-0 ${bgClass} backdrop-blur-[30px] h-[80px] md:h-[100px] lg:h-[120px] flex items-center z-100 ${scroll} ease-in-out duration-300`}
     >
       <div
         className={`w-full flex items-center justify-between px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] ${color === 'black' || color === 'transparent' ? 'text-white' : 'text-foreground'}`}
       >
-        <Link to={ROUTES.ABOUT} className="flex gap-[17px] md:gap-5 items-center px-5">
+        <Link to={ROUTES.ABOUT} className="flex gap-[17px] md:gap-5 items-center">
           <img
             src={
               color === 'black' || location.pathname === ROUTES.ABOUT
@@ -46,10 +47,10 @@ const Header = ({ color }: HeaderProps) => {
             className="w-[42px] h-[27px] md:w-[70px] md:h-[40px] ease-out duration-300"
           />
           <div>
-            <p className="font-bold text-inherit text-sm md:text-xl">
+            <p className="font-bold text-inherit text-sm md:text-xl leading-[1.3]">
               2025 경북대학교 디자인학과 졸업전시회
             </p>
-            <p className="font-bold text-inherit text-sm md:text-xl">
+            <p className="font-bold text-inherit text-sm md:text-xl leading-[1.3]">
               KNUD Graduation Exhibition Archive
             </p>
           </div>
@@ -61,11 +62,10 @@ const Header = ({ color }: HeaderProps) => {
             <Link
               key={item.path}
               to={item.path}
-              className={`text-2xl xl:text-3xl ease-out duration-300 text-inherit ${color === 'white' ? 'hover:text-primary' : 'hover:text-white'} ${
-                location.pathname.startsWith(item.path)
+              className={`text-2xl ease-out duration-300 text-inherit ${color === 'white' ? 'hover:text-primary' : 'hover:text-white'} ${location.pathname.startsWith(item.path)
                   ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
                   : 'text-foreground'
-              }`}
+                }`}
             >
               {item.label}
             </Link>

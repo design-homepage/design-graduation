@@ -16,7 +16,7 @@ const WorkPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-[calc(100vh-104px)] sm:min-h-[calc(100vh-108px)] md:min-h-[calc(100vh-124px)] lg:min-h-[calc(100vh-170px)]">
+    <div className="flex justify-center items-center min-h-[calc(100vh-80px)] md:min-h-[calc(100vh-100px)] lg:min-h-[calc(100vh-120px)]">
       <div className="flex flex-col p-[50px] md:p-[100px] w-full">
         {rowCounts.map((count, rowIndex) => {
           const rowArrows = arrows.slice(startIndex, startIndex + count);

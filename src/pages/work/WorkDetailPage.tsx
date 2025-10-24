@@ -19,10 +19,29 @@ const WorkDetailPage = () => {
 
   return (
     <>
-      <img src="/work/work_image.webp" alt="Work Detail" className="w-full h-auto" />
+      <img src={arrowData.thumbnail} alt="Work Detail" className="w-full h-auto" />
       <PropSmallSection arrowData={arrowData} />
       <PropLargeSection arrowData={arrowData} />
-      <img src="/work/work_person.webp" alt="Work Person" className="w-full h-auto" />
+      {arrowData.work.map((workImage, index) =>
+        typeof workImage === 'string' ? (
+          <img
+            key={index}
+            src={workImage}
+            alt={`Work Detail ${index + 1}`}
+            className="w-full h-auto"
+          />
+        ) : (
+          <iframe
+            key={index}
+            className="w-full aspect-video"
+            src={workImage[1]}
+            title={`YouTube video player ${index + 1}`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        )
+      )}
     </>
   );
 };

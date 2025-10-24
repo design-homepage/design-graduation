@@ -17,7 +17,7 @@ import { ROUTES } from '@/constants';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout color="primary" footerColor="white" />,
+    element: <Layout color="about-gradient" footerColor="white" />,
     children: [
       {
         index: true,
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
   },
   {
     path: ROUTES.ARCHIVE,
-    element: <Layout color="white" />,
+    element: <Layout color="white" footerColor="white" />,
     children: [
       {
         index: true,

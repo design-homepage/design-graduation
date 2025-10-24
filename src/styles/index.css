@@ -160,23 +160,7 @@ body::-webkit-scrollbar {
   animation: scroll-left 30s linear infinite;
 }
 
-/* 무한 스크롤 호버 효과 (Swiper 스타일) */
-.infinite-scroll-container {
-  --animation-play-state: running;
-}
-
-.infinite-scroll-container:hover .infinite-scroll-track {
-  animation-play-state: paused !important;
-}
-
-.infinite-scroll-track:hover {
-  animation-play-state: paused !important;
-}
-
-/* Swiper 라이브러리와 유사한 호버 효과 */
-.swiper-wrapper:hover .infinite-scroll-track {
-  animation-play-state: paused !important;
-}
+/* 무한 스크롤 호버 효과 제거 - clip-path 영역에서만 제어 */
 
 /* 개별 카드 호버 효과 (Swiper 슬라이드 스타일) */
 .GuestBookCard.swiper-slide {

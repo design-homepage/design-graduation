@@ -13,6 +13,7 @@ type PropLargeSectionProps = {
     intro: string;
     koreanExplanation: string;
     englishExplanation: string;
+    thumbnail: string;
   };
 };
 
