@@ -1,3 +1,4 @@
+import React from "react";
 import type { TeamMember } from '@/types/teamMembers';
 import { teamMemberNames } from '@/types/teamMembers';
 
@@ -7,8 +8,8 @@ interface GuestBookFormProps {
     message: string;
     receiver: TeamMember;
   };
-  onInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
-  onSubmit: (e: React.FormEvent) => void;
+  onInputChange: (_e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  onSubmit: (_e: React.FormEvent) => void;
   windowWidth: number;
   responsiveStyles: {
     containerWidth: string;

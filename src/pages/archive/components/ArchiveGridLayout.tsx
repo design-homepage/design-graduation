@@ -9,7 +9,7 @@ interface ArchiveGridLayoutProps {
     middleColumn: string[];
     rightColumn: string[];
     imageErrors: Set<number>;
-    onImageError: (index: number) => void;
+    onImageError: (_index: number) => void;
 }
 
 const ArchiveGridLayout: React.FC<ArchiveGridLayoutProps> = ({

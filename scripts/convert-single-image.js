@@ -1,6 +1,5 @@
 import sharp from 'sharp';
 import fs from 'fs';
-import path from 'path';
 
 async function convertGuestbookBackground() {
   const inputPath = 'public/guestbook/background-white.png';
@@ -11,7 +10,7 @@ async function convertGuestbookBackground() {
   try {
     // 원본 파일 크기 확인
     const originalStats = fs.statSync(inputPath);
-    console.log(`   원본 PNG 크기: ${Math.round(originalStats.size/1024)}KB`);
+    console.log(`   원본 PNG 크기: ${Math.round(originalStats.size / 1024)}KB`);
 
     // Sharp를 사용한 무손실 WebP 변환 (품질 100%, 무손실, pixel limit 해제)
     await sharp(inputPath)
@@ -25,7 +24,7 @@ async function convertGuestbookBackground() {
     const convertedSize = convertedStats.size;
     const savings = ((originalSize - convertedSize) / originalSize * 100).toFixed(1);
 
-    console.log(`   ✅ 변환 완료: ${Math.round(convertedSize/1024)}KB`);
+    console.log(`   ✅ 변환 완료: ${Math.round(convertedSize / 1024)}KB`);
     console.log(`   💾 용량 절약: ${savings}%`);
 
     // 원본 파일 백업

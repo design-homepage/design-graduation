@@ -63,7 +63,7 @@ function useSmoothSectionAlignment() {
             // sec-0는 상단 정렬로 비디오가 완전히 보이도록 처리
             if (index === 0) return Math.max(0, elementTop);
             // 나머지는 중앙 정렬
-            const zoomFactor = (window as any).zoomFactor || 1;
+            const zoomFactor = window.zoomFactor || 1;
             const offset = elementTop - (window.innerHeight - rect.height) / 2 / zoomFactor;
             return Math.max(0, offset);
         };
@@ -430,7 +430,7 @@ const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
         const rect = el.getBoundingClientRect();
         const elementTop = window.scrollY + rect.top;
         const isFirst = idx === 0;
-        const zoomFactor = (window as any).zoomFactor || 1;
+        const zoomFactor = window.zoomFactor || 1;
         const target = isFirst
             ? Math.max(0, elementTop)
             : Math.max(0, elementTop - (window.innerHeight - rect.height) / 2 / zoomFactor);
@@ -510,7 +510,7 @@ const AboutInfoSection: React.FC = () => {
                     "px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px]",
                 ].join(" ")}
                 style={{
-                    minHeight: (window as any).isMacBookZoom ? '125vh' : '100vh', // zoom 보정
+                    minHeight: window.isMacBookZoom ? '125vh' : '100vh', // zoom 보정
                     paddingTop: 0, // sticky 전환을 위해 패딩 제거
                     paddingBottom: 0, // 아래 패딩 제거
                     position: 'static', // 기본값, JS에서 sticky로 변경

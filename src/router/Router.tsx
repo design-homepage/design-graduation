@@ -26,16 +26,6 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: ROUTES.WORK,
-    element: <Layout color="primary" />,
-    children: [
-      {
-        index: true,
-        element: <WorkPage />,
-      },
-    ],
-  },
-  {
     path: ROUTES.GUESTBOOK,
     element: <Layout color="primary" />,
     children: [
