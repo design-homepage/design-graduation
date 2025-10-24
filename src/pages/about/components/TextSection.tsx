@@ -153,7 +153,7 @@ const TextSection: React.FC = () => {
             >
                 {/* 오버레이 (이미지 영역 전체를 덮도록 그대로 유지) */}
                 <div
-                    className={`absolute inset-0 z-10 pointer-events-none transition-opacity duration-200 ${blurActive ? "opacity-100" : "opacity-0"
+                    className={`absolute inset-0 z-10 pointer-events-none transition-opacity duration-200 no-zoom ${blurActive ? "opacity-100" : "opacity-0"
                         }`}
                     style={{
                         backdropFilter: "blur(19px)",
@@ -166,7 +166,7 @@ const TextSection: React.FC = () => {
                 <img
                     src="/about/about-background.webp"
                     alt="About background"
-                    className="absolute left-1/2 top-0 -translate-x-1/2 z-20 w-[100vw] h-auto object-contain"
+                    className="absolute left-1/2 top-0 -translate-x-1/2 z-20 w-[100vw] h-auto object-contain no-zoom"
                     draggable={false}
                 />
             </div>

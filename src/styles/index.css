@@ -140,6 +140,7 @@ body::-webkit-scrollbar {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -150,6 +151,7 @@ body::-webkit-scrollbar {
   0% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -189,4 +191,9 @@ body::-webkit-scrollbar {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.no-zoom {
+  transform: scale(1.25) !important;
+  transform-origin: center top;
 }
