@@ -22,7 +22,7 @@ const getHeaderHeight = () => {
     return 104; // 기본: 104px
 };
 
-const GAP = 98;
+const GAP = 140;
 
 // ✅ 섹션 높이 계산 함수 (뷰포트 높이 - 헤더 높이)
 const getSectionHeight = () => {
@@ -63,7 +63,8 @@ function useSmoothSectionAlignment() {
             // sec-0는 상단 정렬로 비디오가 완전히 보이도록 처리
             if (index === 0) return Math.max(0, elementTop);
             // 나머지는 중앙 정렬
-            const offset = elementTop - (window.innerHeight - rect.height) / 2;
+            const zoomFactor = (window as any).zoomFactor || 1;
+            const offset = elementTop - (window.innerHeight - rect.height) / 2 / zoomFactor;
             return Math.max(0, offset);
         };
 
@@ -255,11 +256,12 @@ const BodyText: React.FC<{ text: string }> = ({ text }) => (
 );
 
 /* ✅ StickyFrame - 자동 섹션 중앙 정렬 적용 (한 화면 높이) */
-const StickyFrame: React.FC<{ children: React.ReactNode; sectionId?: string; id?: string; isLongContent?: boolean }> = ({
+const StickyFrame: React.FC<{ children: React.ReactNode; sectionId?: string; id?: string; isLongContent?: boolean; extraGap?: number }> = ({
     children,
     sectionId,
     id,
     isLongContent = false, // 길이가 긴 섹션 (intro, 졸업구성원)
+    extraGap = 0, // 추가 gap (기본값 0)
 }) => {
     const [sectionHeight, setSectionHeight] = useState('800px');
 
@@ -284,10 +286,11 @@ const StickyFrame: React.FC<{ children: React.ReactNode; sectionId?: string; id?
         <div
             id={id}
             data-section-id={sectionId}
-            className="relative w-full flex items-start justify-center min-[1020px]:pt-[100px] max-[1019px]:pt-0"
+            className="relative w-full flex items-start justify-center min-[1920px]:pt-[100px] max-[1919px]:pt-0"
             style={{
                 minHeight: isLongContent ? 'auto' : sectionHeight,
-                height: isLongContent ? 'auto' : sectionHeight
+                height: isLongContent ? 'auto' : sectionHeight,
+                marginTop: extraGap // 추가 gap 적용
             }}
         >
             <div className="w-full max-w-[1720px]" style={{ background: 'transparent' }}>
@@ -299,7 +302,7 @@ const StickyFrame: React.FC<{ children: React.ReactNode; sectionId?: string; id?
 
 const SignatureBlock: React.FC<{ role: string; name: string; date: string }> = ({ role, name, date }) => (
     <div className={[
-        "mt-10 w-full",
+        "mt-4 w-full",
         "min-[1020px]:max-w-[843px]", // 1020px 이상에서는 843px
         "min-[1351px]:max-w-[720px]", // 1351x 이상에서는 720px
         "min-[1020px]:justify-between", // 1020px 이상에서는 justify-between으로 여백 분산
@@ -427,9 +430,10 @@ const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
         const rect = el.getBoundingClientRect();
         const elementTop = window.scrollY + rect.top;
         const isFirst = idx === 0;
+        const zoomFactor = (window as any).zoomFactor || 1;
         const target = isFirst
             ? Math.max(0, elementTop)
-            : Math.max(0, elementTop - (window.innerHeight - rect.height) / 2);
+            : Math.max(0, elementTop - (window.innerHeight - rect.height) / 2 / zoomFactor);
         window.scrollTo({ top: target, behavior: "smooth" });
     };
 
@@ -506,7 +510,7 @@ const AboutInfoSection: React.FC = () => {
                     "px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px]",
                 ].join(" ")}
                 style={{
-                    minHeight: '100vh', // 최소 화면 높이
+                    minHeight: (window as any).isMacBookZoom ? '125vh' : '100vh', // zoom 보정
                     paddingTop: 0, // sticky 전환을 위해 패딩 제거
                     paddingBottom: 0, // 아래 패딩 제거
                     position: 'static', // 기본값, JS에서 sticky로 변경
@@ -551,7 +555,7 @@ const AboutInfoSection: React.FC = () => {
                         </StickyFrame>
 
                         {/* 5) 지도 교수 */}
-                        <StickyFrame id="sec-5" sectionId="advisors">
+                        <StickyFrame id="sec-5" sectionId="advisors" extraGap={60}>
                             <TwoColumn title="지도 교수" className="max-[600px]:items-start">
                                 {/* 그리드 기반 교수 리스트 */}
                                 <div className={[
@@ -579,7 +583,7 @@ const AboutInfoSection: React.FC = () => {
                         </StickyFrame>
 
                         {/* 7) 졸업 구성원 (상단 고정) */}
-                        <StickyFrame id="sec-7" sectionId="members" >
+                        <StickyFrame id="sec-7" sectionId="members" extraGap={120}>
                             <div className="w-full">
                                 <TwoColumn title="졸업구성원" className="mb-20">
                                     <div className={[

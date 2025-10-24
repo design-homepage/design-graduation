@@ -36,7 +36,8 @@ const TextSection: React.FC = () => {
                 const textRect = textRef.current.getBoundingClientRect();
 
                 // 텍스트가 화면의 80% 지점에 도달하면 그리드 sticky 활성화
-                const transitionPoint = window.innerHeight * 0.8;
+                const zoomFactor = (window as any).zoomFactor || 1;
+                const transitionPoint = window.innerHeight * 0.8 / zoomFactor;
 
                 if (textRect.bottom <= transitionPoint) {
                     // 그리드 sticky 활성화
