@@ -62,17 +62,17 @@ const Header = ({ color, scroll }: HeaderProps) => {
             <Link
               key={item.path}
               to={item.path}
-              className={`text-2xl ease-out duration-300 text-inherit ${color === 'white' ? 'hover:text-primary' : 'hover:text-white'} ${location.pathname.startsWith(item.path)
-                ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
-                : 'text-foreground'
-                }`}
+              className={`text-2xl ease-out duration-300 text-inherit ${color === 'white' ? 'hover:text-primary' : 'hover:text-white'} ${
+                location.pathname.startsWith(item.path)
+                  ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
+                  : 'text-foreground'
+              }`}
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        {/* 모바일 메뉴 버튼 (추후 구현) */}
         <div className="lg:hidden">
           <button
             className={color === 'black' ? 'text-white' : 'text-black'}
@@ -97,7 +97,7 @@ const Header = ({ color, scroll }: HeaderProps) => {
               <g mask="url(#mask0_3698_8448)">
                 <path
                   d="M7 13.2695V11H41V13.2695H7ZM7 37V34.7305H41V37H7ZM7 25.1345V22.8655H41V25.1345H7Z"
-                  fill="black"
+                  fill="currentColor"
                 />
               </g>
             </svg>
@@ -112,8 +112,9 @@ const Header = ({ color, scroll }: HeaderProps) => {
                 key={item.path}
                 to={item.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`text-[60px] leading-[1.2] ${location.pathname === item.path ? 'font-bold text-primary' : 'text-white'
-                  }`}
+                className={`text-[60px] leading-[1.2] ${
+                  location.pathname === item.path ? 'font-bold text-primary' : 'text-white'
+                }`}
               >
                 {item.mobileMenu}
               </Link>
