@@ -20,6 +20,28 @@ const SnapContainer: React.FC<SnapContainerProps> = ({
     const observerRef = useRef<IntersectionObserver | null>(null);
     const scrollTimeoutRef = useRef<number | null>(null);
 
+    // 섹션으로 스크롤 - CSS scroll-snap과 호환
+    const scrollToSection = useCallback((sectionId: string) => {
+        const element = sectionRefs.current.get(sectionId);
+        if (element && containerRef.current) {
+            setIsScrolling(true);
+
+            // CSS scroll-snap과 호환되는 스크롤
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            // 스크롤 완료 후 상태 업데이트
+            if (scrollTimeoutRef.current) {
+                clearTimeout(scrollTimeoutRef.current);
+            }
+            scrollTimeoutRef.current = window.setTimeout(() => {
+                setIsScrolling(false);
+            }, 1000);
+        }
+    }, []);
+
     // IntersectionObserver 설정 - 살짝만 보여도 중앙으로 스냅
     useEffect(() => {
         if (!containerRef.current) return;
@@ -81,28 +103,6 @@ const SnapContainer: React.FC<SnapContainerProps> = ({
             window.removeEventListener('hashchange', handleHashChange);
         };
     }, [ids, scrollToSection]);
-
-    // 섹션으로 스크롤 - CSS scroll-snap과 호환
-    const scrollToSection = useCallback((sectionId: string) => {
-        const element = sectionRefs.current.get(sectionId);
-        if (element && containerRef.current) {
-            setIsScrolling(true);
-
-            // CSS scroll-snap과 호환되는 스크롤
-            element.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-
-            // 스크롤 완료 후 상태 업데이트
-            if (scrollTimeoutRef.current) {
-                clearTimeout(scrollTimeoutRef.current);
-            }
-            scrollTimeoutRef.current = window.setTimeout(() => {
-                setIsScrolling(false);
-            }, 1000);
-        }
-    }, []);
 
     // 섹션 ref 등록
     const registerSection = useCallback((id: string, element: HTMLElement | null) => {
@@ -166,11 +166,13 @@ const SnapContainer: React.FC<SnapContainerProps> = ({
                 {React.Children.map(children, (child) => {
                     if (React.isValidElement(child) && child.props && typeof child.props === 'object' && 'id' in child.props) {
                         const childProps = child.props as { id: string };
-                        return React.cloneElement(child as React.ReactElement<{ id: string }>, {
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        return React.cloneElement(child as any, {
                             ...child.props,
                             ref: (element: HTMLElement | null) => {
                                 registerSection(childProps.id, element);
                             },
+                            'data-section-id': childProps.id,
                             isActive: activeSection === childProps.id,
                             isScrolling
                         });
