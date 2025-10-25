@@ -11,7 +11,7 @@ const ArchiveBackground: React.FC<ArchiveBackgroundProps> = () => {
             {/* 배경 이미지 프리로딩 */}
             <link rel="preload" as="image" href="/archive/background-green.webp" />
             <div
-                className="fixed inset-0"
+                className="fixed inset-0 no-zoom"
                 style={{
                     backgroundImage: 'url(./archive/background-green.webp)',
                     backgroundColor: '#f0f0f0',
@@ -20,7 +20,7 @@ const ArchiveBackground: React.FC<ArchiveBackgroundProps> = () => {
                     backgroundRepeat: 'no-repeat',
                     zIndex: 0,
                     minHeight: '100vh',
-                    width: '100vw',
+                    width: '115vw',
                     opacity: 0.3
                 }}
             />

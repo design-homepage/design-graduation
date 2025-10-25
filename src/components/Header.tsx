@@ -57,14 +57,14 @@ const Header = ({ color, scroll }: HeaderProps) => {
         </Link>
 
         {/* 네비게이션 */}
-        <nav className="hidden lg:flex gap-10">
+        <nav className="hidden md:flex gap-10 laptop-nav">
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
               className={`text-2xl ease-out duration-300 text-inherit ${color === 'white' ? 'hover:text-primary' : 'hover:text-white'} ${location.pathname.startsWith(item.path)
-                  ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
-                  : 'text-foreground'
+                ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
+                : 'text-foreground'
                 }`}
             >
               {item.label}

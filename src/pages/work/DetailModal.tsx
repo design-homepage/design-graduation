@@ -2,7 +2,7 @@ import { ROUTES } from '@/constants';
 import { useModal } from '@/contexts/ModalContext';
 import { useNavigate } from 'react-router-dom';
 import { arrows } from './constants/arrows';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 type DetailModalProps = {
   selected: number | null;

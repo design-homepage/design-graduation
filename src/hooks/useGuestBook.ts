@@ -83,15 +83,16 @@ export const useGuestBook = () => {
       }
 
       if (data) {
-        const newEntry = [data, ...entries]
-        setEntries(newEntry)
-        
-        // 캐시 업데이트
-        cacheRef.current = {
-          data: newEntry,
-          timestamp: Date.now()
-        }
-        
+        setEntries(prev => {
+          const newEntries = [data, ...prev]
+          // 캐시 업데이트
+          cacheRef.current = {
+            data: newEntries,
+            timestamp: Date.now()
+          }
+          return newEntries
+        })
+
         return data
       }
     } catch (err) {

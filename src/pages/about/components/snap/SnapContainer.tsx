@@ -24,7 +24,8 @@ const SnapContainer: React.FC<SnapContainerProps> = ({
     useEffect(() => {
         if (!containerRef.current) return;
 
-        const options: IntersectionObserverInit = {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const options: any = {
             root: containerRef.current, // 컨테이너를 root로 설정
             rootMargin: '-20% 0px -20% 0px', // 더 관대한 마진으로 스냅 감지 개선
             threshold: 0.3 // 더 높은 threshold로 정확한 감지
@@ -79,7 +80,7 @@ const SnapContainer: React.FC<SnapContainerProps> = ({
         return () => {
             window.removeEventListener('hashchange', handleHashChange);
         };
-    }, [ids]);
+    }, [ids, scrollToSection]);
 
     // 섹션으로 스크롤 - CSS scroll-snap과 호환
     const scrollToSection = useCallback((sectionId: string) => {
@@ -165,7 +166,7 @@ const SnapContainer: React.FC<SnapContainerProps> = ({
                 {React.Children.map(children, (child) => {
                     if (React.isValidElement(child) && child.props && typeof child.props === 'object' && 'id' in child.props) {
                         const childProps = child.props as { id: string };
-                        return React.cloneElement(child as React.ReactElement<any>, {
+                        return React.cloneElement(child as React.ReactElement<{ id: string }>, {
                             ...child.props,
                             ref: (element: HTMLElement | null) => {
                                 registerSection(childProps.id, element);

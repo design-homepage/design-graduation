@@ -40,8 +40,8 @@ const ArchiveGrid: React.FC = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const handleImageError = (index: number) => {
-        setImageErrors(prev => new Set(prev).add(index));
+    const handleImageError = (_index: number) => {
+        setImageErrors(prev => new Set(prev).add(_index));
     };
 
     // 반응형 스타일 계산

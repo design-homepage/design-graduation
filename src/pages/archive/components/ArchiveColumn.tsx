@@ -7,6 +7,7 @@ interface ArchiveColumnProps {
     imageErrors: Set<number>;
     onImageError: (index: number) => void;
     columnKey: string;
+    _index?: number;
 }
 
 const ArchiveColumn: React.FC<ArchiveColumnProps> = ({

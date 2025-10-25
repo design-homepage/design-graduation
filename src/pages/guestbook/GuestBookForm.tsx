@@ -1,3 +1,4 @@
+import React from "react";
 import type { TeamMember } from '@/types/teamMembers';
 import { teamMemberNames } from '@/types/teamMembers';
 
@@ -7,8 +8,8 @@ interface GuestBookFormProps {
     message: string;
     receiver: TeamMember;
   };
-  onInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
-  onSubmit: (e: React.FormEvent) => void;
+  onInputChange: (_e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  onSubmit: (_e: React.FormEvent) => void;
   windowWidth: number;
   responsiveStyles: {
     containerWidth: string;
@@ -35,8 +36,8 @@ export const GuestBookForm = ({ formData, onInputChange, onSubmit, windowWidth, 
       className="relative snap-start z-10"
       style={{ height: 'calc(100vh - 64px)' }}
     >
-      <div className="flex items-center justify-center h-full" style={{ 
-        marginTop: windowWidth >= 1020 ? '-70px' : '0px' 
+      <div className="flex items-center justify-center h-full" style={{
+        marginTop: windowWidth >= 1020 ? '-70px' : '0px'
       }}>
         <form onSubmit={onSubmit} className="w-full max-w-4xl mx-auto px-8 flex flex-col items-center">
           {/* 글래스모피즘 컨테이너 */}

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useGuestBook } from '@/hooks/useGuestBook';
 import type { TeamMember } from '@/types/teamMembers';
 import { IntroSection } from './IntroSection';
@@ -9,21 +9,21 @@ import { ConfirmModal } from './ConfirmModal';
 const GuestBookPage = () => {
   // Supabase에서 방명록 데이터 가져오기
   const { entries, loading, error, addEntry, refetch } = useGuestBook();
-  
+
   // 반응형을 위한 상태
   const [windowWidth, setWindowWidth] = useState(0);
-  
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
-    
+
     handleResize(); // 초기값 설정
     window.addEventListener('resize', handleResize);
-    
+
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   // 반응형 스타일 계산
   const getResponsiveStyles = () => {
     if (windowWidth >= 1350) {
@@ -133,16 +133,16 @@ const GuestBookPage = () => {
       };
     }
   };
-  
+
   const responsiveStyles = getResponsiveStyles();
-  
+
   const [formData, setFormData] = useState({
     sender: '',
     message: '',
     receiver: '강유진' as TeamMember
   });
   const [showModal, setShowModal] = useState(false);
-  
+
   // 반응형 카드 크기 계산
   const getCardDimensions = () => {
     if (windowWidth >= 1350) {
@@ -157,20 +157,20 @@ const GuestBookPage = () => {
       return { width: '140px', height: '60px' };
     }
   };
-  
+
   const cardDimensions = getCardDimensions();
 
-  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
+  const handleInputChange = useCallback((_e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = _e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
   }, []);
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  const handleSubmit = useCallback(async (_e: React.FormEvent) => {
+    _e.preventDefault();
+
     if (!formData.sender.trim() || !formData.message.trim() || !formData.receiver.trim()) {
       alert('보내는 사람, 메시지, 받는 사람을 모두 입력해주세요.');
       return;
@@ -188,7 +188,7 @@ const GuestBookPage = () => {
         message: formData.message.trim(),
         receiver: formData.receiver
       });
-      
+
       alert('방명록이 성공적으로 등록되었습니다!');
       setFormData({ sender: '', message: '', receiver: '강유진' as TeamMember });
       setShowModal(false);
@@ -204,23 +204,23 @@ const GuestBookPage = () => {
   };
 
   return (
-    <div 
-      className="relative snap-y snap-mandatory smooth-scroll-snap" 
-      style={{ 
-        height: 'calc(100vh - 64px)', 
+    <div
+      className="relative snap-y snap-mandatory smooth-scroll-snap"
+      style={{
+        height: 'calc(100vh - 64px)',
         overflowY: 'auto'
       }}
     >
-      <div 
-        className="guestbook-container relative" 
-        style={{ 
+      <div
+        className="guestbook-container relative"
+        style={{
           minHeight: '300vh',
           backgroundColor: '#00E53A'
         }}
       >
         {/* 배경 이미지 오버레이 (30% 투명도) - 지연 로딩 */}
-        <div 
-          className="absolute inset-0 z-0" 
+        <div
+          className="absolute inset-0 z-0"
           style={{
             backgroundImage: 'url(/guestbook/background-white.webp)',
             backgroundRepeat: 'no-repeat',
@@ -235,7 +235,7 @@ const GuestBookPage = () => {
         <IntroSection windowWidth={windowWidth} />
 
         {/* 두 번째 섹션: 방명록 작성 폼 */}
-        <GuestBookForm 
+        <GuestBookForm
           formData={formData}
           onInputChange={handleInputChange}
           onSubmit={handleSubmit}
@@ -244,7 +244,7 @@ const GuestBookPage = () => {
         />
 
         {/* 세 번째 섹션: 방명록 목록 */}
-        <InfiniteScrollSection 
+        <InfiniteScrollSection
           entries={entries}
           loading={loading}
           error={error}
@@ -255,7 +255,7 @@ const GuestBookPage = () => {
       </div>
 
       {/* 모달 */}
-      <ConfirmModal 
+      <ConfirmModal
         show={showModal}
         onClose={handleModalClose}
         onConfirm={handleConfirmSubmit}
