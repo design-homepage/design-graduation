@@ -1,9 +1,0 @@
-public/work/work_all/3/* filter=lfs diff=lfs merge=lfs -text
-public/work/work_all/7/* filter=lfs diff=lfs merge=lfs -text
-public/work/work_all/8/* filter=lfs diff=lfs merge=lfs -text
-public/work/work_all/14/* filter=lfs diff=lfs merge=lfs -text
-public/work/work_all/19/* filter=lfs diff=lfs merge=lfs -text
-public/work/work_all/21/* filter=lfs diff=lfs merge=lfs -text
-public/work/work_all/22/* filter=lfs diff=lfs merge=lfs -text
-
-public/work/work_all/8/*.gif filter=lfs diff=lfs merge=lfs -text
