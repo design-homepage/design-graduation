@@ -15,7 +15,8 @@ export const arrows = [
       '이 전시는 현대인의 혼란스러운 삶 속에서 ‘나는 무엇인가’라는 질문을 불교의 무아 사상과 연결해 조형적으로 탐구합니다. 종교적 교리를 따르기보다는 근본적이고 비물질적인 태도로서의 불교철학을 오늘날의 불확실성과 맞닿게 하며, 이를 감각적이고 물질적인 디자인 언어로 치환합니다. “Have a Buddhaful Day!”라는 제목은 ‘Have a beautiful day!’라는 일상의 언어와 불교적 세계관을 교차시킨 말장난으로, 종교적 신자라기보다는 심리적 위안을 필요로 하는 현대인을 위한 제안이자 초대장입니다. 이 프로젝트는 불교의 무아사상을 종이와 잉크, 재질과 기법 같은 물질적 장치에 번역하며, 자아를 해체하는 과정을 조형적으로 재현합니다. 관람자는 그 과정 속에서 시각적 사물과 심리적 사유가 교차하는 경험을 마주하게 됩니다.',
     englishExplanation:
       'This exhibition explores the question ‘What am I?’ within the confusion of contemporary life, linking it to the Buddhist concept of non-self through a visual and spatial inquiry. Rather than following religious doctrine, it engages with Buddhist philosophy as a fundamental and immaterial attitude, bringing it into dialogue with today’s uncertainties and translating it into a sensory and material design language.The title ‘Have a Buddhaful Day!’ is a playful pun that intersects the everyday phrase ‘Have a beautiful day!’ with a Buddhist worldview. It serves less as a message for religious believers than as a proposal and an invitation for modern individuals seeking psychological comfort.This project translates the Buddhist philosophy of non-self into material devices such as paper, ink, textures, and techniques, visually re-enacting the process of dismantling the self. In doing so, it offers viewers an encounter where visual objects and psychological reflection intersect.',
-    thumbnail: '/work/work_all/강유진_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/1/%EA%B0%95%EC%9C%A0%EC%A7%84_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/1/%EA%B0%95%EC%9C%A0%EC%A7%84_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/1/%EA%B0%95%EC%9C%A0%EC%A7%84_%EB%B3%B8%EB%AC%B82.webp',
@@ -43,7 +44,8 @@ export const arrows = [
       '집은 세상의 속도와 기준에서 잠시 벗어나 숨을 고르고, 억눌린 마음을 편히 드러낼 수 있는 감성적 공간으로서 단순한 생활의 공간을 넘어, 감정을 내려놓고 회복할 수 있는 심리적 안식처입니다. ‘HOME’은 이러한 집의 의미에서 출발한 감정 리추얼 브랜드입니다. 우리는 사회의 시선과 기준에 맞추다 보니 자신의 감정을 뒤로 미루며 살아가고, 이는 결국 ‘나다움’을 흐리게 만듭니다. ‘HOME’은 감정을 인식하고 표현하며 정화하는 과정을 통해, 흐려진 나를 다시 선명하게 되찾는 여정을 제안합니다. 각 감정 리추얼 단계에는 서로 다른 경험과 구성품을 통해 감정을 마주하고 자기회복 하도록 돕습니다.',
     englishExplanation:
       'Home is an emotional space where we can momentarily step away from the pace and standards of the world, take a breath, and gently reveal our suppressed feelings. Beyond being a simple place of living, it is a psychological sanctuary where emotions can be released and healing can take place. ‘HOME’ is an emotional ritual brand inspired by this meaning of home. As we constantly adapt to society’s gaze and expectations, we often push our own emotions aside, which eventually blurs our sense of authenticity—our true self. ‘HOME’ proposes a journey to regain that clarity by recognizing, expressing, and cleansing emotions. Each step of the emotional ritual offers different experiences and tools that help us confront our feelings and move toward self-restoration.',
-    thumbnail: '/work/work_all/강현정_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/2/%EA%B0%95%ED%98%84%EC%A0%95_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/2/%EA%B0%95%ED%98%84%EC%A0%95_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/2/%EA%B0%95%ED%98%84%EC%A0%95_%EB%B3%B8%EB%AC%B82.webp',
@@ -67,7 +69,8 @@ export const arrows = [
     email: 'kmg51265053@gmail.com',
     instagram: '13.03mj / https://www.instagram.com/13.03mj/',
     link: 'https://www.behance.net/9866d30f',
-    thumbnail: '/work/work_all/권민정_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/3/%EA%B6%8C%EB%AF%BC%EC%A0%95_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/3/%EA%B6%8C%EB%AF%BC%EC%A0%95_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/3/%EA%B6%8C%EB%AF%BC%EC%A0%95_%EB%B3%B8%EB%AC%B82.webp',
@@ -102,7 +105,8 @@ export const arrows = [
     email: 'doyunng020318@gmail.com',
     instagram: '',
     link: '',
-    thumbnail: '/work/work_all/김도영_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/4/%EA%B9%80%EB%8F%84%EC%98%81_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/4/%EA%B9%80%EB%8F%84%EC%98%81_%EB%B3%B8%EB%AC%B81.webp',
       ['0', 'https://www.youtube.com/embed/19cM8UoZEJE?si=KQ_OQgBytDfAFYEF'],
@@ -132,9 +136,10 @@ export const arrows = [
     email: 'alsrn1407@gmail.com',
     instagram: '',
     link: '',
-    thumbnail: '/work/work_all/김민구_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/5/%EA%B9%80%EB%AF%BC%EA%B5%AC_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
-      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/4/%EA%B9%80%EB%8F%84%EC%98%81_%EB%B3%B8%EB%AC%B81.webp',
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/5/%EA%B9%80%EB%AF%BC%EA%B5%AC_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/5/%EA%B9%80%EB%AF%BC%EA%B5%AC_%EB%B3%B8%EB%AC%B82.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/5/%EA%B9%80%EB%AF%BC%EA%B5%AC_%EB%B3%B8%EB%AC%B83.webp',
       ['0', 'https://www.youtube.com/embed/9S1wqOf4fpA?si=QjHsDd9BuBBUInki'],
@@ -166,7 +171,8 @@ export const arrows = [
     email: 'stella0433@naver.com',
     instagram: 'rtmdghk / https://www.instagram.com/rtmdghk/',
     link: 'https://www.behance.net/rtmdghk',
-    thumbnail: '/work/work_all/김승화_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/6/%EA%B9%80%EC%8A%B9%ED%99%94_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/6/%EA%B9%80%EC%8A%B9%ED%99%94_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/6/%EA%B9%80%EC%8A%B9%ED%99%94_%EB%B3%B8%EB%AC%B82.webp',
@@ -193,7 +199,8 @@ export const arrows = [
     email: 'gee5288@hanmail.net',
     instagram: 'adorab1e.j / https://www.instagram.com/adorab1e.j/',
     link: 'https://www.behance.net/eunji__',
-    thumbnail: '/work/work_all/김은지_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/7/%EA%B9%80%EC%9D%80%EC%A7%80_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/7/%EA%B9%80%EC%9D%80%EC%A7%80_%EB%B3%B8%EB%AC%B81+.gif',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/7/%EA%B9%80%EC%9D%80%EC%A7%80_%EB%B3%B8%EB%AC%B82.webp',
@@ -230,7 +237,8 @@ export const arrows = [
     email: 'hayul14@naver.com',
     instagram: '',
     link: '',
-    thumbnail: '/work/work_all/김주훈_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/8/%EA%B9%80%EC%A3%BC%ED%9B%88_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/8/%EA%B9%80%EC%A3%BC%ED%9B%88_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/8/%EA%B9%80%EC%A3%BC%ED%9B%88_%EB%B3%B8%EB%AC%B82.webp',
@@ -260,7 +268,8 @@ export const arrows = [
     email: 'thdus6288@naver.com',
     instagram: '',
     link: '',
-    thumbnail: '/work/work_all/박소연_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/9/%EB%B0%95%EC%86%8C%EC%97%B0_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/9/%EB%B0%95%EC%86%8C%EC%97%B0_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/9/%EB%B0%95%EC%86%8C%EC%97%B0_%EB%B3%B8%EB%AC%B82.webp',
@@ -291,7 +300,8 @@ export const arrows = [
     email: 'qkrtnals0118@naver.com',
     instagram: 'sxumins / https://www.instagram.com/sxumins/',
     link: 'https://www.behance.net/d69b6d23/projects',
-    thumbnail: '/work/work_all/박수민_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/10/%EB%B0%95%EC%88%98%EB%AF%BC_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/10/%EB%B0%95%EC%88%98%EB%AF%BC_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/10/%EB%B0%95%EC%88%98%EB%AF%BC_%EB%B3%B8%EB%AC%B82.webp',
@@ -317,7 +327,8 @@ export const arrows = [
     email: 'godus3239@gmail.com',
     instagram: '',
     link: '',
-    thumbnail: '/work/work_all/박해연_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/11/%EB%B0%95%ED%95%B4%EC%97%B0_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/11/%EB%B0%95%ED%95%B4%EC%97%B0_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/11/%EB%B0%95%ED%95%B4%EC%97%B0_%EB%B3%B8%EB%AC%B82.webp',
@@ -340,7 +351,8 @@ export const arrows = [
     email: '',
     instagram: '',
     link: '',
-    thumbnail: '/work/work_all/박희건_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/12/%EB%B0%95%ED%9D%AC%EA%B1%B4_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/12/%EB%B0%95%ED%9D%AC%EA%B1%B4_%EB%B3%B8%EB%AC%B81.webp',
     ],
@@ -361,7 +373,8 @@ export const arrows = [
     email: 'ssyb1109@naver.com',
     instagram: '',
     link: '',
-    thumbnail: '/work/work_all/신유빈_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/13/%EC%8B%A0%EC%9C%A0%EB%B9%88_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/13/%EC%8B%A0%EC%9C%A0%EB%B9%88_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/13/%EC%8B%A0%EC%9C%A0%EB%B9%88_%EB%B3%B8%EB%AC%B82.webp',
@@ -387,7 +400,8 @@ export const arrows = [
     email: 'suah4419@gmail.com',
     instagram: 'ss_u___a / https://www.instagram.com/ss_u___a/',
     link: 'https://www.behance.net/e965f8b7',
-    thumbnail: '/work/work_all/안수아_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/14/%EC%95%88%EC%88%98%EC%95%84_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/14/%EC%95%88%EC%88%98%EC%95%84_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/14/%EC%95%88%EC%88%98%EC%95%84_%EB%B3%B8%EB%AC%B82.webp',
@@ -415,7 +429,8 @@ export const arrows = [
     email: '5dews@naver.com',
     instagram: '',
     link: '',
-    thumbnail: '/work/work_all/오서현_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/15/%EC%98%A4%EC%84%9C%ED%98%84_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/15/%EC%98%A4%EC%84%9C%ED%98%84_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/15/%EC%98%A4%EC%84%9C%ED%98%84_%EB%B3%B8%EB%AC%B82.webp',
@@ -440,7 +455,8 @@ export const arrows = [
     email: 'tronjihong@naver.com',
     instagram: '0hjihong / https://www.instagram.com/0hjihong/',
     link: '',
-    thumbnail: '/work/work_all/오지홍_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/16/%EC%98%A4%EC%A7%80%ED%99%8D_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/16/%EC%98%A4%EC%A7%80%ED%99%8D_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/16/%EC%98%A4%EC%A7%80%ED%99%8D_%EB%B3%B8%EB%AC%B82.webp',
@@ -473,7 +489,8 @@ export const arrows = [
     email: 'jung2yaa@naver.com',
     instagram: 'wonmj_1027 / https://www.instagram.com/wonmj_1027/',
     link: 'https://www.behance.net/minjungwon1',
-    thumbnail: '/work/work_all/원민정_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/17/%EC%9B%90%EB%AF%BC%EC%A0%95_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/17/%EC%9B%90%EB%AF%BC%EC%A0%95_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/17/%EC%9B%90%EB%AF%BC%EC%A0%95_%EB%B3%B8%EB%AC%B82.gif',
@@ -496,7 +513,8 @@ export const arrows = [
     email: 'anies112@naver.com',
     instagram: 'y.unseo_2 / https://www.instagram.com/y.unseo_2/',
     link: '',
-    thumbnail: '/work/work_all/이윤서_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/18/%EC%9D%B4%EC%9C%A4%EC%84%9C_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/18/%EC%9D%B4%EC%9C%A4%EC%84%9C_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/18/%EC%9D%B4%EC%9C%A4%EC%84%9C_%EB%B3%B8%EB%AC%B82.webp',
@@ -528,7 +546,8 @@ export const arrows = [
     email: 'minamone19@gmail.com',
     instagram: '',
     link: '',
-    thumbnail: '/work/work_all/이지혁_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%81_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%961_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%961_%EB%B3%B8%EB%AC%B82.webp',
@@ -556,7 +575,8 @@ export const arrows = [
     email: 'csjyseo@gmail.com',
     instagram: '',
     link: '',
-    thumbnail: '/work/work_all/전윤서_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/20/%EC%A0%84%EC%9C%A4%EC%84%9C_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/20/%EC%A0%84%EC%9C%A4%EC%84%9C_%EB%B3%B8%EB%AC%B81.webp',
     ],
@@ -576,7 +596,8 @@ export const arrows = [
     email: 'sorpdhktlsth1@icloud.com',
     instagram: '',
     link: '',
-    thumbnail: '/work/work_all/정현진_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/21/%EC%A0%95%ED%98%84%EC%A7%84_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/21/%EC%A0%95%ED%98%84%EC%A7%84_%EB%B3%B8%EB%AC%B81.png',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/21/%EC%A0%95%ED%98%84%EC%A7%84_%EB%B3%B8%EB%AC%B82.gif',
@@ -601,7 +622,8 @@ export const arrows = [
     email: 'abcabc0103_@naver.com',
     instagram: '',
     link: 'https://www.behance.net/bc3f8b57',
-    thumbnail: '/work/work_all/정환이_작품썸네일.webp',
+    thumbnail:
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/22/%EC%A0%95%ED%99%98%EC%9D%B4_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/22/%EC%A0%95%ED%99%98%EC%9D%B4_%EB%B3%B8%EB%AC%B81.webp',
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/22/%EC%A0%95%ED%99%98%EC%9D%B4_%EB%B3%B8%EB%AC%B82.gif',
