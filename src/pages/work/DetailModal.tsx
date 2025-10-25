@@ -46,27 +46,25 @@ export const DetailModal = ({ selected }: DetailModalProps) => {
   };
 
   return (
-    <div className="fixed lg:top-[120px] md:top-[100px] top-[80px] left-0 w-full lg:h-[calc(100vh-120px)] md:h-[calc(100vh-100px)] h-[calc(100vh-80px)] bg-black/60 overflow-y-auto z-200">
+    <div className="fixed lg:top-[120px] md:top-[100px] top-[80px] left-0 w-full lg:h-[calc(100vh-120px)] md:h-[calc(100vh-100px)] h-[calc(100vh-80px)] bg-black/60 overflow-y-auto z-[200]">
       <div className="flex min-h-full justify-center items-center xl:px-[100px] md:px-[50px] px-[20px] py-[200px]">
-        <div className="flex w-full xl:flex-row flex-col gap-[30px] xl:gap-5 cursor-pointer">
+        <div className="flex w-full flex-col gap-[30px] xl:gap-5 cursor-pointer">
           <img
             src={arrow.thumbnail}
             alt="Work Detail"
             className="hover:grayscale ease-out transition-all duration-300 w-full min-w-0 xl:flex-3"
             onClick={() => gotoDetail(selected)}
-            onError={(e) => {
-              console.error('Image failed to load:', arrow.thumbnail);
-              e.currentTarget.style.border = '2px solid red';
-            }}
           />
           <div className="flex flex-1 xl:flex-col flex-row gap-5 justify-between">
             <div>
-              <p className="text-xl md:text-3xl lg:text-4xl text-white font-bold">
-                {arrow.workTitle}
-              </p>
-              <p className="text-xl md:text-3xl lg:text-4xl text-white font-bold">
-                {arrow.workTitle2}
-              </p>
+              <div className="flex flex-col xl:flex-row xl:gap-2">
+                <p className="text-xl md:text-3xl lg:text-4xl text-white font-bold">
+                  {arrow.workTitle}
+                </p>
+                <p className="text-xl md:text-3xl lg:text-4xl text-white font-bold">
+                  {arrow.workTitle2}
+                </p>
+              </div>
               <p className="text-base md:text-xl lg:text-3xl xl:text-3xl text-white font-bold mt-5">
                 {arrow.name}
               </p>

@@ -49,28 +49,16 @@ const ProfileDetailPage = () => {
       />
       <ProfileInterviewSection q1={profileData.q1} q2={profileData.q2} />
       <ProfileSectionContainer title="WORK">
-        {workData?.work.map((workImage, index) =>
-          typeof workImage === 'string' ? (
-            <img
-              key={index}
-              src={workImage}
-              alt={`Work ${index + 1}`}
-              onClick={gotoWorkDetail}
-              className="w-full object-cover hover:grayscale ease-out transition-all duration-300"
-            />
-          ) : (
-            <iframe
-              key={index}
-              className="w-full aspect-video hover:grayscale ease-out transition-all duration-300 cursor-pointer"
-              src={workImage[1]}
-              title={`YouTube video player ${index + 1}`}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              onClick={gotoWorkDetail}
-            />
-          )
-        )}
+        <img
+          src={workData?.thumbnail}
+          alt="Work Detail"
+          className="hover:grayscale ease-out transition-all duration-300 w-full min-w-0 xl:flex-3"
+          onClick={() => gotoWorkDetail()}
+          onError={(e) => {
+            console.error('Image failed to load:', workData?.thumbnail);
+            e.currentTarget.style.border = '2px solid red';
+          }}
+        />
       </ProfileSectionContainer>
     </div>
   );

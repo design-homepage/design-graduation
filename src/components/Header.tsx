@@ -31,7 +31,7 @@ const Header = ({ color, scroll }: HeaderProps) => {
 
   return (
     <header
-      className={`fixed w-full top-0 ${bgClass} backdrop-blur-[30px] h-[80px] md:h-[100px] lg:h-[120px] flex items-center z-100 ${scroll} ease-in-out duration-300`}
+      className={`fixed w-full top-0 ${bgClass} backdrop-blur-[30px] h-[80px] md:h-[100px] lg:h-[120px] flex items-center z-[400] ${scroll} ease-in-out duration-300`}
     >
       <div
         className={`w-full flex items-center justify-between px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] ${color === 'black' || color === 'transparent' ? 'text-white' : 'text-foreground'}`}
@@ -57,22 +57,22 @@ const Header = ({ color, scroll }: HeaderProps) => {
         </Link>
 
         {/* 네비게이션 */}
-        <nav className="hidden md:flex gap-10 laptop-nav">
+        <nav className="hidden lg:flex gap-10 laptop-nav">
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className={`text-2xl ease-out duration-300 text-inherit ${color === 'white' ? 'hover:text-primary' : 'hover:text-white'} ${location.pathname.startsWith(item.path)
-                ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
-                : 'text-foreground'
-                }`}
+              className={`text-2xl ease-out duration-300 text-inherit ${color === 'white' ? 'hover:text-primary' : 'hover:text-white'} ${
+                location.pathname.startsWith(item.path)
+                  ? `${color !== 'primary' ? 'text-primary' : 'text-white'} font-bold`
+                  : 'text-foreground'
+              }`}
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        {/* 모바일 메뉴 버튼 (추후 구현) */}
         <div className="lg:hidden">
           <button
             className={color === 'black' ? 'text-white' : 'text-black'}
@@ -97,7 +97,7 @@ const Header = ({ color, scroll }: HeaderProps) => {
               <g mask="url(#mask0_3698_8448)">
                 <path
                   d="M7 13.2695V11H41V13.2695H7ZM7 37V34.7305H41V37H7ZM7 25.1345V22.8655H41V25.1345H7Z"
-                  fill="black"
+                  fill="currentColor"
                 />
               </g>
             </svg>
@@ -105,15 +105,16 @@ const Header = ({ color, scroll }: HeaderProps) => {
         </div>
       </div>
       {isMobileMenuOpen && (
-        <div className="lg:hidden h-[1020px] justify-between bg-black/50 backdrop-blur-[30px] absolute top-full left-0 w-full flex flex-col z-10 px-[50px] py-[15px]">
+        <div className="lg:hidden h-[1020px] justify-between bg-black/50 backdrop-blur-[30px] absolute top-full left-0 w-full flex flex-col px-[50px] py-[15px] z-[300]">
           <nav className="flex flex-col gap-[50px]">
             {[mobileOnlyItem, ...navItems].map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`text-[60px] leading-[1.2] ${location.pathname === item.path ? 'font-bold text-primary' : 'text-white'
-                  }`}
+                className={`text-[60px] leading-[1.2] ${
+                  location.pathname === item.path ? 'font-bold text-primary' : 'text-white'
+                }`}
               >
                 {item.mobileMenu}
               </Link>
