@@ -531,9 +531,9 @@ const AboutInfoSection: React.FC = () => {
                             </TwoColumn>
                         </StickyFrame>
 
-                        {/* 2) VIDUAL IDENTITY */}
+                        {/* 2) VISUAL IDENTITY */}
                         <StickyFrame id="sec-2" sectionId="visual-identity">
-                            <TwoColumn title={"VIDUAL\nIDENTITY"}>
+                            <TwoColumn title={"VISUAL\nIDENTITY"}>
                                 <BodyText text={visualIdentityContent} />
                             </TwoColumn>
                         </StickyFrame>
