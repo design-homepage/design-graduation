@@ -46,7 +46,7 @@ export const DetailModal = ({ selected }: DetailModalProps) => {
   };
 
   return (
-    <div className="fixed lg:top-[120px] md:top-[100px] top-[80px] left-0 w-full lg:h-[calc(100vh-120px)] md:h-[calc(100vh-100px)] h-[calc(100vh-80px)] bg-black/60 overflow-y-auto z-200">
+    <div className="fixed lg:top-[120px] md:top-[100px] top-[80px] left-0 w-full lg:h-[calc(100vh-120px)] md:h-[calc(100vh-100px)] h-[calc(100vh-80px)] bg-black/60 overflow-y-auto z-[200]">
       <div className="flex min-h-full justify-center items-center xl:px-[100px] md:px-[50px] px-[20px] py-[200px]">
         <div className="flex w-full flex-col gap-[30px] xl:gap-5 cursor-pointer">
           <img
@@ -54,10 +54,6 @@ export const DetailModal = ({ selected }: DetailModalProps) => {
             alt="Work Detail"
             className="hover:grayscale ease-out transition-all duration-300 w-full min-w-0 xl:flex-3"
             onClick={() => gotoDetail(selected)}
-            onError={(e) => {
-              console.error('Image failed to load:', arrow.thumbnail);
-              e.currentTarget.style.border = '2px solid red';
-            }}
           />
           <div className="flex flex-1 xl:flex-col flex-row gap-5 justify-between">
             <div>

@@ -31,7 +31,7 @@ const Header = ({ color, scroll }: HeaderProps) => {
 
   return (
     <header
-      className={`fixed w-full top-0 ${bgClass} backdrop-blur-[30px] h-[80px] md:h-[100px] lg:h-[120px] flex items-center z-100 ${scroll} ease-in-out duration-300`}
+      className={`fixed w-full top-0 ${bgClass} backdrop-blur-[30px] h-[80px] md:h-[100px] lg:h-[120px] flex items-center z-[400] ${scroll} ease-in-out duration-300`}
     >
       <div
         className={`w-full flex items-center justify-between px-[10px] sm:px-[20px] md:px-[50px] xl:px-[100px] ${color === 'black' || color === 'transparent' ? 'text-white' : 'text-foreground'}`}
@@ -57,7 +57,7 @@ const Header = ({ color, scroll }: HeaderProps) => {
         </Link>
 
         {/* 네비게이션 */}
-        <nav className="hidden md:flex gap-10 laptop-nav">
+        <nav className="hidden lg:flex gap-10 laptop-nav">
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -105,7 +105,7 @@ const Header = ({ color, scroll }: HeaderProps) => {
         </div>
       </div>
       {isMobileMenuOpen && (
-        <div className="lg:hidden h-[1020px] justify-between bg-black/50 backdrop-blur-[30px] absolute top-full left-0 w-full flex flex-col z-10 px-[50px] py-[15px]">
+        <div className="lg:hidden h-[1020px] justify-between bg-black/50 backdrop-blur-[30px] absolute top-full left-0 w-full flex flex-col px-[50px] py-[15px] z-[300]">
           <nav className="flex flex-col gap-[50px]">
             {[mobileOnlyItem, ...navItems].map((item) => (
               <Link
