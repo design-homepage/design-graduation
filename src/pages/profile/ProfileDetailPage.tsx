@@ -49,16 +49,18 @@ const ProfileDetailPage = () => {
       />
       <ProfileInterviewSection q1={profileData.q1} q2={profileData.q2} />
       <ProfileSectionContainer title="WORK">
-        <img
-          src={workData?.thumbnail}
-          alt="Work Detail"
-          className="hover:grayscale ease-out transition-all duration-300 w-full min-w-0 xl:flex-3"
-          onClick={() => gotoWorkDetail()}
-          onError={(e) => {
-            console.error('Image failed to load:', workData?.thumbnail);
-            e.currentTarget.style.border = '2px solid red';
-          }}
-        />
+        <div className="relative overflow-hidden">
+          <img
+            src={workData?.thumbnail}
+            alt="Work Detail"
+            className="transition-transform duration-300 ease-out hover:scale-105 hover:grayscale w-full object-cover"
+            onClick={() => gotoWorkDetail()}
+            onError={(e) => {
+              console.error('Image failed to load:', workData?.thumbnail);
+              e.currentTarget.style.border = '2px solid red';
+            }}
+          />
+        </div>
       </ProfileSectionContainer>
     </div>
   );

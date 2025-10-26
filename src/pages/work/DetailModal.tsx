@@ -49,12 +49,14 @@ export const DetailModal = ({ selected }: DetailModalProps) => {
     <div className="fixed lg:top-[120px] md:top-[100px] top-[80px] left-0 w-full lg:h-[calc(100vh-120px)] md:h-[calc(100vh-100px)] h-[calc(100vh-80px)] bg-black/60 overflow-y-auto z-[200]">
       <div className="flex min-h-full justify-center items-center xl:px-[100px] md:px-[50px] px-[20px] py-[200px]">
         <div className="flex w-full flex-col gap-[30px] xl:gap-5 cursor-pointer">
-          <img
-            src={arrow.thumbnail}
-            alt="Work Detail"
-            className="hover:grayscale ease-out transition-all duration-300 w-full min-w-0 xl:flex-3"
-            onClick={() => gotoDetail(selected)}
-          />
+          <div className="relative overflow-hidden">
+            <img
+              src={arrow.thumbnail}
+              alt="Work Detail"
+              className="transition-transform duration-300 ease-out hover:scale-105 hover:grayscale w-full object-cover"
+              onClick={() => gotoDetail(selected)}
+            />
+          </div>
           <div className="flex flex-1 xl:flex-col flex-row gap-5 justify-between">
             <div>
               <div className="flex flex-col xl:flex-row xl:gap-2">
