@@ -5,7 +5,7 @@ export const ARCHIVE_CONFIG = {
     RELEASE_DATE: '2025-10-28',
 
     // 릴리즈 시간 (24시간 형식, 00:00 = 자정)
-    RELEASE_TIME: '00:00',
+    RELEASE_TIME: '15:00',
 
     // 타임존 (기본: 한국 시간)
     TIMEZONE: 'Asia/Seoul'
