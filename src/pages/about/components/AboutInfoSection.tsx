@@ -127,9 +127,6 @@ function useSmoothSectionAlignment() {
             const isAtTopEdge = currentIndex === 0 && direction < 0;
             const isAtBottomEdge = currentIndex === sections.length - 1 && direction > 0;
 
-            // sec-0에서는 자연 스크롤 유지 (스냅 비활성)
-            if (currentIndex === 0) return;
-
             // 맨 위/맨 아래에선 기본 스크롤 허용 (비디오/푸터 접근)
             if (isAtTopEdge || isAtBottomEdge) return;
 
@@ -161,7 +158,7 @@ function useSmoothSectionAlignment() {
 
             if (["PageDown", "ArrowDown", "ArrowRight"].includes(e.key)) {
                 const isAtBottomEdge = currentIndex === sections.length - 1;
-                if (currentIndex === 0 || isAtBottomEdge) return; // sec-0 및 마지막 섹션에서는 기본 스크롤 허용
+                if (isAtBottomEdge) return; // 마지막 섹션에서는 기본 스크롤 허용
                 e.preventDefault();
                 wheelLock = true;
                 lastWheelAt = now;
