@@ -55,8 +55,6 @@ function useSmoothSectionAlignment() {
 
         let currentIndex = 0;
         let wheelLock = false;
-        let lastWheelAt = 0;
-        const minWheelIntervalMs = 500; // 휠 입력 간격 제한 (500ms)
 
         const getScrollTarget = (index: number) => {
             const el = sections[index];
@@ -106,19 +104,7 @@ function useSmoothSectionAlignment() {
         };
 
         const handleWheel = (e: WheelEvent) => {
-            const now = Date.now();
-
-            // 휠 락 체크
-            if (wheelLock) {
-                e.preventDefault();
-                return;
-            }
-
-            // 휠 입력 간격 제한 (연속 입력 방지)
-            if (now - lastWheelAt < minWheelIntervalMs) {
-                e.preventDefault();
-                return;
-            }
+            if (wheelLock) return;
 
             // 현재 스크롤 위치 기준으로 섹션 인덱스 동기화
             currentIndex = getCurrentIndexByScroll();
@@ -127,52 +113,69 @@ function useSmoothSectionAlignment() {
             const isAtTopEdge = currentIndex === 0 && direction < 0;
             const isAtBottomEdge = currentIndex === sections.length - 1 && direction > 0;
 
+            // sec-0에서는 자연 스크롤 유지 (스냅 비활성)
+            if (currentIndex === 0) return;
+
             // 맨 위/맨 아래에선 기본 스크롤 허용 (비디오/푸터 접근)
             if (isAtTopEdge || isAtBottomEdge) return;
 
-            // 바로 다음 섹션으로 이동 (현재 섹션 정렬 로직 제거)
+            // 먼저 현재 섹션을 중앙으로 정렬한 뒤, 그 다음 입력에서 다음 섹션으로 이동
+            const currentTarget = getScrollTarget(currentIndex);
+            const distanceToCurrent = Math.abs((window.scrollY || 0) - currentTarget);
+            if (distanceToCurrent > 60) {
+                e.preventDefault();
+                wheelLock = true;
+                goToSection(currentIndex);
+                setTimeout(() => (wheelLock = false), 700);
+                return;
+            }
+
             const nextIndex = currentIndex + direction;
             if (nextIndex >= 0 && nextIndex < sections.length) {
                 e.preventDefault();
                 wheelLock = true;
-                lastWheelAt = now;
                 goToSection(nextIndex);
-                setTimeout(() => (wheelLock = false), 1000); // 락 시간 증가 (1초)
+                setTimeout(() => (wheelLock = false), 700);
             }
         };
 
         const handleKey = (e: KeyboardEvent) => {
-            const now = Date.now();
-
-            // 키보드 락 체크
             if (wheelLock) return;
-
-            // 키보드 입력 간격 제한 (연속 입력 방지)
-            if (now - lastWheelAt < minWheelIntervalMs) {
-                e.preventDefault();
-                return;
-            }
 
             // 현재 스크롤 위치 기준으로 섹션 인덱스 동기화
             currentIndex = getCurrentIndexByScroll();
 
             if (["PageDown", "ArrowDown", "ArrowRight"].includes(e.key)) {
                 const isAtBottomEdge = currentIndex === sections.length - 1;
-                if (isAtBottomEdge) return; // 마지막 섹션에서는 기본 스크롤 허용
+                if (currentIndex === 0 || isAtBottomEdge) return; // sec-0 및 마지막 섹션에서는 기본 스크롤 허용
+                // 먼저 현재 섹션 중앙 정렬
+                const currentTarget = getScrollTarget(currentIndex);
+                const distanceToCurrent = Math.abs((window.scrollY || 0) - currentTarget);
+                if (distanceToCurrent > 60) {
+                    e.preventDefault();
+                    wheelLock = true;
+                    goToSection(currentIndex);
+                    setTimeout(() => (wheelLock = false), 700);
+                    return;
+                }
                 e.preventDefault();
-                wheelLock = true;
-                lastWheelAt = now;
                 handleWheel({ deltaY: 1 } as WheelEvent);
-                setTimeout(() => (wheelLock = false), 1000);
             }
             if (["PageUp", "ArrowUp", "ArrowLeft"].includes(e.key)) {
                 const isAtTopEdge = currentIndex === 0;
                 if (isAtTopEdge) return; // 비디오 상단 접근 허용
+                // 먼저 현재 섹션 중앙 정렬
+                const currentTarget = getScrollTarget(currentIndex);
+                const distanceToCurrent = Math.abs((window.scrollY || 0) - currentTarget);
+                if (distanceToCurrent > 60) {
+                    e.preventDefault();
+                    wheelLock = true;
+                    goToSection(currentIndex);
+                    setTimeout(() => (wheelLock = false), 700);
+                    return;
+                }
                 e.preventDefault();
-                wheelLock = true;
-                lastWheelAt = now;
                 handleWheel({ deltaY: -1 } as WheelEvent);
-                setTimeout(() => (wheelLock = false), 1000);
             }
         };
 
