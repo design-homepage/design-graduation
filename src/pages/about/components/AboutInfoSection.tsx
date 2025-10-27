@@ -32,162 +32,7 @@ const getSectionHeight = () => {
     return `calc(100vh - ${headerHeight}px)`;
 };
 
-/* ✅ 스크롤 자동 정렬 제거 또는 비활성화 */
-// ✨ 수정 요약
-// - Slick 스타일로 휠 한 번에 한 섹션만 이동하도록 개선
-// - sec-0 포함하여 전 구간 이동 가능하도록 개선
-
-// 🧠 주요 수정 포인트:
-// 1. 섹션 순서를 DOM 기준이 아니라 sectionId 기준으로 관리
-// 2. sec-0 도 포함한 슬라이드 순서 유지
-// 3. 휠 이벤트 시 정확히 한 섹션만 이동하고, wheelLock 제어 강화
-
-// ✅ 변경된 useSmoothSectionAlignment 함수만 수정
-
-function useSmoothSectionAlignment() {
-    useEffect(() => {
-        const sectionIds = [
-            "sec-0", "sec-1", "sec-2", "sec-3", "sec-4", "sec-5", "sec-6", "sec-7"
-        ];
-
-        const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
-        if (sections.length === 0) return;
-
-        let currentIndex = 0;
-        let wheelLock = false;
-
-        const getScrollTarget = (index: number) => {
-            const el = sections[index];
-            const rect = el.getBoundingClientRect();
-            const elementTop = window.scrollY + rect.top;
-            // sec-0는 상단 정렬로 비디오가 완전히 보이도록 처리
-            if (index === 0) return Math.max(0, elementTop);
-            // 나머지는 중앙 정렬
-            const zoomFactor = window.zoomFactor || 1;
-            const offset = elementTop - (window.innerHeight - rect.height) / 2 / zoomFactor;
-            return Math.max(0, offset);
-        };
-
-        const getCurrentIndexByScroll = () => {
-            let idx = 0;
-            let minDist = Number.POSITIVE_INFINITY;
-            const currentY = window.scrollY;
-            // sec-1의 시작점 이전까지는 무조건 sec-0으로 간주하여 스냅 비활성 상태 유지
-            if (sections[1]) {
-                const sec1Rect = sections[1].getBoundingClientRect();
-                const sec1Top = window.scrollY + sec1Rect.top;
-                if (currentY < sec1Top - 1) return 0;
-            }
-            sections.forEach((el, i) => {
-                const rect = el.getBoundingClientRect();
-                const elementTop = window.scrollY + rect.top;
-                const targetY = i === 0
-                    ? elementTop
-                    : elementTop - (window.innerHeight - rect.height) / 2;
-                const dist = Math.abs(currentY - targetY);
-                if (dist < minDist) {
-                    minDist = dist;
-                    idx = i;
-                }
-            });
-            return idx;
-        };
-
-        // 초기 진입 시 현재 스크롤 위치 기준으로 인덱스 설정
-        currentIndex = getCurrentIndexByScroll();
-
-        const goToSection = (index: number) => {
-            if (index < 0 || index >= sections.length) return;
-            const scrollY = getScrollTarget(index);
-            window.scrollTo({ top: scrollY, behavior: "smooth" });
-            currentIndex = index;
-        };
-
-        const handleWheel = (e: WheelEvent) => {
-            if (wheelLock) return;
-
-            // 현재 스크롤 위치 기준으로 섹션 인덱스 동기화
-            currentIndex = getCurrentIndexByScroll();
-
-            const direction = e.deltaY > 0 ? 1 : -1;
-            const isAtTopEdge = currentIndex === 0 && direction < 0;
-            const isAtBottomEdge = currentIndex === sections.length - 1 && direction > 0;
-
-            // sec-0에서는 자연 스크롤 유지 (스냅 비활성)
-            if (currentIndex === 0) return;
-
-            // 맨 위/맨 아래에선 기본 스크롤 허용 (비디오/푸터 접근)
-            if (isAtTopEdge || isAtBottomEdge) return;
-
-            // 먼저 현재 섹션을 중앙으로 정렬한 뒤, 그 다음 입력에서 다음 섹션으로 이동
-            const currentTarget = getScrollTarget(currentIndex);
-            const distanceToCurrent = Math.abs((window.scrollY || 0) - currentTarget);
-            if (distanceToCurrent > 60) {
-                e.preventDefault();
-                wheelLock = true;
-                goToSection(currentIndex);
-                setTimeout(() => (wheelLock = false), 700);
-                return;
-            }
-
-            const nextIndex = currentIndex + direction;
-            if (nextIndex >= 0 && nextIndex < sections.length) {
-                e.preventDefault();
-                wheelLock = true;
-                goToSection(nextIndex);
-                setTimeout(() => (wheelLock = false), 700);
-            }
-        };
-
-        const handleKey = (e: KeyboardEvent) => {
-            if (wheelLock) return;
-
-            // 현재 스크롤 위치 기준으로 섹션 인덱스 동기화
-            currentIndex = getCurrentIndexByScroll();
-
-            if (["PageDown", "ArrowDown", "ArrowRight"].includes(e.key)) {
-                const isAtBottomEdge = currentIndex === sections.length - 1;
-                if (currentIndex === 0 || isAtBottomEdge) return; // sec-0 및 마지막 섹션에서는 기본 스크롤 허용
-                // 먼저 현재 섹션 중앙 정렬
-                const currentTarget = getScrollTarget(currentIndex);
-                const distanceToCurrent = Math.abs((window.scrollY || 0) - currentTarget);
-                if (distanceToCurrent > 60) {
-                    e.preventDefault();
-                    wheelLock = true;
-                    goToSection(currentIndex);
-                    setTimeout(() => (wheelLock = false), 700);
-                    return;
-                }
-                e.preventDefault();
-                handleWheel({ deltaY: 1 } as WheelEvent);
-            }
-            if (["PageUp", "ArrowUp", "ArrowLeft"].includes(e.key)) {
-                const isAtTopEdge = currentIndex === 0;
-                if (isAtTopEdge) return; // 비디오 상단 접근 허용
-                // 먼저 현재 섹션 중앙 정렬
-                const currentTarget = getScrollTarget(currentIndex);
-                const distanceToCurrent = Math.abs((window.scrollY || 0) - currentTarget);
-                if (distanceToCurrent > 60) {
-                    e.preventDefault();
-                    wheelLock = true;
-                    goToSection(currentIndex);
-                    setTimeout(() => (wheelLock = false), 700);
-                    return;
-                }
-                e.preventDefault();
-                handleWheel({ deltaY: -1 } as WheelEvent);
-            }
-        };
-
-        window.addEventListener("wheel", handleWheel, { passive: false });
-        window.addEventListener("keydown", handleKey);
-
-        return () => {
-            window.removeEventListener("wheel", handleWheel);
-            window.removeEventListener("keydown", handleKey);
-        };
-    }, []);
-}
+/* ✅ 스크롤 스냅 기능 제거 - 일반 스크롤로 변경 */
 
 /* ✅ 2단 그리드 기반 TwoColumn (justify-between 사용) */
 const TwoColumn: React.FC<{
@@ -430,7 +275,16 @@ const RightDotNav: React.FC<{ steps: Step[] }> = ({ steps }) => {
         const rect = el.getBoundingClientRect();
         const elementTop = window.scrollY + rect.top;
         const isFirst = idx === 0;
-        const zoomFactor = window.zoomFactor || 1;
+
+        // ✅ 동일한 zoom 보정 적용
+        const getZoomFactor = () => {
+            const zoom = window.devicePixelRatio || 1;
+            if (zoom >= 1.25) return 1.25;
+            if (zoom >= 1.1) return 1.1;
+            return 1;
+        };
+
+        const zoomFactor = getZoomFactor();
         const target = isFirst
             ? Math.max(0, elementTop)
             : Math.max(0, elementTop - (window.innerHeight - rect.height) / 2 / zoomFactor);
@@ -488,8 +342,7 @@ const AboutInfoSection: React.FC = () => {
         []
     );
 
-    // 섹션 스냅 내비게이션 활성화 (휠/키보드)
-    useSmoothSectionAlignment();
+    // 스크롤 스냅 기능 제거 - 일반 스크롤 사용
 
     return (
         <>
