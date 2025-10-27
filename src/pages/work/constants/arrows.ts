@@ -550,14 +550,14 @@ export const arrows = [
     thumbnail:
       'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%81_%EC%9E%91%ED%92%88%EC%8D%B8%EB%84%A4%EC%9D%BC.webp',
     work: [
-      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%961_%EB%B3%B8%EB%AC%B81.webp',
-      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%961_%EB%B3%B8%EB%AC%B82.webp',
-      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%961_%EB%B3%B8%EB%AC%B83.webp',
-      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%961_%EB%B3%B8%EB%AC%B84.gif',
-      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%961_%EB%B3%B8%EB%AC%B85.webp',
-      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%961_%EB%B3%B8%EB%AC%B86.webp',
-      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%961_%EB%B3%B8%EB%AC%B87.webp',
-      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%961_%EB%B3%B8%EB%AC%B88.gif',
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%81_%EB%B3%B8%EB%AC%B81.webp',
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%81_%EB%B3%B8%EB%AC%B82.webp',
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%81_%EB%B3%B8%EB%AC%B83.webp',
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%81_%EB%B3%B8%EB%AC%B84.gif',
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%81_%EB%B3%B8%EB%AC%B85.webp',
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%81_%EB%B3%B8%EB%AC%B86.webp',
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%81_%EB%B3%B8%EB%AC%B87.webp',
+      'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/work_all/19/%EC%9D%B4%EC%A7%80%ED%98%81_%EB%B3%B8%EB%AC%B88.gif',
     ],
   },
   {
