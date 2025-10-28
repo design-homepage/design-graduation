@@ -39,43 +39,45 @@ const ArchiveGridLayout: React.FC<ArchiveGridLayoutProps> = ({
                         startIndex={0}
                         imageErrors={imageErrors}
                         onImageError={onImageError}
-                        columnKey="left"
                     />
                     <ArchiveColumn
                         images={middleColumn}
-                        startIndex={3}
+                        startIndex={leftColumn.length}
                         imageErrors={imageErrors}
                         onImageError={onImageError}
-                        columnKey="middle"
                     />
                     <ArchiveColumn
                         images={rightColumn}
-                        startIndex={8}
+                        startIndex={leftColumn.length + middleColumn.length}
                         imageErrors={imageErrors}
                         onImageError={onImageError}
-                        columnKey="right"
                     />
                 </>
             )}
 
             {/* 2열 레이아웃 (600-1019px) */}
             {columnCount === 2 && (
-                <>
-                    <ArchiveColumn
-                        images={[...leftColumn, ...middleColumn.slice(0, 3)]}
-                        startIndex={0}
-                        imageErrors={imageErrors}
-                        onImageError={onImageError}
-                        columnKey="left"
-                    />
-                    <ArchiveColumn
-                        images={[...middleColumn.slice(3), ...rightColumn]}
-                        startIndex={6}
-                        imageErrors={imageErrors}
-                        onImageError={onImageError}
-                        columnKey="right"
-                    />
-                </>
+                (() => {
+                    // 3열 기준 개수: 22, 23, 25 → 2열에서는 좌: (22+12)=34, 우: (11+25)=36
+                    const leftTwoCol = [...leftColumn, ...middleColumn.slice(0, 12)];
+                    const rightTwoCol = [...middleColumn.slice(12), ...rightColumn];
+                    return (
+                        <>
+                            <ArchiveColumn
+                                images={leftTwoCol}
+                                startIndex={0}
+                                imageErrors={imageErrors}
+                                onImageError={onImageError}
+                            />
+                            <ArchiveColumn
+                                images={rightTwoCol}
+                                startIndex={leftTwoCol.length}
+                                imageErrors={imageErrors}
+                                onImageError={onImageError}
+                            />
+                        </>
+                    );
+                })()
             )}
 
             {/* 1열 레이아웃 (<600px) */}
@@ -85,7 +87,6 @@ const ArchiveGridLayout: React.FC<ArchiveGridLayoutProps> = ({
                     startIndex={0}
                     imageErrors={imageErrors}
                     onImageError={onImageError}
-                    columnKey="single"
                 />
             )}
         </div>

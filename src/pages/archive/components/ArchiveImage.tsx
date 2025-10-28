@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 
 interface ArchiveImageProps {
     src: string;
@@ -8,6 +8,25 @@ interface ArchiveImageProps {
 }
 
 const ArchiveImage: React.FC<ArchiveImageProps> = ({ src, alt, onError, hasError }) => {
+    const isVideo = /\.mp4(\?|$)/i.test(src);
+    const [retryToken, setRetryToken] = useState<string>('');
+    const hasRetriedRef = useRef<boolean>(false);
+
+    const currentSrc = useMemo(() => {
+        if (!retryToken) return src;
+        const joiner = src.includes('?') ? '&' : '?';
+        return `${src}${joiner}v=${retryToken}`;
+    }, [src, retryToken]);
+
+    const handleError = () => {
+        if (!hasRetriedRef.current) {
+            hasRetriedRef.current = true;
+            setRetryToken(String(Date.now()));
+            return; // retry once silently
+        }
+        onError();
+    };
+
     if (hasError) {
         return (
             <div style={{
@@ -18,11 +37,30 @@ const ArchiveImage: React.FC<ArchiveImageProps> = ({ src, alt, onError, hasError
         );
     }
 
+    if (isVideo) {
+        return (
+            <video
+                src={currentSrc}
+                onError={handleError}
+                autoPlay
+                loop
+                playsInline
+                preload="auto"
+                style={{
+                    display: 'block',
+                    width: '100%',
+                    height: 'auto',
+                    objectFit: 'cover'
+                }}
+            />
+        );
+    }
+
     return (
         <img
-            src={src}
+            src={currentSrc}
             alt={alt}
-            onError={onError}
+            onError={handleError}
             loading="eager"
             decoding="sync"
             style={{
@@ -35,4 +73,4 @@ const ArchiveImage: React.FC<ArchiveImageProps> = ({ src, alt, onError, hasError
     );
 };
 
-export default ArchiveImage;
+export default React.memo(ArchiveImage);

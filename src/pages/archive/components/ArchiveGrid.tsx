@@ -3,27 +3,26 @@ import ArchiveBackground from './ArchiveBackground';
 import ArchiveIntro from './ArchiveIntro';
 import ArchiveGridLayout from './ArchiveGridLayout';
 
-// 이미지 배열을 3개 컬럼으로 분리
-const leftColumn = [
-    "/archive/example/1.webp",
-    "/archive/example/2.webp",
-    "/archive/example/3.webp"
+// S3에 업로드된 아카이브 미디어 URL 생성
+const S3_BASE = 'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com/archive';
+
+const archiveMedia: string[] = [
+    // 1.webp ~ 68.webp
+    ...Array.from({ length: 68 }, (_, i) => `${S3_BASE}/${i + 1}.webp`),
+    // 69.mp4, 70.mp4
+    `${S3_BASE}/69.mp4`,
+    `${S3_BASE}/70.mp4`
 ];
 
-const middleColumn = [
-    "/archive/example/4.webp",
-    "/archive/example/5.webp",
-    "/archive/example/6.webp",
-    "/archive/example/7.webp",
-    "/archive/example/8.webp"
-];
+// 고정 개수로 3개 컬럼 분할: 22, 23, 25 (왼 < 중 < 오)
+const splitFixed = (items: string[]) => {
+    const left = items.slice(0, 22);
+    const middle = items.slice(22, 49);
+    const right = items.slice(49);
+    return { left, middle, right };
+};
 
-const rightColumn = [
-    "/archive/example/9.webp",
-    "/archive/example/10.webp",
-    "/archive/example/11.webp",
-    "/archive/example/12.webp"
-];
+const { left: leftColumn, middle: middleColumn, right: rightColumn } = splitFixed(archiveMedia);
 
 const ArchiveGrid: React.FC = () => {
     const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
@@ -93,10 +92,18 @@ const ArchiveGrid: React.FC = () => {
 
     return (
         <>
-            {/* 모든 이미지 프리로딩 */}
-            {[...leftColumn, ...middleColumn, ...rightColumn].map((imagePath, index) => (
-                <link key={`preload-${index}`} rel="preload" as="image" href={imagePath} />
-            ))}
+            {/* 미디어 프리로딩 (이미지는 image, 영상은 video로) */}
+            {[...leftColumn, ...middleColumn, ...rightColumn].map((mediaPath, index) => {
+                const isVideo = /\.mp4(\?|$)/i.test(mediaPath);
+                return (
+                    <link
+                        key={`preload-${index}`}
+                        rel="preload"
+                        as={isVideo ? 'video' : 'image'}
+                        href={mediaPath}
+                    />
+                );
+            })}
 
             <div className="relative z-[1] min-h-screen w-full px-8 pb-28 pt-24">
                 <ArchiveBackground
