@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 
 interface ArchiveImageProps {
     src: string;
@@ -9,6 +9,23 @@ interface ArchiveImageProps {
 
 const ArchiveImage: React.FC<ArchiveImageProps> = ({ src, alt, onError, hasError }) => {
     const isVideo = /\.mp4(\?|$)/i.test(src);
+    const [retryToken, setRetryToken] = useState<string>('');
+    const hasRetriedRef = useRef<boolean>(false);
+
+    const currentSrc = useMemo(() => {
+        if (!retryToken) return src;
+        const joiner = src.includes('?') ? '&' : '?';
+        return `${src}${joiner}v=${retryToken}`;
+    }, [src, retryToken]);
+
+    const handleError = () => {
+        if (!hasRetriedRef.current) {
+            hasRetriedRef.current = true;
+            setRetryToken(String(Date.now()));
+            return; // retry once silently
+        }
+        onError();
+    };
 
     if (hasError) {
         return (
@@ -23,8 +40,8 @@ const ArchiveImage: React.FC<ArchiveImageProps> = ({ src, alt, onError, hasError
     if (isVideo) {
         return (
             <video
-                src={src}
-                onError={onError}
+                src={currentSrc}
+                onError={handleError}
                 autoPlay
                 loop
                 playsInline
@@ -41,9 +58,9 @@ const ArchiveImage: React.FC<ArchiveImageProps> = ({ src, alt, onError, hasError
 
     return (
         <img
-            src={src}
+            src={currentSrc}
             alt={alt}
-            onError={onError}
+            onError={handleError}
             loading="eager"
             decoding="sync"
             style={{
