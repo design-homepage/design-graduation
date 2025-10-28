@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 interface ArchiveImageProps {
     src: string;
@@ -11,6 +11,22 @@ const ArchiveImage: React.FC<ArchiveImageProps> = ({ src, alt, onError, hasError
     const isVideo = /\.mp4(\?|$)/i.test(src);
     const [retryToken, setRetryToken] = useState<string>('');
     const hasRetriedRef = useRef<boolean>(false);
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const [isInView, setIsInView] = useState<boolean>(false);
+
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+        const observer = new IntersectionObserver((entries) => {
+            const entry = entries[0];
+            if (entry && entry.isIntersecting) {
+                setIsInView(true);
+                observer.disconnect();
+            }
+        }, { rootMargin: '200px' });
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, []);
 
     const currentSrc = useMemo(() => {
         if (!retryToken) return src;
@@ -27,9 +43,9 @@ const ArchiveImage: React.FC<ArchiveImageProps> = ({ src, alt, onError, hasError
         onError();
     };
 
-    if (hasError) {
+    if (hasError || !isInView) {
         return (
-            <div style={{
+            <div ref={containerRef} style={{
                 width: '100%',
                 aspectRatio: '4 / 3',
                 background: 'repeating-linear-gradient(-45deg, #e5e7eb 0px, #e5e7eb 8px, #f3f4f6 8px, #f3f4f6 16px)'
@@ -45,7 +61,7 @@ const ArchiveImage: React.FC<ArchiveImageProps> = ({ src, alt, onError, hasError
                 autoPlay
                 loop
                 playsInline
-                preload="auto"
+                preload="metadata"
                 style={{
                     display: 'block',
                     width: '100%',
@@ -61,8 +77,9 @@ const ArchiveImage: React.FC<ArchiveImageProps> = ({ src, alt, onError, hasError
             src={currentSrc}
             alt={alt}
             onError={handleError}
-            loading="eager"
-            decoding="sync"
+            loading="lazy"
+            decoding="async"
+            fetchPriority="low"
             style={{
                 display: 'block',
                 width: '100%',
