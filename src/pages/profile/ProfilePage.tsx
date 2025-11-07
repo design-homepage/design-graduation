@@ -9,7 +9,12 @@ const ProfilePage = () => {
       {profile.map((item) => (
         <div key={item.id} className="flex flex-col items-center">
           <Link to={ROUTES.PROFILE_DETAIL.replace(':id', item.id.toString())}>
-            <ProfileCard imageUrl={item.profileUrl} name={item.name} cursor={item.cursor} />
+            <ProfileCard
+              imageUrl={item.profileUrl}
+              name={item.name}
+              cursor={item.cursor}
+              id={item.id}
+            />
           </Link>
         </div>
       ))}
