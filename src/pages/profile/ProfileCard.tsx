@@ -29,13 +29,13 @@ export const ProfileCard = ({ imageUrl, name, cursor, id }: ProfileCardProps) =>
       <img
         src={arrow?.thumbnail || HoverImage}
         alt={name}
-        className={`absolute inset-0 w-full scale-x-[115%] xl:scale-x-[122%] h-full object-cover transition-opacity duration-300 ease-out ${isHover ? 'opacity-100' : 'opacity-0'} z-20`}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ease-out ${isHover ? 'opacity-100' : 'opacity-0'} z-20`}
         draggable={false}
       />
       <div
-        className={`absolute inset-0 flex justify-center items-center transition-opacity duration-300 ease-out z-30 ${isHover ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute inset-0 bg-primary/50 flex justify-center items-center transition-opacity duration-300 ease-out z-30 ${isHover ? 'opacity-100' : 'opacity-0'}`}
       >
-        <p className=" text-4xl font-bold text-white">{name}</p>
+        <p className="text-white text-4xl font-bold">{name}</p>
       </div>
     </div>
   );
