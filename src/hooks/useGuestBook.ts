@@ -31,13 +31,11 @@ export const useGuestBook = () => {
 
       console.log('Fetching guestbook entries from Supabase...')
       
-      // 1. 필요한 컬럼만 선택하여 데이터 전송량 최적화
-      // 2. 페이지네이션으로 초기 로드 속도 향상
+      // 필요한 컬럼만 선택하여 데이터 전송량 최적화
       const { data, error } = await supabase
         .from('guestbook')
         .select('id, sender, message, receiver')
         .order('id', { ascending: false })
-        .limit(50) // 최대 50개만 로드
 
       console.log('Supabase response:', { data, error })
 
