@@ -11,34 +11,42 @@ interface InfiniteScrollSectionProps {
 }
 
 // 데이터를 행별로 배치하고 각 행의 스크롤 너비를 계산하는 함수
-const distributeToRows = (data: GuestBookEntry[], getGapSize: () => number) => {
-  if (data.length === 0) return { rows: [[], [], [], [], []], rowWidths: [0, 0, 0, 0, 0] };
-  
+const distributeToRows = (
+  data: GuestBookEntry[],
+  getGapSize: () => number,
+  getCardWidth: (entry: GuestBookEntry) => number
+) => {
   const rows: GuestBookEntry[][] = [[], [], [], [], []];
   const rowWidths: number[] = [0, 0, 0, 0, 0];
-  const itemsPerRow = 6;
-  
-  // 각 행에 6개씩 채우기 (위에서부터)
-  for (let i = 0; i < data.length; i++) {
-    const rowIndex = Math.floor(i / itemsPerRow);
-    if (rowIndex < 5) {
-      rows[rowIndex].push(data[i]);
-    }
+
+  if (data.length === 0) {
+    return { rows, rowWidths };
   }
-  
-  // 각 행의 너비 계산
-  for (let i = 0; i < rows.length; i++) {
-    const rowEntries = rows[i];
+
+  const baseCount = Math.floor(data.length / 5);
+  const remainder = data.length % 5;
+
+  let currentIndex = 0;
+
+  for (let rowIndex = 0; rowIndex < 5; rowIndex++) {
+    const targetCount = baseCount + (rowIndex < remainder ? 1 : 0);
+
+    if (targetCount > 0) {
+      rows[rowIndex] = data.slice(currentIndex, currentIndex + targetCount);
+      currentIndex += targetCount;
+    }
+
+    const rowEntries = rows[rowIndex];
     if (rowEntries.length > 0) {
       const gap = getGapSize();
       const totalCardWidth = rowEntries.reduce((sum, entry) => {
-        const cardWidth = entry.message.length >= 98 ? 548 : 332;
-        return sum + cardWidth;
+        return sum + getCardWidth(entry);
       }, 0);
-      rowWidths[i] = totalCardWidth + rowEntries.length * gap;
+      const totalGapWidth = Math.max(rowEntries.length - 1, 0) * gap;
+      rowWidths[rowIndex] = totalCardWidth + totalGapWidth;
     }
   }
-  
+
   return { rows, rowWidths };
 };
 
@@ -57,11 +65,38 @@ export const InfiniteScrollSection = ({
 
   // 애니메이션 속도 계산 (모든 행 동일한 속도)
   const getAnimationDuration = () => {
-    return '20s'; // 모든 행이 동일한 속도로 움직임
+    return '90s'; // 모든 행이 동일한 속도로 움직임
+  };
+
+  // 카드 너비 계산 (반응형 적용)
+  const getCardWidth = (entry: GuestBookEntry) => {
+    const isLargeCard = entry.message.length >= 98;
+
+    if (windowWidth <= 400) {
+      return isLargeCard ? 402 : 292;
+    }
+
+    // 401px 이상은 공통 카드 사이즈 사용
+    return isLargeCard ? 548 : 332;
   };
 
   // 5개 행으로 배치된 데이터와 각 행의 너비
-  const { rows: distributedRows, rowWidths } = distributeToRows(entries, getGapSize);
+  const { rows: distributedRows, rowWidths } = distributeToRows(entries, getGapSize, getCardWidth);
+
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('Distributed row lengths:', distributedRows.map(row => row.length));
+    console.log('Calculated row widths:', rowWidths);
+    distributedRows.forEach((row, rowIndex) => {
+      const sampleMessages = row.slice(0, 3).map(entry => entry.message.slice(0, 20));
+      console.log(`Row ${rowIndex + 1}`, {
+        entryCount: row.length,
+        firstEntryId: row[0]?.id,
+        lastEntryId: row[row.length - 1]?.id,
+        sampleMessages,
+        calcWidth: rowWidths[rowIndex]
+      });
+    });
+  }
 
   return (
     <div className={`snap-start relative z-10 ${windowWidth >= 1020 ? 'py-8' : 'py-16'}`} style={{ minHeight: 'calc(100vh - 64px)', overflow: 'hidden', overflowY: 'auto' }}>
@@ -105,7 +140,8 @@ export const InfiniteScrollSection = ({
                     gap: `${getGapSize()}px`,
                     alignItems: 'center',
                     minWidth: `${rowWidths[rowIndex]}px`, // 각 행의 독립적인 너비
-                    height: '100%'
+                    height: '100%',
+                    flexShrink: 0
                   }}>
                     {row.map((entry) => (
                       <GuestBookCard key={`mobile-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
@@ -143,11 +179,13 @@ export const InfiniteScrollSection = ({
                 <div 
                   className="infinite-scroll-track"
                   style={{
-                    width: '100%',
+                    width: `${rowWidths[rowIndex] * 2}px`,
+                    minWidth: `${rowWidths[rowIndex] * 2}px`,
                     height: '100%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
+                    gap: `${getGapSize()}px`,
                     animationName: 'scroll-from-right',
                     animationDuration: getAnimationDuration(),
                     animationTimingFunction: 'linear',
@@ -156,62 +194,24 @@ export const InfiniteScrollSection = ({
                     position: 'relative'
                   }}
                 >
-                  <div style={{
-                    display: 'flex',
-                    gap: `${getGapSize()}px`,
-                    alignItems: 'center',
-                    width: `${rowWidths[rowIndex] * 4}px`, // 각 행의 독립적인 너비 * 4 (무한 스크롤용)
-                    height: '100%'
-                  }}>
-                    {/* 첫 번째 세트 */}
-                    <div style={{
-                      display: 'flex',
-                      gap: `${getGapSize()}px`,
-                      alignItems: 'center',
-                      width: `${rowWidths[rowIndex]}px`,
-                      height: '100%'
-                    }}>
+                  {[0, 1].map((dupIndex) => (
+                    <div
+                      key={`tablet-dup-${dupIndex}`}
+                      style={{
+                        display: 'flex',
+                        gap: `${getGapSize()}px`,
+                        alignItems: 'center',
+                        width: `${rowWidths[rowIndex]}px`,
+                        minWidth: `${rowWidths[rowIndex]}px`,
+                        height: '100%',
+                        flexShrink: 0
+                      }}
+                    >
                       {row.map((entry) => (
-                        <GuestBookCard key={`tablet-1-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                        <GuestBookCard key={`tablet-${dupIndex}-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
                       ))}
                     </div>
-                    {/* 두 번째 세트 */}
-                    <div style={{
-                      display: 'flex',
-                      gap: `${getGapSize()}px`,
-                      alignItems: 'center',
-                      width: `${rowWidths[rowIndex]}px`,
-                      height: '100%'
-                    }}>
-                      {row.map((entry) => (
-                        <GuestBookCard key={`tablet-2-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
-                      ))}
-                    </div>
-                    {/* 세 번째 세트 */}
-                    <div style={{
-                      display: 'flex',
-                      gap: `${getGapSize()}px`,
-                      alignItems: 'center',
-                      width: `${rowWidths[rowIndex]}px`,
-                      height: '100%'
-                    }}>
-                      {row.map((entry) => (
-                        <GuestBookCard key={`tablet-3-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
-                      ))}
-                    </div>
-                    {/* 네 번째 세트 */}
-                    <div style={{
-                      display: 'flex',
-                      gap: `${getGapSize()}px`,
-                      alignItems: 'center',
-                      width: `${rowWidths[rowIndex]}px`,
-                      height: '100%'
-                    }}>
-                      {row.map((entry) => (
-                        <GuestBookCard key={`tablet-4-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
-                      ))}
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             ))}
@@ -244,11 +244,13 @@ export const InfiniteScrollSection = ({
                 <div 
                   className="infinite-scroll-track"
                   style={{
-                    width: '100%',
+                    width: `${rowWidths[rowIndex] * 2}px`,
+                    minWidth: `${rowWidths[rowIndex] * 2}px`,
                     height: '100%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
+                    gap: `${getGapSize()}px`,
                     animationName: 'scroll-from-right',
                     animationDuration: getAnimationDuration(),
                     animationTimingFunction: 'linear',
@@ -257,62 +259,24 @@ export const InfiniteScrollSection = ({
                     position: 'relative'
                   }}
                 >
-                  <div style={{
-                    display: 'flex',
-                    gap: `${getGapSize()}px`,
-                    alignItems: 'center',
-                    width: `${rowWidths[rowIndex] * 4}px`, // 각 행의 독립적인 너비 * 4 (무한 스크롤용)
-                    height: '100%'
-                  }}>
-                    {/* 첫 번째 세트 */}
-                    <div style={{
-                      display: 'flex',
-                      gap: `${getGapSize()}px`,
-                      alignItems: 'center',
-                      width: `${rowWidths[rowIndex]}px`,
-                      height: '100%'
-                    }}>
+                  {[0, 1].map((dupIndex) => (
+                    <div
+                      key={`desktop-dup-${dupIndex}`}
+                      style={{
+                        display: 'flex',
+                        gap: `${getGapSize()}px`,
+                        alignItems: 'center',
+                        width: `${rowWidths[rowIndex]}px`,
+                        minWidth: `${rowWidths[rowIndex]}px`,
+                        height: '100%',
+                        flexShrink: 0
+                      }}
+                    >
                       {row.map((entry) => (
-                        <GuestBookCard key={`desktop-1-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
+                        <GuestBookCard key={`desktop-${dupIndex}-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
                       ))}
                     </div>
-                    {/* 두 번째 세트 */}
-                    <div style={{
-                      display: 'flex',
-                      gap: `${getGapSize()}px`,
-                      alignItems: 'center',
-                      width: `${rowWidths[rowIndex]}px`,
-                      height: '100%'
-                    }}>
-                      {row.map((entry) => (
-                        <GuestBookCard key={`desktop-2-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
-                      ))}
-                    </div>
-                    {/* 세 번째 세트 */}
-                    <div style={{
-                      display: 'flex',
-                      gap: `${getGapSize()}px`,
-                      alignItems: 'center',
-                      width: `${rowWidths[rowIndex]}px`,
-                      height: '100%'
-                    }}>
-                      {row.map((entry) => (
-                        <GuestBookCard key={`desktop-3-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
-                      ))}
-                    </div>
-                    {/* 네 번째 세트 */}
-                    <div style={{
-                      display: 'flex',
-                      gap: `${getGapSize()}px`,
-                      alignItems: 'center',
-                      width: `${rowWidths[rowIndex]}px`,
-                      height: '100%'
-                    }}>
-                      {row.map((entry) => (
-                        <GuestBookCard key={`desktop-4-${entry.id}`} entry={entry} cardDimensions={cardDimensions} windowWidth={windowWidth} />
-                      ))}
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             ))}
