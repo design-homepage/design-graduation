@@ -46,7 +46,7 @@ export const DetailModal = ({ selected }: DetailModalProps) => {
   };
 
   return (
-    <div className="fixed inset-0 pt-[80px] md:pt-[100px] lg:pt-[120px] w-full h-[100dvh] bg-black/60 overflow-y-auto z-[200]">
+    <div className="fixed inset-0 pt-[80px] md:pt-[100px] lg:pt-[120px] w-full bg-black/60 overflow-y-auto z-[200]">
       <div className="flex min-h-full justify-center items-center xl:px-[100px] md:px-[50px] px-[20px] py-[200px]">
         <div className="flex w-full flex-col gap-[30px] xl:gap-5 cursor-pointer">
           <div className="relative overflow-hidden">
