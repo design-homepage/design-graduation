@@ -1,12 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import type { TeamMember } from '@/types/teamMembers';
 
-// 환경 변수 디버깅
-console.log('Environment variables:', {
-  VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
-  VITE_SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY ? 'SET' : 'NOT SET'
-})
-
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 

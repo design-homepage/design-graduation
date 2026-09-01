@@ -1,4 +1,4 @@
-import { useState, memo, useEffect } from 'react';
+import { useState, memo, useEffect, useRef } from 'react';
 import type { GuestBookEntry } from '@/types/guestbook';
 
 // Arrow 이미지 경로들 (런타임에 참조)
@@ -22,9 +22,16 @@ interface GuestBookCardProps {
 // 메모이제이션된 카드 컴포넌트
 export const GuestBookCard = memo(({ entry, windowWidth }: GuestBookCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const wasHoveredRef = useRef(false);
 
   // isHovered 상태에 따라 애니메이션 제어 (clip-path 영역에서만)
   useEffect(() => {
+    // 호버된 적이 없으면 DOM을 건드리지 않는다 (마운트 시 카드마다 전체 트랙을 순회하지 않도록)
+    if (!isHovered && !wasHoveredRef.current) {
+      return;
+    }
+    wasHoveredRef.current = isHovered;
+
     if (isHovered) {
       // 현재 카드가 속한 행의 track만 찾아서 일시정지
       const currentCard = document.querySelector(`[data-card-id="${entry.id}"]`);

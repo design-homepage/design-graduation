@@ -1,5 +1,31 @@
+import { useEffect, useMemo } from 'react';
 import type { GuestBookEntry } from '@/types/guestbook';
 import { GuestBookCard } from './GuestBookCard';
+
+// 카드 배경 이미지를 미리 받아 카드 첫 렌더/첫 호버 시 깜빡임 제거
+const CARD_IMAGE_SOURCES = {
+  desktop: [
+    '/guestbook/img/arrow_basic_L.webp',
+    '/guestbook/img/arrow_basic_S.webp',
+    '/guestbook/img/arrow_Hover_L.webp',
+    '/guestbook/img/arrow_Hover_S.webp'
+  ],
+  mobile: [
+    '/guestbook/img/Mobile_basic_L.png',
+    '/guestbook/img/Mobile_basic_S.png',
+    '/guestbook/img/Mobile_hover_L.png',
+    '/guestbook/img/Mobile_hover_S.png'
+  ]
+};
+const preloadedSources = new Set<string>();
+const preloadCardImages = (sources: string[]) => {
+  sources.forEach(src => {
+    if (!preloadedSources.has(src)) {
+      preloadedSources.add(src);
+      new Image().src = src;
+    }
+  });
+};
 
 interface InfiniteScrollSectionProps {
   entries: GuestBookEntry[];
@@ -58,6 +84,12 @@ export const InfiniteScrollSection = ({
   cardDimensions, 
   onRefetch 
 }: InfiniteScrollSectionProps) => {
+  const isMobile = windowWidth <= 400;
+
+  useEffect(() => {
+    preloadCardImages(isMobile ? CARD_IMAGE_SOURCES.mobile : CARD_IMAGE_SOURCES.desktop);
+  }, [isMobile]);
+
   // 화면 크기에 따른 가로 간격 설정
   const getGapSize = () => {
     return windowWidth > 1020 ? 34 : 30;
@@ -80,23 +112,12 @@ export const InfiniteScrollSection = ({
     return isLargeCard ? 548 : 332;
   };
 
-  // 5개 행으로 배치된 데이터와 각 행의 너비
-  const { rows: distributedRows, rowWidths } = distributeToRows(entries, getGapSize, getCardWidth);
-
-  if (process.env.NODE_ENV !== 'production') {
-    console.log('Distributed row lengths:', distributedRows.map(row => row.length));
-    console.log('Calculated row widths:', rowWidths);
-    distributedRows.forEach((row, rowIndex) => {
-      const sampleMessages = row.slice(0, 3).map(entry => entry.message.slice(0, 20));
-      console.log(`Row ${rowIndex + 1}`, {
-        entryCount: row.length,
-        firstEntryId: row[0]?.id,
-        lastEntryId: row[row.length - 1]?.id,
-        sampleMessages,
-        calcWidth: rowWidths[rowIndex]
-      });
-    });
-  }
+  // 5개 행으로 배치된 데이터와 각 행의 너비 (데이터/뷰포트가 바뀔 때만 재계산)
+  const { rows: distributedRows, rowWidths } = useMemo(
+    () => distributeToRows(entries, getGapSize, getCardWidth),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [entries, windowWidth]
+  );
 
   return (
     <div className={`snap-start relative z-10 ${windowWidth >= 1020 ? 'py-8' : 'py-16'}`} style={{ minHeight: 'calc(100vh - 64px)', overflow: 'hidden', overflowY: 'auto' }}>
