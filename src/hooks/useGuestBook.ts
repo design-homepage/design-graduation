@@ -1,90 +1,72 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { supabase, type GuestBookEntry } from '@/lib/supabase'
 
+// 캐시 유효 시간 (5분)
+const CACHE_DURATION = 5 * 60 * 1000
+
+// 모듈 레벨 캐시: 다른 페이지에 갔다 돌아와도 유지되어 재방문 시 즉시 렌더링된다
+let cache: { data: GuestBookEntry[]; timestamp: number } | null = null
+
 export const useGuestBook = () => {
-  const [entries, setEntries] = useState<GuestBookEntry[]>([])
-  const [loading, setLoading] = useState(true)
+  const [entries, setEntries] = useState<GuestBookEntry[]>(() => cache?.data ?? [])
+  const [loading, setLoading] = useState(() => cache === null)
   const [error, setError] = useState<string | null>(null)
-  const cacheRef = useRef<{ data: GuestBookEntry[], timestamp: number } | null>(null)
-  
-  // 캐시 유효 시간 (5분)
-  const CACHE_DURATION = 5 * 60 * 1000
 
-  // 방명록 목록 가져오기 (최적화 + 캐싱)
+  // 방명록 목록 가져오기 (캐시가 있으면 먼저 보여주고 만료 시 백그라운드 갱신)
   const fetchEntries = useCallback(async (forceRefresh = false) => {
-    try {
-      // 캐시 확인
-      if (!forceRefresh && cacheRef.current) {
-        const now = Date.now()
-        const cacheAge = now - cacheRef.current.timestamp
-        
-        if (cacheAge < CACHE_DURATION) {
-          console.log('Using cached data')
-          setEntries(cacheRef.current.data)
-          setLoading(false)
-          return
-        }
-      }
+    if (!forceRefresh && cache && Date.now() - cache.timestamp < CACHE_DURATION) {
+      setEntries(cache.data)
+      setLoading(false)
+      return
+    }
 
-      setLoading(true)
+    try {
+      // 보여줄 캐시가 하나도 없을 때만 로딩 스피너 노출
+      if (!cache) {
+        setLoading(true)
+      }
       setError(null)
 
-      console.log('Fetching guestbook entries from Supabase...')
-      
       // 필요한 컬럼만 선택하여 데이터 전송량 최적화
       const { data, error } = await supabase
         .from('guestbook')
         .select('id, sender, message, receiver')
         .order('id', { ascending: false })
 
-      console.log('Supabase response:', { data, error })
-
       if (error) {
-        console.error('Supabase error details:', error)
         throw error
       }
 
       const newData = data || []
       setEntries(newData)
-      
-      // 캐시 업데이트
-      cacheRef.current = {
-        data: newData,
-        timestamp: Date.now()
-      }
-      
+      cache = { data: newData, timestamp: Date.now() }
     } catch (err) {
       setError(err instanceof Error ? err.message : '방명록을 불러오는데 실패했습니다.')
       console.error('Error fetching guestbook entries:', err)
     } finally {
       setLoading(false)
     }
-  }, [CACHE_DURATION])
+  }, [])
 
   // 방명록 추가
   const addEntry = useCallback(async (entry: Omit<GuestBookEntry, 'id'>) => {
     try {
       setError(null)
-      
-      console.log('Adding guestbook entry:', entry)
+
       const { data, error } = await supabase
         .from('guestbook')
         .insert([entry])
         .select()
         .single()
 
-      console.log('Supabase insert response:', { data, error })
-
       if (error) {
-        console.error('Supabase insert error details:', error)
         throw error
       }
 
       if (data) {
         setEntries(prev => {
           const newEntries = [data, ...prev]
-          // 캐시 업데이트
-          cacheRef.current = {
+          cache = {
             data: newEntries,
             timestamp: Date.now()
           }
