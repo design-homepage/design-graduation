@@ -8,17 +8,14 @@ const S3_BASE = 'https://design-graduation-image.s3.ap-northeast-2.amazonaws.com
 
 const archiveMedia: string[] = [
     // 1.webp ~ 68.webp
-    ...Array.from({ length: 68 }, (_, i) => `${S3_BASE}/${i + 1}.webp`),
-    // 69.mp4, 70.mp4
-    `${S3_BASE}/69.mp4`,
-    `${S3_BASE}/70.mp4`
+    ...Array.from({ length: 68 }, (_, i) => `${S3_BASE}/${i + 1}.webp`)
 ];
 
-// 고정 개수로 3개 컬럼 분할: 22, 23, 25 (왼 < 중 < 오)
+// 고정 개수로 3개 컬럼 분할: 22, 23, 23
 const splitFixed = (items: string[]) => {
     const left = items.slice(0, 22);
-    const middle = items.slice(22, 49);
-    const right = items.slice(49);
+    const middle = items.slice(22, 45);
+    const right = items.slice(45);
     return { left, middle, right };
 };
 
